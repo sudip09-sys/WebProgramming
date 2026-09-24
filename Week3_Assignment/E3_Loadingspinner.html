@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loading Sudip's Project</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0fdfa;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .loading-circle {
+            width: 50px;
+            height: 50px;
+
+            border: 4px solid #99f6e4;
+            border-top-color: #0f766e;
+
+            border-radius: 50%;
+
+            animation: rotate 0.9s linear infinite;
+
+            margin: 20px auto;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        h2 {
+            color: #0f766e;
+        }
+
+        p {
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Loading Sudip's Portfolio...</h2>
+
+    <div class="loading-circle"></div>
+
+    <p>Please wait while my project loads.</p>
+
+</body>
+</html>

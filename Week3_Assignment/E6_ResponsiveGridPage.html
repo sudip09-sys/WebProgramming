@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sudip's Skills</title>
+
+    <style>
+
+        :root {
+            --main: #2563eb;
+            --highlight: #60a5fa;
+            --page-bg: #eff6ff;
+            --card-bg: white;
+            --text: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: var(--page-bg);
+            color: var(--text);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--main);
+        }
+
+        .skills-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 20px;
+
+            max-width: 900px;
+
+            margin: 30px auto;
+        }
+
+        .skill-card {
+
+            background: var(--card-bg);
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            border: 2px solid #dbeafe;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        /* Emoji icon using pseudo-element */
+        .skill-card::before {
+            content: "💻";
+
+            display: block;
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .skill-card:hover {
+
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 12px 25px rgba(37, 99, 235, 0.2);
+        }
+
+        .skill-card h2 {
+            color: var(--main);
+        }
+
+        .skill-card p {
+            line-height: 1.6;
+        }
+
+        /* 3 columns on wider screens */
+        @media (min-width: 640px) {
+
+            .skills-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+
+            :root {
+                --main: #60a5fa;
+                --highlight: #93c5fd;
+                --page-bg: #0f172a;
+                --card-bg: #1e293b;
+                --text: #e2e8f0;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Sudip's Skills</h1>
+
+    <div class="skills-grid">
+
+        <div class="skill-card">
+            <h2>HTML & CSS</h2>
+            <p>
+                Building and styling responsive web pages.
+            </p>
+        </div>
+
+        <div class="skill-card">
+            <h2>Programming</h2>
+            <p>
+                Developing my programming and problem-solving skills.
+            </p>
+        </div>
+
+        <div class="skill-card">
+            <h2>Database</h2>
+            <p>
+                Learning how data is stored, organized and managed.
+            </p>
+        </div>
+
+        <div class="skill-card">
+            <h2>Algorithms</h2>
+            <p>
+                Practicing logical thinking and step-by-step solutions.
+            </p>
+        </div>
+
+        <div class="skill-card">
+            <h2>Korean</h2>
+            <p>
+                Improving my Korean communication skills every day.
+            </p>
+        </div>
+
+        <div class="skill-card">
+            <h2>Fitness</h2>
+            <p>
+                Maintaining a balanced student lifestyle through gym training.
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

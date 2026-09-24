@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sudip's Study Theme</title>
+
+    <style>
+
+        :root {
+            --primary: #2563eb;
+            --accent: #60a5fa;
+            --background: #eff6ff;
+            --text: #1e293b;
+            --card: #ffffff;
+            --radius: 14px;
+            --space: 20px;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px;
+
+            background: var(--background);
+            color: var(--text);
+
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .profile-card {
+            background: var(--card);
+            padding: var(--space);
+
+            border-radius: var(--radius);
+
+            border: 2px solid var(--accent);
+
+            margin-top: var(--space);
+        }
+
+        h1 {
+            color: var(--primary);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+
+            border: none;
+            border-radius: var(--radius);
+
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--accent);
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+
+            :root {
+                --primary: #60a5fa;
+                --accent: #93c5fd;
+                --background: #0f172a;
+                --text: #e2e8f0;
+                --card: #1e293b;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Sudip's Study Space</h1>
+
+        <p>
+            Computer Engineering Student —
+            Gachon University
+        </p>
+
+        <button>View My Projects</button>
+
+        <div class="profile-card">
+
+            <h2>What I'm Learning</h2>
+
+            <p>HTML & CSS</p>
+            <p>Database</p>
+            <p>Discrete Mathematics</p>
+            <p>Programming</p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

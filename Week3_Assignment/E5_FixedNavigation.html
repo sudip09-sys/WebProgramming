@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Sudip's Navigation</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+        }
+
+        /* Fixed navigation */
+        .top-nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            width: 100%;
+
+            background: #1e293b;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 16px 35px;
+
+            z-index: 1000;
+        }
+
+        .logo {
+            color: white;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2dd4bf;
+        }
+
+        /* Content starts below fixed nav */
+        main {
+            padding-top: 90px;
+        }
+
+        .section {
+            height: 500px;
+            padding: 40px;
+        }
+
+        .section:nth-child(even) {
+            background: #e0f2fe;
+        }
+
+        h1 {
+            color: #1e3a8a;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <nav class="top-nav">
+
+        <div class="logo">
+            Sudip.dev
+        </div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Projects</a>
+            <a href="#">Skills</a>
+            <a href="#">Contact</a>
+        </div>
+
+    </nav>
+
+
+    <main>
+
+        <section class="section">
+            <h1>Hello, I'm Sudip</h1>
+            <p>
+                Computer Engineering student at Gachon University.
+            </p>
+        </section>
+
+        <section class="section">
+            <h1>My Projects</h1>
+            <p>
+                I am practicing HTML, CSS and programming.
+            </p>
+        </section>
+
+        <section class="section">
+            <h1>My Skills</h1>
+            <p>
+                Web development, problem solving and programming.
+            </p>
+        </section>
+
+    </main>
+
+</body>
+</html>
