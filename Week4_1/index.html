@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Productivity Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div>
+        <strong>StudyHub</strong>
+        <small>DOM LAB</small>
+      </div>
+    </div>
+
+    <nav>
+      <button class="nav-item active" data-target="dashboard">⌂ <span>Dashboard</span></button>
+      <button class="nav-item" data-target="tasks">✓ <span>My Tasks</span></button>
+      <button class="nav-item" data-target="students">⌕ <span>Students</span></button>
+      <button class="nav-item" data-target="attendance">◎ <span>Attendance</span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button id="themeToggle" class="theme-button">☾ <span>Dark mode</span></button>
+      <div class="user-mini">
+        <div class="mini-avatar">S</div>
+        <div><strong>Sudip Sah</strong><small>Computer Engineering</small></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="mobile-header">
+      <strong>StudyHub</strong>
+      <button id="mobileTheme">☾</button>
+    </header>
+
+    <section id="dashboard" class="page active-page">
+      <div class="welcome">
+        <div>
+          <span class="label">WEDNESDAY • DOM PRACTICE</span>
+          <h1>Good evening, Sudip 👋</h1>
+          <p>Turn today's JavaScript practice into visible progress.</p>
+        </div>
+        <div class="date-box">
+          <strong id="liveClock">00:00:00</strong>
+          <small>LOCAL TIME</small>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card purple">
+          <span>Tasks completed</span>
+          <strong id="dashCompleted">0</strong>
+          <small id="dashCompletedText">Start your first task</small>
+        </div>
+        <div class="stat-card blue">
+          <span>Task completion</span>
+          <strong id="dashProgress">0%</strong>
+          <div class="tiny-progress"><i id="dashProgressBar"></i></div>
+        </div>
+        <div class="stat-card green">
+          <span>Present today</span>
+          <strong id="dashPresent">5/5</strong>
+          <small>Attendance status</small>
+        </div>
+        <div class="stat-card orange">
+          <span>Focus sessions</span>
+          <strong id="sessionCount">0</strong>
+          <small>25-minute sessions</small>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <section class="card focus-card">
+          <div class="card-head">
+            <div>
+              <span class="label">FOCUS MODE</span>
+              <h2>Study Timer</h2>
+            </div>
+            <span id="timerState" class="live-dot">READY</span>
+          </div>
+
+          <div class="timer-display" id="timerDisplay">25:00</div>
+
+          <div class="timer-bar"><i id="timerBar"></i></div>
+
+          <div class="timer-actions">
+            <button id="startTimer" class="primary">Start focus</button>
+            <button id="pauseTimer">Pause</button>
+            <button id="resetTimer">Reset</button>
+          </div>
+        </section>
+
+        <section class="card profile-widget">
+          <div class="card-head">
+            <div>
+              <span class="label">PROFILE</span>
+              <h2>My Workspace</h2>
+            </div>
+            <button id="editProfile" class="small-button">Edit</button>
+          </div>
+
+          <div class="profile-main">
+            <div id="profileAvatar" class="large-avatar">S</div>
+            <div>
+              <h3 id="profileName">Sudip Sah</h3>
+              <p id="profileMajor">Computer Engineering</p>
+              <span class="online">● Online</span>
+            </div>
+          </div>
+
+          <div class="profile-meta">
+            <span>University</span><strong>Gachon University</strong>
+            <span>Current focus</span><strong>JavaScript DOM</strong>
+          </div>
+        </section>
+      </div>
+
+      <section class="card quick-tasks">
+        <div class="card-head">
+          <div>
+            <span class="label">TODAY</span>
+            <h2>Quick Tasks</h2>
+          </div>
+          <button class="primary" id="jumpTasks">View all tasks →</button>
+        </div>
+        <div id="dashboardTasks" class="quick-list"></div>
+      </section>
+    </section>
+
+    <section id="tasks" class="page">
+      <div class="page-title">
+        <div><span class="label">PRODUCTIVITY</span><h1>My Tasks</h1><p>Create and manage study tasks with the DOM.</p></div>
+      </div>
+
+      <section class="card task-builder">
+        <div class="builder-row">
+          <input id="newTask" placeholder="What do you need to study?">
+          <select id="taskCategory">
+            <option value="Coding">Coding</option>
+            <option value="Database">Database</option>
+            <option value="Korean">Korean</option>
+            <option value="University">University</option>
+          </select>
+          <select id="taskPriority">
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+            <option value="Low">Low</option>
+          </select>
+          <button id="addTask" class="primary">+ Add task</button>
+        </div>
+        <p id="taskError"></p>
+      </section>
+
+      <div class="filter-row">
+        <button class="filter active" data-filter="All">All</button>
+        <button class="filter" data-filter="Coding">Coding</button>
+        <button class="filter" data-filter="Database">Database</button>
+        <button class="filter" data-filter="Korean">Korean</button>
+        <button class="filter" data-filter="University">University</button>
+      </div>
+
+      <section id="taskContainer" class="task-container"></section>
+    </section>
+
+    <section id="students" class="page">
+      <div class="page-title">
+        <div><span class="label">DIRECTORY</span><h1>Student Directory</h1><p>Search the class instantly using an input event.</p></div>
+      </div>
+
+      <section class="card search-card">
+        <div class="search-line">
+          <span>⌕</span>
+          <input id="studentSearch" placeholder="Search name, major or interest...">
+          <strong id="studentResult">5 students</strong>
+        </div>
+      </section>
+
+      <div id="studentGrid" class="student-grid">
+        <article class="person" data-search="sudip sah computer engineering javascript">
+          <div class="person-avatar purple-bg">S</div><div><h3>Sudip Sah</h3><p>Computer Engineering</p><small>JavaScript • Web</small></div>
+        </article>
+        <article class="person" data-search="azim software engineering database">
+          <div class="person-avatar blue-bg">A</div><div><h3>Azim</h3><p>Software Engineering</p><small>Database • Backend</small></div>
+        </article>
+        <article class="person" data-search="shonx computer science ai">
+          <div class="person-avatar green-bg">S</div><div><h3>Shonx</h3><p>Computer Science</p><small>AI • Algorithms</small></div>
+        </article>
+        <article class="person" data-search="eric artificial intelligence python">
+          <div class="person-avatar orange-bg">E</div><div><h3>Eric</h3><p>Artificial Intelligence</p><small>Python • ML</small></div>
+        </article>
+        <article class="person" data-search="roshan information technology cloud">
+          <div class="person-avatar pink-bg">R</div><div><h3>Roshan</h3><p>Information Technology</p><small>Cloud • Systems</small></div>
+        </article>
+      </div>
+      <p id="noMatch" class="no-match">No students found.</p>
+    </section>
+
+    <section id="attendance" class="page">
+      <div class="page-title">
+        <div><span class="label">CLASS RECORD</span><h1>Attendance</h1><p>One parent event listener controls every student.</p></div>
+      </div>
+
+      <div class="attendance-layout">
+        <section class="card attendance-card">
+          <div class="card-head"><div><span class="label">TODAY</span><h2>Class attendance</h2></div><span id="attendanceRate" class="rate">100%</span></div>
+          <div id="attendanceList"></div>
+        </section>
+
+        <section class="card attendance-chart">
+          <span class="label">SUMMARY</span>
+          <h2>Attendance overview</h2>
+          <div class="donut"><strong id="donutText">5/5</strong><span>present</span></div>
+          <div class="legend"><span><i class="present-dot"></i>Present <b id="presentNumber">5</b></span><span><i class="absent-dot"></i>Absent <b id="absentNumber">0</b></span></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="profileModal" class="modal hidden">
+    <div class="modal-box">
+      <button id="closeModal" class="close">×</button>
+      <span class="label">EDIT PROFILE</span>
+      <h2>Update your workspace</h2>
+      <label>Name</label>
+      <input id="editName" value="Sudip Sah">
+      <label>Major</label>
+      <input id="editMajor" value="Computer Engineering">
+      <button id="saveProfile" class="primary full">Save changes</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
