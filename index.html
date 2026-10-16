@@ -1,245 +1,542 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sudip Sah - Web Programming Coursework">
-  <title>Sudip | Web Programming Coursework</title>
-  <link rel="stylesheet" href="style.css">
+
+  <title>Sudip | Web Development Portfolio</title>
+
+  <meta name="description"
+        content="Sudip's web programming projects, experiments, and learning journey.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #090b12;
+      --panel: #111522;
+      --text: #f4f5ff;
+      --muted: #a0a6bd;
+      --accent: #a78bfa;
+      --cyan: #67e8f9;
+      --border: rgba(255,255,255,.1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 15% 0%, #252044 0, transparent 40%),
+        radial-gradient(ellipse at 90% 30%, #102a37 0, transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: -1px;
+      font-size: 1.25rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-link {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .hero {
+      padding: 100px 0 75px;
+      max-width: 800px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      padding: 7px 13px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--cyan);
+      font-size: .8rem;
+      background: rgba(255,255,255,.035);
+      margin-bottom: 25px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 12px #4ade80;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.7rem);
+      line-height: 1.05;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
+    }
+
+    h1 span {
+      background: linear-gradient(100deg, var(--accent), var(--cyan));
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 1.08rem;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 19px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      transition: transform .2s, background .2s;
+      font-weight: 650;
+      font-size: .9rem;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .primary {
+      background: var(--text);
+      color: #10111a;
+    }
+
+    .secondary {
+      background: rgba(255,255,255,.04);
+    }
+
+    section {
+      padding: 45px 0 75px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      font-size: 1.8rem;
+      letter-spacing: -1px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project {
+      position: relative;
+      overflow: hidden;
+      padding: 27px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.065),
+        rgba(255,255,255,.018)
+      );
+      transition: transform .25s, border-color .25s;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      border-color: rgba(167,139,250,.6);
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(167,139,250,.13);
+      font-size: 1.5rem;
+    }
+
+    .tag {
+      font-size: .72rem;
+      padding: 5px 9px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      color: var(--cyan);
+    }
+
+    .project h3 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    .project p {
+      color: var(--muted);
+      font-size: .93rem;
+      min-height: 52px;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cyan);
+      font-weight: 650;
+      font-size: .9rem;
+    }
+
+    .project-link:hover {
+      color: white;
+    }
+
+    .learning {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .info-card {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .info-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: .93rem;
+    }
+
+    .skills {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 17px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      padding: 6px 11px;
+      border-radius: 8px;
+      color: #d6d9e8;
+      font-size: .8rem;
+    }
+
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .85rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      animation: appear .7s ease both;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .hero {
+        padding-top: 70px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .project-grid,
+      .learning {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .project p {
+        min-height: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<header class="topbar">
-  <a class="brand" href="#home"><span class="logo">&lt;/&gt;</span><span>Sudip<span class="dot">.</span>Web</span></a>
-  <nav id="navMenu">
-    <a href="#home">Home</a>
-    <a href="#coursework">Coursework</a>
-    <a href="#about">About</a>
-  </nav>
-  <button class="menu-btn" id="menuBtn">☰</button>
-</header>
+  <div class="container">
 
-<main id="home">
-  <section class="hero">
-    <div class="hero-copy">
-      <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
-      <h1>My journey<br><span>on the web.</span></h1>
-      <p class="lead">A personal collection of my HTML, CSS and JavaScript coursework — organized by week and ready to explore.</p>
-      <div class="actions">
-        <a class="btn primary" href="#coursework">Explore my work →</a>
-        <button class="btn secondary" id="themeBtn">◐ Theme</button>
-      </div>
-      <div class="stats">
-        <div><b>7</b><small>Course sections</small></div>
-        <div><b>50+</b><small>Files & exercises</small></div>
-        <div><b>3</b><small>Core technologies</small></div>
-      </div>
-    </div>
+    <nav>
+      <a class="logo" href="./">SUDIP<span>.</span></a>
+      <a class="nav-link" href="#projects">Explore projects ↘</a>
+    </nav>
 
-    <div class="code-window">
-      <div class="window-head"><i></i><i></i><i></i><span>student.js</span></div>
-      <pre><code><span class="pink">const</span> student = {
-  <span class="blue">name</span>: <span class="green">"Sudip"</span>,
-  <span class="blue">major</span>: <span class="green">"Computer Engineering"</span>,
-  <span class="blue">university</span>: <span class="green">"Gachon University"</span>,
-  <span class="blue">skills</span>: [
-    <span class="green">"HTML"</span>,
-    <span class="green">"CSS"</span>,
-    <span class="green">"JavaScript"</span>
-  ],
-  <span class="blue">goal</span>: <span class="green">"Build & improve"</span>
-};
-
-student.<span class="blue">keepLearning</span>(); <span class="cursor">|</span></code></pre>
-    </div>
-  </section>
-
-  <section class="coursework" id="coursework">
-    <div class="section-title">
-      <div>
-        <p class="eyebrow">ACTUAL FILES FROM MY REPOSITORY</p>
-        <h2>Coursework</h2>
-      </div>
-      <p>Every link below uses the <strong>exact filenames</strong> in my GitHub repository.</p>
-    </div>
-
-    <!-- WEEK 2 PART 1 -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon html">HTML</div>
-        <div>
-          <span>WEEK 2 · PART 1</span>
-          <h3>HTML Fundamentals</h3>
-          <p>Basic HTML structure, headings, paragraphs, lists, links, images, tables, forms and semantics.</p>
+    <main>
+      <header class="hero reveal">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          WEB PROGRAMMING · LEARNING IN PUBLIC
         </div>
-      </div>
-      <div class="file-grid">
-        <a href="./Week2_1/task1_basicHTMLstructure.html"><b>01</b><span>Basic HTML Structure</span>↗</a>
-        <a href="./Week2_1/task2_Headings.html"><b>02</b><span>Headings</span>↗</a>
-        <a href="./Week2_1/task3_paragraph.html"><b>03</b><span>Paragraph</span>↗</a>
-        <a href="./Week2_1/task4_Lists.html"><b>04</b><span>Lists</span>↗</a>
-        <a href="./Week2_1/task5_Links.html"><b>05</b><span>Links</span>↗</a>
-        <a href="./Week2_1/task6_Images.html"><b>06</b><span>Images</span>↗</a>
-        <a href="./Week2_1/task7_Tables.html"><b>07</b><span>Tables</span>↗</a>
-        <a href="./Week2_1/Task8_Buttons.html"><b>08</b><span>Buttons</span>↗</a>
-        <a href="./Week2_1/Task9_Forms.html"><b>09</b><span>Forms</span>↗</a>
-        <a href="./Week2_1/Task10_SemanticsHtml.html"><b>10</b><span>Semantic HTML</span>↗</a>
-        <a href="./Week2_1/website.html"><b>11</b><span>Website</span>↗</a>
-        <a href="./Week2_1/week_1All Fundamentals.html"><b>12</b><span>All Fundamentals</span>↗</a>
-      </div>
-    </article>
 
-    <!-- WEEK 2 PART 2 -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon html">HTML</div>
-        <div>
-          <span>WEEK 2 · PART 2</span>
-          <h3>Semantic HTML Practice</h3>
-          <p>Semantic layouts, articles, figures, FAQs, portfolios, quotations and fixing semantic errors.</p>
+        <h1>Building ideas<br>into <span>experiences.</span></h1>
+
+        <p class="intro">
+          Hey, I'm Sudip — a Computer Engineering student exploring
+          web development one project at a time. This is where my
+          experiments become real, interactive websites.
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="#projects">
+            Explore my work ↗
+          </a>
+
+          <a class="button secondary"
+             href="https://github.com/sudip09-sys/WebProgramming"
+             target="_blank" rel="noopener noreferrer">
+            View GitHub repository ↗
+          </a>
         </div>
-      </div>
-      <div class="file-grid">
-        <a href="./Week2_2/Task1_Div.html"><b>01</b><span>Div Practice</span>↗</a>
-        <a href="./Week2_2/Task2_blog.html"><b>02</b><span>Blog</span>↗</a>
-        <a href="./Week2_2/Task3_figure_time.html"><b>03</b><span>Figure & Time</span>↗</a>
-        <a href="./Week2_2/Task4_FAQ.html"><b>04</b><span>FAQ</span>↗</a>
-        <a href="./Week2_2/Task5_Portfolio.html"><b>05</b><span>Portfolio</span>↗</a>
-        <a href="./Week2_2/Task7_Article.html"><b>07</b><span>Article</span>↗</a>
-        <a href="./Week2_2/Task8_Quotational.html"><b>08</b><span>Quotation</span>↗</a>
-        <a href="./Week2_2/Task8_Optional.html"><b>09</b><span>Optional</span>↗</a>
-        <a href="./Week2_2/Task_fixerrors.html"><b>10</b><span>Fix Errors</span>↗</a>
-      </div>
-    </article>
+      </header>
 
-    <!-- WEEK 3 PART 1 -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon css">CSS</div>
-        <div>
-          <span>WEEK 3 · PART 1</span>
-          <h3>CSS Fundamentals</h3>
-          <p>CSS syntax, selectors, colors, typography, box model, display, specificity and comments.</p>
+      <section id="projects">
+        <div class="section-heading">
+          <div>
+            <p>SELECTED WORK / 01</p>
+            <h2>Projects & experiments</h2>
+          </div>
+          <p>Small ideas. Real code. Continuous progress.</p>
         </div>
-      </div>
-      <div class="file-grid">
-        <a href="./Week3_1/Topic_02_Three_Ways_to_Add_CSS.html"><b>02</b><span>Three Ways to Add CSS</span>↗</a>
-        <a href="./Week3_1/Topic_03_CSS_Syntax.html"><b>03</b><span>CSS Syntax</span>↗</a>
-        <a href="./Week3_1/Topic_04_Universal_Selector_(star).html"><b>04</b><span>Universal Selector</span>↗</a>
-        <a href="./Week3_1/Topic_05_ID_Selector_(idid).html"><b>05</b><span>ID Selector</span>↗</a>
-        <a href="./Week3_1/Topic_06_Class_Selector_(.class).html"><b>06</b><span>Class Selector</span>↗</a>
-        <a href="./Week3_1/Topic_07_Type_-_Element_Selector.html"><b>07</b><span>Element Selector</span>↗</a>
-        <a href="./Week3_1/Topic_08_color_Property.html"><b>08</b><span>Color Property</span>↗</a>
-        <a href="./Week3_1/Topic_09_background-color_Property.html"><b>09</b><span>Background Color</span>↗</a>
-        <a href="./Week3_1/Topic_10_Hex_Color_Codes.html"><b>10</b><span>Hex Colors</span>↗</a>
-        <a href="./Week3_1/Topic_11_RGB_Color_Values.html"><b>11</b><span>RGB Colors</span>↗</a>
-        <a href="./Week3_1/Topic_12_font-size_Property.html"><b>12</b><span>Font Size</span>↗</a>
-        <a href="./Week3_1/Topic_13_font-weight_Property.html"><b>13</b><span>Font Weight</span>↗</a>
-        <a href="./Week3_1/Topic_14_font-style_Property.html"><b>14</b><span>Font Style</span>↗</a>
-        <a href="./Week3_1/Topic_15_text-align_Property.html"><b>15</b><span>Text Align</span>↗</a>
-        <a href="./Week3_1/Topic_16_Box_Model__Padding.html"><b>16</b><span>Box Model · Padding</span>↗</a>
-        <a href="./Week3_1/Topic_17_Box_Model__Margin.html"><b>17</b><span>Box Model · Margin</span>↗</a>
-        <a href="./Week3_1/Topic_18_Box_Model_Width_Calculation.html"><b>18</b><span>Box Width Calculation</span>↗</a>
-        <a href="./Week3_1/Topic_19_display__block.html"><b>19</b><span>Display Block</span>↗</a>
-        <a href="./Week3_1/Topic_20_display__none.html"><b>20</b><span>Display None</span>↗</a>
-        <a href="./Week3_1/Topic_21_display__flex.html"><b>21</b><span>Display Flex</span>↗</a>
-        <a href="./Week3_1/Topic_22_CSS_Specificity.html"><b>22</b><span>CSS Specificity</span>↗</a>
-        <a href="./Week3_1/Topic_24_CSS_Comments.html"><b>24</b><span>CSS Comments</span>↗</a>
-        <a href="./Week3_1/Topic_25_Putting_It_All_Together.html"><b>25</b><span>Putting It All Together</span>↗</a>
-      </div>
-    </article>
 
-    <!-- WEEK 3 PART 2 -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon css">CSS+</div>
-        <div>
-          <span>WEEK 3 · PART 2</span>
-          <h3>CSS Practice</h3>
-          <p>Eight practical exercises covering headings, CSS methods, colors, box model, flexbox, profiles and a full portfolio.</p>
+        <div class="project-grid">
+
+          <article class="project">
+            <div class="project-top">
+              <div class="project-icon">⚡</div>
+              <span class="tag">INTERACTIVE</span>
+            </div>
+
+            <h3>JokeLab</h3>
+
+            <p>
+              A random joke generator powered by an API, with loading
+              feedback, separate punchlines, and error handling.
+            </p>
+
+            <div class="skills">
+              <span class="skill">HTML</span>
+              <span class="skill">CSS</span>
+              <span class="skill">JavaScript</span>
+              <span class="skill">Fetch API</span>
+            </div>
+
+            <br>
+
+            <a class="project-link"
+               href="./Week6_Random_Joke_Fetcher/">
+              Launch JokeLab <span>↗</span>
+            </a>
+          </article>
+
+          <article class="project">
+            <div class="project-top">
+              <div class="project-icon">⌘</div>
+              <span class="tag">IN PROGRESS</span>
+            </div>
+
+            <h3>Web Development Journey</h3>
+
+            <p>
+              My collection of programming exercises, class activities,
+              and experiments as I develop my skills.
+            </p>
+
+            <div class="skills">
+              <span class="skill">Problem Solving</span>
+              <span class="skill">Web Design</span>
+              <span class="skill">GitHub</span>
+            </div>
+
+            <br>
+
+            <a class="project-link"
+               href="https://github.com/sudip09-sys/WebProgramming"
+               target="_blank" rel="noopener noreferrer">
+              Explore repository <span>↗</span>
+            </a>
+          </article>
+
+          <article class="project">
+            <div class="project-top">
+              <div class="project-icon">◈</div>
+              <span class="tag">NEXT UP</span>
+            </div>
+
+            <h3>Creative Web Experiments</h3>
+
+            <p>
+              A space for future interactive interfaces, animations,
+              visual experiments, and creative coding projects.
+            </p>
+
+            <a class="project-link" href="#learning">
+              See what I'm learning <span>↗</span>
+            </a>
+          </article>
+
+          <article class="project">
+            <div class="project-top">
+              <div class="project-icon">▤</div>
+              <span class="tag">COMING SOON</span>
+            </div>
+
+            <h3>More projects on the way</h3>
+
+            <p>
+              This portfolio will grow as I build new applications
+              and turn coursework into practical projects.
+            </p>
+
+            <a class="project-link"
+               href="https://github.com/sudip09-sys/WebProgramming"
+               target="_blank" rel="noopener noreferrer">
+              Follow my progress <span>↗</span>
+            </a>
+          </article>
+
         </div>
-      </div>
-      <div class="file-grid">
-        <a href="./Week3_2/E1_Style_First_Heading.html"><b>01</b><span>Style First Heading</span>↗</a>
-        <a href="./Week3_2/E2_Three_Ways.html"><b>02</b><span>Three Ways</span>↗</a>
-        <a href="./Week3_2/E3_Color_Palette.html"><b>03</b><span>Color Palette</span>↗</a>
-        <a href="./Week3_2/E4_Box_Model.html"><b>04</b><span>Box Model</span>↗</a>
-        <a href="./Week3_2/E5_Fix_Broken_CSS.html"><b>05</b><span>Fix Broken CSS</span>↗</a>
-        <a href="./Week3_2/E6_Flexbox_Navigation.html"><b>06</b><span>Flexbox Navigation</span>↗</a>
-        <a href="./Week3_2/E7_Profile_Card.html"><b>07</b><span>Profile Card</span>↗</a>
-        <a href="./Week3_2/E8_Full_Portfolio.html"><b>08</b><span>Full Portfolio</span>↗</a>
-      </div>
-    </article>
+      </section>
 
-    <!-- ASSIGNMENT -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon project">PROJ</div>
-        <div>
-          <span>WEEK 3 · ASSIGNMENT</span>
-          <h3>CSS Assignment</h3>
-          <p>Positioning, hover transitions, loading animation, themes, fixed navigation and responsive grids.</p>
+      <section id="learning">
+        <div class="section-heading">
+          <div>
+            <p>THE PROCESS / 02</p>
+            <h2>Learning by building</h2>
+          </div>
         </div>
-      </div>
-      <div class="file-grid">
-        <a href="./Week3_Assignment/E1_PositiontheBadge.html"><b>01</b><span>Position the Badge</span>↗</a>
-        <a href="./Week3_Assignment/E2_HoverCardWithTransiton.html"><b>02</b><span>Hover Card</span>↗</a>
-        <a href="./Week3_Assignment/E3_Loadingspinner.html"><b>03</b><span>Loading Spinner</span>↗</a>
-        <a href="./Week3_Assignment/E4_CSSTHEME.html"><b>04</b><span>CSS Theme</span>↗</a>
-        <a href="./Week3_Assignment/E5_FixedNavigation.html"><b>05</b><span>Fixed Navigation</span>↗</a>
-        <a href="./Week3_Assignment/E6_ResponsiveGridPage.html"><b>06</b><span>Responsive Grid</span>↗</a>
-        <a href="./Week3_Assignment/E7_CompletePortfolio.html"><b>07</b><span>Complete Portfolio</span>↗</a>
-      </div>
-    </article>
 
+        <div class="learning">
+          <div class="info-card">
+            <h3>What I'm exploring</h3>
+            <p>
+              Understanding how websites work, how JavaScript
+              communicates with APIs, and how to publish projects
+              online using GitHub Pages.
+            </p>
 
-    <!-- WEEK 6 -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon js">JS</div>
-        <div>
-          <span>WEEK 6 · HOMEWORK</span>
-          <h3>Random Joke Fetcher</h3>
-          <p>Practice fetching data from an API, handling loading and error states, and saving favourite jokes with localStorage.</p>
+            <div class="skills">
+              <span class="skill">Semantic HTML</span>
+              <span class="skill">Responsive CSS</span>
+              <span class="skill">JavaScript</span>
+              <span class="skill">APIs</span>
+              <span class="skill">Git & GitHub</span>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h3>The goal</h3>
+            <p>
+              Go beyond code that simply works. Create websites
+              that are useful, responsive, visually polished,
+              and enjoyable to interact with.
+            </p>
+            <br>
+            <a class="project-link"
+               href="https://github.com/sudip09-sys"
+               target="_blank" rel="noopener noreferrer">
+              Find me on GitHub ↗
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="file-grid single">
-        <a href="./Week6_Random_Joke/index.html"><b>01</b><span>Open Random Joke Fetcher</span>↗</a>
-      </div>
-    </article>
+      </section>
+    </main>
 
-    <!-- WEEK 4 -->
-    <article class="course-section">
-      <div class="course-header">
-        <div class="course-icon js">JS</div>
-        <div>
-          <span>WEEK 4 · PART 1</span>
-          <h3>JavaScript</h3>
-          <p>The Week 4 folder contains its own index page and JavaScript/CSS files.</p>
-        </div>
-      </div>
-      <div class="file-grid single">
-        <a href="./Week4_1/index.html"><b>01</b><span>Open Week 4 JavaScript Page</span>↗</a>
-      </div>
-    </article>
-  </section>
+    <footer>
+      <span>© <span id="year"></span> Sudip · Built while learning.</span>
+      <a href="#top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+        Back to top ↑
+      </a>
+    </footer>
 
-  <section class="about" id="about">
-    <div>
-      <p class="eyebrow">ABOUT THIS PORTFOLIO</p>
-      <h2>Built while learning.</h2>
-    </div>
-    <p>I am Sudip Sah, a Computer Engineering student at Gachon University. This website organizes my Web Programming coursework as I move from HTML fundamentals into CSS and JavaScript.</p>
-    <a href="https://github.com/sudip09-sys/WebProgramming" target="_blank" rel="noopener">View GitHub repository →</a>
-  </section>
-</main>
+  </div>
 
-<footer>
-  <div><strong>Sudip<span class="dot">.</span>Web</strong><small>Web Programming Coursework</small></div>
-  <small>© <span id="year"></span> Sudip Sah</small>
-</footer>
-
-<button class="back-top" id="backTop">↑</button>
-<script src="java.js"></script>
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
 </body>
 </html>
