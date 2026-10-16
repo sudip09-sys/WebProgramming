@@ -25,7 +25,7 @@
 .approach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}.approach{padding-top:18px;border-top:1px solid #cfd0c8}.approach-no{font:10px var(--mono);color:#85877e}.approach h3{font-size:17px;letter-spacing:-.6px;margin:18px 0 8px}.approach p{font-size:12px;color:#777970;line-height:1.9;margin:0;max-width:300px}
 .endcap{padding:42px;background:#20211d;color:#f7f7f2;border-radius:6px;display:flex;align-items:end;justify-content:space-between;gap:30px}.endcap .section-index{color:#c6c8bd}.endcap h2{font-size:clamp(36px,5vw,62px);letter-spacing:-.08em;line-height:.98;margin:12px 0 13px}.endcap p{font-size:12px;color:#c1c2b9;max-width:460px;line-height:1.9}.endcap .text-link{color:#f7f7f2;border-color:#f7f7f2}.end-mark{width:100px;height:100px;flex-shrink:0;border-radius:50%;background:var(--green);color:#20211d;display:grid;place-items:center;font:24px var(--mono);transform:rotate(-12deg)}
 footer{padding:26px 0 32px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#777970;font-size:10px}footer strong{color:var(--ink)}footer a:hover{color:#111}
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}.reveal.visible{opacity:1;transform:none}
+.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}.reveal.visible{opacity:1;transform:none}
 :focus-visible{outline:2px solid #506d25;outline-offset:4px}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:800px){.wrap{width:calc(100% - 40px)}.hero-grid{grid-template-columns:1fr;gap:25px}.hero-aside{max-width:560px}.hero-art{grid-template-columns:1fr;min-height:520px}.art-copy{min-height:260px}.art-scene{min-height:260px}.feature-grid{grid-template-columns:1fr}.feature{min-height:300px}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.section{padding:65px 0}.section-heading,.archive-top{align-items:start;flex-direction:column}.section-heading p,.archive-top p{max-width:500px}}
@@ -183,7 +183,7 @@ function loadRepository(){allFiles=FILES.filter(path=>typeOf(path)==="html"&&pat
 
 $("#search").addEventListener("input",renderFiles);$$("[data-filter]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.filter)));
 if("IntersectionObserver"in window){let observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.08});$$(".reveal").forEach(el=>observer.observe(el))}else{$$(".reveal").forEach(el=>el.classList.add("visible"))}
-loadRepository();
+try{loadRepository()}catch(error){console.error("Portfolio archive failed to render:",error);$("#archive-status").textContent="The archive could not load. Please refresh the page.";$("#file-archive").innerHTML='<div class="error-box">The archive could not be rendered. The rest of the portfolio is still available. <a href="https://github.com/sudip09-sys/WebProgramming" target="_blank" rel="noopener noreferrer">Open repository ↗</a></div>';$("#footer-status").textContent="Archive needs a refresh"}
 </script>
 </body>
 </html>
