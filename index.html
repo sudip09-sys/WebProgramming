@@ -59,6 +59,15 @@
     .feature.alt .text-link{color:var(--purple)}
     .mini-label{font:10px var(--mono);color:var(--muted);letter-spacing:1px}
     .archive{padding-top:25px}
+    .category-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 16px}
+    .category-tile{display:flex;flex-direction:column;gap:8px;text-align:left;padding:15px;border:1px solid var(--line);border-radius:12px;background:#101621;cursor:pointer;transition:transform .18s,border-color .18s,background .18s;color:var(--text)}
+    .category-tile:hover,.category-tile.active{transform:translateY(-2px);border-color:var(--lime);background:#c7f36b0b}
+    .category-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .category-icon{font:11px var(--mono);color:var(--lime);border:1px solid #c7f36b33;border-radius:7px;padding:6px 7px}
+    .category-total{font:10px var(--mono);color:var(--muted)}
+    .category-name{font-size:12px;font-weight:800}
+    .category-desc{font-size:10px;color:var(--muted);line-height:1.5}
+    .archive-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 0 10px;color:var(--muted);font:10px var(--mono);letter-spacing:1.2px;text-transform:uppercase}
     .archive-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 20px}
     .searchbox{display:flex;align-items:center;gap:10px;flex:1;min-width:230px;background:#101621;border:1px solid var(--line);border-radius:10px;padding:0 14px}
     .searchbox span{font:15px var(--mono);color:var(--muted)}
@@ -68,7 +77,7 @@
     .filter.active,.filter:hover{border-color:var(--lime);color:var(--lime);background:#c7f36b0b}
     .archive-status{font:10px var(--mono);color:var(--muted);margin-left:auto}
     .week-list{display:grid;gap:14px}
-    .week{border:1px solid var(--line);border-radius:14px;background:#0e141e;overflow:hidden}
+    .week{padding:0;border:1px solid var(--line);border-radius:14px;background:#0e141e;overflow:hidden}
     .week-head{display:flex;align-items:center;gap:14px;padding:17px 19px;background:linear-gradient(90deg,#ffffff04,transparent);border-bottom:1px solid #263244a8}
     .week-index{font:11px var(--mono);color:var(--lime);background:#c7f36b12;border:1px solid #c7f36b25;padding:7px 9px;border-radius:7px}
     .week-title{font-size:14px;font-weight:800;letter-spacing:-.2px}
@@ -101,7 +110,7 @@
     @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
     .hero,.stats,.feature,.week{animation:rise .45s ease both}
     :focus-visible{outline:2px solid var(--lime);outline-offset:4px}
-    @media(max-width:760px){.shell{width:min(100% - 28px,1160px)}.nav{height:65px}.navlinks{gap:12px}.navlinks a:not(.nav-cta){display:none}.hero{padding-top:60px}h1{letter-spacing:-3px}.hero-row{align-items:start}.hero-stamp{display:none}.stats{grid-template-columns:repeat(2,1fr);padding-bottom:45px}.featured-grid{grid-template-columns:1fr}.feature{min-height:0}.section-head{align-items:start;flex-direction:column}.principles{grid-template-columns:1fr}.file-grid{grid-template-columns:1fr}.archive-status{width:100%;margin-left:0}}
+    @media(max-width:760px){.category-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.shell{width:min(100% - 28px,1160px)}.nav{height:65px}.navlinks{gap:12px}.navlinks a:not(.nav-cta){display:none}.hero{padding-top:60px}h1{letter-spacing:-3px}.hero-row{align-items:start}.hero-stamp{display:none}.stats{grid-template-columns:repeat(2,1fr);padding-bottom:45px}.featured-grid{grid-template-columns:1fr}.feature{min-height:0}.section-head{align-items:start;flex-direction:column}.principles{grid-template-columns:1fr}.file-grid{grid-template-columns:1fr}.archive-status{width:100%;margin-left:0}}
     @media(max-width:420px){h1{font-size:44px;letter-spacing:-2.5px}.brand{font-size:13px}.stats{gap:8px}.stat{padding:14px}.stat-number{font-size:26px}.week-head{padding:13px}.file-card{padding:13px}.archive-tools{gap:7px}.filter{padding:10px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
   </style>
@@ -181,7 +190,7 @@
         <button class="filter" data-filter="js" type="button">JavaScript</button>
         <span class="archive-status" id="archive-status" aria-live="polite">CONNECTING TO REPOSITORY…</span>
       </div>
-      <div id="file-archive"><div class="loading"><span class="spinner"></span>Reading the repository and preparing your exercise index…</div></div>
+      <div id="category-overview" class="category-overview" aria-label="Browse by category"></div><div class="archive-label"><span>Organised by class folder</span><span class="mono">01 — FILE INDEX</span></div><div id="file-archive"><div class="loading"><span class="spinner"></span>Reading the repository and preparing your exercise index…</div></div>
       <p class="mini-label" style="margin-top:15px">LIVE INDEX · GENERATED FROM THE PUBLIC REPOSITORY · FILES ARE NOT COPIED OR MOVED</p>
     </section>
 
@@ -265,11 +274,57 @@
         '<span class="file-main"><span class="file-name">' + escapeHTML(name) + '</span><span class="file-path">' + escapeHTML(file.path) + '</span></span>' +
         '<span class="file-open" aria-hidden="true">↗</span></a>';
     }
+    function categoryFor(folder) {
+      const f = folder.toLowerCase();
+      if (f.includes("joke") || f.includes("project")) return "projects";
+      if (f.includes("week3") && (f.includes("assignment") || f.includes("2"))) return "css";
+      if (f.includes("week3")) return "css";
+      if (f.includes("week4") || f.includes("week6")) return "javascript";
+      if (f.includes("week2") || f === "root files") return "html";
+      return "other";
+    }
+    const categoryMeta = {
+      all: {icon:"⌘", name:"Everything", desc:"All exercises and source files"},
+      html: {icon:"〈〉", name:"HTML foundations", desc:"Structure, semantics and forms"},
+      css: {icon:"✳", name:"CSS & styling", desc:"Layouts, design and assignments"},
+      javascript: {icon:"JS", name:"JavaScript", desc:"Logic, interactions and APIs"},
+      projects: {icon:"↗", name:"Live projects", desc:"Complete, runnable experiences"}
+    };
+    function renderCategories() {
+      const counts = {all:allFiles.length, html:0, css:0, javascript:0, projects:0};
+      allFiles.forEach(function(file) {
+        const type = getType(file.path);
+        const category = categoryFor(getFolder(file.path));
+        if (category === "projects") counts.projects++;
+        else if (category === "css") counts.css++;
+        else if (category === "javascript" || type === "js" || type === "mjs") counts.javascript++;
+        else if (category === "html" || type === "html" || type === "htm") counts.html++;
+      });
+      const keys = ["all","html","css","javascript","projects"];
+      document.getElementById("category-overview").innerHTML = keys.map(function(key) {
+        const meta = categoryMeta[key];
+        const selected = (key === "all" && selectedType === "all") || selectedType === key;
+        return '<button type="button" class="category-tile' + (selected ? ' active' : '') + '" data-category="' + key + '">' +
+          '<span class="category-top"><span class="category-icon">' + meta.icon + '</span><span class="category-total">' + counts[key] + ' FILES</span></span>' +
+          '<span class="category-name">' + meta.name + '</span><span class="category-desc">' + meta.desc + '</span></button>';
+      }).join("");
+      document.querySelectorAll("[data-category]").forEach(function(button) {
+        button.addEventListener("click", function() {
+          const key = button.dataset.category;
+          selectedType = key === "javascript" ? "js" : key === "projects" ? "projects" : key;
+          activeFilters.forEach(function(item) { item.classList.toggle("active", item.dataset.filter === selectedType); });
+          renderCategories();
+          renderFiles();
+          document.getElementById("file-archive").scrollIntoView({behavior:"smooth", block:"start"});
+        });
+      });
+    }
     function renderFiles() {
       const query = search.value.trim().toLowerCase();
       const matches = allFiles.filter(function (file) {
         const type = getType(file.path);
-        const typeMatch = selectedType === "all" || type === selectedType;
+        const folderCategory = categoryFor(getFolder(file.path));
+        const typeMatch = selectedType === "all" || (selectedType === "projects" ? folderCategory === "projects" : selectedType === "css" ? type === "css" || folderCategory === "css" : selectedType === "js" ? type === "js" || type === "mjs" || folderCategory === "javascript" : selectedType === "html" ? type === "html" || type === "htm" : type === selectedType);
         const searchMatch = !query || file.path.toLowerCase().includes(query) || prettyFolder(getFolder(file.path)).toLowerCase().includes(query);
         return typeMatch && searchMatch;
       });
@@ -316,6 +371,7 @@
         document.getElementById("html-count").textContent = allFiles.filter(function (file) { return ["html","htm"].includes(getType(file.path)); }).length;
         document.getElementById("folder-count").textContent = folders.size;
         document.getElementById("footer-status").textContent = "Repository index updated live";
+        renderCategories();
         renderFiles();
       } catch (error) {
         status.textContent = "LIVE INDEX UNAVAILABLE";
