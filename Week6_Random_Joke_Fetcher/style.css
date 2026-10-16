@@ -326,3 +326,20 @@ button { font: inherit; }
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Accessibility and resilience pass — shared finishing layer */
+html { scroll-behavior: smooth; }
+img, svg, video, canvas { max-width: 100%; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--blue, #83b9ff); outline-offset: 3px; }
+button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: not-allowed; opacity: .62; }
+::selection { background: var(--purple, #9d83ff); color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media (max-width: 520px) {
+  img, video, canvas { height: auto; }
+  pre, code { overflow-wrap: anywhere; }
+}
