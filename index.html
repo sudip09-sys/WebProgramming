@@ -1,556 +1,340 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a0d16">
-  <meta name="description" content="Sudip's Web Programming Hub — weekly exercises, assignments, and interactive projects.">
-  <title>Web Programming Hub | Sudip</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b12">
+  <meta name="description" content="Sudip's Web Programming Lab — a searchable, live archive of HTML, CSS, JavaScript exercises and projects.">
+  <title>Web Programming Lab — Sudip</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0a0d16;
-      --panel: #111725;
-      --line: #252d40;
-      --text: #f4f6ff;
-      --muted: #9aa6bd;
-      --purple: #a78bfa;
-      --cyan: #67e8f9;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(ellipse at 10% 0%, #292044 0, transparent 35%),
-        radial-gradient(ellipse at 100% 35%, #102a39 0, transparent 30%),
-        var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .wrap {
-      width: min(1120px, 90%);
-      margin: auto;
-    }
-
-    nav {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      font-size: 1.2rem;
-      font-weight: 850;
-      letter-spacing: -1px;
-    }
-
-    .brand span { color: var(--purple); }
-
-    .navlinks {
-      display: flex;
-      gap: 24px;
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .navlinks a:hover { color: var(--cyan); }
-
-    .hero {
-      padding: 90px 0 65px;
-      max-width: 850px;
-      animation: enter .7s ease both;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      border: 1px solid var(--line);
-      border-radius: 50px;
-      padding: 7px 12px;
-      color: var(--cyan);
-      font-size: .78rem;
-      letter-spacing: .5px;
-    }
-
-    .status i {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #4ade80;
-      box-shadow: 0 0 12px #4ade80;
-    }
-
-    h1 {
-      font-size: clamp(3rem, 7vw, 5.8rem);
-      line-height: 1.03;
-      letter-spacing: -4px;
-      margin: 25px 0;
-    }
-
-    h1 span {
-      background: linear-gradient(100deg, var(--purple), var(--cyan));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .lead {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 1.08rem;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 28px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      font-weight: 700;
-      font-size: .9rem;
-      transition: transform .2s, border-color .2s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      border-color: var(--purple);
-    }
-
-    .btn-main {
-      background: var(--text);
-      color: #0a0d16;
-    }
-
-    .btn-alt { background: #ffffff08; }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 15px 0 70px;
-    }
-
-    .stat {
-      border: 1px solid var(--line);
-      background: #ffffff04;
-      border-radius: 14px;
-      padding: 18px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.55rem;
-      letter-spacing: -1px;
-    }
-
-    .stat small { color: var(--muted); }
-
-    section { padding: 20px 0 65px; }
-
-    .section-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-
-    .kicker {
-      color: var(--cyan);
-      font-size: .75rem;
-      letter-spacing: 2px;
-      font-weight: 800;
-    }
-
-    h2 {
-      margin: 5px 0 0;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      letter-spacing: -1.5px;
-    }
-
-    .section-top p {
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 17px;
-    }
-
-    .card {
-      min-width: 0;
-      border: 1px solid var(--line);
-      background: linear-gradient(145deg, #151c2c, #0f1420);
-      border-radius: 18px;
-      padding: 25px;
-      transition: transform .22s, border-color .22s;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: #7765ad;
-    }
-
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .symbol {
-      display: grid;
-      place-items: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 13px;
-      background: #a78bfa18;
-      font-size: 1.4rem;
-    }
-
-    .tag {
-      color: var(--cyan);
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      padding: 5px 9px;
-    }
-
-    .card h3 {
-      font-size: 1.25rem;
-      margin: 0 0 8px;
-    }
-
-    .card p {
-      min-height: 50px;
-      color: var(--muted);
-      font-size: .9rem;
-      margin: 0 0 20px;
-    }
-
-    .card-link {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      color: var(--cyan);
-      font-size: .9rem;
-      font-weight: 750;
-    }
-
-    .card-link:hover { color: white; }
-
-    .featured {
-      border-color: #66548e;
-      background:
-        radial-gradient(ellipse at 100% 0%, #4b347a38, transparent 55%),
-        #111725;
-    }
-
-    .note {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: .82rem;
-    }
-
-    .workflow {
-      border: 1px solid var(--line);
-      background: #ffffff04;
-      border-radius: 18px;
-      padding: 25px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .workflow strong { display: block; margin-bottom: 7px; }
-
-    .workflow p {
-      color: var(--muted);
-      font-size: .88rem;
-      margin: 0;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 25px 0;
-      color: var(--muted);
-      font-size: .83rem;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--cyan);
-      outline-offset: 4px;
-    }
-
-    @keyframes enter {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 680px) {
-      .navlinks { gap: 12px; font-size: .8rem; }
-      .hero { padding-top: 65px; }
-      h1 { letter-spacing: -2px; }
-      .grid { grid-template-columns: 1fr; }
-      .stats { gap: 8px; }
-      .stat { padding: 12px; }
-      .stat strong { font-size: 1.25rem; }
-      .section-top { align-items: start; flex-direction: column; }
-      .workflow { grid-template-columns: 1fr; }
-      .card p { min-height: 0; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation: none !important;
-        transition: none !important;
-      }
-    }
+    :root{color-scheme:dark;--bg:#080b12;--panel:#101621;--panel2:#131c2a;--line:#263244;--text:#f1f5fb;--muted:#8d9bb0;--lime:#c7f36b;--cyan:#7ce7e1;--purple:#b6a0ff;--mono:"DM Mono",monospace;--sans:"Manrope",system-ui,sans-serif}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:95px}
+    body{margin:0;background:radial-gradient(ellipse at 12% 0%,#28361d40,transparent 32%),radial-gradient(ellipse at 90% 16%,#253b573b,transparent 32%),var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6}
+    a{color:inherit;text-decoration:none}button,input{font:inherit}
+    .shell{width:min(1160px,calc(100% - 44px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:10;background:#080b12dc;backdrop-filter:blur(18px);border-bottom:1px solid #263244b8}
+    .nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.6px}
+    .brand-mark{display:grid;place-items:center;width:35px;height:35px;background:var(--lime);color:#11170b;border-radius:10px;font-family:var(--mono);font-size:17px}
+    .brand small{display:block;font:10px var(--mono);color:var(--muted);letter-spacing:1.5px;margin-top:-3px}
+    .navlinks{display:flex;align-items:center;gap:25px;color:var(--muted);font-size:12px;font-weight:700}
+    .navlinks a:hover,.text-link:hover{color:var(--lime)}
+    .nav-cta{border:1px solid var(--line);border-radius:9px;padding:9px 13px;color:var(--text)!important}
+    .hero{padding:86px 0 42px;position:relative}
+    .eyebrow{display:flex;align-items:center;gap:10px;font:11px var(--mono);letter-spacing:1.7px;color:var(--lime);text-transform:uppercase}
+    .pulse{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px #c7f36b99}
+    h1{font-size:clamp(45px,8vw,88px);letter-spacing:-5px;line-height:1.01;max-width:900px;margin:25px 0 22px;font-weight:800}
+    h1 .accent{color:var(--lime)}
+    .hero-row{display:flex;justify-content:space-between;align-items:end;gap:35px}
+    .intro{max-width:590px;color:#a8b4c6;font-size:15px;line-height:1.9;margin:0}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;font-size:12px;font-weight:800;transition:transform .2s,border-color .2s,background .2s}
+    .btn:hover{transform:translateY(-2px);border-color:var(--lime)}
+    .btn-primary{background:var(--lime);color:#101609;border-color:var(--lime)}
+    .hero-stamp{min-width:155px;padding:16px 18px;border-left:1px solid var(--line);font-family:var(--mono);color:var(--muted);font-size:10px;letter-spacing:1px}
+    .hero-stamp strong{display:block;color:var(--text);font:24px var(--sans);letter-spacing:-1px;margin:5px 0}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:28px 0 68px}
+    .stat{border:1px solid var(--line);background:linear-gradient(145deg,#141c28d9,#0e131c);border-radius:13px;padding:19px 20px;position:relative;overflow:hidden}
+    .stat:after{content:"";position:absolute;width:70px;height:70px;right:-25px;top:-30px;border:1px solid #ffffff0a;border-radius:50%;box-shadow:0 0 0 12px #ffffff03,0 0 0 25px #ffffff02}
+    .stat-label{font:10px var(--mono);color:var(--muted);letter-spacing:1.1px;text-transform:uppercase}
+    .stat-number{font-size:31px;font-weight:800;letter-spacing:-1.8px;line-height:1.3;margin-top:8px}
+    .stat-note{font-size:11px;color:var(--muted);margin-top:2px}
+    section{padding:15px 0 60px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:23px}
+    .section-id{font:10px var(--mono);letter-spacing:1.6px;color:var(--lime);text-transform:uppercase}
+    h2{font-size:clamp(25px,4vw,37px);letter-spacing:-1.8px;line-height:1.2;margin:8px 0 0}
+    .section-desc{font-size:12px;color:var(--muted);max-width:390px;margin:0}
+    .featured-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+    .feature{border:1px solid var(--line);border-radius:16px;background:linear-gradient(140deg,#18231b,#101720 75%);padding:25px;min-height:230px;position:relative;overflow:hidden}
+    .feature:after{content:"";position:absolute;width:240px;height:240px;border:1px solid #c7f36b20;border-radius:50%;right:-90px;bottom:-150px;box-shadow:0 0 0 25px #c7f36b08,0 0 0 50px #c7f36b05;pointer-events:none}
+    .feature.alt{background:linear-gradient(145deg,#19172a,#101621 80%)}
+    .feature-tag{font:10px var(--mono);letter-spacing:1.4px;color:var(--lime);display:flex;align-items:center;gap:9px}
+    .feature h3{font-size:23px;letter-spacing:-1px;margin:22px 0 8px}
+    .feature p{font-size:12px;color:#a8b4c6;max-width:430px;margin:0 0 20px;line-height:1.9}
+    .text-link{font-size:12px;font-weight:800;color:var(--lime);position:relative;z-index:1}
+    .feature.alt .text-link{color:var(--purple)}
+    .mini-label{font:10px var(--mono);color:var(--muted);letter-spacing:1px}
+    .archive{padding-top:25px}
+    .archive-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:22px 0 20px}
+    .searchbox{display:flex;align-items:center;gap:10px;flex:1;min-width:230px;background:#101621;border:1px solid var(--line);border-radius:10px;padding:0 14px}
+    .searchbox span{font:15px var(--mono);color:var(--muted)}
+    .searchbox input{width:100%;padding:13px 0;background:transparent;border:0;outline:0;color:var(--text);font-size:12px}
+    .searchbox input::placeholder{color:#718096}
+    .filter{border:1px solid var(--line);border-radius:9px;background:#101621;color:#b7c2d2;padding:11px 13px;font-size:11px;cursor:pointer}
+    .filter.active,.filter:hover{border-color:var(--lime);color:var(--lime);background:#c7f36b0b}
+    .archive-status{font:10px var(--mono);color:var(--muted);margin-left:auto}
+    .week-list{display:grid;gap:14px}
+    .week{border:1px solid var(--line);border-radius:14px;background:#0e141e;overflow:hidden}
+    .week-head{display:flex;align-items:center;gap:14px;padding:17px 19px;background:linear-gradient(90deg,#ffffff04,transparent);border-bottom:1px solid #263244a8}
+    .week-index{font:11px var(--mono);color:var(--lime);background:#c7f36b12;border:1px solid #c7f36b25;padding:7px 9px;border-radius:7px}
+    .week-title{font-size:14px;font-weight:800;letter-spacing:-.2px}
+    .week-sub{font:10px var(--mono);color:var(--muted);margin-top:2px}
+    .week-count{margin-left:auto;font:10px var(--mono);color:var(--muted);white-space:nowrap}
+    .file-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#2632448a}
+    .file-card{display:flex;align-items:center;gap:12px;padding:15px 17px;background:#0e141e;min-width:0;transition:background .18s}
+    .file-card:hover{background:#151e2b}
+    .file-icon{width:31px;height:35px;display:grid;place-items:center;border:1px solid #7ce7e128;background:#7ce7e10b;border-radius:7px;color:var(--cyan);font:10px var(--mono);flex-shrink:0}
+    .file-main{min-width:0;flex:1}
+    .file-name{display:block;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .file-path{display:block;color:var(--muted);font:9px var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}
+    .file-open{font-size:15px;color:#69778c;flex-shrink:0}
+    .file-card:hover .file-open{color:var(--lime)}
+    .empty{padding:35px 20px;border:1px dashed var(--line);border-radius:13px;text-align:center;color:var(--muted);font-size:12px}
+    .loading{display:flex;align-items:center;gap:12px;padding:28px;color:var(--muted);font-size:12px;border:1px solid var(--line);border-radius:13px}
+    .spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--lime);border-radius:50%;animation:spin .8s linear infinite}
+    .error-box{border:1px solid #a9774a55;background:#2a2017;border-radius:12px;padding:18px;color:#d9c1a6;font-size:12px}
+    .error-box a{color:var(--lime);text-decoration:underline}
+    .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+    .principle{padding:20px;border:1px solid var(--line);border-radius:12px;background:#ffffff03}
+    .principle-num{font:10px var(--mono);color:var(--lime)}
+    .principle h3{font-size:14px;margin:13px 0 6px}
+    .principle p{font-size:11px;color:var(--muted);line-height:1.8;margin:0}
+    .footer{border-top:1px solid var(--line);padding:24px 0 34px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:10px}
+    .footer strong{color:var(--text)}
+    .footer a:hover{color:var(--lime)}
+    .mono{font-family:var(--mono)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .hero,.stats,.feature,.week{animation:rise .45s ease both}
+    :focus-visible{outline:2px solid var(--lime);outline-offset:4px}
+    @media(max-width:760px){.shell{width:min(100% - 28px,1160px)}.nav{height:65px}.navlinks{gap:12px}.navlinks a:not(.nav-cta){display:none}.hero{padding-top:60px}h1{letter-spacing:-3px}.hero-row{align-items:start}.hero-stamp{display:none}.stats{grid-template-columns:repeat(2,1fr);padding-bottom:45px}.featured-grid{grid-template-columns:1fr}.feature{min-height:0}.section-head{align-items:start;flex-direction:column}.principles{grid-template-columns:1fr}.file-grid{grid-template-columns:1fr}.archive-status{width:100%;margin-left:0}}
+    @media(max-width:420px){h1{font-size:44px;letter-spacing:-2.5px}.brand{font-size:13px}.stats{gap:8px}.stat{padding:14px}.stat-number{font-size:26px}.week-head{padding:13px}.file-card{padding:13px}.archive-tools{gap:7px}.filter{padding:10px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <nav>
-      <a class="brand" href="./">SUDIP<span>.</span></a>
+  <div class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="./" aria-label="Sudip's Web Programming Lab home">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <span>WEB LAB<small>SUDIP / STUDENT DEVELOPER</small></span>
+      </a>
       <div class="navlinks">
-        <a href="#weeks">Weekly work</a>
         <a href="#projects">Projects</a>
-        <a href="#about">About</a>
+        <a href="#archive">Exercise archive</a>
+        <a href="#approach">My approach</a>
+        <a class="nav-cta" href="https://github.com/sudip09-sys/WebProgramming" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
-    </nav>
+    </div>
+  </div>
 
+  <main class="shell">
     <header class="hero">
-      <div class="status"><i></i> STUDENT DEVELOPER · BUILDING IN PUBLIC</div>
-
-      <h1>Learn the code.<br>Build the <span>experience.</span></h1>
-
-      <p class="lead">
-        Welcome to my Web Programming Hub. This is the central place
-        for my weekly exercises, class assignments, and interactive
-        projects as I grow from learning the fundamentals to building
-        real websites.
-      </p>
-
-      <div class="actions">
-        <a class="btn btn-main" href="#weeks">Explore weekly work ↘</a>
-        <a class="btn btn-alt"
-           href="https://github.com/sudip09-sys/WebProgramming"
-           target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>
+      <div class="eyebrow"><span class="pulse"></span> PERSONAL LEARNING PORTFOLIO / 2026</div>
+      <h1>From first tags<br>to <span class="accent">real experiences.</span></h1>
+      <div class="hero-row">
+        <div>
+          <p class="intro">A living archive of my Web Programming journey — the exercises I practise, the problems I solve, and the projects I bring to life. Every file has a place. Every iteration teaches me something.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#archive">Explore all exercises <span>↓</span></a>
+            <a class="btn" href="https://github.com/sudip09-sys/WebProgramming" target="_blank" rel="noopener noreferrer">Inspect source code ↗</a>
+          </div>
+        </div>
+        <div class="hero-stamp">CURRENT MODE<strong>BUILD / LEARN</strong>HTML · CSS · JS<br><span style="color:var(--lime)">●</span> PUBLISHED WITH GITHUB PAGES</div>
       </div>
     </header>
 
-    <div class="stats">
-      <div class="stat">
-        <strong>06</strong>
-        <small>Learning sections</small>
-      </div>
-      <div class="stat">
-        <strong>01</strong>
-        <small>Live interactive project</small>
-      </div>
-      <div class="stat">
-        <strong>∞</strong>
-        <small>Things left to build</small>
-      </div>
+    <div class="stats" aria-label="Portfolio statistics">
+      <div class="stat"><div class="stat-label">HTML exercises</div><div class="stat-number" id="html-count">—</div><div class="stat-note">Discovered from the repository</div></div>
+      <div class="stat"><div class="stat-label">Course folders</div><div class="stat-number" id="folder-count">—</div><div class="stat-note">Grouped for easy navigation</div></div>
+      <div class="stat"><div class="stat-label">Featured project</div><div class="stat-number">01</div><div class="stat-note">Interactive API-powered app</div></div>
+      <div class="stat"><div class="stat-label">Learning mindset</div><div class="stat-number">∞</div><div class="stat-note">Keep shipping. Keep improving.</div></div>
     </div>
 
-    <main>
-      <section id="weeks">
-        <div class="section-top">
-          <div>
-            <div class="kicker">COURSE ARCHIVE / 01</div>
-            <h2>My weekly exercises</h2>
-          </div>
-          <p>Choose a week to browse its actual repository files.</p>
-        </div>
+    <section id="projects">
+      <div class="section-head">
+        <div><div class="section-id">01 / Selected work</div><h2>Projects that do something.</h2></div>
+        <p class="section-desc">Beyond static pages: small experiments that connect the browser, logic, and real data.</p>
+      </div>
+      <div class="featured-grid">
+        <article class="feature">
+          <div class="feature-tag"><span class="pulse"></span> LIVE · INTERACTIVE PROJECT</div>
+          <h3>JokeLab / Random Joke Fetcher</h3>
+          <p>A JavaScript project that requests a random joke from an API, shows loading feedback, separates setup from punchline, and handles failures with a friendly message.</p>
+          <a class="text-link" href="./Week6_Random_Joke_Fetcher/">Launch the live project ↗</a>
+          <div class="mini-label" style="margin-top:17px">HTML / CSS / JAVASCRIPT / FETCH API</div>
+        </article>
+        <article class="feature alt">
+          <div class="feature-tag" style="color:var(--purple)">02 / SOURCE & VERSION CONTROL</div>
+          <h3>The workshop behind the work.</h3>
+          <p>Browse the full repository, see how the files are organised, and follow the progress from individual class exercises to published projects.</p>
+          <a class="text-link" href="https://github.com/sudip09-sys/WebProgramming" target="_blank" rel="noopener noreferrer">Open repository on GitHub ↗</a>
+          <div class="mini-label" style="margin-top:17px">COMMITS / FILES / ITERATION</div>
+        </article>
+      </div>
+    </section>
 
-        <div class="grid">
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">⌘</div>
-              <span class="tag">WEEK 02</span>
-            </div>
-            <h3>Week 2.1</h3>
-            <p>Open the original folder to explore the exercises and files from this session.</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week2_1"
-               target="_blank" rel="noopener noreferrer">Browse Week2_1 ↗</a>
-          </article>
+    <section class="archive" id="archive">
+      <div class="section-head">
+        <div><div class="section-id">02 / Complete file archive</div><h2>Every exercise. One place.</h2></div>
+        <p class="section-desc">The archive reads the repository file tree and builds direct links automatically. Search by filename or filter by folder.</p>
+      </div>
+      <div class="archive-tools">
+        <label class="searchbox"><span>⌕</span><input id="search" type="search" placeholder="Search exercises, filenames, topics…" autocomplete="off" aria-label="Search exercise files"></label>
+        <button class="filter active" data-filter="all" type="button">All files</button>
+        <button class="filter" data-filter="html" type="button">HTML</button>
+        <button class="filter" data-filter="css" type="button">CSS</button>
+        <button class="filter" data-filter="js" type="button">JavaScript</button>
+        <span class="archive-status" id="archive-status" aria-live="polite">CONNECTING TO REPOSITORY…</span>
+      </div>
+      <div id="file-archive"><div class="loading"><span class="spinner"></span>Reading the repository and preparing your exercise index…</div></div>
+      <p class="mini-label" style="margin-top:15px">LIVE INDEX · GENERATED FROM THE PUBLIC REPOSITORY · FILES ARE NOT COPIED OR MOVED</p>
+    </section>
 
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">⌘</div>
-              <span class="tag">WEEK 02</span>
-            </div>
-            <h3>Week 2.2</h3>
-            <p>Access the saved exercises and source files for the second Week 2 folder.</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week2_2"
-               target="_blank" rel="noopener noreferrer">Browse Week2_2 ↗</a>
-          </article>
-
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">◈</div>
-              <span class="tag">WEEK 03</span>
-            </div>
-            <h3>Week 3.1</h3>
-            <p>Find the original work and practice files from the first Week 3 session.</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week3_1"
-               target="_blank" rel="noopener noreferrer">Browse Week3_1 ↗</a>
-          </article>
-
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">◈</div>
-              <span class="tag">WEEK 03</span>
-            </div>
-            <h3>Week 3.2</h3>
-            <p>Browse the second Week 3 folder without changing or moving any files.</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week3_2"
-               target="_blank" rel="noopener noreferrer">Browse Week3_2 ↗</a>
-          </article>
-
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">▤</div>
-              <span class="tag">ASSIGNMENT</span>
-            </div>
-            <h3>Week 3 Assignment</h3>
-            <p>Open the original assignment folder to review its files and completed work.</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week3_Assignment"
-               target="_blank" rel="noopener noreferrer">Browse assignment ↗</a>
-          </article>
-
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">▦</div>
-              <span class="tag">WEEK 04</span>
-            </div>
-            <h3>Week 4.1</h3>
-            <p>Continue to the existing Week 4.1 folder and open its saved exercise files.</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week4_1"
-               target="_blank" rel="noopener noreferrer">Browse Week4_1 ↗</a>
-          </article>
-        </div>
-      </section>
-
-      <section id="projects">
-        <div class="section-top">
-          <div>
-            <div class="kicker">INTERACTIVE WORK / 02</div>
-            <h2>Projects & experiments</h2>
-          </div>
-          <p>Projects that go beyond individual exercises.</p>
-        </div>
-
-        <div class="grid">
-          <article class="card featured">
-            <div class="card-head">
-              <div class="symbol">⚡</div>
-              <span class="tag">LIVE PROJECT</span>
-            </div>
-            <h3>JokeLab — Random Joke Fetcher</h3>
-            <p>
-              An interactive JavaScript application using an API,
-              with loading feedback, separate setup and punchline,
-              and error handling.
-            </p>
-            <a class="card-link"
-               href="./Week6_Random_Joke_Fetcher/">Launch live JokeLab ↗</a>
-            <p class="note">Live demo · HTML · CSS · JavaScript · Fetch API</p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming/tree/main/Week6_Random_Joke_Fetcher"
-               target="_blank" rel="noopener noreferrer">View project source ↗</a>
-          </article>
-
-          <article class="card">
-            <div class="card-head">
-              <div class="symbol">⌘</div>
-              <span class="tag">FULL REPOSITORY</span>
-            </div>
-            <h3>All source files</h3>
-            <p>
-              Need a file not listed above? Open the full repository
-              to find other exercises, code, stylesheets, and scripts.
-            </p>
-            <a class="card-link"
-               href="https://github.com/sudip09-sys/WebProgramming"
-               target="_blank" rel="noopener noreferrer">Explore all repository files ↗</a>
-          </article>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="section-top">
-          <div>
-            <div class="kicker">THE JOURNEY / 03</div>
-            <h2>Learning by building</h2>
-          </div>
-        </div>
-
-        <div class="workflow">
-          <div>
-            <strong>01 / Learn</strong>
-            <p>Understand the fundamentals of HTML, CSS, JavaScript, and the browser.</p>
-          </div>
-          <div>
-            <strong>02 / Experiment</strong>
-            <p>Practice through exercises, test ideas, debug issues, and improve the code.</p>
-          </div>
-          <div>
-            <strong>03 / Publish</strong>
-            <p>Use GitHub to preserve my work and share projects through GitHub Pages.</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>© <span id="year"></span> Sudip · Web Programming Hub</span>
-      <a href="https://github.com/sudip09-sys/WebProgramming"
-         target="_blank" rel="noopener noreferrer">Built with code and curiosity ↗</a>
+    <section id="approach">
+      <div class="section-head">
+        <div><div class="section-id">03 / How I learn</div><h2>Curiosity, then execution.</h2></div>
+        <p class="section-desc">A simple process for turning coursework into skills I can use in real projects.</p>
+      </div>
+      <div class="principles">
+        <article class="principle"><div class="principle-num">01 — UNDERSTAND</div><h3>Learn the foundations</h3><p>Build confidence with semantic HTML, CSS layout, responsive design, and JavaScript fundamentals.</p></article>
+        <article class="principle"><div class="principle-num">02 — EXPERIMENT</div><h3>Make, test, improve</h3><p>Try ideas, inspect the result, debug errors, and improve usability instead of stopping at “it works.”</p></article>
+        <article class="principle"><div class="principle-num">03 — SHIP</div><h3>Publish and reflect</h3><p>Use GitHub to organise source code and GitHub Pages to make selected work accessible on the web.</p></article>
+      </div>
+    </section>
+    <footer class="footer">
+      <div><strong>SUDIP / WEB PROGRAMMING LAB</strong><br><span class="mono">A STUDENT PORTFOLIO · BUILT ITERATION BY ITERATION</span></div>
+      <div><span id="footer-status">Repository index loading</span> · <a href="https://github.com/sudip09-sys/WebProgramming" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a></div>
+      <div>© <span id="year"></span> Sudip</div>
     </footer>
-  </div>
+  </main>
 
   <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    "use strict";
+    const OWNER = "sudip09-sys";
+    const REPO = "WebProgramming";
+    const API = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/git/trees/main?recursive=1";
+    const PAGE_BASE = "./";
+    const archive = document.getElementById("file-archive");
+    const search = document.getElementById("search");
+    const status = document.getElementById("archive-status");
+    const activeFilters = document.querySelectorAll(".filter");
+    let allFiles = [];
+    let selectedType = "all";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, function (char) {
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char];
+      });
+    }
+    function getType(path) {
+      const ext = path.split(".").pop().toLowerCase();
+      if (ext === "html" || ext === "htm") return "html";
+      if (ext === "css") return "css";
+      if (ext === "js" || ext === "mjs") return "js";
+      return ext;
+    }
+    function getFolder(path) {
+      const parts = path.split("/");
+      return parts.length > 1 ? parts.slice(0, -1).join("/") : "Root files";
+    }
+    function prettyFolder(folder) {
+      const labels = {
+        "Week2_1":"Week 2.1 — HTML fundamentals",
+        "Week2_2":"Week 2.2 — HTML practice",
+        "Week3_1":"Week 3.1 — CSS & layout",
+        "Week3_2":"Week 3.2 — CSS practice",
+        "Week3_Assignment":"Week 3 — Assignment",
+        "Week4_1":"Week 4.1 — JavaScript",
+        "Week6_Random_Joke_Fetcher":"Week 6 — JokeLab project",
+        "Root files":"Root / shared files"
+      };
+      return labels[folder] || folder.replace(/_/g, " ");
+    }
+    function liveURL(path) {
+      return PAGE_BASE + path.split("/").map(encodeURIComponent).join("/");
+    }
+    function sourceURL(path) {
+      return "https://github.com/" + OWNER + "/" + REPO + "/blob/main/" + path.split("/").map(encodeURIComponent).join("/");
+    }
+    function fileCard(file) {
+      const type = getType(file.path);
+      const name = file.path.split("/").pop();
+      const display = type.toUpperCase();
+      const openLabel = type === "html" || type === "htm" ? "Open live exercise" : "View source on GitHub";
+      const href = type === "html" || type === "htm" ? liveURL(file.path) : sourceURL(file.path);
+      const external = type === "html" || type === "htm" ? "" : ' target="_blank" rel="noopener noreferrer"';
+      return '<a class="file-card" href="' + escapeHTML(href) + '"' + external + ' aria-label="' + escapeHTML(openLabel + ": " + name) + '">' +
+        '<span class="file-icon">' + escapeHTML(display.slice(0, 3)) + '</span>' +
+        '<span class="file-main"><span class="file-name">' + escapeHTML(name) + '</span><span class="file-path">' + escapeHTML(file.path) + '</span></span>' +
+        '<span class="file-open" aria-hidden="true">↗</span></a>';
+    }
+    function renderFiles() {
+      const query = search.value.trim().toLowerCase();
+      const matches = allFiles.filter(function (file) {
+        const type = getType(file.path);
+        const typeMatch = selectedType === "all" || type === selectedType;
+        const searchMatch = !query || file.path.toLowerCase().includes(query) || prettyFolder(getFolder(file.path)).toLowerCase().includes(query);
+        return typeMatch && searchMatch;
+      });
+      const groups = {};
+      matches.forEach(function (file) {
+        const folder = getFolder(file.path);
+        if (!groups[folder]) groups[folder] = [];
+        groups[folder].push(file);
+      });
+      const folders = Object.keys(groups).sort(function (a, b) {
+        if (a === "Root files") return -1;
+        if (b === "Root files") return 1;
+        return a.localeCompare(b, undefined, {numeric:true, sensitivity:"base"});
+      });
+      status.textContent = matches.length + " FILE" + (matches.length === 1 ? "" : "S") + " FOUND";
+      if (!matches.length) {
+        archive.innerHTML = '<div class="empty">No matching files. Try another keyword or choose “All files”.</div>';
+        return;
+      }
+      archive.innerHTML = '<div class="week-list">' + folders.map(function (folder, index) {
+        const files = groups[folder].sort(function (a, b) {
+          return a.path.localeCompare(b.path, undefined, {numeric:true, sensitivity:"base"});
+        });
+        return '<section class="week" aria-label="' + escapeHTML(prettyFolder(folder)) + '">' +
+          '<div class="week-head"><span class="week-index">' + String(index + 1).padStart(2, "0") + '</span>' +
+          '<div><div class="week-title">' + escapeHTML(prettyFolder(folder)) + '</div><div class="week-sub">' + escapeHTML(folder) + '</div></div>' +
+          '<span class="week-count">' + files.length + ' FILE' + (files.length === 1 ? "" : "S") + '</span></div>' +
+          '<div class="file-grid">' + files.map(fileCard).join("") + '</div></section>';
+      }).join("") + '</div>';
+    }
+    async function loadRepository() {
+      try {
+        const response = await fetch(API, {headers: {"Accept":"application/vnd.github+json"}});
+        if (!response.ok) throw new Error("GitHub returned status " + response.status);
+        const data = await response.json();
+        if (!data.tree || !Array.isArray(data.tree)) throw new Error("The repository file tree was unavailable.");
+        allFiles = data.tree.filter(function (item) {
+          if (item.type !== "blob") return false;
+          const path = item.path;
+          const type = getType(path);
+          return ["html","htm","css","js","mjs"].includes(type) && path.toLowerCase() !== "index.html";
+        }).map(function (item) { return {path:item.path}; });
+        const folders = new Set(allFiles.map(function (file) { return getFolder(file.path); }));
+        document.getElementById("html-count").textContent = allFiles.filter(function (file) { return ["html","htm"].includes(getType(file.path)); }).length;
+        document.getElementById("folder-count").textContent = folders.size;
+        document.getElementById("footer-status").textContent = "Repository index updated live";
+        renderFiles();
+      } catch (error) {
+        status.textContent = "LIVE INDEX UNAVAILABLE";
+        document.getElementById("html-count").textContent = "—";
+        document.getElementById("folder-count").textContent = "—";
+        document.getElementById("footer-status").textContent = "Open the source repository";
+        archive.innerHTML = '<div class="error-box"><strong>Could not load the live file index.</strong><br>This can happen if the GitHub API is temporarily rate-limited or the network blocks the request. Your projects are safe and unchanged. <a href="https://github.com/' + OWNER + '/' + REPO + '" target="_blank" rel="noopener noreferrer">Browse every file directly on GitHub ↗</a><br><button class="filter" id="retry" type="button" style="margin-top:13px">Try again</button></div>';
+        document.getElementById("retry").addEventListener("click", loadRepository);
+      }
+    }
+    search.addEventListener("input", renderFiles);
+    activeFilters.forEach(function (button) {
+      button.addEventListener("click", function () {
+        selectedType = button.dataset.filter;
+        activeFilters.forEach(function (item) { item.classList.toggle("active", item === button); });
+        renderFiles();
+      });
+    });
+    loadRepository();
   </script>
 </body>
 </html>
