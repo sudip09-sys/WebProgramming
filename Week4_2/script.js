@@ -117,7 +117,7 @@ todoList.addEventListener("click", event => {
   updateTodoCount();
 });
 $("#clearCompleted").addEventListener("click", () => {
-  $$(" .todo-item input[type='checkbox']:checked", todoList).forEach(box => box.closest(".todo-item").remove());
+  $(".todo-item input[type='checkbox']:checked", todoList).forEach(box => box.closest(".todo-item").remove());
   updateTodoCount();
 });
 updateTodoCount();
