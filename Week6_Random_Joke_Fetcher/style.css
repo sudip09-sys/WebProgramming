@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root{--ink:#17342e;--muted:#667b74;--green:#176b58;--green-dark:#105342;--paper:#f4f6f1;--card:#fff;--line:#dce5de;--soft:#eaf3ed;--shadow:0 24px 70px rgba(27,65,52,.09)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 80% 10%,#e4efe6 0,transparent 28%),var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.site-header{height:76px;max-width:1120px;margin:auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(23,52,46,.1)}
+.brand{font-weight:700;display:flex;align-items:center;gap:9px;font-size:17px}.brand-mark{display:grid;place-items:center;background:var(--green);color:white;border-radius:10px;width:36px;height:36px;font-family:"DM Mono",monospace;font-size:13px}.brand-dot{color:var(--green)}
+.back-link{font-size:13px;color:var(--muted);font-weight:600}.back-link:hover{color:var(--green)}
+.page-shell{width:min(900px,calc(100% - 36px));margin:0 auto}
+.intro{padding:65px 0 35px;max-width:650px}
+.eyebrow{font-family:"DM Mono",monospace;color:var(--green);font-size:11px;letter-spacing:1.7px;font-weight:500;margin:0 0 18px}
+h1{font-family:"Playfair Display",serif;font-size:clamp(43px,7vw,72px);line-height:1.04;letter-spacing:-2px;margin:0;color:var(--ink)}h1 span{color:var(--green)}
+.intro-copy{font-size:17px;line-height:1.7;color:var(--muted);max-width:510px;margin:20px 0 0}
+.joke-card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.card-topline{display:flex;align-items:center;gap:10px;padding:20px 26px;border-bottom:1px solid var(--line);font-family:"DM Mono",monospace;font-size:10px;letter-spacing:1.2px;color:var(--muted)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#65a78a}.api-label{margin-left:auto;border:1px solid #cfe1d4;color:var(--green);border-radius:30px;padding:6px 9px;font-size:9px}
+.joke-content{padding:32px 38px 20px;min-height:235px}.joke-icon{font-family:"Playfair Display",serif;font-size:58px;color:#c8dfd0;height:52px;line-height:1}
+.label{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:1.5px;color:var(--green);margin:13px 0 9px}
+h2{font-family:"Playfair Display",serif;font-size:clamp(23px,3.5vw,32px);line-height:1.35;margin:0;max-width:700px}
+.punchline-box{margin-top:24px;padding:17px 20px;border-left:3px solid var(--green);background:#f4f8f4;border-radius:0 12px 12px 0}
+.punchline-box .label{margin-top:0}.punchline-box p:last-child{font-size:16px;line-height:1.65;margin:0;color:#35564a}
+.message{color:#a24a39;font-size:13px;margin:14px 0 0}.message:empty{display:none}
+.actions{display:flex;gap:12px;padding:4px 38px 28px;flex-wrap:wrap}
+.button{font:600 14px "DM Sans",sans-serif;border-radius:11px;padding:13px 18px;cursor:pointer;transition:transform .18s,background .18s,border-color .18s;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.button:hover:not(:disabled){transform:translateY(-2px)}.button:focus-visible,.clear-button:focus-visible{outline:3px solid #9bcbb0;outline-offset:3px}
+.button-primary{background:var(--green);color:white;border:1px solid var(--green)}.button-primary:hover:not(:disabled){background:var(--green-dark)}
+.button-secondary{background:white;color:var(--green);border:1px solid #cbded1}.button-secondary:hover:not(:disabled){background:var(--soft)}
+.button:disabled{opacity:.5;cursor:not-allowed}
+.loading-row{padding:0 38px 25px;display:flex;align-items:center;gap:11px;color:var(--muted);font-size:13px}.loading-row[hidden]{display:none}
+.spinner{width:18px;height:18px;border:2px solid #d5e5d9;border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.favourites{padding:48px 0 36px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:16px}.section-heading .eyebrow{margin-bottom:8px}.section-heading h2{font-size:29px}.section-heading h2 span{font:500 12px "DM Mono",monospace;display:inline-grid;place-items:center;vertical-align:middle;margin-left:6px;width:25px;height:25px;border-radius:50%;background:#e0ece3;color:var(--green)}
+.clear-button{border:0;background:transparent;color:var(--muted);font:600 12px "DM Sans",sans-serif;cursor:pointer;padding:8px}.clear-button:hover{color:#a24a39}
+.empty-state{border:1px dashed #cbd9cf;border-radius:14px;padding:23px;color:var(--muted);font-size:14px;line-height:1.6;margin-top:20px}
+.favourite-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+.favourite-item{background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;align-items:start;justify-content:space-between;gap:20px}
+.favourite-item h3{font-size:15px;line-height:1.5;margin:0 0 7px}.favourite-item p{font-size:13px;line-height:1.6;color:var(--muted);margin:0}
+.remove-button{border:1px solid var(--line);border-radius:8px;background:white;color:var(--muted);padding:7px 10px;cursor:pointer;font-size:12px;white-space:nowrap}.remove-button:hover{color:#a24a39;border-color:#e7c9c1}
+.page-footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:22px 0 28px;color:#7a8b84;font-size:11px}
+@media(max-width:600px){.site-header{height:66px;padding:0 18px}.back-link{font-size:11px}.page-shell{width:calc(100% - 28px)}.intro{padding:47px 0 27px}h1{letter-spacing:-1.4px}.intro-copy{font-size:15px}.card-topline{padding:17px 19px}.joke-content{padding:26px 21px 18px;min-height:220px}.actions{padding:4px 21px 22px}.button{flex:1;padding:12px 10px;font-size:12px}.loading-row{padding:0 21px 22px}.favourites{padding-top:38px}.section-heading h2{font-size:25px}.favourite-item{padding:15px;gap:10px}.page-footer{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
