@@ -51,3 +51,20 @@ body.dark .nav-item.active{background:#282342}
 .modal{position:fixed;inset:0;background:rgba(10,12,22,.55);display:grid;place-items:center;z-index:20}.modal.hidden{display:none}.modal-box{width:min(410px,90%);background:var(--surface);border-radius:17px;padding:25px;position:relative}.modal-box h2{margin:8px 0 20px}.modal-box label{display:block;font-size:11px;color:var(--muted);margin:12px 0 5px}.modal-box input{width:100%}.full{width:100%;margin-top:18px}.close{position:absolute;right:17px;top:15px;border:0;background:transparent;font-size:24px;padding:0}
 @media(max-width:900px){.sidebar{width:205px}.main{margin-left:205px;padding:28px}.stat-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid,.attendance-layout{grid-template-columns:1fr}.builder-row{grid-template-columns:1fr 1fr}.builder-row input,.builder-row button{grid-column:1/-1}}
 @media(max-width:650px){.sidebar{display:none}.main{margin:0;padding:18px}.mobile-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.mobile-header button{border:0}.welcome{align-items:flex-start;gap:15px}.welcome h1,.page-title h1{font-size:25px}.stat-grid{grid-template-columns:1fr 1fr}.student-grid{grid-template-columns:1fr}.timer-display{font-size:48px}.builder-row{grid-template-columns:1fr}.builder-row input,.builder-row button{grid-column:auto}.date-box{display:none}}
+
+
+/* Accessibility and resilience pass — shared finishing layer */
+html { scroll-behavior: smooth; }
+img, svg, video, canvas { max-width: 100%; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--blue, #83b9ff); outline-offset: 3px; }
+button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: not-allowed; opacity: .62; }
+::selection { background: var(--purple, #9d83ff); color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media (max-width: 520px) {
+  img, video, canvas { height: auto; }
+  pre, code { overflow-wrap: anywhere; }
+}
