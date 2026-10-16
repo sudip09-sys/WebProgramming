@@ -32,7 +32,35 @@ footer{padding:26px 0 32px;display:flex;align-items:center;justify-content:space
 @media(max-width:540px){.wrap{width:calc(100% - 30px)}.nav{height:62px}.navlinks{display:none}.navcta{padding:9px 12px}.hero{padding:55px 0 35px}h1{font-size:clamp(51px,14vw,75px)}.hero-aside{padding-left:15px}.hero-art{margin-top:35px;min-height:470px}.art-copy{padding:24px;min-height:230px}.art-headline{font-size:42px}.art-scene{min-height:240px}.sun{width:130px;height:130px}.shape-a{width:180px}.shape-b{width:160px}.stats{grid-template-columns:1fr}.stat{padding:12px 0}.stat+.stat{border-left:0;border-top:1px solid var(--line);padding-left:0}.stat strong{font-size:24px}.section{padding:55px 0}.section-heading h2,.archive-top h2{font-size:43px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.category{min-height:130px;padding:13px}.category-symbol{margin-bottom:12px}.search{min-width:100%}.filter{padding:0 11px}.file-grid{grid-template-columns:1fr}.week-head{padding:13px;gap:9px}.week-number{width:32px;height:32px}.week-title{font-size:11px}.week-count{font-size:8px}.approach-grid{grid-template-columns:1fr;gap:23px}.endcap{padding:27px;align-items:start}.end-mark{width:60px;height:60px;font-size:17px}.endcap h2{font-size:39px}footer{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 </style>
-</head>
+
+<style>
+/* Muzli-inspired visual-first homepage refresh */
+:root{--paper:#f7f7f4;--ink:#20211e;--muted:#777970;--line:#e5e5df}
+.hero-art{display:grid;grid-template-columns:1.08fr .92fr;min-height:400px;background:#e8e9e2;border-radius:5px;overflow:hidden}
+.art-copy{padding:36px;min-height:400px}.art-headline{font-size:clamp(40px,5.5vw,70px);letter-spacing:-.085em;line-height:.95}
+.art-scene{min-height:400px;background:#d4d9cd url('https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=85') center/cover no-repeat}
+.art-scene:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#17201800 35%,#17201835)}
+.sun,.shape-a,.shape-b,.shape-c{display:none}.floating-tag{right:22px;top:auto;bottom:22px;border-radius:3px;box-shadow:0 8px 30px #0002}
+.hero-art:after{content:"DESIGN INSPIRATION / 001";position:absolute;top:20px;right:20px;z-index:4;background:#f7f7f0;padding:8px 11px;font:9px var(--mono);letter-spacing:1px}
+.feature-grid{gap:13px}.feature{border-radius:4px;min-height:310px}.feature-main{background:#e0e5d9}.feature-side{background:#e8e3ef}.feature h3{font-weight:600}
+.section-heading h2,.archive-top h2{font-weight:600}.topbar{background:#f7f7f4ed}.brand-mark{border-radius:50%}
+.folder-card{border:1px solid #dedfd7;background:#fbfbf8;border-radius:4px;overflow:hidden;margin-bottom:9px}
+.folder-card summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:15px 17px}
+.folder-card summary::-webkit-details-marker{display:none}
+.folder-icon{width:32px;height:32px;display:grid;place-items:center;background:#e4e8dc;border-radius:3px;font:12px var(--mono)}
+.folder-title{font-size:11px;font-weight:800;flex:1}.folder-count{font:9px var(--mono);color:#777970}.folder-chevron{font-size:13px;color:#777970}
+.folder-card:not([open]) .folder-chevron{transform:rotate(-90deg)}
+.file-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#dedfd7;border-top:1px solid #dedfd7}
+.file-row{display:flex;align-items:center;gap:10px;padding:12px;background:#fff;min-width:0}
+.file-type{width:32px;height:34px;display:grid;place-items:center;flex-shrink:0;border-radius:3px;background:#dbe8ff;color:#344b7c;font:9px var(--mono)}
+.file-type.type-css{background:#f8e4e8;color:#994d63}.file-type.type-js{background:#e8efce;color:#566c22}
+.file-name{flex:1;min-width:0;font-size:10px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-name small{display:block;font:9px var(--mono);color:#8a8c83;margin-top:4px;overflow:hidden;text-overflow:ellipsis}
+.file-actions{display:flex;gap:9px;flex-shrink:0}.file-actions a{font-size:9px;color:#777970}.file-actions a:hover{color:#111;text-decoration:underline}
+.empty-state{padding:26px;text-align:center;border:1px dashed #d2d3ca;color:#777970;font-size:11px}
+@media(max-width:800px){.hero-art{grid-template-columns:1fr}.art-copy{min-height:250px}.art-scene{min-height:260px}}
+@media(max-width:540px){.file-list{grid-template-columns:1fr}.hero-art{min-height:0}.art-copy{padding:25px;min-height:230px}.art-scene{min-height:250px}.file-actions{gap:7px}}
+</style>\n</head>
 <body>
 <div class="topbar"><nav class="nav wrap" aria-label="Main navigation">
 <a class="brand" href="./"><span class="brand-mark">SS.</span><span>Sudip Sah <span style="font-weight:500;color:#85877e">/ Web Studio</span></span></a>
@@ -42,8 +70,8 @@ footer{padding:26px 0 32px;display:flex;align-items:center;justify-content:space
 <main>
 <header class="hero wrap">
 <div class="eyebrow"><span class="live-dot"></span> Student developer · Gachon University</div>
-<div class="hero-grid"><h1>Learning by<br>making<span>the web.</span></h1><div class="hero-aside"><p>A living collection of experiments, coursework and small ideas taking shape. Built one concept at a time, with room to question, refine and make things better.</p><a class="text-link" href="#work">Get to know the work <b>↗</b></a></div></div>
-<div class="hero-art" aria-label="Abstract editorial illustration for the web studio"><div class="art-copy"><div class="art-label">Independent learning journal · 2026</div><div class="art-headline">Curiosity is<br>a good place<br>to start.</div><div class="art-foot">DESIGNING · BUILDING · LEARNING</div></div><div class="art-scene"><div class="sun"></div><div class="shape-a"></div><div class="shape-b"></div><div class="shape-c"></div><div class="floating-tag">NOW EXPLORING<strong>Web technologies ↗</strong></div></div></div>
+<div class="hero-grid"><h1>A little more<br>curious<span>every day.</span></h1><div class="hero-aside"><p>A visual notebook of things I’m learning, building and collecting along the way. Small experiments, useful details and ideas worth exploring.</p><a class="text-link" href="#work">Get to know the work <b>↗</b></a></div></div>
+<div class="hero-art" aria-label="Abstract editorial illustration for the web studio"><div class="art-copy"><div class="art-label">Independent learning journal · 2026</div><div class="art-headline">Curiosity is<br>a good place<br>to start.</div><div class="art-foot">DESIGNING · BUILDING · LEARNING</div></div><div class="art-scene" role="img" aria-label="Sunlit creative workspace inspired by contemporary web design"><div class="floating-tag">CURRENT FOCUS<strong>Web design &amp; interaction ↗</strong></div></div></div>
 <div class="stats"><div class="stat"><strong id="html-count">—</strong><span>HTML pages in the lab</span></div><div class="stat"><strong id="folder-count">—</strong><span>Collections & folders</span></div><div class="stat"><strong>03</strong><span>Core technologies · HTML / CSS / JS</span></div></div>
 </header>
 <section class="section wrap reveal" id="work">
