@@ -6,7 +6,6 @@ window.COURSE_DATA = {
       "tag": "HTML foundations",
       "type": "html",
       "description": "Structure, headings, lists, links, images, tables, and forms.",
-      "ref": "week1",
       "count": 15,
       "added": 3
     },
@@ -16,7 +15,6 @@ window.COURSE_DATA = {
       "tag": "HTML practice",
       "type": "html",
       "description": "Meaningful structure, articles, figures, quotations, and accessibility.",
-      "ref": "week2",
       "count": 10,
       "added": 2
     },
@@ -26,7 +24,6 @@ window.COURSE_DATA = {
       "tag": "CSS introduction",
       "type": "css",
       "description": "Selectors, typography, the box model, Flexbox, and specificity.",
-      "ref": "week3_1",
       "count": 33,
       "added": 2
     },
@@ -36,7 +33,6 @@ window.COURSE_DATA = {
       "tag": "CSS practice",
       "type": "css",
       "description": "Positioning, transitions, animation, themes, and responsive grids.",
-      "ref": "week3_2",
       "count": 8,
       "added": 1
     },
@@ -46,7 +42,6 @@ window.COURSE_DATA = {
       "tag": "DOM & events",
       "type": "js",
       "description": "Focused examples and four interactive exercises, plus StudyHub.",
-      "ref": "week4",
       "count": 12,
       "added": 10
     },
@@ -56,7 +51,6 @@ window.COURSE_DATA = {
       "tag": "JavaScript logic",
       "type": "js",
       "description": "Decisions, repetition, arrays, and displaying results in the browser.",
-      "ref": "week5",
       "count": 2,
       "added": 2
     },
@@ -66,7 +60,6 @@ window.COURSE_DATA = {
       "tag": "API practice",
       "type": "js",
       "description": "JSON, promises, request journeys, error handling, and real data.",
-      "ref": "week6",
       "count": 8,
       "added": 7
     },
@@ -76,7 +69,6 @@ window.COURSE_DATA = {
       "tag": "Week 7",
       "type": "js",
       "description": "Build an Open Library app in six stages, then explore the finished project.",
-      "ref": "week7/2",
       "count": 8,
       "added": 8
     }

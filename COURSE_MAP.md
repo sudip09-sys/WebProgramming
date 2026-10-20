@@ -1,23 +1,19 @@
-# Coursework reference map
+# Learning map
 
-Topic order follows the professor’s repository. Its folder names and homepage week labels sometimes differ, so existing submission paths are preserved. This is a coverage map, not a claim that every linked item is mandatory or submitted.
+A topic-by-topic guide to the Web Studio. Existing exercise URLs stay available while topic indexes make the collection easier to explore.
 
-| Topic | Professor reference | Personal collection |
+| Topic | Examples | Collection |
 |---|---|---|
-| HTML fundamentals | [week1](https://github.com/muxiddin19/web_pro/tree/main/week1) | [15 examples](coursework/html-fundamentals/index.html) |
-| Semantic HTML | [week2](https://github.com/muxiddin19/web_pro/tree/main/week2) | [10 examples](coursework/semantic-html/index.html) |
-| CSS fundamentals | [week3_1](https://github.com/muxiddin19/web_pro/tree/main/week3_1) | [33 examples](coursework/css-fundamentals/index.html) |
-| Advanced CSS | [week3_2](https://github.com/muxiddin19/web_pro/tree/main/week3_2) | [8 examples](coursework/css-advanced/index.html) |
-| JavaScript & the DOM | [week4](https://github.com/muxiddin19/web_pro/tree/main/week4) | [12 examples](coursework/javascript-dom/index.html) |
-| Conditions & loops | [week5](https://github.com/muxiddin19/web_pro/tree/main/week5) | [2 examples](coursework/javascript-logic/index.html) |
-| Fetch & APIs | [week6](https://github.com/muxiddin19/web_pro/tree/main/week6) | [8 examples](coursework/fetch-and-apis/index.html) |
-| Book search lab | [week7/2](https://github.com/muxiddin19/web_pro/tree/main/week7/2) | [8 examples](coursework/week-07-book-search/index.html) |
+| HTML fundamentals | 15 | [Explore](coursework/html-fundamentals/index.html) |
+| Semantic HTML | 10 | [Explore](coursework/semantic-html/index.html) |
+| CSS fundamentals | 33 | [Explore](coursework/css-fundamentals/index.html) |
+| Advanced CSS | 8 | [Explore](coursework/css-advanced/index.html) |
+| JavaScript & the DOM | 12 | [Explore](coursework/javascript-dom/index.html) |
+| Conditions & loops | 2 | [Explore](coursework/javascript-logic/index.html) |
+| Fetch & APIs | 8 | [Explore](coursework/fetch-and-apis/index.html) |
+| Book search lab | 8 | [Explore](coursework/week-07-book-search/index.html) |
 
-## Existing work
-
-Week2_1 maps to HTML foundations; Week2_2 to semantic HTML. Week3_1 and Week3_2 jointly cover CSS fundamentals and practice; Week3_Assignment covers advanced CSS. Week4_1 and Week4_2 cover DOM applications and the four practice exercises. Week6_Random_Joke_Fetcher remains the JokeLab project.
-
-## Added focused examples
+## Focused examples and lab stages
 
 - [A complete HTML profile](coursework/html-fundamentals/profile.html)
 - [Recipe with nested lists](coursework/html-fundamentals/recipe.html)
@@ -55,10 +51,6 @@ Week2_1 maps to HTML foundations; Week2_2 to semantic HTML. Week3_1 and Week3_2 
 - [BookFinder — complete app](coursework/week-07-book-search/solution.html)
 - [Open Library API explorer](coursework/week-07-book-search/api-explorer.html)
 
-## Corrections
+## Make something of your own
 
-- Clear completed selects all checked tasks before iteration.
-- The headings exercise now demonstrates h1 through h6.
-- Removed Markdown fences from the combined HTML page.
-- Closed the lists document correctly.
-- Original URLs and filenames are preserved, including historical spelling. Descriptive topic indexes provide the clean navigation layer.
+Try the homepage Idea Mixer for small creative challenges. Choose HTML, CSS, or JavaScript; shuffle a prompt; save an idea for your next practice session.

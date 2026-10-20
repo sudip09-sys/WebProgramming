@@ -1,12 +1,12 @@
 # Sudip Sah — Web Studio
 
-Personal Web Programming coursework at Gachon University.
+A personal notebook of web experiments, coursework, and interactive projects.
 
 - [Live portfolio](https://sudip09-sys.github.io/WebProgramming/)
-- [Course map](COURSE_MAP.md)
-- [Professor’s reference repository](https://github.com/muxiddin19/web_pro)
+- [Learning map](COURSE_MAP.md)
+- [Start here in VS Code](START-HERE.md)
 
-## Browse by topic
+## Explore
 
 - [HTML fundamentals](coursework/html-fundamentals/index.html) — 15 examples
 - [Semantic HTML](coursework/semantic-html/index.html) — 10 examples
@@ -19,19 +19,31 @@ Personal Web Programming coursework at Gachon University.
 
 ## Projects
 
-- [StudyHub](Week4_1/index.html): DOM tasks, directory, attendance, timer.
+- [StudyHub](Week4_1/index.html): tasks, directory, attendance, and a study timer.
 - [JokeLab](Week6_Random_Joke_Fetcher/index.html): jokes and saved favourites.
-- [BookFinder](coursework/week-07-book-search/solution.html): Open Library search with six learning stages.
-- [Team project guidance](projects/team-project/index.html): references; no fabricated submission.
-
-## Organization
-
-The homepage and topic indexes use assets/css/studio.css and assets/js/. The course manifest is assets/js/course-data.js. Existing Week* files retain their original URLs to preserve submission links. New focused examples live under coursework/. Labels describe coverage, not completion of an assignment.
+- [BookFinder](coursework/week-07-book-search/solution.html): book search with six learning stages.
+- [Idea mixer](index.html#idea-lab): creative prompts, focus filters, and saved sparks stored in your browser.
+- [Team project](projects/team-project/index.html): space for planning future work.
 
 ## Run locally
 
-Requires Node.js 18 or newer. Run `node scripts/serve.mjs` and open http://127.0.0.1:4173. Run `node scripts/check.mjs` for local links and JavaScript syntax checks. No build or package install is required.
+Open this folder in VS Code. With Node.js 18 or newer, run:
 
-## References and external services
+```sh
+node scripts/serve.mjs
+```
 
-The course sequence is informed by muxiddin19/web_pro. Added demonstrations are original implementations of those concepts; lecture files and team submissions are linked rather than copied. API examples use JSONPlaceholder, Open-Meteo, the Official Joke API, and Open Library. API availability and cover images depend on those services. No keys are required. Google Fonts is optional; system fonts are used if it is unavailable.
+Then open http://127.0.0.1:4173. No build or package installation is needed. You can also use VS Code’s Live Server extension. Run `node scripts/check.mjs` to check local links and JavaScript syntax.
+
+## Folder guide
+
+- `index.html`: homepage.
+- `assets/`: shared styles, scripts, and illustrations.
+- `coursework/`: topic indexes and focused examples.
+- `Week*/`: existing exercises and projects at their original URLs.
+- `projects/`: project planning pages.
+- `scripts/`: local server and verification.
+
+## External services
+
+API examples use JSONPlaceholder, Open-Meteo, the Official Joke API, and Open Library. API availability and cover images depend on those services; no API keys are required. Google Fonts is optional, with system-font fallbacks. Browser-saved ideas and favourites stay on the device where they are saved.
