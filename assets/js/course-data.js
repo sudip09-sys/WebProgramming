@@ -71,6 +71,15 @@ window.COURSE_DATA = {
       "description": "Build an Open Library app in six stages, then explore the finished project.",
       "count": 8,
       "added": 8
+    },
+    {
+      "id": "forms-and-validation",
+      "name": "Forms & validation",
+      "tag": "Week 6 Monday",
+      "type": "html",
+      "description": "HTML forms, native validation, accessible labels, CSS feedback and two homework forms.",
+      "count": 5,
+      "added": 5
     }
   ],
   "entries": [
@@ -649,6 +658,36 @@ window.COURSE_DATA = {
       "title": "Open Library API explorer",
       "path": "coursework/week-07-book-search/api-explorer.html",
       "kind": "Added example"
+    },
+    {
+      "group": "forms-and-validation",
+      "title": "E1 · Login form",
+      "path": "coursework/forms-and-validation/E1_Login_Form.html",
+      "kind": "Completed exercise"
+    },
+    {
+      "group": "forms-and-validation",
+      "title": "E2 · Validation attributes",
+      "path": "coursework/forms-and-validation/E2_Validation_Attributes.html",
+      "kind": "Completed exercise"
+    },
+    {
+      "group": "forms-and-validation",
+      "title": "E3 · CSS validation states",
+      "path": "coursework/forms-and-validation/E3_Validation_Styles.html",
+      "kind": "Completed exercise"
+    },
+    {
+      "group": "forms-and-validation",
+      "title": "Student registration",
+      "path": "coursework/forms-and-validation/HW_Student_Registration.html",
+      "kind": "Completed homework"
+    },
+    {
+      "group": "forms-and-validation",
+      "title": "Personal-site contact form",
+      "path": "coursework/forms-and-validation/HW_Contact_Form.html",
+      "kind": "Completed homework"
     }
   ]
 };

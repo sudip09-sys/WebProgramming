@@ -11,6 +11,7 @@ A topic-by-topic guide to the Web Studio. Existing exercise URLs stay available 
 | JavaScript & the DOM | 12 | [Explore](coursework/javascript-dom/index.html) |
 | Conditions & loops | 2 | [Explore](coursework/javascript-logic/index.html) |
 | Fetch & APIs | 8 | [Explore](coursework/fetch-and-apis/index.html) |
+| Forms & validation | 5 | [Explore](coursework/forms-and-validation/index.html) |
 | Book search lab | 8 | [Explore](coursework/week-07-book-search/index.html) |
 
 ## Focused examples and lab stages
@@ -54,3 +55,11 @@ A topic-by-topic guide to the Web Studio. Existing exercise URLs stay available 
 ## Make something of your own
 
 Try the homepage Idea Mixer for small creative challenges. Choose HTML, CSS, or JavaScript; shuffle a prompt; save an idea for your next practice session.
+
+## Week 6 Monday forms lab
+
+- [E1 · Login form](coursework/forms-and-validation/E1_Login_Form.html)
+- [E2 · Validation attributes](coursework/forms-and-validation/E2_Validation_Attributes.html)
+- [E3 · CSS validation states](coursework/forms-and-validation/E3_Validation_Styles.html)
+- [Student registration](coursework/forms-and-validation/HW_Student_Registration.html)
+- [Personal-site contact form](coursework/forms-and-validation/HW_Contact_Form.html)
