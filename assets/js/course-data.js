@@ -75,7 +75,7 @@ window.COURSE_DATA = {
     {
       "id": "forms-and-validation",
       "name": "Forms & validation",
-      "tag": "Week 6 Monday",
+      "tag": "Week 8 Friday",
       "type": "html",
       "description": "HTML forms, native validation, accessible labels, CSS feedback and two homework forms.",
       "count": 5,

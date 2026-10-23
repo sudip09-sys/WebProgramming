@@ -1,4 +1,4 @@
-# Week 6 Monday — Forms & HTML5 Validation
+# Week 8 Friday — Forms & HTML5 Validation
 
 Completed by SAH SUDIP for K0126002, Gachon University.
 

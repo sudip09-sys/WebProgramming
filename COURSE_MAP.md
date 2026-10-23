@@ -56,7 +56,7 @@ A topic-by-topic guide to the Web Studio. Existing exercise URLs stay available 
 
 Try the homepage Idea Mixer for small creative challenges. Choose HTML, CSS, or JavaScript; shuffle a prompt; save an idea for your next practice session.
 
-## Week 6 Monday forms lab
+## Week 8 Friday forms lab
 
 - [E1 · Login form](coursework/forms-and-validation/E1_Login_Form.html)
 - [E2 · Validation attributes](coursework/forms-and-validation/E2_Validation_Attributes.html)
