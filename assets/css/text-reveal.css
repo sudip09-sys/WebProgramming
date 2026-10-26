@@ -1,0 +1,15 @@
+/* Scramble overlays reserve the original word widths and accessible text. */
+.decode-segment,.decode-word,.decode-original,.decode-text{font:inherit;letter-spacing:inherit;color:inherit}
+.decode-word{display:inline-block;position:relative;white-space:nowrap}
+.decode-original{opacity:1}
+.decode-word>.decode-text{display:none;position:absolute;inset:0;overflow:hidden;white-space:nowrap;pointer-events:none;font-variant-ligatures:none}
+[data-decoding=true] .decode-original{opacity:0}
+[data-decoding=true] .decode-word>.decode-text{display:block}
+.decode-glyph{font:inherit;letter-spacing:inherit}
+.decode-glyph[data-tint=cyan]{color:#087a94}
+.decode-glyph[data-tint=violet]{color:#7650bc}
+.decode-glyph[data-tint=pink]{color:#ac3e8c}
+html[data-theme=dark] .decode-glyph[data-tint=cyan]{color:#8fd8ed}
+html[data-theme=dark] .decode-glyph[data-tint=violet]{color:#b1a0ec}
+html[data-theme=dark] .decode-glyph[data-tint=pink]{color:#d18cc4}
+@media(prefers-reduced-motion:reduce){[data-decoding=true] .decode-original{opacity:1}[data-decoding=true] .decode-word>.decode-text{display:none}}
