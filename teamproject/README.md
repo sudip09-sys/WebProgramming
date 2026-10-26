@@ -52,3 +52,17 @@ No backend, accounts, online multiplayer, or saved scores are included.
 Each round opens with a three-second preview. Cards cannot be selected during preview; the round clock starts afterward. Card flips, matching highlights, a progress bar, combo feedback, and an end-of-round accuracy summary make progress visible. Reduced-motion preferences disable animation. No saved scores or accounts are used.
 
 beginPreview() locks the engine; endPreview() unlocks it. game.mjs manages the preview deadline separately from the round countdown. The card front and back are spans rotated by CSS; the game rules still live in engine.mjs.
+
+## Team and presentation package
+Team: Sudip, Sondor, Eric, Abinash.
+
+- [Browser presentation (8 slides)](presentation.html)
+- [Four speaking scripts and Q&A](scripts.html)
+- [Project report](report.html)
+- [Submission guide and demo checklist](submission.html)
+
+Open these pages through GitHub Pages for the rendered version. The presentation supports arrow keys, fullscreen, and Print / PDF. Documents include Print / Save as PDF. Suggested duration: 10–12 minutes including a live demo. These are browser documents, not PPTX or DOCX files.
+
+Speaking assignments are suggestions, not verified implementation contributions. Complete the report's contribution table before submitting.
+
+Validation on 26 October 2026: all six existing engine tests passed with Node's test runner (zero failures). Browser and manual checks are separate from these engine tests.
