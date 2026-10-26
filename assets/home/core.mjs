@@ -1,0 +1,10 @@
+export const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
+export function randomInt(max){if(!Number.isInteger(max)||max<1||max>4294967296)throw Error('Invalid random range');const limit=4294967296-(4294967296%max);const a=new Uint32Array(1);do{crypto.getRandomValues(a)}while(a[0]>=limit);return a[0]%max}
+export function shuffled(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=randomInt(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+export const characterSets={upper:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',lower:'abcdefghijklmnopqrstuvwxyz',digits:'0123456789',symbols:'!@#$%^&*()-_=+[]{}:,.?'};
+export function makePassword(length,groups,exclude=false){if(!Number.isInteger(length)||length<8||length>128)throw Error('Choose a length from 8 to 128.');const sets=groups.map(k=>characterSets[k]).filter(Boolean).map(s=>exclude?s.replace(/[O0Il1|]/g,''):s);if(!sets.length)throw Error('Select at least one character type.');const pool=sets.join('');const chars=sets.map(s=>s[randomInt(s.length)]);while(chars.length<length)chars.push(pool[randomInt(pool.length)]);return shuffled(chars).join('')}
+export function contrast(hex1,hex2){const lum=hex=>{const c=hex.replace('#','');if(!/^[0-9a-f]{6}$/i.test(c))throw Error('Enter a six-digit hex color.');const v=[0,2,4].map(i=>parseInt(c.slice(i,i+2),16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);return v[0]*.2126+v[1]*.7152+v[2]*.0722};const a=lum(hex1),b=lum(hex2);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)}
+export function timeParts(ms){const s=Math.max(0,Math.floor(ms/1000));return {days:Math.floor(s/86400),hours:Math.floor(s/3600)%24,minutes:Math.floor(s/60)%60,seconds:s%60}}
+export const slideIndex=(n,total)=>((n%total)+total)%total;
+export function weatherLabel(code){if(code===0)return ['☀','Clear sky'];if(code<=3)return ['⛅','Partly cloudy'];if(code<=48)return ['☁','Foggy'];if(code<=67)return ['☂','Rain'];if(code<=77)return ['❄','Snow'];if(code<=82)return ['☂','Rain showers'];if(code<=86)return ['❄','Snow showers'];return ['ϟ','Thunderstorms']}
+export const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
