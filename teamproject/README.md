@@ -47,3 +47,8 @@ Use practice mode to explain the rules without time pressure.
 This is a playable project, not a submitted proposal or claim of professor approval.
 No backend, accounts, online multiplayer, or saved scores are included.
 
+
+## Arcade interface update
+Each round opens with a three-second preview. Cards cannot be selected during preview; the round clock starts afterward. Card flips, matching highlights, a progress bar, combo feedback, and an end-of-round accuracy summary make progress visible. Reduced-motion preferences disable animation. No saved scores or accounts are used.
+
+beginPreview() locks the engine; endPreview() unlocks it. game.mjs manages the preview deadline separately from the round countdown. The card front and back are spans rotated by CSS; the game rules still live in engine.mjs.

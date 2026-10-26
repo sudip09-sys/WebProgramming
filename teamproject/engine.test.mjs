@@ -26,3 +26,11 @@ test('timeout during a reveal cannot resume play; untimed modes stay active',()=
  for(const mode of ['practice','duel']){const p=create('easy',mode);tick(p,1000);assert.equal(p.phase,'playing');}
 });
 
+
+import {beginPreview,endPreview} from './engine.mjs';
+test('preview blocks flips and countdown, then allows normal play',()=>{
+ const g=create('easy','timed');beginPreview(g);flip(g,0);tick(g,4);
+ assert.equal(g.open.length,0);assert.equal(g.time,120);
+ endPreview(g);flip(g,0);tick(g,1);assert.equal(g.open.length,1);assert.equal(g.time,119);
+ g.phase='lost';endPreview(g);assert.equal(g.phase,'lost');
+});

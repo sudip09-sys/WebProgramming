@@ -1,12 +1,20 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Memory Match · Team Project</title><link rel="stylesheet" href="style.css?v=1"><script type="module" src="game.mjs?v=1"></script></head>
-<body><header><a href="../index.html">← Web Studio</a><span>TEAM PROJECT / 01</span><a href="README.md">Code guide ↗</a></header>
-<main><p class="eyebrow">A LITTLE FOCUS. A BETTER MEMORY.</p><h1>Make the<br><em>connection.</em></h1><p>Find the pairs. Build a streak. Beat the clock.</p>
-<section class="game" aria-label="Memory Match"><div class="controls">
-<label>Difficulty<select id="level"><option value="easy">Easy · 6 pairs</option><option value="medium" selected>Medium · 8 pairs</option><option value="hard">Hard · 12 pairs</option></select></label>
-<label>Mode<select id="mode"><option value="timed">Timed challenge</option><option value="practice">Relaxed practice</option><option value="duel">Two-player duel</option></select></label>
-<button id="start" class="primary">Start game</button><button id="hint" disabled>Peek</button></div>
-<p class="note">Settings apply on Start / Restart. Duel is played together on one device.</p>
-<div class="stats"><div>PAIRS<strong id="pairs">—</strong></div><div>MOVES<strong id="moves">0</strong></div><div>TIME LEFT<strong id="time">—</strong></div><div>SCORE<strong id="points">0</strong></div></div>
-<p id="status" role="status">Choose your challenge, then press Start game.</p><div id="board" class="board" aria-label="Memory cards"></div><div id="result" hidden></div><noscript>Enable JavaScript to play.</noscript></section>
-<section class="rules"><h2>Simple rules. Sharper thinking.</h2><ol><li>Reveal two cards. Matching symbols stay open.</li><li>Consecutive matches earn a combo bonus: 100, 125, 150, 175, then 200 points per pair. A mismatch resets the streak.</li><li>Peek reveals all cards for one second. It costs 50 points, with a minimum score of zero. Hints are limited.</li><li>Timed mode: finish before the clock reaches zero. The timer continues in background tabs.</li><li>Duel: a match keeps your turn; a mismatch passes it. Most pairs wins. Practice and duel have no timer.</li></ol></section></main><footer>Memory Match · Web Programming Team Project</footer></body></html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0c19"><title>Memory Match — Neon Arcade</title><link rel="stylesheet" href="style.css?v=2"><script type="module" src="game.mjs?v=2"></script></head>
+<body><header><a href="../index.html">← Web Studio</a><a class="brand" href="#">✳ MEMORY<span>MATCH</span></a><a href="README.md">How it works ↗</a></header>
+<main><section class="intro"><div><p class="eyebrow">THE BRAIN'S FAVORITE PLAYGROUND</p><h1>Trust your eyes.<br><em>Test your memory.</em></h1><p>A flash of a symbol. A little intuition. One perfect match.</p></div><div class="hero-cards" aria-hidden="true"><span>✦</span><span>✦</span><small>FIND YOUR OTHER HALF</small></div></section>
+<div class="layout"><aside class="setup"><span class="eyebrow">01 / SET YOUR CHALLENGE</span><h2>Your game.<br>Your rules.</h2>
+<label>Difficulty<select id="level"><option value="easy">Warm-up · 6 pairs</option><option value="medium" selected>Focused · 8 pairs</option><option value="hard">Expert · 12 pairs</option></select></label>
+<label>Game mode<select id="mode"><option value="timed">⚡ Beat the clock</option><option value="practice">☁ No-pressure practice</option><option value="duel">⚔ Two-player duel</option></select></label>
+<button id="start" class="primary">Let's play →</button><button id="hint" disabled>◎ Peek at the board</button>
+<p class="note">Start with a 3-second preview. Settings apply when you start a new round.</p>
+<div class="tip"><b>MAKE IT A STREAK</b><p>Match without missing to earn up to <strong>200 points</strong> per pair.</p></div>
+<details><summary>The rules, in 30 seconds</summary><ul><li>Find two identical symbols.</li><li>Matches earn 100 points, plus 25 per consecutive prior match, capped at 200.</li><li>A miss resets your streak.</li><li>Peek reveals every card for a second. It costs 50 points, floored at zero.</li><li>The timed clock continues in background tabs after the preview.</li><li>Duel is on one device: matching keeps your turn; missing passes it. Most pairs wins.</li></ul></details>
+</aside>
+<section class="arena" aria-label="Memory game"><div class="arena-head"><span class="eyebrow">02 / MAKE THE CONNECTION</span><span id="combo" class="pill">READY WHEN YOU ARE</span></div>
+<div class="stats"><div><span>PAIRS</span><strong id="pairs">0 / 8</strong></div><div><span>MOVES</span><strong id="moves">0</strong></div><div><span>TIME LEFT</span><strong id="time">100s</strong></div><div><span>SCORE</span><strong id="points">0</strong></div></div>
+<progress id="progress" value="0" max="8" aria-label="Matched pairs"></progress>
+<p id="status" role="status">Press “Let's play” to reveal your board.</p>
+<div id="board" class="board" aria-label="Memory cards"></div>
+<section id="result" class="result" aria-live="polite" hidden><div id="result-icon" aria-hidden="true">✦</div><h2 id="result-title"></h2><p id="result-copy"></p><button id="again" class="primary">Play another round ↗</button></section>
+<div class="arena-footer"><span>◆ Same symbol. Perfect pair.</span><span>Tab + Enter to play with a keyboard</span></div><noscript>Enable JavaScript to play this game.</noscript></section></div>
+</main><footer>WEB PROGRAMMING / TEAM PROJECT<span>A little focus goes a long way.</span></footer></body></html>

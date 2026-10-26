@@ -17,5 +17,9 @@ export function flip(g,i){
 }
 export function settle(g){if(g.phase!=='mismatch')return;g.open=[];if(g.mode==='duel')g.player=1-g.player;g.phase='playing';}
 export function hint(g){if(g.phase!=='playing'||g.open.length||!g.hints)return false;g.hints--;g.points=Math.max(0,g.points-50);g.phase='hint';return true;}
-export function tick(g,seconds){if(g.mode!=='timed'||['won','lost'].includes(g.phase))return;g.time=Math.max(0,g.time-seconds);if(!g.time)g.phase='lost';}
+export function tick(g,seconds){if(g.mode!=='timed'||['preview','won','lost'].includes(g.phase))return;g.time=Math.max(0,g.time-seconds);if(!g.time)g.phase='lost';}
 
+
+// Preview is separate from the round clock; clicks remain locked until it ends.
+export function beginPreview(g){g.phase='preview';}
+export function endPreview(g){if(g.phase==='preview')g.phase='playing';}
