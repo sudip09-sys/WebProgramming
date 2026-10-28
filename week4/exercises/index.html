@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="description" content="Week 4.2 JavaScript exercises: click counter, profile dark mode, to-do list, and live student search.">
+<title>Week 4.2 — JavaScript Exercises | Sudip Sah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<div class="progress-track"><span id="readingProgress"></span></div>
+<header class="topbar">
+  <a class="brand" href="../../index.html" aria-label="Back to Web Studio"><span class="brand-mark">S.</span><span>WEB STUDIO <small>WEEK 04.2</small></span></a>
+  <div class="lesson-nav"><span class="lesson-label">JAVASCRIPT · FOUR EXERCISES</span><button class="site-theme-toggle" id="siteThemeToggle" type="button" aria-pressed="false"><span id="siteThemeSymbol">☾</span><span id="siteThemeCopy">Dark mode</span></button><a class="back-link" href="../../index.html">← Portfolio</a></div>
+</header>
+<main>
+<section class="lesson-intro wrap">
+  <div class="intro-copy"><span class="intro-kicker"><i></i> BUILD · CLICK · FILTER · REPEAT</span><h1>Learn by<br><span>making things.</span></h1><p>Four small interactive builds. Change something, see what happens, and get comfortable making the browser respond to you.</p></div>
+  <div class="intro-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-core">JS<span>✳</span></div><div class="art-sticker">MAKE IT<br>INTERACTIVE ↗</div></div>
+</section>
+<section class="practice-section" id="exercises">
+ <div class="wrap">
+  <div class="section-heading"><div><span class="section-label">WEEK 04.2 / JAVASCRIPT EXERCISES</span><h2>Four exercises.<br><span>One working page.</span></h2></div><p>Four focused, interactive exercises to practise click events, class toggles, creating and deleting tasks, and live filtering.</p></div>
+  <div class="exercise-grid">
+   <article class="exercise-card exercise-counter"><div class="exercise-top"><span class="exercise-number">E1 / EVENTS</span><span class="exercise-tag">CLICK + STATE</span></div><h3>Click counter</h3><p>Tap the button. At five clicks, the counter changes colour to celebrate your progress.</p><div class="counter-stage" id="counterStage"><span class="stage-label">YOUR CLICKS</span><strong id="clickCount" aria-live="polite">00</strong><span class="counter-caption" id="counterCaption">Five clicks unlock the green state.</span><button id="countButton" class="counter-button">Count a click <span>＋</span></button></div><div class="exercise-actions"><button id="resetCounter" class="subtle-button">↺ Reset counter</button><span id="counterStatus">0 / 5 clicks</span></div></article>
+   <article class="exercise-card exercise-profile"><div class="exercise-top"><span class="exercise-number">E2 / CLASSES</span><span class="exercise-tag">DARK MODE</span></div><h3>Profile card</h3><p>Toggle the theme and see how one class can change the look of a component.</p><div class="profile-demo" id="profileDemo"><div class="profile-toolbar"><span>PROFILE PREVIEW</span><button id="themeToggle" class="theme-toggle" aria-pressed="false"><span id="themeIcon">☾</span><span id="themeLabel">Dark mode</span></button></div><div class="profile-content"><div class="avatar-art">S<span>✳</span></div><span class="profile-online"><i></i> AVAILABLE TO LEARN</span><h4>Sudip Shah</h4><p class="profile-role">Computer Engineering student</p><p class="profile-bio">Learning to turn ideas into useful, thoughtful web experiences.</p><div class="profile-stats"><div><b>04</b><span>WEEK</span></div><div><b>JS</b><span>FOCUS</span></div><div><b>∞</b><span>CURIOSITY</span></div></div></div></div></article>
+   <article class="exercise-card exercise-todo"><div class="exercise-top"><span class="exercise-number">E3 / DELEGATION</span><span class="exercise-tag">CREATE + DELETE</span></div><h3>To-do list</h3><p>Add a task with the button or Enter. Delete any task using its × control.</p><form id="todoForm" class="todo-form"><label class="sr-only" for="todoInput">New task</label><input id="todoInput" maxlength="100" placeholder="Add a task for today…" autocomplete="off"><button type="submit" aria-label="Add task">＋</button></form><div class="todo-toolbar"><span id="todoCount">03 TASKS</span><button id="clearCompleted" class="subtle-button">Clear completed</button></div><ul id="todoList" class="todo-list"><li class="todo-item"><label><input type="checkbox"><span>Review DOM selectors</span></label><button class="delete-task" aria-label="Delete Review DOM selectors">×</button></li><li class="todo-item"><label><input type="checkbox"><span>Practise event listeners</span></label><button class="delete-task" aria-label="Delete Practise event listeners">×</button></li><li class="todo-item"><label><input type="checkbox"><span>Build something small</span></label><button class="delete-task" aria-label="Delete Build something small">×</button></li></ul><p id="todoFeedback" class="todo-feedback" aria-live="polite">Small steps count. Add one more task.</p></article>
+   <article class="exercise-card exercise-search"><div class="exercise-top"><span class="exercise-number">E4 / FILTERING</span><span class="exercise-tag">LIVE SEARCH</span></div><h3>Student finder</h3><p>Type a name, major, or year. Results update as you type — no submit button needed.</p><label class="search-label" for="studentSearch">SEARCH STUDENTS</label><div class="student-search"><span>⌕</span><input id="studentSearch" type="search" placeholder="Try “design” or “Mina”" autocomplete="off"><kbd>/</kbd></div><div class="student-summary"><span id="studentResultCount">06 STUDENTS</span><span>DIRECT MATCH</span></div><div id="studentList" class="student-list" aria-live="polite"></div><div id="studentEmpty" class="student-empty" hidden><span>⌕</span><strong>No students found</strong><p>Try a different name, major, or year.</p></div></article>
+  </div>
+  
+ </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><a class="brand" href="../../index.html"><span class="brand-mark">S.</span><span>WEB STUDIO <small>LEARNING JOURNAL</small></span></a><p>Four exercises. Real browser interactions.</p><div><span>WEEK 04.2 · JAVASCRIPT</span><a href="../../index.html">Back to portfolio ↑</a></div></div></footer>
+</body>
+</html>

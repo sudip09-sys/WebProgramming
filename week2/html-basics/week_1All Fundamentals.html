@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta name="theme-color" content="#f5f7fa"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style data-polished-lab="true">:root{--ink:#171a22;--muted:#687080;--line:#e2e6ec;--paper:#f5f7fa;--green:#426d00}*{box-sizing:border-box}body{margin:0!important;padding:26px max(16px,calc((100vw - 980px)/2)) 48px!important;background:var(--paper)!important;color:var(--ink)!important;font:15px/1.7 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}h1{font-size:clamp(32px,5vw,54px)!important;letter-spacing:-.06em!important;line-height:1.1!important}h2,h3{letter-spacing:-.035em}p,li{color:#515967;line-height:1.8}a{color:#326fc0;text-underline-offset:3px}img{max-width:100%;height:auto;border-radius:12px}button,input,select,textarea{font:inherit}button,input[type=submit]{border:0;border-radius:999px;padding:10px 16px;background:#171a22;color:#fff;cursor:pointer}button:hover,input[type=submit]:hover{background:var(--green)}input,select,textarea{max-width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff}label{display:inline-block;margin:7px 0;font-weight:650}table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left}th{background:#eef6e5}figure,details{margin:12px 0;padding:14px;border:1px solid var(--line);border-radius:12px;background:white}summary{cursor:pointer;font-weight:700}pre,code{max-width:100%;overflow:auto;background:#171a22;color:#e8f0df;border-radius:8px;padding:4px 7px;font:12px/1.7 ui-monospace,Consolas,monospace}pre{padding:15px}body>nav:first-child{padding:12px 15px;border:1px solid var(--line);border-radius:13px;background:#ffffffd9;margin-bottom:26px}body>nav:first-child a{font-size:12px;font-weight:700;text-decoration:none;color:#171a22}*:focus-visible{outline:3px solid #83b9ff;outline-offset:3px}@media(max-width:600px){body{padding:16px 12px 32px!important}table{font-size:12px}th,td{padding:8px}h1{font-size:35px!important}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Fundamentals</title>
+</head>
+
+<body>
+<nav aria-label="Portfolio navigation" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><a href="../">&lt;/&gt; SUDIP / WEB LAB</a><a href="../">← Back to coursework library</a></nav>
+
+    <!-- 1. Heading -->
+    <h1>HTML Fundamentals</h1>
+    <h2>Basic HTML</h2>
+    <h3>Introduction</h3>
+
+    <!-- 2. Paragraph -->
+    <p>This is a paragraph written using HTML.</p>
+
+    <!-- 3. Text Formatting -->
+    <p>
+        <b>Bold text</b><br>
+        <strong>Important text</strong><br>
+        <i>Italic text</i><br>
+        <em>Emphasized text</em><br>
+        <u>Underlined text</u><br>
+        <mark>Highlighted text</mark><br>
+        <small>Small text</small>
+    </p>
+
+    <!-- 4. Line Break and Horizontal Line -->
+    <p>Hello<br>World</p>
+    <hr>
+
+    <!-- 5. Link -->
+    <h2>Link</h2>
+    <a href="https://www.google.com">Visit Google</a>
+
+    <!-- 6. Image -->
+    <h2>Image</h2>
+    <img src="../../assets/images/campus.svg" alt="Sample Image" width="300">
+
+    <!-- 7. Unordered List -->
+    <h2>Unordered List</h2>
+    <ul>
+        <li>Apple</li>
+        <li>Banana</li>
+        <li>Orange</li>
+        <li>Mango</li>
+    </ul>
+
+    <!-- 8. Ordered List -->
+    <h2>Ordered List</h2>
+    <ol>
+        <li>Wake up</li>
+        <li>Study</li>
+        <li>Go to university</li>
+        <li>Go to the gym</li>
+    </ol>
+
+    <!-- 9. Description List -->
+    <h2>Description List</h2>
+    <dl>
+        <dt>HTML</dt>
+        <dd>HyperText Markup Language</dd>
+
+        <dt>CSS</dt>
+        <dd>Cascading Style Sheets</dd>
+    </dl>
+
+    <!-- 10. Nested List -->
+    <h2>Nested List</h2>
+    <ul>
+        <li>Programming
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+            </ul>
+        </li>
+        <li>Database</li>
+    </ul>
+
+    <!-- 11. Table -->
+    <h2>Student Table</h2>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Major</th>
+        </tr>
+
+        <tr>
+            <td>Sudip</td>
+            <td>21</td>
+            <td>Computer Engineering</td>
+        </tr>
+
+        <tr>
+            <td>John</td>
+            <td>22</td>
+            <td>Computer Science</td>
+        </tr>
+    </table>
+
+    <!-- 12. Form -->
+    <h2>Registration Form</h2>
+
+    <form>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age">
+        <br><br>
+
+        <!-- Radio Button -->
+        <p>Gender:</p>
+
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+
+        <br><br>
+
+        <!-- Checkbox -->
+        <p>Hobbies:</p>
+
+        <input type="checkbox" id="gym" name="hobby" value="gym">
+        <label for="gym">Gym</label>
+
+        <input type="checkbox" id="gaming" name="hobby" value="gaming">
+        <label for="gaming">Gaming</label>
+
+        <br><br>
+
+        <!-- Select -->
+        <label for="country">Country:</label>
+
+        <select id="country" name="country">
+            <option value="nepal">Nepal</option>
+            <option value="korea">Korea</option>
+            <option value="japan">Japan</option>
+        </select>
+
+        <br><br>
+
+        <!-- Textarea -->
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="5" cols="30"></textarea>
+
+        <br><br>
+
+        <!-- Buttons -->
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+
+    </form>
+
+    <!-- 13. Semantic HTML -->
+    <header>
+        <h2>Website Header</h2>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <main>
+
+        <section>
+            <h2>About HTML</h2>
+            <p>HTML is used to structure web pages.</p>
+        </section>
+
+        <article>
+            <h2>HTML Article</h2>
+            <p>This is an example of an article.</p>
+        </article>
+
+    </main>
+
+    <footer>
+        <p>Copyright 2026</p>
+    </footer>
+
+</body>
+</html>

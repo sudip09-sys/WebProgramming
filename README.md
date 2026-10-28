@@ -1,29 +1,26 @@
-# Sudip Sah — Web Studio
+# Sudip Sah - Web Programming
 
-A personal notebook of web experiments, coursework, and interactive projects.
+Coursework and projects arranged by week.
 
-- [Live portfolio](https://sudip09-sys.github.io/WebProgramming/)
-- [Learning map](COURSE_MAP.md)
-- [Start here in VS Code](START-HERE.md)
+[Open portfolio](https://sudip09-sys.github.io/WebProgramming/) · [Course map](COURSE_MAP.md)
 
-## Explore
+## Weekly coursework
 
-- [HTML fundamentals](coursework/html-fundamentals/index.html) — 15 examples
-- [Semantic HTML](coursework/semantic-html/index.html) — 10 examples
-- [CSS fundamentals](coursework/css-fundamentals/index.html) — 33 examples
-- [Advanced CSS](coursework/css-advanced/index.html) — 8 examples
-- [JavaScript & the DOM](coursework/javascript-dom/index.html) — 12 examples
-- [Conditions & loops](coursework/javascript-logic/index.html) — 2 examples
-- [Fetch & APIs](coursework/fetch-and-apis/index.html) — 8 examples
-- [Book search lab](coursework/week-07-book-search/index.html) — 8 examples
+- [Week 2 - HTML basics & semantic HTML](week2/index.html)
+- [Week 3 - CSS fundamentals & advanced CSS](week3/index.html)
+- [Week 4 - JavaScript & the DOM](week4/index.html)
+- [Week 5 - Conditions & loops](week5/index.html)
+- [Week 6 - Fetch & API projects](week6/index.html)
+- [Week 7 - Book Search lab](week7/index.html)
+- [Week 8 Monday - Forms & HTML5 validation](week8_1/index.html)
+- [Week 9.1 - Accessibility audit](week9_1/index.html)
 
 ## Projects
 
-- [StudyHub](Week4_1/index.html): tasks, directory, attendance, and a study timer.
-- [JokeLab](Week6_Random_Joke_Fetcher/index.html): jokes and saved favourites.
-- [BookFinder](coursework/week-07-book-search/solution.html): book search with six learning stages.
-- [Idea mixer](index.html#idea-lab): creative prompts, focus filters, and saved sparks stored in your browser.
-- [Team project](projects/team-project/index.html): space for planning future work.
+- [Memory Match](teamproject/index.html)
+- [StudyHub](week4/studyhub/index.html)
+- [JokeLab](week6/jokelab/index.html)
+- [BookFinder](week7/solution.html)
 
 ## Run locally
 
@@ -37,13 +34,14 @@ Then open http://127.0.0.1:4173. No build or package installation is needed. You
 
 ## Folder guide
 
-- `index.html`: homepage.
-- `assets/`: shared styles, scripts, and illustrations.
-- `coursework/`: topic indexes and focused examples.
-- `Week*/`: existing exercises and projects at their original URLs.
-- `projects/`: project planning pages.
-- `scripts/`: local server and verification.
+- `week2/` through `week7/`: lessons and assignments in sequence.
+- `week8_1/`: Week 8 Monday forms.
+- `week9_1/`: accessibility report and PDF.
+- `teamproject/`: shared Memory Match project.
+- `assets/`: shared styles, scripts and images.
+- `scripts/`: local server and checks.
+- Legacy exercise URLs retain compatibility pages.
 
-## External services
+## API examples
 
-API examples use JSONPlaceholder, Open-Meteo, the Official Joke API, and Open Library. API availability and cover images depend on those services; no API keys are required. Google Fonts is optional, with system-font fallbacks. Browser-saved ideas and favourites stay on the device where they are saved.
+Week 6 includes Official Joke API, JSONPlaceholder, Open-Meteo, Random User, PokéAPI and countries.dev examples. Book Search uses Open Library. These demos depend on external service availability. Generated profiles are sample data.

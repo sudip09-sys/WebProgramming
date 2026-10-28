@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta name="theme-color" content="#f5f7fa"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style data-polished-lab="true">:root{--ink:#171a22;--muted:#687080;--line:#e2e6ec;--paper:#f5f7fa;--green:#426d00}*{box-sizing:border-box}body{margin:0!important;padding:26px max(16px,calc((100vw - 980px)/2)) 48px!important;background:var(--paper)!important;color:var(--ink)!important;font:15px/1.7 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}h1{font-size:clamp(32px,5vw,54px)!important;letter-spacing:-.06em!important;line-height:1.1!important}h2,h3{letter-spacing:-.035em}p,li{color:#515967;line-height:1.8}a{color:#326fc0;text-underline-offset:3px}img{max-width:100%;height:auto;border-radius:12px}button,input,select,textarea{font:inherit}button,input[type=submit]{border:0;border-radius:999px;padding:10px 16px;background:#171a22;color:#fff;cursor:pointer}button:hover,input[type=submit]:hover{background:var(--green)}input,select,textarea{max-width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff}label{display:inline-block;margin:7px 0;font-weight:650}table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left}th{background:#eef6e5}figure,details,article,section{margin:12px 0;padding:14px;border:1px solid var(--line);border-radius:12px;background:white}summary{cursor:pointer;font-weight:700}pre,code{max-width:100%;overflow:auto;background:#171a22;color:#e8f0df;border-radius:8px;padding:4px 7px;font:12px/1.7 ui-monospace,Consolas,monospace}pre{padding:15px}body>nav:first-child{padding:12px 15px;border:1px solid var(--line);border-radius:13px;background:#ffffffd9;margin-bottom:26px}body>nav:first-child a{font-size:12px;font-weight:700;text-decoration:none;color:#171a22}*:focus-visible{outline:3px solid #83b9ff;outline-offset:3px}@media(max-width:600px){body{padding:16px 12px 32px!important}table{font-size:12px}th,td{padding:8px}h1{font-size:35px!important}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}</style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sudip | Computer Engineering</title>
+
+    <style>
+
+        /* =========================
+           CSS VARIABLES
+        ========================= */
+
+        :root {
+
+            --primary: #2563eb;
+            --accent: #38bdf8;
+
+            --background: #f8fafc;
+            --card: #ffffff;
+
+            --text: #1e293b;
+            --muted: #64748b;
+
+            --radius: 16px;
+        }
+
+
+        /* =========================
+           BASIC RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: var(--background);
+
+            color: var(--text);
+
+            padding-top: 70px;
+        }
+
+
+        /* =========================
+           FIXED NAVIGATION
+        ========================= */
+
+        .navbar {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            height: 70px;
+
+            background: #0f172a;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 0 35px;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+
+        .navigation {
+
+            display: flex;
+
+            gap: 25px;
+        }
+
+
+        .navigation a {
+
+            color: white;
+
+            text-decoration: none;
+
+            transition: color 0.2s ease;
+        }
+
+
+        .navigation a:hover {
+
+            color: var(--accent);
+        }
+
+
+        /* =========================
+           HERO SECTION
+        ========================= */
+
+        .hero {
+
+            min-height: 430px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 40px;
+        }
+
+
+        /* Fade + slide animation */
+
+        @keyframes appear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(35px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        .hero-content {
+
+            animation:
+                appear 1s ease-out forwards;
+        }
+
+
+        .hero h1 {
+
+            font-size: 48px;
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+        }
+
+
+        .hero p {
+
+            max-width: 600px;
+
+            color: var(--muted);
+
+            font-size: 18px;
+
+            line-height: 1.7;
+        }
+
+
+        .hero-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 12px 22px;
+
+            background: var(--primary);
+
+            color: white;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .hero-button:hover {
+
+            transform: translateY(-4px);
+
+            background: var(--accent);
+        }
+
+
+        /* =========================
+           STICKY SECTION TITLE
+        ========================= */
+
+        .sticky-title {
+
+            position: sticky;
+
+            top: 70px;
+
+            z-index: 50;
+
+            background: var(--background);
+
+            padding: 18px;
+
+            border-bottom: 2px solid var(--accent);
+
+            text-align: center;
+
+            color: var(--primary);
+        }
+
+
+        /* =========================
+           SKILLS GRID
+        ========================= */
+
+        .skills {
+
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            gap: 22px;
+
+            max-width: 1000px;
+
+            margin: 35px auto;
+
+            padding: 0 25px;
+        }
+
+
+        .skill-card {
+
+            background: var(--card);
+
+            padding: 28px;
+
+            border-radius: var(--radius);
+
+            border: 1px solid #dbeafe;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+        /* Different emoji icons */
+
+        .skill-card::before {
+
+            display: block;
+
+            font-size: 34px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .html::before {
+            content: "🌐";
+        }
+
+
+        .database::before {
+            content: "🗄️";
+        }
+
+
+        .programming::before {
+            content: "💻";
+        }
+
+
+        .math::before {
+            content: "📐";
+        }
+
+
+        .korean::before {
+            content: "🇰🇷";
+        }
+
+
+        .fitness::before {
+            content: "🏋️";
+        }
+
+
+        /* Hover effect */
+
+        .skill-card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(37, 99, 235, 0.18);
+        }
+
+
+        .skill-card h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 10px;
+        }
+
+
+        .skill-card p {
+
+            color: var(--muted);
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           ABOUT SECTION
+        ========================= */
+
+        .about {
+
+            max-width: 800px;
+
+            margin: 80px auto;
+
+            padding: 30px;
+
+            text-align: center;
+        }
+
+
+        .about h2 {
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+        }
+
+
+        .about p {
+
+            line-height: 1.8;
+
+            color: var(--muted);
+        }
+
+
+        /* =========================
+           DESKTOP GRID
+        ========================= */
+
+        @media (min-width: 640px) {
+
+            .skills {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        /* =========================
+           DARK MODE
+        ========================= */
+
+        @media (prefers-color-scheme: dark) {
+
+            :root {
+
+                --primary: #60a5fa;
+
+                --accent: #38bdf8;
+
+                --background: #0f172a;
+
+                --card: #1e293b;
+
+                --text: #e2e8f0;
+
+                --muted: #94a3b8;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+<nav aria-label="Portfolio navigation" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><a href="../">&lt;/&gt; SUDIP / WEB LAB</a><a href="../">← Back to coursework library</a></nav>
+
+
+    <!-- FIXED NAVIGATION -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Sudip.dev
+        </div>
+
+        <div class="navigation">
+
+            <a href="#home">Home</a>
+
+            <a href="#skills">Skills</a>
+
+            <a href="#about">About</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>Hi, I'm Sudip 👋</h1>
+
+            <p>
+                I am a Computer Engineering student
+                at Gachon University. I am currently
+                developing my skills in programming,
+                web development and computer science.
+            </p>
+
+            <a href="#skills"
+               class="hero-button">
+                Explore My Skills
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- STICKY TITLE -->
+
+    <h2 class="sticky-title" id="skills">
+        My Skills & Interests
+    </h2>
+
+
+    <!-- RESPONSIVE SKILL GRID -->
+
+    <section class="skills">
+
+
+        <div class="skill-card html">
+
+            <h3>Web Development</h3>
+
+            <p>
+                Learning HTML, CSS and creating
+                responsive websites.
+            </p>
+
+        </div>
+
+
+        <div class="skill-card programming">
+
+            <h3>Programming</h3>
+
+            <p>
+                Improving my programming skills
+                and logical problem solving.
+            </p>
+
+        </div>
+
+
+        <div class="skill-card database">
+
+            <h3>Database</h3>
+
+            <p>
+                Learning how databases store,
+                organize and manage information.
+            </p>
+
+        </div>
+
+
+        <div class="skill-card math">
+
+            <h3>Discrete Mathematics</h3>
+
+            <p>
+                Studying mathematical concepts
+                used in computer science.
+            </p>
+
+        </div>
+
+
+        <div class="skill-card korean">
+
+            <h3>Korean Practice</h3>
+
+            <p>
+                Practicing Korean communication
+                as part of my university life.
+            </p>
+
+        </div>
+
+
+        <div class="skill-card fitness">
+
+            <h3>Fitness</h3>
+
+            <p>
+                Going to the gym and maintaining
+                a healthy balance between study
+                and personal life.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section class="about" id="about">
+
+        <h2>About Me</h2>
+
+        <p>
+            My name is Sudip. I study Computer
+            Engineering at Gachon University.
+            My goal is to continuously improve
+            my technical skills and build useful
+            projects while enjoying university life.
+        </p>
+
+    </section>
+
+
+</body>
+
+</html>

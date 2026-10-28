@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Rules before registration.: Week 8 Monday HTML forms practice by Sudip Sah.">
+<title>Rules before registration. · Sudip Sah</title>
+<style>:root{color-scheme:light;--paper:#f7f7f2;--panel:#fff;--ink:#242b24;--sub:#62695e;--line:#d9dfd3;--lime:#ddecaf;--accent:#3c6023}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,sans-serif}a{color:inherit;text-underline-offset:4px}main{max-width:1000px;margin:auto;padding:36px 28px}header{border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:28px}.eyebrow{font:12px/1.7 monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--sub);margin-top:28px}h1{font-size:clamp(32px,6vw,54px);line-height:1.08;letter-spacing:-2px;margin:18px 0}h2{font-size:22px;line-height:1.3}p,small{color:var(--sub)}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(230px,.8fr);gap:25px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);padding:26px;border-radius:12px}.note{background:var(--lime);padding:24px;border-radius:12px}.note h2{margin-top:0}.note code{overflow-wrap:anywhere}fieldset{border:1px solid var(--line);border-radius:10px;margin:0 0 26px;padding:18px}legend{padding:0 8px;font-weight:700}label{display:block;font-weight:650;margin:16px 0 6px}input:not([type=checkbox]):not([type=range]),select,textarea{width:100%;display:block;border:2px solid var(--line);border-radius:7px;padding:11px 13px;font:inherit;color:var(--ink);background:var(--panel)}textarea{resize:vertical}small{display:block;font-size:13px;margin-top:5px}.row{display:flex;align-items:center;gap:10px;margin:22px 0}.row label{margin:0}.row input{width:19px;height:19px}input[type=range]{width:100%;accent-color:var(--accent)}button,.button{display:inline-block;padding:12px 20px;border:1px solid var(--ink);border-radius:7px;background:var(--ink);color:var(--paper);font:inherit;font-weight:650;cursor:pointer;text-decoration:none}button:hover,.button:hover{background:var(--accent)}input:focus,select:focus,textarea:focus,button:focus,a:focus{outline:3px solid #638bff;outline-offset:3px}.status:not(:empty){margin-top:20px;padding:14px;border-left:3px solid var(--accent);background:var(--lime);color:var(--ink)}.cards{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cards a{display:block;height:100%;padding:24px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none}.cards a:hover{border-color:var(--accent)}.cards h2{margin:12px 0}.cards p{font-size:14px;margin-bottom:0}.badge{background:var(--lime);padding:4px 8px;border-radius:4px;font:11px/1.5 monospace}.sources{margin-top:30px;padding-top:22px;border-top:1px solid var(--line)}footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);color:var(--sub);font:12px/1.7 monospace}.skip{position:absolute;left:-10000px}.skip:focus{left:20px;top:8px;background:white;padding:8px}@media(max-width:700px){main{padding:24px 18px}.layout,.cards{grid-template-columns:1fr}.panel{padding:20px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
+<header><a href="../index.html">← Web Studio</a> / <a href="index.html">Forms lab</a><p class="eyebrow">E2 / HTML5 attributes</p><h1>Rules before registration.</h1><p>Try an 8-digit ID, a short password or an age outside 16–100.</p></header>
+<div class="layout"><section class="panel" aria-label="Rules before registration. demonstration"><form action="/register" method="post">
+<label for="student_id">Student ID *</label>
+<input id="student_id" name="student_id" type="text" placeholder="202637610" inputmode="numeric" pattern="\d{9}" title="Enter exactly 9 digits" aria-describedby="id-help" required>
+<small id="id-help">Exactly nine digits. Keep any leading zeros.</small>
+<label for="email">Email *</label>
+<input id="email" name="email" type="email" placeholder="name@example.com" autocomplete="email" required>
+<label for="password">Password *</label>
+<input id="password" name="password" type="password" placeholder="At least 8 characters" minlength="8" autocomplete="new-password" required>
+<label for="age">Age (16–100) *</label>
+<input id="age" name="age" type="number" placeholder="Your age" min="16" max="100" required>
+<p><button type="submit">Register</button></p><p id="result" class="status" role="status" aria-live="polite"></p></form></section><aside class="note"><h2>What to learn</h2><p>Student ID: <code>pattern="\d{9}"</code> plus required and title. Email checks format. Password requires at least eight characters. Age uses <code>min="16"</code> and <code>max="100"</code>.</p><p>Submit invalid values to see the browser’s own validation messages.</p><p><strong>Practice mode.</strong> Use sample data. This page checks inputs but does not create accounts or send messages.</p></aside></div>
+<footer>SAH SUDIP · K0126002 · Gachon University · Week 8 Monday</footer>
+</main>
+<script>// Native constraint validation runs before the submit event.
+// These GitHub Pages demos do not send or store passwords or messages.
+const form = document.querySelector('form');
+const status = document.querySelector('#result');
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  status.textContent = 'Validation passed. Demo only: no data was sent or saved.';
+});
+form.addEventListener('input', () => { status.textContent = ''; });
+</script>
+</body></html>

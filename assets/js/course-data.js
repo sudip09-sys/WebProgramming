@@ -86,607 +86,607 @@ window.COURSE_DATA = {
     {
       "group": "html-fundamentals",
       "title": "My First Web Page",
-      "path": "Week2_1/task1_basicHTMLstructure.html",
+      "path": "week2/html-basics/task1_basicHTMLstructure.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "HTML Heading Levels — Sudip Sah",
-      "path": "Week2_1/task2_Headings.html",
+      "path": "week2/html-basics/task2_Headings.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "Paragraph",
-      "path": "Week2_1/task3_paragraph.html",
+      "path": "week2/html-basics/task3_paragraph.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "HTML Lists",
-      "path": "Week2_1/task4_Lists.html",
+      "path": "week2/html-basics/task4_Lists.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "HTML Links",
-      "path": "Week2_1/task5_Links.html",
+      "path": "week2/html-basics/task5_Links.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "HTML Images",
-      "path": "Week2_1/task6_Images.html",
+      "path": "week2/html-basics/task6_Images.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "Student Table",
-      "path": "Week2_1/task7_Tables.html",
+      "path": "week2/html-basics/task7_Tables.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "HTML Buttons",
-      "path": "Week2_1/Task8_Buttons.html",
+      "path": "week2/html-basics/Task8_Buttons.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "Registration Form",
-      "path": "Week2_1/Task9_Forms.html",
+      "path": "week2/html-basics/Task9_Forms.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "My Website",
-      "path": "Week2_1/Task10_SemanticsHtml.html",
+      "path": "week2/html-basics/Task10_SemanticsHtml.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "My Website",
-      "path": "Week2_1/website.html",
+      "path": "week2/html-basics/website.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "HTML Fundamentals",
-      "path": "Week2_1/week_1All Fundamentals.html",
+      "path": "week2/html-basics/week_1All Fundamentals.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip's Website",
-      "path": "Week2_2/Task_fixerrors.html",
+      "path": "week2/semantic-html/Task_fixerrors.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip - Semantic HTML",
-      "path": "Week2_2/Task1_Div.html",
+      "path": "week2/semantic-html/Task1_Div.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip's Blog",
-      "path": "Week2_2/Task2_blog.html",
+      "path": "week2/semantic-html/Task2_blog.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip's University Life",
-      "path": "Week2_2/Task3_figure_time.html",
+      "path": "week2/semantic-html/Task3_figure_time.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip's FAQ",
-      "path": "Week2_2/Task4_FAQ.html",
+      "path": "week2/semantic-html/Task4_FAQ.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip Shah - Portfolio",
-      "path": "Week2_2/Task5_Portfolio.html",
+      "path": "week2/semantic-html/Task5_Portfolio.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Student Technology News",
-      "path": "Week2_2/Task7_Article.html",
+      "path": "week2/semantic-html/Task7_Article.html",
       "kind": "Existing exercise"
     },
     {
       "group": "semantic-html",
       "title": "Sudip - Quotations",
-      "path": "Week2_2/Task8_Quotional.html",
+      "path": "week2/semantic-html/Task8_Quotional.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 02 - Three Ways to Add CSS",
-      "path": "Week3_1/Topic_02_Three_Ways_to_Add_CSS.html",
+      "path": "week3/lessons/Topic_02_Three_Ways_to_Add_CSS.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 03 - CSS Syntax",
-      "path": "Week3_1/Topic_03_CSS_Syntax.html",
+      "path": "week3/lessons/Topic_03_CSS_Syntax.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 04 - Universal Selector (*)",
-      "path": "Week3_1/Topic_04_Universal_Selector_(star).html",
+      "path": "week3/lessons/Topic_04_Universal_Selector_(star).html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 05 - ID Selector (#id)",
-      "path": "Week3_1/Topic_05_ID_Selector_(idid).html",
+      "path": "week3/lessons/Topic_05_ID_Selector_(idid).html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 06 - Class Selector (.class)",
-      "path": "Week3_1/Topic_06_Class_Selector_(.class).html",
+      "path": "week3/lessons/Topic_06_Class_Selector_(.class).html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 07 - Type / Element Selector",
-      "path": "Week3_1/Topic_07_Type_-_Element_Selector.html",
+      "path": "week3/lessons/Topic_07_Type_-_Element_Selector.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 08 - color Property",
-      "path": "Week3_1/Topic_08_color_Property.html",
+      "path": "week3/lessons/Topic_08_color_Property.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 09 - background-color Property",
-      "path": "Week3_1/Topic_09_background-color_Property.html",
+      "path": "week3/lessons/Topic_09_background-color_Property.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 10 - Hex Color Codes",
-      "path": "Week3_1/Topic_10_Hex_Color_Codes.html",
+      "path": "week3/lessons/Topic_10_Hex_Color_Codes.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 11 - RGB Color Values",
-      "path": "Week3_1/Topic_11_RGB_Color_Values.html",
+      "path": "week3/lessons/Topic_11_RGB_Color_Values.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "CSS font-size Property",
-      "path": "Week3_1/Topic_12_font-size_Property.html",
+      "path": "week3/lessons/Topic_12_font-size_Property.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 13 - font-weight Property",
-      "path": "Week3_1/Topic_13_font-weight_Property.html",
+      "path": "week3/lessons/Topic_13_font-weight_Property.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 14 - font-style Property",
-      "path": "Week3_1/Topic_14_font-style_Property.html",
+      "path": "week3/lessons/Topic_14_font-style_Property.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 15 - text-align Property",
-      "path": "Week3_1/Topic_15_text-align_Property.html",
+      "path": "week3/lessons/Topic_15_text-align_Property.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 16 - Box Model: Padding",
-      "path": "Week3_1/Topic_16_Box_Model__Padding.html",
+      "path": "week3/lessons/Topic_16_Box_Model__Padding.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 17 - Box Model: Margin",
-      "path": "Week3_1/Topic_17_Box_Model__Margin.html",
+      "path": "week3/lessons/Topic_17_Box_Model__Margin.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 18 - Box Model Width Calculation",
-      "path": "Week3_1/Topic_18_Box_Model_Width_Calculation.html",
+      "path": "week3/lessons/Topic_18_Box_Model_Width_Calculation.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 19 - display: block",
-      "path": "Week3_1/Topic_19_display__block.html",
+      "path": "week3/lessons/Topic_19_display__block.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 20 - display: none",
-      "path": "Week3_1/Topic_20_display__none.html",
+      "path": "week3/lessons/Topic_20_display__none.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 21 - display: flex",
-      "path": "Week3_1/Topic_21_display__flex.html",
+      "path": "week3/lessons/Topic_21_display__flex.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 22 - CSS Specificity",
-      "path": "Week3_1/Topic_22_CSS_Specificity.html",
+      "path": "week3/lessons/Topic_22_CSS_Specificity.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 24 - CSS Comments",
-      "path": "Week3_1/Topic_24_CSS_Comments.html",
+      "path": "week3/lessons/Topic_24_CSS_Comments.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "Topic 25 - Putting It All Together",
-      "path": "Week3_1/Topic_25_Putting_It_All_Together.html",
+      "path": "week3/lessons/Topic_25_Putting_It_All_Together.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E1 - Style Your First Heading",
-      "path": "Week3_2/E1_Style_First_Heading.html",
+      "path": "week3/exercises/E1_Style_First_Heading.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E2 - Three Ways",
-      "path": "Week3_2/E2_Three_Ways.html",
+      "path": "week3/exercises/E2_Three_Ways.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E3 - Color Palette Card",
-      "path": "Week3_2/E3_Color_Palette.html",
+      "path": "week3/exercises/E3_Color_Palette.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E4 - Box Model",
-      "path": "Week3_2/E4_Box_Model.html",
+      "path": "week3/exercises/E4_Box_Model.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E5 - Fix Broken CSS",
-      "path": "Week3_2/E5_Fix_Broken_CSS.html",
+      "path": "week3/exercises/E5_Fix_Broken_CSS.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E6 - Flexbox Navigation",
-      "path": "Week3_2/E6_Flexbox_Navigation.html",
+      "path": "week3/exercises/E6_Flexbox_Navigation.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E7 - Profile Card",
-      "path": "Week3_2/E7_Profile_Card.html",
+      "path": "week3/exercises/E7_Profile_Card.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-fundamentals",
       "title": "E8 - Full Personalized Portfolio",
-      "path": "Week3_2/E8_Full_Portfolio.html",
+      "path": "week3/exercises/E8_Full_Portfolio.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Sudip's Coding Project",
-      "path": "Week3_Assignment/E1_PositiontheBadge.html",
+      "path": "week3/advanced/E1_PositiontheBadge.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Sudip's Study Card",
-      "path": "Week3_Assignment/E2_HoverCardWithTransiton.html",
+      "path": "week3/advanced/E2_HoverCardWithTransiton.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Loading Sudip's Project",
-      "path": "Week3_Assignment/E3_Loadingspinner.html",
+      "path": "week3/advanced/E3_Loadingspinner.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Sudip's Study Theme",
-      "path": "Week3_Assignment/E4_CSSTHEME.html",
+      "path": "week3/advanced/E4_CSSTHEME.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Sudip's Navigation",
-      "path": "Week3_Assignment/E5_FixedNavigation.html",
+      "path": "week3/advanced/E5_FixedNavigation.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Sudip's Skills",
-      "path": "Week3_Assignment/E6_ResponsiveGridPage.html",
+      "path": "week3/advanced/E6_ResponsiveGridPage.html",
       "kind": "Existing exercise"
     },
     {
       "group": "css-advanced",
       "title": "Sudip | Computer Engineering",
-      "path": "Week3_Assignment/E7_CompletePortfolio.html",
+      "path": "week3/advanced/E7_CompletePortfolio.html",
       "kind": "Existing exercise"
     },
     {
       "group": "javascript-dom",
       "title": "Student Productivity Hub",
-      "path": "Week4_1/index.html",
+      "path": "week4/studyhub/index.html",
       "kind": "Existing exercise"
     },
     {
       "group": "javascript-dom",
       "title": "Week 4.2 — JavaScript Exercises | Sudip Sah",
-      "path": "Week4_2/index.html",
+      "path": "week4/exercises/index.html",
       "kind": "Existing exercise"
     },
     {
       "group": "fetch-and-apis",
       "title": "JokeLab — Find Your Funny",
-      "path": "Week6_Random_Joke_Fetcher/index.html",
+      "path": "week6/jokelab/index.html",
       "kind": "Existing exercise"
     },
     {
       "group": "html-fundamentals",
       "title": "A complete HTML profile",
-      "path": "coursework/html-fundamentals/profile.html",
+      "path": "week2/html-basics/profile.html",
       "kind": "Added example"
     },
     {
       "group": "html-fundamentals",
       "title": "Recipe with nested lists",
-      "path": "coursework/html-fundamentals/recipe.html",
+      "path": "week2/html-basics/recipe.html",
       "kind": "Added example"
     },
     {
       "group": "html-fundamentals",
       "title": "My favourites gallery",
-      "path": "coursework/html-fundamentals/favourites.html",
+      "path": "week2/html-basics/favourites.html",
       "kind": "Added example"
     },
     {
       "group": "semantic-html",
       "title": "A native dialog",
-      "path": "coursework/semantic-html/dialog.html",
+      "path": "week2/semantic-html/dialog.html",
       "kind": "Added example"
     },
     {
       "group": "semantic-html",
       "title": "Abbreviations, code, and time",
-      "path": "coursework/semantic-html/text-semantics.html",
+      "path": "week2/semantic-html/text-semantics.html",
       "kind": "Added example"
     },
     {
       "group": "css-fundamentals",
       "title": "What is CSS?",
-      "path": "coursework/css-fundamentals/what-is-css.html",
+      "path": "week3/lessons/what-is-css.html",
       "kind": "Added example"
     },
     {
       "group": "css-fundamentals",
       "title": "Which selector wins?",
-      "path": "coursework/css-fundamentals/selector-challenge.html",
+      "path": "week3/lessons/selector-challenge.html",
       "kind": "Added example"
     },
     {
       "group": "css-advanced",
       "title": "Putting advanced CSS together",
-      "path": "coursework/css-advanced/combined-component.html",
+      "path": "week3/advanced/combined-component.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "What is the DOM?",
-      "path": "coursework/javascript-dom/dom-tree.html",
+      "path": "week4/dom-tree.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Selecting elements",
-      "path": "coursework/javascript-dom/select-elements.html",
+      "path": "week4/select-elements.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Reading and writing text",
-      "path": "coursework/javascript-dom/text-content.html",
+      "path": "week4/text-content.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Understanding innerHTML",
-      "path": "coursework/javascript-dom/inner-html.html",
+      "path": "week4/inner-html.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Styling with classList",
-      "path": "coursework/javascript-dom/class-list.html",
+      "path": "week4/class-list.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Listening for events",
-      "path": "coursework/javascript-dom/event-listeners.html",
+      "path": "week4/event-listeners.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "The event object",
-      "path": "coursework/javascript-dom/event-object.html",
+      "path": "week4/event-object.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Preventing default behavior",
-      "path": "coursework/javascript-dom/prevent-default.html",
+      "path": "week4/prevent-default.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Event bubbling and delegation",
-      "path": "coursework/javascript-dom/bubbling.html",
+      "path": "week4/bubbling.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-dom",
       "title": "Creating and removing elements",
-      "path": "coursework/javascript-dom/create-remove.html",
+      "path": "week4/create-remove.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-logic",
       "title": "Grade checker",
-      "path": "coursework/javascript-logic/grade-checker.html",
+      "path": "week5/grade-checker.html",
       "kind": "Added example"
     },
     {
       "group": "javascript-logic",
       "title": "Numbers and array loops",
-      "path": "coursework/javascript-logic/loops.html",
+      "path": "week5/loops.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "Fetch a blog post",
-      "path": "coursework/fetch-and-apis/blog-post.html",
+      "path": "week6/lessons/blog-post.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "Seoul weather",
-      "path": "coursework/fetch-and-apis/weather.html",
+      "path": "week6/lessons/weather.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "The request journey",
-      "path": "coursework/fetch-and-apis/request-journey.html",
+      "path": "week6/lessons/request-journey.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "Promise states",
-      "path": "coursework/fetch-and-apis/promise-states.html",
+      "path": "week6/lessons/promise-states.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "Step through async/await",
-      "path": "coursework/fetch-and-apis/code-stepper.html",
+      "path": "week6/lessons/code-stepper.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "HTTP errors versus network errors",
-      "path": "coursework/fetch-and-apis/error-explorer.html",
+      "path": "week6/lessons/error-explorer.html",
       "kind": "Added example"
     },
     {
       "group": "fetch-and-apis",
       "title": "Fetch self-check quiz",
-      "path": "coursework/fetch-and-apis/quiz.html",
+      "path": "week6/lessons/quiz.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Step 1: HTML structure",
-      "path": "coursework/week-07-book-search/step-1.html",
+      "path": "week7/step-1.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Step 2: CSS layout & cards",
-      "path": "coursework/week-07-book-search/step-2.html",
+      "path": "week7/step-2.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Step 3: Wire the form",
-      "path": "coursework/week-07-book-search/step-3.html",
+      "path": "week7/step-3.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Step 4: Fetch the API",
-      "path": "coursework/week-07-book-search/step-4.html",
+      "path": "week7/step-4.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Step 5: Render book cards",
-      "path": "coursework/week-07-book-search/step-5.html",
+      "path": "week7/step-5.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Step 6: Loading & errors",
-      "path": "coursework/week-07-book-search/step-6.html",
+      "path": "week7/step-6.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "BookFinder — complete app",
-      "path": "coursework/week-07-book-search/solution.html",
+      "path": "week7/solution.html",
       "kind": "Added example"
     },
     {
       "group": "week-07-book-search",
       "title": "Open Library API explorer",
-      "path": "coursework/week-07-book-search/api-explorer.html",
+      "path": "week7/api-explorer.html",
       "kind": "Added example"
     },
     {
       "group": "forms-and-validation",
       "title": "E1 · Login form",
-      "path": "coursework/forms-and-validation/E1_Login_Form.html",
+      "path": "week8_1/E1_Login_Form.html",
       "kind": "Completed exercise"
     },
     {
       "group": "forms-and-validation",
       "title": "E2 · Validation attributes",
-      "path": "coursework/forms-and-validation/E2_Validation_Attributes.html",
+      "path": "week8_1/E2_Validation_Attributes.html",
       "kind": "Completed exercise"
     },
     {
       "group": "forms-and-validation",
       "title": "E3 · CSS validation states",
-      "path": "coursework/forms-and-validation/E3_Validation_Styles.html",
+      "path": "week8_1/E3_Validation_Styles.html",
       "kind": "Completed exercise"
     },
     {
       "group": "forms-and-validation",
       "title": "Student registration",
-      "path": "coursework/forms-and-validation/HW_Student_Registration.html",
+      "path": "week8_1/HW_Student_Registration.html",
       "kind": "Completed homework"
     },
     {
       "group": "forms-and-validation",
       "title": "Personal-site contact form",
-      "path": "coursework/forms-and-validation/HW_Contact_Form.html",
+      "path": "week8_1/HW_Contact_Form.html",
       "kind": "Completed homework"
     }
   ]
