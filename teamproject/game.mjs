@@ -1,6 +1,6 @@
 import {create,flip,settle,hint,tick,beginPreview,endPreview} from './engine.mjs?v=2';
 const $=id=>document.getElementById(id);
-let game,clock,reveal,last,previewEnds=0;
+let game,clock,reveal,last,previewEnds=0,announcedResult=false;
 function advance(){
  const now=performance.now();
  if(game.phase==='preview'){
@@ -36,6 +36,8 @@ function render(){
   if(game.mode==='duel'){title=game.scores[0]===game.scores[1]?'A perfectly matched rivalry.':'Player '+(game.scores[0]>game.scores[1]?1:2)+' takes the crown.';message='Final score: '+game.scores[0]+' – '+game.scores[1]+' pairs.';}
   $('result-icon').textContent=game.phase==='lost'?'↻':'✦';
   $('result-title').textContent=title;$('result-copy').textContent=message;
+  // Move focus once, after the result is visible, so keyboard users reach replay.
+  if(!announcedResult){announcedResult=true;$('result-title').focus();}
  }
 }
 function choose(i){
@@ -45,6 +47,7 @@ function choose(i){
 }
 function start(){
  clearInterval(clock);clearTimeout(reveal);
+ announcedResult=false;
  game=create($('level').value,$('mode').value);beginPreview(game);
  previewEnds=performance.now()+3000;
  $('board').style.setProperty('--columns',game.config.columns);
