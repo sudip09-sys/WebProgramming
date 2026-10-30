@@ -138,6 +138,15 @@ Sudip Sah - Web Programming. Original task filenames are preserved; each week ha
 - [Let’s start a conversation.](week8_1/HW_Contact_Form.html)
 - [Your next chapter.](week8_1/HW_Student_Registration.html)
 
+## Week 8 Friday - JavaScript form validation
+
+[Open Week 8 Friday](week8_2/index.html)
+
+- [E1 · Prevent submit](week8_2/E1_Prevent_Submit.html)
+- [E2 · Real-time email](week8_2/E2_Realtime_Email.html)
+- [E3 · Password confirmation](week8_2/E3_Password_Confirmation.html)
+- [Homework · Registration](week8_2/HW_JS_Registration.html)
+
 ## Week 9.1 - Accessibility audit
 
 [Open Week 9.1](week9_1/index.html)
