@@ -20,8 +20,9 @@
   let silk='rgba(214,201,225,.25)',dark=true;
   const threads=[], webs=[];
   function palette() {
-    const color=getComputedStyle(document.body).backgroundColor.match(/[\d.]+/g);
-    dark=!color||Number(color[3]??1)===0||(Number(color[0])*.2126+Number(color[1])*.7152+Number(color[2])*.0722)<135;
+    const backgrounds=[document.body,document.documentElement].map(el=>getComputedStyle(el).backgroundColor.match(/[\d.]+/g));
+    const color=backgrounds.find(c=>c&&Number(c[3]??1)>.5)||['255','255','255'];
+    dark=(Number(color[0])*.2126+Number(color[1])*.7152+Number(color[2])*.0722)<135;
     silk=dark?'rgba(215,204,227,.27)':'rgba(91,71,63,.25)';
     button.style.background=dark?'#211d28':'#faf6ef';button.style.color=dark?'#ece5f0':'#433735';
   }
