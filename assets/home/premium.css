@@ -37,3 +37,23 @@ footer{max-width:1376px;padding:30px 64px 40px;gap:20px;border-top:1px solid #2f
 .decode-word{display:inline-block;position:relative;white-space:nowrap}.decode-word>.decode-original{opacity:1}.decode-word>.decode-text{display:none;position:absolute;inset:0;overflow:hidden;white-space:nowrap;font:inherit;letter-spacing:inherit;pointer-events:none}[data-decoding=true] .decode-word>.decode-original{opacity:0}[data-decoding=true] .decode-word>.decode-text{display:block}.decode-word .decode-glyph{font-family:var(--mono);letter-spacing:inherit}.hero-copy h1 .decode-glyph{font:inherit}
 
 .decode-segment,.decode-segment .decode-word,.decode-segment .decode-original,.decode-segment .decode-text{font:inherit;letter-spacing:inherit;color:inherit}.hero-cta .decode-segment,.hero-cta .decode-segment span{font:inherit;letter-spacing:inherit}.hero-scroll-note .decode-segment{font:inherit;letter-spacing:inherit}
+
+/* Lightweight compositor motion; the existing pause and reduced-motion rules apply. */
+@keyframes lab-portrait-drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-7px,0)}}
+@keyframes lab-scroll-nudge{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(4px);opacity:1}}
+.landing .hero-emblem img{animation:lab-portrait-drift 7s ease-in-out infinite}
+.landing .scroll-hint{animation:lab-scroll-nudge 2.8s ease-in-out infinite}
+.landing .project-card,.landing .new-collection{transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .2s,background-color .2s,box-shadow .3s}
+.landing .card-art{position:relative;overflow:hidden}
+.landing .card-art:after{content:"";position:absolute;inset:-50%;background:linear-gradient(110deg,transparent 40%,#e4d3f31c 49%,transparent 58%);transform:translateX(-100%);pointer-events:none;transition:transform .65s ease-out}
+.landing .art-stage{transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.landing :is(.primary,.open-project,.landing-nav a){transition:transform .18s ease-out,background-color .2s,color .2s}
+.landing :is(button,.primary):active{transform:scale(.97)}
+@media(hover:hover) and (pointer:fine){
+.landing .project-card:hover,.landing .project-card:focus-within{transform:translate3d(0,-7px,0);border-color:#9a7db2;box-shadow:0 16px 36px #0003}
+.landing .project-card:hover .art-stage{transform:translate3d(0,-5px,0) rotate(-2deg)}
+.landing .project-card:hover .card-art:after{transform:translateX(100%)}
+.landing .new-collection:hover{transform:translate3d(0,-5px,0)}
+.landing .open-project:hover{transform:translateX(3px)}
+}
+@media(prefers-reduced-motion:reduce){.landing .hero-emblem img,.landing .scroll-hint{animation:none!important}.landing .project-card:hover,.landing .project-card:hover .art-stage,.landing .new-collection:hover,.landing .open-project:hover{transform:none!important}}
