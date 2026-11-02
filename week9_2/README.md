@@ -2,6 +2,15 @@
 
 Open [the coursework hub](index.html).
 
+## Navigation and PDF downloads
+
+- [Overview](index.html): the three coursework parts in order.
+- [Homework and original evidence](homework.html) / [Homework PDF](Sudip_Performance_Optimization_Report.pdf).
+- [Practice exercise index](exercises/index.html) / [Exercises explanation PDF](Sudip_Performance_Exercises_Report.pdf).
+- [Expandable seven-step lab guide](lab/index.html) / [Lab explanation PDF](Sudip_Accessibility_Performance_Lab_Report.pdf).
+
+The two explanation PDFs include code, measured results, validation and saved evidence. Original audit results are retained; reorganizing the navigation does not create new benchmark runs.
+
 ## Submitted homework
 
 The existing six-page PDF, personal-site and team-project evidence, and two-sentence summary remain available from the hub. These original homework measurements are distinct from the practice/lab measurements below.
