@@ -2,7 +2,7 @@
 (() => {
   const script = document.currentScript;
   if (!script) return;
-  const url = new URL('../optimized/spider.min.js', script.src).href;
+  const url = new URL('../optimized/spider.min.js?v=20261103-clean', script.src).href;
   const load = () => {
     if (document.querySelector('script[data-sudip-spider]')) return;
     const companion = document.createElement('script');
