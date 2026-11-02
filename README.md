@@ -45,3 +45,7 @@ Then open http://127.0.0.1:4173. No build or package installation is needed. You
 ## API examples
 
 Week 6 includes Official Joke API, JSONPlaceholder, Open-Meteo, Random User, PokéAPI and countries.dev examples. Book Search uses Open Library. These demos depend on external service availability. Generated profiles are sample data.
+
+## Performance homework
+
+[Week 9.2 report and audit evidence](week9_2/index.html). Rebuild optimized assets with `npm ci` then `npm run build:performance`; readable sources remain in their original folders.

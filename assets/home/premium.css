@@ -57,3 +57,6 @@ footer{max-width:1376px;padding:30px 64px 40px;gap:20px;border-top:1px solid #2f
 .landing .open-project:hover{transform:translateX(3px)}
 }
 @media(prefers-reduced-motion:reduce){.landing .hero-emblem img,.landing .scroll-hint{animation:none!important}.landing .project-card:hover,.landing .project-card:hover .art-stage,.landing .new-collection:hover,.landing .open-project:hover{transform:none!important}}
+
+/* WCAG AA: keep the small hero caption readable. */
+.hero-emblem figcaption span{color:#a09aa8}

@@ -1,0 +1,10 @@
+{
+  "name": "sudip-webprogramming",
+  "private": true,
+  "scripts": {
+    "build:performance": "node scripts/build-performance.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
