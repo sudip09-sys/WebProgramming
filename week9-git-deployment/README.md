@@ -39,3 +39,13 @@ Sudip Sah · completed work dated 4 November 2026.
 | Deployment PDF homework | Team-project live URL + PR URL on Cybercampus |
 
 No LMS or Discord submission has been made. No backdated completion or unperformed tests are claimed.
+
+## Update: separate repositories created and populated
+
+The following public repositories now exist and contain their assignment files:
+
+- https://github.com/sudip09-sys/git-exercise — HTML on main, CSS created on feature-style and merged through https://github.com/sudip09-sys/git-exercise/pull/1 .
+- https://github.com/sudip09-sys/webpro-w9 — index.html with name/date, reflection and custom 404.html.
+- https://github.com/sudip09-sys/webpro-book-search — index.html, style.css and app.js copied from the verified existing Book Search app.
+
+This supersedes the earlier repository-creation gaps. Pages enablement and live checks for webpro-w9 and webpro-book-search are still pending. Remote writes used the GitHub connector; no CLI push of the local Git exercise graph is claimed. Phone testing and LMS/Discord submissions are still pending.
