@@ -1,51 +1,39 @@
-# Git and deployment — completion and submission record
+# Week 9 final audit — 4 November 2026
 
-Sudip Sah · completed work dated 4 November 2026.
+Sources checked: Git.pdf, Deployment(1).pdf, Monday and Friday study guides in muxiddin19/WebPro/week9. Remote content was published through the GitHub connector, not a CLI push.
 
-## Completed implementation
+| Requirement | Result | Evidence / remaining work |
+|---|---|---|
+| Monday E1: local init, HTML, status, stage, commit, log | Executed in task workspace | git-evidence.md. Not performed on student's personal computer. |
+| Monday E2: CSS feature branch, switch, merge | Executed locally and demonstrated remotely | https://github.com/sudip09-sys/git-exercise/pull/1 merged; style.css is on main. |
+| Monday E3: git-exercise remote and push | Online files complete; CLI push outstanding | https://github.com/sudip09-sys/git-exercise . Connector publication does not prove local remote-add/push. |
+| Monday homework: webpro-w9, name/date, Pages | Site verified; personal-computer workflow and LMS submission outstanding | https://github.com/sudip09-sys/webpro-w9 and https://sudip09-sys.github.io/webpro-w9/ |
+| Friday E1: enable and verify Pages | Verified | webpro-w9 Pages workflow succeeded. Name/date homepage opened. |
+| Friday E2: understand missing-page behavior | Missing URL and reflection verified | this-does-not-exist.html serves custom 404; generic GitHub 404 was observed earlier on WebProgramming before deployment, not captured on webpro-w9 before customization. |
+| Friday E3: custom 404 and deploy | Live behavior verified; local commit/push sequence not performed for this file | Missing URL opens custom page; home link returns to /webpro-w9/. |
+| Book Search lab and Friday homework | Working public deployment verified; local push, phone/private-window checks and submissions outstanding | https://sudip09-sys.github.io/webpro-book-search/ . Dune returned 12 results with covers, titles, authors and years. |
+| Git PDF team-project homework | Three separate HTML/CSS/JS commits exist; local team-project init/push and Discord submission outstanding | e9f1037 HTML, c99d2b9 CSS, e2e9e48 JS in WebProgramming. These are API commits. |
+| Deployment PDF form-validation homework | Implementation and merged PR verified; Cybercampus submission outstanding | https://sudip09-sys.github.io/WebProgramming/teamproject/ and https://github.com/sudip09-sys/WebProgramming/pull/1 |
 
-- Monday E1/E2: actual local Git initialization, first HTML commit, CSS feature branch and fast-forward merge; see git-evidence.md. This was run in the task workspace.
-- Team-project form validation: player name required after trimming, length 2–20, accessible inline error, focus on invalid field, local device storage with a blocked-storage fallback.
-- Three separate team-project commits: HTML e9f1037, CSS c99d2b9, JavaScript e2e9e48. These were created through the GitHub API, not a local push.
-- Friday E3: root 404.html with project-aware links that work for nested missing URLs.
-- Book Search: existing Open Library implementation copied into a portable folder with relative CSS/JS paths and deferred script loading.
-- Nine validation scenarios passed using Node VM assertions. This is not a full browser test.
-- PR: https://github.com/sudip09-sys/WebProgramming/pull/1
+## Verification
 
-## Links after Pages deploys
+- All three named repositories have successful Pages workflow runs.
+- git-exercise live homepage opened with Hello Git, name and date.
+- webpro-w9 live homepage, missing URL, custom 404 and return-home link tested.
+- webpro-book-search live search for Dune returned 12 results.
+- Book Search root files present: index.html, style.css, app.js. Relative asset paths, deferred script, no debug console.log calls.
+- Team form: prior live empty/valid-name checks succeeded. Nine automated validation scenarios and six game-engine tests passed again during this audit.
+- No actual phone, private/incognito session, LMS or Discord submission is claimed.
+- No deadline compliance or backdated completion is claimed.
 
-- Exercises: https://sudip09-sys.github.io/WebProgramming/week9-git-deployment/
-- Book Search: https://sudip09-sys.github.io/WebProgramming/week9-git-deployment/book-search/
-- Team project: https://sudip09-sys.github.io/WebProgramming/teamproject/
-- Missing page test: https://sudip09-sys.github.io/WebProgramming/this-does-not-exist.html
+## Exact submissions
 
-## Still required for exact compliance
-
-1. Monday E3: create public git-exercise and push the local exercise repository. The local graph has not been pushed to this named repo.
-2. Monday homework and Friday E1: create public webpro-w9, publish index.html with name/date, enable Pages (main/root), and submit repository and live URLs on LMS. Verifying the existing WebProgramming Pages site is not the same named-repo requirement.
-3. Friday homework: create public webpro-book-search, copy the portable Book Search files into its root, push, enable Pages, and submit its live URL. Existing WebProgramming hosting does not fulfill the requested repository name.
-4. Git PDF homework: initialize a local team-project repo, make HTML/CSS/JS commits, push, and share its URL on Discord. The three API commits demonstrate separated changes but do not prove this local workflow.
-5. Deployment PDF homework: submit the deployed team-project URL and PR link on Cybercampus after verifying deployment.
-6. Test search on an actual phone. Desktop narrow-window checks alone are not a phone test.
-
-## Where to submit
-
-| Requirement | Submission |
+| Destination | Paste |
 |---|---|
-| Monday guide homework | webpro-w9 repository URL + live URL on LMS |
-| Git PDF homework | Team-project repository URL on Discord |
-| Deployment PDF lab | Working Book Search live URL in Cybercampus week9-deploy |
-| Friday guide homework | webpro-book-search live URL on LMS |
-| Deployment PDF homework | Team-project live URL + PR URL on Cybercampus |
+| LMS — Monday homework | https://github.com/sudip09-sys/webpro-w9 and https://sudip09-sys.github.io/webpro-w9/ |
+| LMS — Friday homework | https://sudip09-sys.github.io/webpro-book-search/ |
+| Cybercampus week9-deploy — deployment lab | https://sudip09-sys.github.io/webpro-book-search/ |
+| Cybercampus — form-validation homework | https://sudip09-sys.github.io/WebProgramming/teamproject/ and https://github.com/sudip09-sys/WebProgramming/pull/1 |
+| Discord — Git PDF homework | https://github.com/sudip09-sys/WebProgramming (team project is in teamproject/) |
 
-No LMS or Discord submission has been made. No backdated completion or unperformed tests are claimed.
-
-## Update: separate repositories created and populated
-
-The following public repositories now exist and contain their assignment files:
-
-- https://github.com/sudip09-sys/git-exercise — HTML on main, CSS created on feature-style and merged through https://github.com/sudip09-sys/git-exercise/pull/1 .
-- https://github.com/sudip09-sys/webpro-w9 — index.html with name/date, reflection and custom 404.html.
-- https://github.com/sudip09-sys/webpro-book-search — index.html, style.css and app.js copied from the verified existing Book Search app.
-
-This supersedes the earlier repository-creation gaps. Pages enablement and live checks for webpro-w9 and webpro-book-search are still pending. Remote writes used the GitHub connector; no CLI push of the local Git exercise graph is claimed. Phone testing and LMS/Discord submissions are still pending.
+Before claiming exact process completion, execute the required local Git workflow on your computer. Preserve current remote history; do not force-push or recreate repositories to simulate an empty starting state. Test Book Search on an actual phone and in a private browser window, then submit the URLs above.
