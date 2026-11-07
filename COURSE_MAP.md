@@ -157,6 +157,22 @@ Sudip Sah - Web Programming. Original task filenames are preserved; each week ha
 
 [Download the PDF](week9_1/Sudip_Accessibility_Audit_Report.pdf)
 
+## Week 9.2 - Performance report and audit evidence
+
+[Open Week 9.2](week9_2/index.html)
+
+## Week 10 - Git, version control and deployment
+
+- [Submission hub and six exercises](week10/index.html)
+- [Personal portfolio](week10/portfolio/index.html)
+- [Book Search](week10/book-search/index.html)
+- [Git exercise](week10/git-exercise/index.html)
+- [Accessibility modifications report](week10/report.html)
+- [Original Lighthouse score screenshot](week10/evidence/lighthouse-mobile-scores.jpg)
+- [Original portfolio audit PDF](week10/evidence/Sudip_Sah_Portfolio_Audit_Report.pdf)
+
+The retained Lighthouse files measure the original `/Portfolio/` deployment, not the modified Week 10 pages.
+
 ## Team project
 
 [Memory Match](teamproject/index.html)

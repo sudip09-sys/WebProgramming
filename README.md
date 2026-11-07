@@ -2,7 +2,7 @@
 
 Coursework and projects arranged by week.
 
-[Open portfolio](https://sudip09-sys.github.io/WebProgramming/) · [Course map](COURSE_MAP.md)
+[Open coursework](https://sudip09-sys.github.io/WebProgramming/) · [Course map](COURSE_MAP.md)
 
 ## Weekly coursework
 
@@ -13,7 +13,11 @@ Coursework and projects arranged by week.
 - [Week 6 - Fetch & API projects](week6/index.html)
 - [Week 7 - Book Search lab](week7/index.html)
 - [Week 8 Monday - Forms & HTML5 validation](week8_1/index.html)
+- [Week 8 Friday - JavaScript form validation](week8_2/index.html)
 - [Week 9.1 - Accessibility audit](week9_1/index.html)
+- [Week 9.2 - Performance report and audit evidence](week9_2/index.html)
+- [Week 10 - Git and deployment submission](week10/index.html)
+- [Week 10_2 - Accessibility modifications report](week10/report.html)
 
 ## Projects
 
@@ -37,6 +41,8 @@ Then open http://127.0.0.1:4173. No build or package installation is needed. You
 - `week2/` through `week7/`: lessons and assignments in sequence.
 - `week8_1/`: Week 8 Monday forms.
 - `week9_1/`: accessibility report and PDF.
+- `week9_2/`: performance report and audit evidence.
+- `week10/`: Git and deployment hub, portfolio, Book Search, keyboard modifications report and historical Lighthouse evidence.
 - `teamproject/`: shared Memory Match project.
 - `assets/`: shared styles, scripts and images.
 - `scripts/`: local server and checks.

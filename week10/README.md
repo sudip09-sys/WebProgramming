@@ -26,4 +26,6 @@ Name/date homepage; Book Search deployment; portfolio content and meaningful com
 
 The retained Lighthouse screenshot and PDF document the original https://sudip09-sys.github.io/Portfolio/ mobile audit on 5 November 2026: Performance 94, Accessibility 100, Best Practices 100, SEO 100. They are not a new audit of the week10/portfolio URL.
 
+Current source is in this repository at `week10/portfolio/` and `week10/book-search/`. The hub links these folders separately from the original repositories and includes a direct link to Git exercise commit `0d6d1c1`. The custom-404 preview links to the repository-root `404.html`, which is also used for missing addresses.
+
 Original histories remain at https://github.com/sudip09-sys/git-exercise and https://github.com/sudip09-sys/Portfolio . Actual local pushes confirmed in the conversation: git-exercise 0d6d1c1, webpro-w9 9d30cfa, webpro-book-search 19248fd. Initial local Git/branch practice was run in the task workspace. Portfolio actual-phone/full-keyboard testing has not been marked complete.

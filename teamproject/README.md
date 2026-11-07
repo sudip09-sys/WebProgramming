@@ -56,12 +56,11 @@ beginPreview() locks the engine; endPreview() unlocks it. game.mjs manages the p
 ## Team and presentation package
 Team: Sudip, Sondor, Eric, Abinash.
 
-- [Browser presentation (8 slides)](presentation.html)
-- [Four speaking scripts and Q&A](scripts.html)
+- [Browser presentation (12 slides)](presentation.html)
 - [Project report](report.html)
 - [Submission guide and demo checklist](submission.html)
 
-Open these pages through GitHub Pages for the rendered version. The presentation supports arrow keys, fullscreen, and Print / PDF. Documents include Print / Save as PDF. Suggested duration: 10–12 minutes including a live demo. These are browser documents, not PPTX or DOCX files.
+Open these pages through GitHub Pages for the rendered version. The presentation supports arrow keys, fullscreen, and Print / PDF. Documents include Print / Save as PDF. Suggested duration: approximately 20 minutes including a live demo, with about five minutes per speaker. Speaking scripts should be kept separate from the audience slides. These are browser documents, not PPTX or DOCX files.
 
 Speaking assignments are suggestions, not verified implementation contributions. Complete the report's contribution table before submitting.
 
