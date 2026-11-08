@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-course-skin="red" data-course-tone="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +11,12 @@
 .validate:invalid:not(:placeholder-shown){border-color:#c72f3d;background:#fff5f5}
 /* Keep focus visible separately from the valid/invalid border. */
 .validate:focus{outline:3px solid #638bff;outline-offset:3px}</style>
+
+<link rel="stylesheet" href="../assets/css/course-theme.css?v=20261108-course1">
+<script src="../assets/js/course-catalog.js?v=20261108-course1" defer></script>
+<script src="../assets/js/course-theme.js?v=20261108-course1" data-course-theme defer></script>
 </head>
-<body>
+<body data-course-mode="page" data-course-group="Forms">
 <a class="skip" href="#main">Skip to content</a>
 <main id="main">
 <header><a href="../index.html">← Web Studio</a> / <a href="index.html">Forms lab</a><p class="eyebrow">E3 / CSS validation states</p><h1>See the rules working.</h1><p>Empty fields stay neutral. Typed values show green or red; focus adds a blue outline.</p></header>
