@@ -70,7 +70,6 @@ body[data-course-mode="page"] :where(th) { background: #32202a !important; color
 body[data-course-mode="page"] :where(td) { border-color: var(--line) !important; }
 body[data-course-mode="page"] :where(button.primary, .button.primary, .btn-primary, .primary-btn) { background: var(--accent) !important; color: #170e12 !important; border-color: var(--accent) !important; }
 body[data-course-mode="page"] .course-outlined { color: transparent !important; -webkit-text-stroke: .8px var(--accent); text-shadow: none; }
-body[data-course-mode="page"] .course-photo { filter: none !important; mix-blend-mode: normal !important; border: 2px solid var(--accent); }
 /* Exercise-specific sample colors and validation borders keep their own rules. */
 body[data-course-mode="page"] :where(.card-art, .project-art) { background-color: #29171e; }
 body[data-course-mode="page"] .landing-nav { border-color: #763141; }
@@ -167,14 +166,12 @@ body[data-course-mode="page"] .course-reveal.course-pending { opacity: .15; tran
 .course-task-list small { display: block; color: var(--ct-red); font-size: 10px; margin-bottom: 5px; }
 .course-task-list strong { display: block; font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }
 .course-task-list a[aria-current="page"] { border-color: var(--ct-red); }
-.course-skill-layout { display: grid; grid-template-columns: 130px 1fr; gap: 24px; margin-bottom: 24px; align-items: center; }
-.course-drawer .course-portrait { width: 130px; height: 155px; object-fit: cover; border: 2px solid var(--ct-red); border-radius: 3px; filter: none; }
+.course-skill-layout { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 24px; align-items: center; }
 .course-skill-layout p { color: var(--ct-muted); margin: 10px 0 0; font-size: 14px; }
 .course-skill-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .course-skill-description { padding: 16px 20px; border-left: 2px solid var(--ct-red); color: var(--ct-text); background: var(--ct-panel); min-height: 86px; margin: 0; }
 .course-banner { display: flex; align-items: center; gap: 18px; width: min(1180px, calc(100% - 40px)); margin: 24px auto; padding: 20px 24px; border: 1px solid var(--ct-line); background: var(--ct-bg); border-radius: 5px; }
 .course-banner .course-banner-title { font: 800 clamp(24px, 4vw, 52px)/1.05 'DM Sans', system-ui, sans-serif; color: transparent; -webkit-text-stroke: .7px var(--ct-red); margin: 0; letter-spacing: -1px; overflow-wrap: anywhere; }
-.course-banner img { width: 64px; height: 78px; object-fit: cover; border: 1px solid var(--ct-red); border-radius: 2px; filter: none; flex: none; }
 .course-banner a { color: var(--ct-text); font-size: 12px; }
 @media (max-width: 600px) {
   .course-tools { left: 10px; right: 10px; bottom: 10px; max-width: none; justify-content: center; gap: 4px; padding: 6px; }
@@ -182,10 +179,8 @@ body[data-course-mode="page"] .course-reveal.course-pending { opacity: .15; tran
   .course-drawer { padding: 20px; max-height: calc(100dvh - 24px); }
   .course-searchbar, .course-task-list { grid-template-columns: 1fr; }
   .course-drawer select { width: 100%; max-width: none; }
-  .course-skill-layout { grid-template-columns: 80px 1fr; gap: 15px; }
-  .course-drawer .course-portrait { width: 80px; height: 110px; }
+  .course-skill-layout { grid-template-columns: 1fr; gap: 15px; }
   .course-banner { padding: 16px; gap: 12px; width: calc(100% - 28px); }
-  .course-banner img { width: 50px; height: 66px; }
 }
 @media (prefers-reduced-motion: reduce) {
   body[data-course-mode] .course-reveal { opacity: 1 !important; translate: none !important; transition: none !important; }
@@ -209,18 +204,6 @@ body[data-course-mode="page"] .course-reveal.course-pending { opacity: .15; tran
   body[data-course-mode] .course-reveal { opacity: 1 !important; translate: none !important; }
 }
 
-/* The photograph stays intact; the red treatment is presentation-only. */
-body[data-course-mode] .course-banner img,
-body[data-course-mode] .course-drawer .course-portrait,
-body[data-course-mode="page"] .course-photo {
-  filter: grayscale(1) sepia(1) saturate(5) hue-rotate(305deg) brightness(.88) !important;
-}
-body[data-course-mode="page"] .hero-emblem img {
-  aspect-ratio: 12 / 13;
-  object-fit: cover;
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-}
 body[data-course-mode="page"] a:where(:not(.course-tools a):not(.course-drawer a)) { color: var(--accent); }
 body[data-course-mode="page"] .success:not(:empty) { background: #193429; color: #d5f2de; border-color: #67d194; }
 html[data-course-tone="dark"] body[data-course-mode="page"] .error { color: #ff91a0; }

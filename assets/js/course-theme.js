@@ -10,7 +10,6 @@
   const catalog = window.SudipCourseCatalog || [];
   const pageMode = body.dataset.courseMode;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const portraitUrl = new URL('week10/portfolio/assets/portrait.jpg', base).href;
   let tone = 'dark';
   let motionEnabled = !reducedMotion.matches;
   try {
@@ -152,15 +151,9 @@
 
   const skillDrawer = createDrawer('course-skill-browser', 'Code meets the cut.', skillsButton);
   const profile = element('div', 'course-skill-layout');
-  const portrait = element('img', 'course-portrait');
-  portrait.src = portraitUrl;
-  portrait.alt = 'Sudip Sah wearing a navy suit and white shirt';
-  portrait.width = 130;
-  portrait.height = 155;
-  portrait.loading = 'lazy';
   const profileCopy = element('div');
   profileCopy.append(element('h3', '', 'Sudip Sah'), element('p', '', 'Computer Engineering at Gachon University. Video editing at LumaCreatives. Learning through projects.'));
-  profile.append(portrait, profileCopy);
+  profile.append(profileCopy);
   const skillTabs = element('div', 'course-skill-tabs');
   skillTabs.setAttribute('role', 'group');
   skillTabs.setAttribute('aria-label', 'Skill areas');
@@ -217,7 +210,6 @@
   if (pageMode === 'page') {
     const heading = document.querySelector('h1');
     if (heading && !heading.closest('.demo, .project-art, .card-art')) heading.classList.add('course-outlined');
-    document.querySelectorAll('img[src*="portrait"]').forEach(image => image.classList.add('course-photo'));
   }
 
   const currentRoute = window.location.pathname.slice(base.pathname.length);
@@ -227,12 +219,7 @@
     const copy = element('div');
     copy.append(element('p', 'course-kicker', 'SUDIP / WEB LAB'));
     copy.append(element('p', 'course-banner-title', (body.dataset.courseGroup || 'COURSEWORK').toUpperCase()));
-    const photo = element('img');
-    photo.src = portraitUrl;
-    photo.alt = 'Sudip Sah';
-    photo.width = 64;
-    photo.height = 78;
-    banner.append(photo, copy);
+    banner.append(copy);
     const main = heading.closest('main');
     if (main) main.prepend(banner);
     else body.insertBefore(banner, heading.closest('body > *') || body.firstChild);
