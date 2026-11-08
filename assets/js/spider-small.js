@@ -1,5 +1,3 @@
-/* Load the independent companion using this script's own asset directory. */
-(() => {const source=document.currentScript;if(source&&!document.querySelector('script[data-sudip-mini-pet]')){const pet=document.createElement('script');pet.src=new URL('mini-pet.js?v=20261031',source.src).href;pet.dataset.sudipMiniPet='';document.head.append(pet);}})();
 /* Compact natural orb-weaver animation. Decorative only: never captures pointer input. */
 (() => {
   'use strict';
