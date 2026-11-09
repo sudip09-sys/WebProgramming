@@ -1,5 +1,6 @@
 
-const API_URL = "https://official-joke-api.appspot.com/random_joke";
+const API_URL = "https://v2.jokeapi.dev/joke/Programming?type=twopart&safe-mode&blacklistFlags=nsfw,religious,political,racist,sexist,explicit";
+const REQUEST_TIMEOUT_MS = 8000;
 const STORAGE_KEY = "randomJokeFavourites";
 
 const $ = (id) => document.getElementById(id);
@@ -57,6 +58,7 @@ function hideError() {
 function setLoading(loading) {
   isLoading = loading;
   loadButton.disabled = loading;
+  loadButton.setAttribute("aria-busy", String(loading));
   spinner.hidden = !loading;
 
   loadButton.querySelector(".button-icon").textContent = loading ? "…" : "↻";
@@ -78,8 +80,12 @@ async function loadJoke() {
   status.hidden = false;
   setLoading(true);
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
   try {
     const response = await fetch(API_URL, {
+      signal: controller.signal,
       headers: { Accept: "application/json" },
       cache: "no-store"
     });
@@ -91,17 +97,17 @@ async function loadJoke() {
     const data = await response.json();
 
     if (
-      !data ||
-      typeof data.setup !== "string" ||
-      typeof data.punchline !== "string"
+      !data || data.error !== false || data.type !== "twopart" ||
+      typeof data.setup !== "string" || !data.setup.trim() ||
+      typeof data.delivery !== "string" || !data.delivery.trim()
     ) {
       throw new Error("The API returned an unexpected response.");
     }
 
     currentJoke = {
-      id: data.id ?? `${Date.now()}`,
+      id: `jokeapi-${data.id ?? Date.now()}`,
       setup: data.setup,
-      punchline: data.punchline
+      punchline: data.delivery
     };
 
     jokeCount += 1;
@@ -124,8 +130,11 @@ async function loadJoke() {
   } catch (error) {
     console.error("Joke request failed:", error);
     status.textContent = "Looks like the joke's on us.";
-    showError("We couldn't load a joke. Check your internet connection and try again.");
+    showError(error.name === "AbortError"
+      ? "The joke service took too long. Please try again."
+      : "The joke service is unavailable right now. Please try again.");
   } finally {
+    clearTimeout(timeout);
     setLoading(false);
   }
 }
