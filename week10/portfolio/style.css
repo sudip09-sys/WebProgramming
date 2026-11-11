@@ -12,3 +12,23 @@ html.is-enhanced[data-motion=on] .name-line>span{animation:name-enter 1.1s cubic
 @media(max-width:370px){.shell,.site-header{width:90%}.hero-copy>.eyebrow{font-size:7px}.hero h1{font-size:96px}.hero-statement{font-size:17px}.hero-art{height:370px}.hero .button{padding-inline:13px;font-size:10px;gap:17px}.hero-footer{font-size:6px}.is-enhanced .project-card{width:94%}.project-copy{padding:18px}.project-copy p{font-size:11px}.is-enhanced .project-deck{height:465px}.project-links{gap:8px}.skill-tile{font-size:10px;padding:15px 10px}.tool-icon{width:28px;height:28px;font-size:14px}.contact-copy h2{font-size:63px}.site-footer{display:block}.site-footer>p,.site-footer>div{margin-top:15px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1!important;translate:none!important}.portrait-cutout{transform:none!important}}
 @media print{#embers,.reading-progress,.hero-art,.manifesto,.deck-controls,.project-index,.filters,.header-actions,.motion-toggle,.contact-form,.skill-areas,dialog{display:none!important}:root{--bg:#fff;--panel:#fff;--raised:#fff;--text:#111;--muted:#444;--line:#aaa;--red:#a91830}body{font-size:11pt}.shell,.site-header{width:100%}.site-header nav{display:flex!important}.hero-grid,.about-section,.contact-section,.toolkit-grid{display:block}.hero-grid{min-height:0}.hero-copy{padding:15px 0}.hero h1{font-size:64px}.hero h1 .name-line{display:inline-block;margin-right:15px}.section{padding:25px 0}h2,.contact-copy h2,.about-heading h2{font-size:34px}.is-enhanced .project-deck{display:grid;height:auto;grid-template-columns:1fr 1fr;gap:15px}.is-enhanced .project-card{position:static;width:auto;transform:none!important;opacity:1!important;break-inside:avoid}.project-poster{height:160px}.reveal{opacity:1!important;translate:none!important}.project-copy p{min-height:0}.site-footer{padding-bottom:0}.outline-text{color:var(--text);-webkit-text-stroke:0}}
+
+/* Retain the photograph’s original framing and proportions. */
+.hero-art.photo-frame {
+  width: min(100%, 23rem);
+  height: auto;
+  margin: 2rem auto;
+  align-self: center;
+}
+.photo-frame img { width: 100%; height: auto; border: 1px solid var(--line); }
+.hero-art.photo-frame figcaption {
+  position: static; margin-top: .7rem; color: var(--muted);
+  font: .75rem/1.5 var(--mono); letter-spacing: .04em;
+}
+.credential-section { padding-block: clamp(3rem, 7vw, 6rem); border-block: 1px solid var(--line); }
+.credential-section header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.credential-section h2 { margin: 0; font: 700 clamp(2.2rem, 5vw, 4.5rem)/1 var(--display); }
+.credential-section ul { padding: 0; list-style: none; margin: 2rem 0 0; }
+.credential-section li { display: grid; grid-template-columns: minmax(7rem, 22%) 1fr; align-items: baseline; gap: .8rem; padding: .85rem 0; border-top: 1px solid var(--line); }
+.credential-section li span { font: .72rem/1.5 var(--mono); color: var(--muted); }
+@media (max-width: 600px) { .hero-art.photo-frame { width: min(84%, 20rem); } }
