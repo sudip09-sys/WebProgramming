@@ -28,7 +28,7 @@ Relative asset paths support the space in the folder name. The local project is 
 
 ## Details to confirm
 
-University GPAs have not been supplied. Classmates' IDs and Eric's full name have not been confirmed for this assignment. All three students are Year 1 Computer Engineering students, as confirmed by Sudip. Unconfirmed fields show **Not provided**. Replace these values in `project/src/App.jsx`, then rebuild. Do not substitute a high-school GPA for a university GPA.
+University GPAs have not been supplied. Student IDs are confirmed: Sudip 202637610, Abinash 202637724, and Eric 202637684. Eric's full name has not been provided. All three students are Year 1 Computer Engineering students, as confirmed by Sudip. Unconfirmed fields show **Not provided**. Replace these values in `project/src/App.jsx`, then rebuild. Do not substitute a high-school GPA for a university GPA.
 
 ## Submission
 

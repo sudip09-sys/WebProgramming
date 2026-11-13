@@ -24,20 +24,20 @@ function App() {
         />
         <StudentProfileCard
           name="Abinash Lamichhane"
-          studentId="Not provided"
+          studentId="202637724"
           major="Computer Engineering"
           year={1}
           gpa="Not provided"
         />
         <StudentProfileCard
           name="Eric"
-          studentId="Not provided"
+          studentId="202637684"
           major="Computer Engineering"
           year={1}
           gpa="Not provided"
         />
       </section>
-      <p className="data-note">GPAs and unconfirmed student IDs are shown as “Not provided”.</p>
+      <p className="data-note">University GPAs have not been provided.</p>
       <footer className="site-footer"><span>Sudip Sah · 202637610</span><a href="../#coursework">Back to coursework &#8599;</a><span>Task 11-A / React Components &amp; Props</span></footer>
     </main>
   );
