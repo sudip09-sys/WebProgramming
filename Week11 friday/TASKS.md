@@ -1,13 +1,44 @@
 # Week 11 Friday — task order
 
-1. ProductCard (lecture PDF): name, price, rating, inStock; KRW price, rating /5, stock status. Not built yet.
-2. Course Catalog (video lecture): CourseCard and CourseCatalog; supplied three courses; .map(), stable keys, required/elective badges. Not built yet.
-3. Study guide practice: ProfileCard defaults, notification list, children wrapper. Built in practice.html.
-4. Task 11-A (30 marks): three StudentProfileCards; five props; custom CSS; real student ID; meaningful commits; live deployment. Built in index.html. University GPA details, real screenshot, self-check, activity code and submission remain.
-5. Portfolio Gallery (lecture PDF homework): ProjectCard, ProjectList with 3+ projects, FilterBar by technology; GitHub/demo links. Not built yet. Submit repository URL to Cybercampus before the next class, per PDF.
+1. [ProductCard](./products.html) — built: four props, KRW price, rating /5, and both stock states.
+2. [Course Catalog](./courses.html) — built: the three supplied sample courses, CourseCard, .map(), stable keys, and required/elective badges.
+3. [Study guide practice](./practice.html) — built: default avatar, conditional notification list, and Card with children.
+4. [Task 11-A student directory](./index.html) — built: exactly three cards, five props, confirmed names/IDs/majors/years, original CSS, commits and deployment.
+5. [Portfolio Gallery](./gallery.html) — built: ProjectCard, ProjectList, technology FilterBar, and three existing projects with source/demo links.
 
-Task 11-A submission: repository URL, live URL, your genuine activity code and a screenshot showing student ID. Task page states next Friday at class start; use the course's actual submission deadline.
+## Before submission
 
-Keep Task 11-A at exactly three student cards. Additional exercises belong on their own pages.
+- [ ] Review the code and be able to explain props, .map(), keys, children, and filtering.
+- [ ] Supply actual university GPAs, or ask the instructor what to show if no GPA is available yet. Do not invent values or substitute high-school results.
+- [ ] Complete your original lecture activity and save its activity code.
+- [ ] Take real screenshots of the running pages, including ID 202637610 on Task 11-A.
+- [ ] Use the task's self-check if it works in your browser; local code checks are available with npm run check.
+- [ ] Submit repository URL, live URL, activity code and screenshot through the correct Task 11-A course form.
+- [ ] Submit the Portfolio Gallery homework repository URL through Cybercampus as instructed in the PDF.
 
-[Friday hub](./tasks.html) · [Student directory](./index.html) · [Built practice](./practice.html) · [Monday hub](<../Week11 monday/index.html>)
+Task 11-A and Portfolio Gallery are separate assignments. Task 11-A's page states next Friday at class start; the PDF gallery homework says before the next class. Check the actual course submission dates.
+
+## Run locally
+
+From the repository root:
+
+```sh
+cd "Week11 friday/project"
+npm ci
+npm run check
+npm run dev
+```
+
+Use the local address printed by Vite, then open index.html, products.html, courses.html, practice.html, or gallery.html. Run npm run build to regenerate the published files in the parent Friday folder.
+
+## Explain the implementation
+
+- StudentProfileCard receives five read-only props. Exactly three usages stay in App.jsx.
+- ProductCard formats a number as a KRW price and chooses stock text with a ternary.
+- CourseCatalog maps an array to CourseCards, using course IDs as keys.
+- ProfileCard supplies a default avatar when no avatarUrl is passed.
+- NotificationList maps its array; NotificationItem chooses an icon by type.
+- Card displays nested content through children.
+- Gallery stores the selected technology in useState. All shows all three projects; a technology selection uses .filter() before ProjectList renders the results.
+
+[Friday hub](./tasks.html) · [Monday hub](<../Week11 monday/index.html>) · [Submission guide](../WEEK11_SUBMISSION.md)

@@ -10,6 +10,15 @@ Task 11-A displays exactly three student cards: Sudip Sah, Abinash Lamichhane, a
 
 The practice page includes ProfileCard with a default local avatar, a keyed notification list with conditional icons, and a Card wrapper using children in two different sections. All styling is custom CSS, using the black-and-red palette, condensed headings and outlined typography of Sudip’s portfolio. Both pages link back to coursework and the portfolio.
 
+## Additional Friday exercises
+
+- [ProductCard](./products.html)
+- [Course Catalog](./courses.html)
+- [Portfolio Gallery with technology filters](./gallery.html)
+- [Week 11 submission guide](../WEEK11_SUBMISSION.md)
+
+Readable components live in project/src. Run npm run check from project/ for repeatable checks.
+
 ## Run and build
 
 ```sh
