@@ -11,3 +11,13 @@ const html = renderToStaticMarkup(React.createElement(App));
 assert.equal((html.match(/class="profile-card"/g) || []).length, 1);
 for (const value of ['Sudip Sah', '202637610', 'Computer Engineering']) assert.ok(html.includes(value));
 console.log('PASS: Monday StudentCard renders exactly one student with the confirmed name, ID and major.');
+
+const reviewBundle = await build({ configFile: false, logLevel: 'silent', build: { ssr: 'src/Review.jsx', outDir: '.check-review', emptyOutDir: true } });
+const reviewEntry = reviewBundle.output.find(chunk => chunk.type === 'chunk' && chunk.isEntry);
+const { default: Review, questions } = await import(pathToFileURL(resolve('.check-review', reviewEntry.fileName)).href);
+const reviewHtml = renderToStaticMarkup(React.createElement(Review));
+assert.equal(questions.length, 3);
+assert.equal((reviewHtml.match(/<fieldset/g) || []).length, 3);
+assert.ok(reviewHtml.includes('Practice score: 0 / 3'));
+assert.ok(questions.every(q => q.correct >= 0 && q.correct < q.options.length));
+console.log('PASS: three concept checks render with valid answer choices and an initial practice score.');

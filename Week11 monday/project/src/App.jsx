@@ -6,7 +6,7 @@ export default function App() {
     <main className="page">
       <header className="site-header">
         <a className="brand" href="../#coursework">SUDIP<span> / LAB</span></a>
-        <nav aria-label="Course navigation"><a href="./">Monday tasks</a><a href="../Week11%20friday/tasks.html">Friday</a><a href="../#coursework">Coursework</a></nav>
+        <nav aria-label="Course navigation"><a href="./">Monday</a><a href="./review.html">Concept checks</a><a href="../Week11%20friday/tasks.html">Friday</a><a href="../#coursework">Coursework</a></nav>
       </header>
       <section className="intro">
         <p className="eyebrow">WEEK 11 MONDAY / FIRST COMPONENT</p>
@@ -24,7 +24,7 @@ export default function App() {
           <pre><code>{'<StudentCard\n  name="Sudip Sah"\n  id="202637610"\n  major="Computer Engineering"\n/>'}</code></pre>
         </aside>
       </section>
-      <p className="data-note">For your submission screenshot, keep your name and ID visible. Complete the instructor’s visual lecture separately to receive your own activity code.</p>
+      <p className="data-note">StudentCard receives three read-only props: name, id, and major.</p>
       <footer className="site-footer"><span>Sudip Sah / 202637610</span><a href="./">Back to Monday tasks</a><a href="../Week11%20friday/tasks.html">Continue to Friday</a></footer>
     </main>
   );

@@ -3,5 +3,5 @@ import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
   base: './',
-  build: { rollupOptions: { input: fileURLToPath(new URL('./lab.html', import.meta.url)) } },
+  build: { rollupOptions: { input: { lab: fileURLToPath(new URL('./lab.html', import.meta.url)), review: fileURLToPath(new URL('./review.html', import.meta.url)) } } },
 });
