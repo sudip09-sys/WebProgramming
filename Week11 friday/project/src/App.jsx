@@ -38,6 +38,14 @@ function App() {
         />
       </section>
       <p className="data-note">University GPAs have not been provided.</p>
+      <section className="catalog-card" aria-labelledby="evidence-title">
+        <p className="eyebrow">TASK 11-A / SUBMISSION EVIDENCE</p>
+        <h2 id="evidence-title">Activity code</h2>
+        <p><strong>7610-BBB-4994</strong> · Visual Lecture quick checks: 3/3 correct.</p>
+        <p><a href="./activity-code.jpg" target="_blank" rel="noreferrer">Open activity-code screenshot &#8599;</a></p>
+        <img src="./activity-code.jpg" alt="User-provided Week 11 Monday Visual Lecture screenshot showing activity code 7610-BBB-4994 and 3 out of 3 correct" loading="lazy" style={{ display: 'block', width: '100%', maxWidth: 480, height: 'auto', marginTop: 20, borderRadius: 8 }} />
+        <p className="data-note">Supporting lecture evidence. Submit this code with the repository link, live app link, and running-app screenshot through the course submission page.</p>
+      </section>
       <footer className="site-footer"><span>Sudip Sah · 202637610</span><a href="../#coursework">Back to coursework &#8599;</a><span>Task 11-A / React Components &amp; Props</span></footer>
     </main>
   );
