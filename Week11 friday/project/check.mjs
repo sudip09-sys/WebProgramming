@@ -17,6 +17,8 @@ const directory = render(app.default);
 assert.equal((directory.match(/class="profile-card"/g) || []).length, 3);
 for (const id of ['202637610', '202637724', '202637684']) assert.ok(directory.includes(id));
 assert.equal((directory.match(/<strong>Major:<\/strong> Computer Engineering/g) || []).length, 3);
+for (const value of ['4.45', '4.39', '4.22']) assert.ok(directory.includes(`<strong>GPA:</strong> ${value}`));
+assert.ok(!directory.includes('Supporting lecture evidence.'));
 const product = await load('ProductCard');
 assert.ok(render(product.ProductCard, { name: 'Earbuds', price: 89000, rating: 4.5, inStock: true }).includes('89,000원'));
 assert.ok(render(product.ProductCard, { name: 'Earbuds', price: 89000, rating: 4.5, inStock: true }).includes('4.5 / 5 stars'));

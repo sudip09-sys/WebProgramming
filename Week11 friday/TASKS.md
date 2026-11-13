@@ -5,7 +5,7 @@ Student: Sudip Sah · 202637610 · Computer Engineering
 1. [ProductCard](./products.html): name, price, rating, inStock; KRW prices and both stock states.
 2. [Course Catalog](./courses.html): title, instructor, credits, required; .map(), stable keys and conditional badges. Displayed teaching-team labels are sample data.
 3. [Practice](./practice.html): default avatar, notification list and Card with children.
-4. [Student Directory / Task 11-A](./index.html): exactly three cards and five props. IDs, major and year are confirmed. University GPAs have not been supplied.
+4. [Student Directory / Task 11-A](./index.html): exactly three cards and five props. IDs, major and year are confirmed. University User-provided GPAs: Sudip 4.45, Abinash 4.39, Eric 4.22.
 5. [Portfolio Gallery](./gallery.html): ProjectCard, ProjectList and FilterBar; three projects with source and demo links.
 6. [Component Lab](./examples.html): greetings, StudentList, conditional Alert and GradeBoard. Demonstration scores are fictional.
 

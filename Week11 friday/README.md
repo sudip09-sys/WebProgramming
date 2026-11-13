@@ -26,4 +26,4 @@ Open a page such as index.html or gallery.html at the address printed by Vite. R
 - The parent HTML and assets/ are generated build output.
 - Original CSS uses the portfolio's black/red palette, condensed type, outlined headings, subtle backgrounds and responsive layouts.
 
-Three confirmed student IDs: Sudip 202637610, Abinash 202637724, Eric 202637684. All are Year 1 Computer Engineering. GPAs have not been supplied. Course-team labels and demonstration scores are sample data. No official result is claimed.
+Three confirmed student IDs: Sudip 202637610, Abinash 202637724, Eric 202637684. All are Year 1 Computer Engineering. User-provided GPAs: Sudip 4.45, Abinash 4.39, Eric 4.22. Course-team labels and demonstration scores are sample data. No official result is claimed.

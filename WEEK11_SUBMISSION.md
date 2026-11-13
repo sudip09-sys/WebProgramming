@@ -22,7 +22,7 @@ ProductCard; Course Catalog; ProfileCard defaults; notifications; Card with chil
 
 Use the Monday and Friday URLs above in their corresponding course submission fields. If requested, also supply the repository URL and a real screenshot showing the student ID. Any required attendance/activity confirmation must come from the course platform. The Portfolio Gallery is linked from Friday and also opens directly at https://sudip09-sys.github.io/WebProgramming/Week11%20friday/gallery.html.
 
-University GPAs remain Not provided because no real values were supplied. Update project/src/App.jsx with confirmed values and rebuild if numeric GPAs are required. Never substitute an unrelated school GPA.
+User-provided university GPAs: Sudip 4.45, Abinash 4.39, Eric 4.22. Activity code: 7610-BBB-4994; its screenshot is displayed on Task 11-A.
 
 The practice quiz score is local exercise feedback, not an official grade or attendance record. These pages have not been submitted automatically. Grading is determined by the course requirements.
 
