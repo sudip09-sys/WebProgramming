@@ -39,7 +39,7 @@ export default function Examples() {
         <section className="exercise"><div className="exercise-number">01 / FUNCTIONAL COMPONENTS</div><h2>Same greeting. Different props.</h2><Greeting name="Sudip" /><Greeting name="Abinash" /><Greeting name="Eric" /></section>
         <section className="exercise"><div className="exercise-number">02 / LISTS &amp; KEYS</div><h2>Turn an array into a list.</h2><Card title="Student list"><StudentList /></Card></section>
         <section className="exercise"><div className="exercise-number">03 / CONDITIONAL RENDERING</div><h2>Show the right message.</h2><Alert type="info" message="Your work is ready to review." /><Alert type="warning" message="Save your changes before closing." /><Alert type="info" message="" /><p>The empty message returns null and displays nothing.</p></section>
-        <section className="exercise"><div className="exercise-number">04 / COMPOSITION</div><h2>A pass-or-fail board.</h2><p>Fictional sample scores demonstrate a score threshold of 60. These are not student academic records.</p><GradeBoard /></section>
+        <section className="exercise"><div className="exercise-number">04 / COMPOSITION</div><h2>A pass-or-fail board.</h2><p>Demo scores show how the pass threshold of 60 changes each badge.</p><GradeBoard /></section>
       </div>
     </ExerciseLayout>
   );

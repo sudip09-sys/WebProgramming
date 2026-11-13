@@ -11,4 +11,4 @@ Student: Sudip Sah · 202637610 · Computer Engineering
 
 Run npm ci, npm run check and npm run build from project/.
 
-Course submission, activity confirmation and official grading remain external to this website. No GPA, official grade or activity code is fabricated.
+Submit coursework through the course platform. The site contains the exercises and supporting evidence.
