@@ -11,8 +11,8 @@
 - [ ] Review the code and be able to explain props, .map(), keys, children, and filtering.
 - [ ] Supply actual university GPAs, or ask the instructor what to show if no GPA is available yet. Do not invent values or substitute high-school results.
 - [ ] Complete your original lecture activity and save its activity code.
-- [ ] Take real screenshots of the running pages, including ID 202637610 on Task 11-A.
-- [ ] Use the task's self-check if it works in your browser; local code checks are available with npm run check.
+- [x] Capture real screenshots of the running pages, including ID 202637610 on Task 11-A (supplied in the evidence archive).
+- [x] Run local checks with npm run check. The instructor's online checker is currently broken: its textarea includes the button and script as text, so there is no usable Check button. This is not an instructor-issued passing result.
 - [ ] Submit repository URL, live URL, activity code and screenshot through the correct Task 11-A course form.
 - [ ] Submit the Portfolio Gallery homework repository URL through Cybercampus as instructed in the PDF.
 

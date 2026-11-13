@@ -5,7 +5,7 @@
 - [x] Build and verify the React lab.
 - [ ] Complete the instructor's visual lecture and its three quick checks yourself.
 - [ ] Save the activity code displayed after your lecture activity.
-- [ ] Capture a real screenshot of your running card showing your ID.
+- [x] Capture a real screenshot of the running published card showing your ID (supplied in the evidence archive).
 - [ ] Submit through the course's required channel.
 
 [Open lab](./lab.html) · [Monday hub](./index.html) · [Friday hub](<../Week11 friday/tasks.html>)

@@ -63,3 +63,11 @@ npm run dev
 ```
 
 After editing, stop the development server with Ctrl+C, run npm run build, then return to the repository root (cd ../..) and commit/push the changed source and generated files. Keep the existing Pages deployment; do not replace it with a separate gh-pages branch.
+
+## Verification and supplied evidence
+
+Both Vite builds and npm run check passed. The published Monday lab, ProductCard stock states, Course Catalog badges, and Portfolio Gallery were verified in a live browser. Gallery filters were clicked and produced the expected counts: All 3, JavaScript 2, React 1, API 1, CSS 3.
+
+The evidence archive supplied in chat contains real full-page browser screenshots of the Monday lab, Friday Task 11-A directory, and Portfolio Gallery. They document the published app running in the browser; they do not establish that you completed the instructor's lecture or submitted the assignment.
+
+The instructor's Task 11-A self-check page was inspected. Its malformed textarea contains the intended Check button and script as text, so the checker cannot run in its current state. Use the local checks to review your code and ask the instructor for a working checker if required. No official checker score is claimed.
