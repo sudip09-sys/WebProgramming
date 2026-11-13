@@ -180,6 +180,7 @@ The retained Lighthouse files measure the original `/Portfolio/` deployment, not
 ## Week 11 Monday - Introduction to React
 
 - [Monday task hub and lab checklist](<Week11 monday/index.html>)
+- [Monday StudentCard lab](<Week11 monday/lab.html>)
 
 ## Week 11 Friday - React components and props
 
@@ -188,3 +189,8 @@ The retained Lighthouse files measure the original `/Portfolio/` deployment, not
 - [Student directory](<Week11 friday/index.html>)
 - [Study guide practice](<Week11 friday/practice.html>)
 - [React source project](<Week11 friday/project/>)
+
+- [Friday ProductCard](<Week11 friday/products.html>)
+- [Friday Course Catalog](<Week11 friday/courses.html>)
+- [Friday Portfolio Gallery](<Week11 friday/gallery.html>)
+- [Week 11 submission guide](WEEK11_SUBMISSION.md)
