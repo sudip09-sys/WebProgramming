@@ -4,7 +4,7 @@
   const $ = id => document.getElementById(id);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = matchMedia('(pointer: fine)');
-  const email = 'sudipsah403@gmail.com';
+  const email = 'sudipsah909@gmail.com';
   const readPreference = key => { try { return localStorage.getItem(key); } catch { return null; } };
   const savePreference = (key, value) => { try { localStorage.setItem(key, value); } catch {} };
   let motionRequested = readPreference('sudip-portfolio-motion') !== 'off';
@@ -355,7 +355,7 @@
         else link.removeAttribute('aria-current');
       });
     }), { rootMargin: '-15% 0px -45% 0px', threshold: 0 });
-    document.querySelectorAll('#work, #about, #skills, #contact').forEach(section => navObserver.observe(section));
+    document.querySelectorAll('#home, #work, #about, #recognition, #skills, #contact').forEach(section => navObserver.observe(section));
   }
   let scrollFrame = 0;
   function updateProgress() {

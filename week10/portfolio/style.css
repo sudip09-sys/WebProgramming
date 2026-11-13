@@ -29,6 +29,6 @@ html.is-enhanced[data-motion=on] .name-line>span{animation:name-enter 1.1s cubic
 .credential-section header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
 .credential-section h2 { margin: 0; font: 700 clamp(2.2rem, 5vw, 4.5rem)/1 var(--display); }
 .credential-section ul { padding: 0; list-style: none; margin: 2rem 0 0; }
-.credential-section li { display: grid; grid-template-columns: minmax(7rem, 22%) 1fr; align-items: baseline; gap: .8rem; padding: .85rem 0; border-top: 1px solid var(--line); }
-.credential-section li span { font: .72rem/1.5 var(--mono); color: var(--muted); }
+.credential-section li { padding: .85rem 0; border-top: 1px solid var(--line); }
+@media (min-width: 701px) { #menu-toggle { display: none; } }
 @media (max-width: 600px) { .hero-art.photo-frame { width: min(84%, 20rem); } }
