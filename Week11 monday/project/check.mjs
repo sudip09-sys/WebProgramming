@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { build } from 'vite';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+const bundle = await build({ configFile: false, logLevel: 'silent', build: { ssr: 'src/App.jsx', outDir: '.check', emptyOutDir: true } });
+const entry = bundle.output.find(chunk => chunk.type === 'chunk' && chunk.isEntry);
+const { default: App } = await import(pathToFileURL(resolve('.check', entry.fileName)).href);
+const html = renderToStaticMarkup(React.createElement(App));
+assert.equal((html.match(/class="profile-card"/g) || []).length, 1);
+for (const value of ['Sudip Sah', '202637610', 'Computer Engineering']) assert.ok(html.includes(value));
+console.log('PASS: Monday StudentCard renders exactly one student with the confirmed name, ID and major.');
