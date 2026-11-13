@@ -1,73 +1,31 @@
-# Week 11 — how to finish and submit
+# Week 11 — submission links
 
-The Monday and Friday coding exercises are in separate folders. The public site and source are in the existing WebProgramming repository.
+Name: Sudip Sah · Student ID: 202637610
 
-## 1. Work through Monday
+Monday: https://sudip09-sys.github.io/WebProgramming/Week11%20monday/
 
-Open Week11 monday/index.html, then the StudentCard lab. Review project/src/StudentCard.jsx and project/src/App.jsx. Complete the instructor's original visual lecture yourself, including its quick checks. Save the activity code displayed by that lecture and capture a screenshot showing your name and ID.
-
-## 2. Work through Friday
-
-Open Week11 friday/tasks.html. Follow the five items in order: ProductCard, Course Catalog, study-guide practice, Task 11-A, and Portfolio Gallery. The hub links to each working page.
-
-Try the gallery filters: All = 3 projects, JavaScript = 2, React = 1, API = 1, CSS = 3. Open the source and demo links.
-
-The courses and products are explicitly marked as sample exercise data. Gallery projects point to existing coursework.
-
-## 3. Missing academic information
-
-All three directory cards are Year 1 Computer Engineering. Confirmed IDs: Sudip 202637610, Abinash 202637724, Eric 202637684. University GPAs remain Not provided. Supply real values or ask the instructor how to handle an unavailable GPA; no result is fabricated. Eric's full name has not been supplied.
-
-## 4. Review and evidence
-
-Understand the code before presenting it: a component returns JSX; props flow from parent to child; .map() renders lists; stable keys identify list items; ternaries choose output; children holds nested JSX; useState remembers the selected gallery filter.
-
-Capture real screenshots from the running pages. Task 11-A's screenshot must show ID 202637610. Do not claim screenshots or a personal lecture activity have been completed merely because the code is built.
-
-## 5. Submit the appropriate items
+Friday: https://sudip09-sys.github.io/WebProgramming/Week11%20friday/tasks.html
 
 Repository: https://github.com/sudip09-sys/WebProgramming
 
-Monday hub: https://sudip09-sys.github.io/WebProgramming/Week11%20monday/
+Each day has its own folder and portfolio-styled submission page. Each exercise has a working demo and readable source.
 
-Task 11-A live app: https://sudip09-sys.github.io/WebProgramming/Week11%20friday/
+## Monday
 
-Portfolio Gallery: https://sudip09-sys.github.io/WebProgramming/Week11%20friday/gallery.html
+React foundations: three interactive concept checks, immediate feedback, practice score and reset. StudentCard lab: a functional component with name, id and major props displaying the confirmed student details.
 
-For Task 11-A: repository URL, live app URL, your genuine in-class activity code and a screenshot. Use the task's self-check where available. Submit through the correct course form.
+## Friday
 
-For Portfolio Gallery: submit the repository URL on Cybercampus before the next class, per the PDF. Include the direct gallery link if the submission allows a note.
+ProductCard; Course Catalog; ProfileCard defaults; notifications; Card with children; Task 11-A Student Directory; Portfolio Gallery with technology filters; component examples including greetings, StudentList, Alert and GradeBoard.
 
-No quiz, attendance confirmation, or course submission has been sent by this implementation.
+## What to submit
 
-## Local workflow
+Use the Monday and Friday URLs above in their corresponding course submission fields. If requested, also supply the repository URL and a real screenshot showing the student ID. Any required attendance/activity confirmation must come from the course platform. The Portfolio Gallery is linked from Friday and also opens directly at https://sudip09-sys.github.io/WebProgramming/Week11%20friday/gallery.html.
 
-From the repository root, choose one:
+University GPAs remain Not provided because no real values were supplied. Update project/src/App.jsx with confirmed values and rebuild if numeric GPAs are required. Never substitute an unrelated school GPA.
 
-```sh
-cd "Week11 monday/project"
-```
+The practice quiz score is local exercise feedback, not an official grade or attendance record. These pages have not been submitted automatically. Grading is determined by the course requirements.
 
-or:
+## Run and verify
 
-```sh
-cd "Week11 friday/project"
-```
-
-Then:
-
-```sh
-npm ci
-npm run check
-npm run dev
-```
-
-After editing, stop the development server with Ctrl+C, run npm run build, then return to the repository root (cd ../..) and commit/push the changed source and generated files. Keep the existing Pages deployment; do not replace it with a separate gh-pages branch.
-
-## Verification and supplied evidence
-
-Both Vite builds and npm run check passed. The published Monday lab, ProductCard stock states, Course Catalog badges, and Portfolio Gallery were verified in a live browser. Gallery filters were clicked and produced the expected counts: All 3, JavaScript 2, React 1, API 1, CSS 3.
-
-The evidence archive supplied in chat contains real full-page browser screenshots of the Monday lab, Friday Task 11-A directory, and Portfolio Gallery. They document the published app running in the browser; they do not establish that you completed the instructor's lecture or submitted the assignment.
-
-The instructor's Task 11-A self-check page was inspected. Its malformed textarea contains the intended Check button and script as text, so the checker cannot run in its current state. Use the local checks to review your code and ask the instructor for a working checker if required. No official checker score is claimed.
+From the repository root, enter either "Week11 monday/project" or "Week11 friday/project", then run npm ci, npm run check, npm run dev. To publish edits, run npm run build, then commit/push the changed source and generated files to the existing repository.

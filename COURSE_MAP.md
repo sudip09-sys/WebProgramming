@@ -194,3 +194,6 @@ The retained Lighthouse files measure the original `/Portfolio/` deployment, not
 - [Friday Course Catalog](<Week11 friday/courses.html>)
 - [Friday Portfolio Gallery](<Week11 friday/gallery.html>)
 - [Week 11 submission guide](WEEK11_SUBMISSION.md)
+
+- [Monday React foundations](<Week11 monday/review.html>)
+- [Friday Component Lab](<Week11 friday/examples.html>)
