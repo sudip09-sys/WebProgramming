@@ -1,55 +1,29 @@
-# Week 11 Friday: React Components & Props
+# Week 11 Friday — React coursework
 
-**Sudip Sah · 202637610**
+**Sudip Sah · 202637610 · Computer Engineering**
 
-[Friday task hub](./tasks.html) · [Task order](./TASKS.md) · [Monday tasks](<../Week11 monday/index.html>)
+[Friday submission page](./tasks.html) · [Monday submission page](<../Week11 monday/index.html>)
 
-[Student directory](./index.html) · [Study guide exercises](./practice.html)
+Working exercises: ProductCard, Course Catalog, three practice exercises, Task 11-A Student Directory, Portfolio Gallery, and Component Lab. Every item is linked from the submission page with readable source.
 
-Task 11-A displays exactly three student cards: Sudip Sah, Abinash Lamichhane, and Eric. The reusable `project/src/StudentProfileCard.jsx` receives exactly five props: `name`, `studentId`, `major`, `year`, and `gpa`.
+## Run locally
 
-The practice page includes ProfileCard with a default local avatar, a keyed notification list with conditional icons, and a Card wrapper using children in two different sections. All styling is custom CSS, using the black-and-red palette, condensed headings and outlined typography of Sudip’s portfolio. Both pages link back to coursework and the portfolio.
-
-## Additional Friday exercises
-
-- [ProductCard](./products.html)
-- [Course Catalog](./courses.html)
-- [Portfolio Gallery with technology filters](./gallery.html)
-- [Week 11 submission guide](../WEEK11_SUBMISSION.md)
-
-Readable components live in project/src. Run npm run check from project/ for repeatable checks.
-
-## Run and build
+From the repository root:
 
 ```sh
 cd "Week11 friday/project"
 npm ci
+npm run check
 npm run dev
 ```
 
-To rebuild the files served by GitHub Pages:
+Open a page such as index.html or gallery.html at the address printed by Vite. Run npm run build to generate the deployment files in the parent Friday folder. Keep the existing Pages deployment.
 
-```sh
-npm run build
-```
+## Structure and checks
 
-Vite builds into `project/dist/`. The postbuild script copies those generated files into the parent `Week11 friday/` folder, alongside this README. Commit the updated HTML and assets to the existing WebProgramming repository. Do not deploy a separate gh-pages branch: this coursework uses the existing site's deployment.
+- project/src/ contains readable React components.
+- project/check.mjs checks component rendering, IDs, currency, stock states, course types, gallery lists, default props, children, alerts and grade thresholds.
+- The parent HTML and assets/ are generated build output.
+- Original CSS uses the portfolio's black/red palette, condensed type, outlined headings, subtle backgrounds and responsive layouts.
 
-Relative asset paths support the space in the folder name. The local project is under `project/`; the parent HTML and assets are generated deployment output.
-
-## Details to confirm
-
-University GPAs have not been supplied. Student IDs are confirmed: Sudip 202637610, Abinash 202637724, and Eric 202637684. Eric's full name has not been provided. All three students are Year 1 Computer Engineering students, as confirmed by Sudip. Unconfirmed fields show **Not provided**. Replace these values in `project/src/App.jsx`, then rebuild. Do not substitute a high-school GPA for a university GPA.
-
-## Submission
-
-Submit this repository, the live directory page, your in-class activity code, and a screenshot of the running app showing ID 202637610 through the correct course form. The activity code must come from class.
-
-## Validation
-
-Production build and actual React server rendering passed: exactly three student cards, all required props, visible student ID, three practice exercises, conditional icons, default avatar and nested children. Local browser testing was blocked by the execution environment. Browser validation and public deployment checks are recorded separately; no screenshot is fabricated.
-
-## References
-
-- [Task 11-A](https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_Task11A_ReactProps.html)
-- [Study guide](https://muxiddin19.github.io/WebPro/week10/WebPro_Week11_Fri_StudyGuide.html)
+Three confirmed student IDs: Sudip 202637610, Abinash 202637724, Eric 202637684. All are Year 1 Computer Engineering. GPAs have not been supplied. Course-team labels and demonstration scores are sample data. No official result is claimed.

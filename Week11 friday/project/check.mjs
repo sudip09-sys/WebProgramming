@@ -35,3 +35,10 @@ const practice = await load('practice');
 assert.ok(render(practice.ProfileCard, { name: 'Test', role: 'Student', email: 'test@invalid.local' }).includes('./avatar.svg'));
 assert.ok(render(practice.Card, { title: 'Wrapper' }, React.createElement('p', null, 'Nested content')).includes('<p>Nested content</p>'));
 console.log('PASS: three confirmed student cards; KRW price and rating; out-of-stock branch; required/elective courses; gallery lists and empty state; default avatar and children.');
+
+const examples = await load('Examples');
+assert.ok(render(examples.GradeCard, { student: { id: 'demo', name: 'Sample', score: 60 } }).includes('Pass'));
+assert.ok(render(examples.GradeCard, { student: { id: 'demo', name: 'Sample', score: 59 } }).includes('Fail'));
+assert.equal(render(examples.Alert, { type: 'info', message: '' }), '');
+assert.ok(render(examples.StudentList).includes('202637684'));
+console.log('PASS: grade threshold boundary, empty alert, and keyed student list.');

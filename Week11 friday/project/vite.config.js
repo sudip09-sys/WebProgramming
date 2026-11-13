@@ -11,6 +11,7 @@ export default defineConfig({
         products: fileURLToPath(new URL('./products.html', import.meta.url)),
         courses: fileURLToPath(new URL('./courses.html', import.meta.url)),
         gallery: fileURLToPath(new URL('./gallery.html', import.meta.url)),
+        examples: fileURLToPath(new URL('./examples.html', import.meta.url)),
       },
     },
   },

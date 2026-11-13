@@ -2,9 +2,9 @@ import React from 'react';
 import ExerciseLayout from './ExerciseLayout.jsx';
 
 export const courses = [
-  { id: 1, title: 'Web Programming', instructor: 'Dr. Toshpulatov', credits: 3, required: true },
-  { id: 2, title: 'Database Systems', instructor: 'Dr. Kim', credits: 3, required: true },
-  { id: 3, title: 'Mobile App Dev', instructor: 'Dr. Lee', credits: 2, required: false },
+  { id: 1, title: 'Web Programming', instructor: 'Web Development Team', credits: 3, required: true },
+  { id: 2, title: 'Database Systems', instructor: 'Database Team', credits: 3, required: true },
+  { id: 3, title: 'Mobile App Dev', instructor: 'Mobile Development Team', credits: 2, required: false },
 ];
 
 export function CourseCard({ title, instructor, credits, required }) {
@@ -20,11 +20,11 @@ export function CourseCard({ title, instructor, credits, required }) {
 
 export default function CourseCatalog() {
   return (
-    <ExerciseLayout title="COURSE CATALOG" description="Three courses from the lecture example. An array becomes a list of components, with a different badge for each course type.">
-      <section className="catalog-grid" aria-label="Lecture sample courses">
+    <ExerciseLayout title="COURSE CATALOG" description="A reusable course component, an array of data, and a badge for each course type.">
+      <section className="catalog-grid" aria-label="Sample course catalog">
         {courses.map(course => <CourseCard key={course.id} title={course.title} instructor={course.instructor} credits={course.credits} required={course.required} />)}
       </section>
-      <p className="data-note">Instructor names and credits are the supplied lecture example, not a verified university course listing.</p>
+      <p className="data-note">Sample course data for demonstrating props, list rendering, and conditional badges.</p>
     </ExerciseLayout>
   );
 }

@@ -15,7 +15,7 @@ export function ProfileCard({ name, role, email, avatarUrl = './avatar.svg' }) {
 const notifications = [
   { id: 'profile', type: 'success', message: 'Profile updated successfully' },
   { id: 'password', type: 'warning', message: 'Password expires in 3 days' },
-  { id: 'lecture', type: 'info', message: 'New lecture materials available' },
+  { id: 'resources', type: 'info', message: 'New learning resources available' },
 ];
 
 // Exercise 2: conditional rendering chooses an icon; stable IDs identify the list items.

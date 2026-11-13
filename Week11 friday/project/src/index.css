@@ -106,3 +106,4 @@ h1 { font:800 clamp(64px,8.8vw,126px)/.88 var(--display); letter-spacing:-1.6px;
 .empty-gallery { color:var(--muted); padding:30px 0; }
 @media(max-width:950px) { .catalog-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:650px) { .catalog-grid { grid-template-columns:1fr; } .catalog-card { padding:26px; } .gallery-card { padding:0; } .gallery-toolbar { align-items:flex-start; } .exercise-intro h1 { font-size:clamp(49px,11vw,70px); } }
+body { background:radial-gradient(ellipse at 95% 12%,#72132618,transparent 40%),var(--bg); }
