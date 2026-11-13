@@ -23,8 +23,14 @@ assert.ok(render(product.ProductCard, { name: 'Earbuds', price: 89000, rating: 4
 assert.ok(render(product.ProductCard, { name: 'Keyboard', price: 69000, rating: 4.2, inStock: false }).includes('Out of Stock'));
 const course = await load('CourseCatalog');
 const catalog = render(course.default);
-assert.equal((catalog.match(/필수 · Required/g) || []).length, 2);
-assert.equal((catalog.match(/선택 · Elective/g) || []).length, 1);
+assert.ok(render(course.CourseCard, { title: 'Required demo', credits: 3, required: true }).includes('필수 · Required'));
+assert.ok(render(course.CourseCard, { title: 'Elective demo', credits: 1, required: false }).includes('선택 · Elective'));
+for (const [title, credits] of [['Operating Systems', 3], ['Artificial Intelligence', 2], ['Discrete Mathematics', 3], ['College English', 1]]) {
+  assert.equal(course.courses.find(c => c.title === title)?.credits, credits);
+  assert.ok(catalog.includes(title));
+}
+assert.ok(catalog.includes('<strong>1</strong> credit'));
+assert.equal((render(product.default).match(/class="catalog-card product-card"/g) || []).length, 9);
 const gallery = await load('Gallery');
 assert.equal((render(gallery.ProjectList, { projects: gallery.projects }).match(/class="catalog-card gallery-card"/g) || []).length, 3);
 const reactProjects = gallery.projects.filter(project => project.technologies.includes('React'));
