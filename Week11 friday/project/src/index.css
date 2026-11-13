@@ -10,7 +10,7 @@ a:focus-visible { outline:2px solid #ff5666; outline-offset:6px; }
 .site-header { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:100px; border-bottom:1px solid var(--line); }
 .brand { font-size:16px; font-weight:700; letter-spacing:-.6px; white-space:nowrap; }
 .brand span,.red,.title-dot { color:var(--red); }
-.site-header nav { display:flex; gap:32px; align-items:center; }
+.site-header nav { display:flex; flex-wrap:wrap; gap:32px; align-items:center; }
 .site-header nav a { padding:10px 0; font:10px/1.5 var(--mono); letter-spacing:1.4px; text-transform:uppercase; }
 .nav-link { border-bottom:1px solid var(--red); }
 .nav-link span { color:var(--red); margin-left:12px; }

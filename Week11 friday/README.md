@@ -2,6 +2,8 @@
 
 **Sudip Sah · 202637610**
 
+[Friday task hub](./tasks.html) · [Task order](./TASKS.md) · [Monday tasks](<../Week11 monday/index.html>)
+
 [Student directory](./index.html) · [Study guide exercises](./practice.html)
 
 Task 11-A displays exactly three student cards: Sudip Sah, Abinash Lamichhane, and Eric. The reusable `project/src/StudentProfileCard.jsx` receives exactly five props: `name`, `studentId`, `major`, `year`, and `gpa`.

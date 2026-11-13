@@ -6,7 +6,7 @@ function App() {
     <main className="page" id="main">
       <header className="site-header">
         <a className="brand" href="../#coursework">SUDIP<span> / LAB</span></a>
-        <nav aria-label="Course navigation"><a href="../#coursework">Coursework</a><a href="../week10/portfolio/">Portfolio</a><a className="nav-link" href="./practice.html">Practice <span aria-hidden="true">&#8599;</span></a></nav>
+        <nav aria-label="Course navigation"><a href="./tasks.html">Friday tasks</a><a href="../#coursework">Coursework</a><a href="../week10/portfolio/">Portfolio</a><a className="nav-link" href="./practice.html">Practice <span aria-hidden="true">&#8599;</span></a></nav>
       </header>
       <section className="intro" aria-labelledby="page-title">
         <p className="eyebrow">WEB PROGRAMMING · WEEK 11</p>

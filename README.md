@@ -18,7 +18,8 @@ Coursework and projects arranged by week.
 - [Week 9.2 - Performance report and audit evidence](week9_2/index.html)
 - [Week 10 - Git and deployment submission](week10/index.html)
 - [Week 10_2 - Accessibility modifications report](week10/report.html)
-- [Week 11 Friday - React components, props and practice](<Week11 friday/index.html>)
+- [Week 11 Monday - React introduction and lab](<Week11 monday/index.html>)
+- [Week 11 Friday - React tasks, props and homework](<Week11 friday/tasks.html>)
 
 ## Projects
 
