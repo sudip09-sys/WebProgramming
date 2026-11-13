@@ -176,3 +176,9 @@ The retained Lighthouse files measure the original `/Portfolio/` deployment, not
 ## Team project
 
 [Memory Match](teamproject/index.html)
+
+## Week 11 Friday - React components and props
+
+- [Student directory](<Week11 friday/index.html>)
+- [Study guide practice](<Week11 friday/practice.html>)
+- [React source project](<Week11 friday/project/>)

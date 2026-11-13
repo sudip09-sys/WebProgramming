@@ -53,12 +53,12 @@ export default function Practice() {
   return (
     <main className="page">
       <header className="site-header">
-        <a className="brand" href="./"><span className="brand-mark" aria-hidden="true">G</span> Gachon / Class of 2026</a>
-        <a className="nav-link" href="./">Student Directory <span aria-hidden="true">↗</span></a>
+        <a className="brand" href="../#coursework">SUDIP<span> / LAB</span></a>
+        <nav aria-label="Course navigation"><a href="../#coursework">Coursework</a><a href="../week10/portfolio/">Portfolio</a><a className="nav-link" href="./">Directory <span aria-hidden="true">&#8599;</span></a></nav>
       </header>
       <section className="intro practice-intro">
         <p className="eyebrow">WEB PROGRAMMING · WEEK 11</p>
-        <h1>Small components<span className="title-dot">.</span><br />Useful building blocks.</h1>
+        <h1>SMALL COMPONENTS.<br /><span className="outline">BIG POSSIBILITIES</span><span className="title-dot">.</span></h1>
         <p className="intro-copy">Three exercises in passing data, rendering lists, and composing interfaces.</p>
       </section>
       <div className="practice-grid">
@@ -83,7 +83,7 @@ export default function Practice() {
               <ul><li>Reusable components and props</li><li>Lists with stable keys</li><li>Conditional rendering</li></ul>
             </Card>
             <Card title="My next step">
-              <p>Finish the student directory, check it on mobile, and deploy it to GitHub Pages.</p>
+              <p>Explore the student directory and see how the same component displays three different students.</p>
             </Card>
           </div>
         </section>
@@ -92,4 +92,3 @@ export default function Practice() {
     </main>
   );
 }
-

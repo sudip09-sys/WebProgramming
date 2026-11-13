@@ -6,7 +6,7 @@
 
 Task 11-A displays exactly three student cards: Sudip Sah, Abinash Lamichhane, and Eric. The reusable `project/src/StudentProfileCard.jsx` receives exactly five props: `name`, `studentId`, `major`, `year`, and `gpa`.
 
-The practice page includes ProfileCard with a default local avatar, a keyed notification list with conditional icons, and a Card wrapper using children in two different sections. All styling is custom CSS.
+The practice page includes ProfileCard with a default local avatar, a keyed notification list with conditional icons, and a Card wrapper using children in two different sections. All styling is custom CSS, using the black-and-red palette, condensed headings and outlined typography of Sudip’s portfolio. Both pages link back to coursework and the portfolio.
 
 ## Run and build
 
@@ -28,7 +28,7 @@ Relative asset paths support the space in the folder name. The local project is 
 
 ## Details to confirm
 
-University GPAs have not been supplied. Classmates' IDs, majors and years, and Eric's full name have not been confirmed for this assignment. Unconfirmed fields show **Not provided**. Replace these values in `project/src/App.jsx`, then rebuild. Do not substitute a high-school GPA for a university GPA.
+University GPAs have not been supplied. Classmates' IDs and Eric's full name have not been confirmed for this assignment. All three students are Year 1 Computer Engineering students, as confirmed by Sudip. Unconfirmed fields show **Not provided**. Replace these values in `project/src/App.jsx`, then rebuild. Do not substitute a high-school GPA for a university GPA.
 
 ## Submission
 
