@@ -3,58 +3,56 @@
 // while practicing the DOM/event concepts from class.
 
 // ---------- CLOCK ----------
-const liveClock = document.querySelector("#liveClock");
+const liveClock = document.querySelector('#liveClock');
 
-function updateClock(){
+function updateClock() {
   const now = new Date();
   liveClock.textContent = now.toLocaleTimeString();
 }
 setInterval(updateClock, 1000);
 updateClock();
 
-
 // ---------- THEME ----------
-const themeToggle = document.querySelector("#themeToggle");
-const mobileTheme = document.querySelector("#mobileTheme");
+const themeToggle = document.querySelector('#themeToggle');
+const mobileTheme = document.querySelector('#mobileTheme');
 
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-  const icon = document.body.classList.contains("dark") ? "☀" : "☾";
-  themeToggle.innerHTML = icon + " <span>" + (icon === "☀" ? "Light mode" : "Dark mode") + "</span>";
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  const icon = document.body.classList.contains('dark') ? '☀' : '☾';
+  themeToggle.innerHTML =
+    icon + ' <span>' + (icon === '☀' ? 'Light mode' : 'Dark mode') + '</span>';
   mobileTheme.textContent = icon;
 }
-themeToggle.addEventListener("click", toggleTheme);
-mobileTheme.addEventListener("click", toggleTheme);
-
+themeToggle.addEventListener('click', toggleTheme);
+mobileTheme.addEventListener('click', toggleTheme);
 
 // ---------- PAGE NAVIGATION ----------
-const navItems = document.querySelectorAll(".nav-item");
-const pages = document.querySelectorAll(".page");
-const jumpTasks = document.querySelector("#jumpTasks");
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+const jumpTasks = document.querySelector('#jumpTasks');
 
-function openPage(target){
-  pages.forEach(page => page.classList.remove("active-page"));
-  document.querySelector("#" + target).classList.add("active-page");
+function openPage(target) {
+  pages.forEach((page) => page.classList.remove('active-page'));
+  document.querySelector('#' + target).classList.add('active-page');
 
-  navItems.forEach(item => {
-    item.classList.toggle("active", item.dataset.target === target);
+  navItems.forEach((item) => {
+    item.classList.toggle('active', item.dataset.target === target);
   });
-  window.scrollTo({top:0, behavior:"smooth"});
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-navItems.forEach(item => {
-  item.addEventListener("click", () => openPage(item.dataset.target));
+navItems.forEach((item) => {
+  item.addEventListener('click', () => openPage(item.dataset.target));
 });
-jumpTasks.addEventListener("click", () => openPage("tasks"));
-
+jumpTasks.addEventListener('click', () => openPage('tasks'));
 
 // ---------- FOCUS TIMER ----------
-const timerDisplay = document.querySelector("#timerDisplay");
-const timerBar = document.querySelector("#timerBar");
-const timerState = document.querySelector("#timerState");
-const startTimer = document.querySelector("#startTimer");
-const pauseTimer = document.querySelector("#pauseTimer");
-const resetTimer = document.querySelector("#resetTimer");
+const timerDisplay = document.querySelector('#timerDisplay');
+const timerBar = document.querySelector('#timerBar');
+const timerState = document.querySelector('#timerState');
+const startTimer = document.querySelector('#startTimer');
+const pauseTimer = document.querySelector('#pauseTimer');
+const resetTimer = document.querySelector('#resetTimer');
 
 let seconds = 25 * 60;
 let timerId = null;
@@ -62,129 +60,140 @@ let deadline = 0;
 let remainingMs = seconds * 1000;
 let sessions = 0;
 
-function renderTimer(){
+function renderTimer() {
   const min = Math.floor(seconds / 60);
   const sec = seconds % 60;
-  timerDisplay.textContent =
-    String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+  timerDisplay.textContent = String(min).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
 
   const progress = ((25 * 60 - seconds) / (25 * 60)) * 100;
-  timerBar.style.width = Math.max(0, progress) + "%";
+  timerBar.style.width = Math.max(0, progress) + '%';
 }
 
-function updateTimer(){
+function updateTimer() {
   remainingMs = Math.max(0, deadline - Date.now());
   seconds = Math.ceil(remainingMs / 1000);
   renderTimer();
-  if(remainingMs === 0){
+  if (remainingMs === 0) {
     clearInterval(timerId);
     timerId = null;
     sessions++;
-    document.querySelector("#sessionCount").textContent = sessions;
-    timerState.textContent = "DONE";
-    alert("Focus session complete! Great work 🎉");
+    document.querySelector('#sessionCount').textContent = sessions;
+    timerState.textContent = 'DONE';
+    alert('Focus session complete! Great work 🎉');
   }
 }
 
-startTimer.addEventListener("click", () => {
-  if(timerId !== null) return;
-  if(remainingMs <= 0) remainingMs = 25 * 60 * 1000;
+startTimer.addEventListener('click', () => {
+  if (timerId !== null) return;
+  if (remainingMs <= 0) remainingMs = 25 * 60 * 1000;
   deadline = Date.now() + remainingMs;
   seconds = Math.ceil(remainingMs / 1000);
   renderTimer();
-  timerState.textContent = "FOCUSING";
+  timerState.textContent = 'FOCUSING';
   timerId = setInterval(updateTimer, 1000);
 });
 
-pauseTimer.addEventListener("click", () => {
-  if(timerId === null) return;
+pauseTimer.addEventListener('click', () => {
+  if (timerId === null) return;
   updateTimer();
   clearInterval(timerId);
   timerId = null;
-  if(remainingMs > 0) timerState.textContent = "PAUSED";
+  if (remainingMs > 0) timerState.textContent = 'PAUSED';
 });
 
-resetTimer.addEventListener("click", () => {
+resetTimer.addEventListener('click', () => {
   clearInterval(timerId);
   timerId = null;
   seconds = 25 * 60;
   remainingMs = seconds * 1000;
-  timerState.textContent = "READY";
+  timerState.textContent = 'READY';
   renderTimer();
 });
 
 renderTimer();
 
-
 // ---------- PROFILE MODAL ----------
-const modal = document.querySelector("#profileModal");
-const editProfile = document.querySelector("#editProfile");
-const closeModal = document.querySelector("#closeModal");
-const saveProfile = document.querySelector("#saveProfile");
-const editName = document.querySelector("#editName");
-const editMajor = document.querySelector("#editMajor");
+const modal = document.querySelector('#profileModal');
+const editProfile = document.querySelector('#editProfile');
+const closeModal = document.querySelector('#closeModal');
+const saveProfile = document.querySelector('#saveProfile');
+const editName = document.querySelector('#editName');
+const editMajor = document.querySelector('#editMajor');
 
-editProfile.addEventListener("click", () => { modal.showModal(); editName.focus(); });
-closeModal.addEventListener("click", () => modal.close());
-modal.addEventListener("close", () => editProfile.focus());
+editProfile.addEventListener('click', () => {
+  modal.showModal();
+  editName.focus();
+});
+closeModal.addEventListener('click', () => modal.close());
+modal.addEventListener('close', () => editProfile.focus());
 
-saveProfile.addEventListener("click", () => {
+saveProfile.addEventListener('click', () => {
   const name = editName.value.trim();
   const major = editMajor.value.trim();
 
-  if(!name || !major){
-    alert("Please enter both fields.");
+  if (!name || !major) {
+    alert('Please enter both fields.');
     return;
   }
 
-  document.querySelector("#profileName").textContent = name;
-  document.querySelector("#profileMajor").textContent = major;
-  document.querySelector("#profileAvatar").textContent = name[0].toUpperCase();
-  document.querySelector(".user-mini strong").textContent = name;
-  document.querySelector(".user-mini small").textContent = major;
+  document.querySelector('#profileName').textContent = name;
+  document.querySelector('#profileMajor').textContent = major;
+  document.querySelector('#profileAvatar').textContent = name[0].toUpperCase();
+  document.querySelector('.user-mini strong').textContent = name;
+  document.querySelector('.user-mini small').textContent = major;
 
   modal.close();
 });
 
-
 // ---------- TASK MANAGER ----------
-const newTask = document.querySelector("#newTask");
-const taskCategory = document.querySelector("#taskCategory");
-const taskPriority = document.querySelector("#taskPriority");
-const addTask = document.querySelector("#addTask");
-const taskContainer = document.querySelector("#taskContainer");
-const taskError = document.querySelector("#taskError");
-const dashboardTasks = document.querySelector("#dashboardTasks");
+const newTask = document.querySelector('#newTask');
+const taskCategory = document.querySelector('#taskCategory');
+const taskPriority = document.querySelector('#taskPriority');
+const addTask = document.querySelector('#addTask');
+const taskContainer = document.querySelector('#taskContainer');
+const taskError = document.querySelector('#taskError');
+const dashboardTasks = document.querySelector('#dashboardTasks');
 
 let tasks = [
-  {id:1, title:"Practice querySelector() and events", category:"Coding", priority:"High", done:false},
-  {id:2, title:"Review database lecture", category:"Database", priority:"Normal", done:false},
-  {id:3, title:"Practice Korean vocabulary", category:"Korean", priority:"Low", done:true}
+  {
+    id: 1,
+    title: 'Practice querySelector() and events',
+    category: 'Coding',
+    priority: 'High',
+    done: false,
+  },
+  {
+    id: 2,
+    title: 'Review database lecture',
+    category: 'Database',
+    priority: 'Normal',
+    done: false,
+  },
+  { id: 3, title: 'Practice Korean vocabulary', category: 'Korean', priority: 'Low', done: true },
 ];
 
-let activeFilter = "All";
+let activeFilter = 'All';
 
-function renderTasks(){
-  taskContainer.innerHTML = "";
+function renderTasks() {
+  taskContainer.innerHTML = '';
 
-  const filtered = tasks.filter(task =>
-    activeFilter === "All" || task.category === activeFilter
-  );
+  const filtered = tasks.filter((task) => activeFilter === 'All' || task.category === activeFilter);
 
-  if(filtered.length === 0){
-    taskContainer.innerHTML = '<div class="card"><p style="color:var(--muted)">No tasks in this category.</p></div>';
+  if (filtered.length === 0) {
+    taskContainer.innerHTML =
+      '<div class="card"><p style="color:var(--muted)">No tasks in this category.</p></div>';
   }
 
-  filtered.forEach(task => {
-    const row = document.createElement("div");
-    row.className = "task-row" + (task.done ? " completed" : "");
+  filtered.forEach((task) => {
+    const row = document.createElement('div');
+    row.className = 'task-row' + (task.done ? ' completed' : '');
     row.dataset.id = task.id;
 
     row.innerHTML = `
-      <input class="task-check" aria-labelledby="task-title-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
+      <input class="task-check" aria-labelledby="task-title-${task.id}" type="checkbox" ${task.done ? 'checked' : ''}>
       <div class="task-info">
         <strong id="task-title-${task.id}">${escapeHTML(task.title)}</strong>
-        <small>${task.category} • <span class="${task.priority === "High" ? "priority-high" : task.priority === "Low" ? "priority-low" : ""}">${task.priority} priority</span></small>
+        <small>${task.category} • <span class="${task.priority === 'High' ? 'priority-high' : task.priority === 'Low' ? 'priority-low' : ''}">${task.priority} priority</span></small>
       </div>
       <button class="delete">Delete</button>
     `;
@@ -196,15 +205,15 @@ function renderTasks(){
   updateStats();
 }
 
-function renderDashboardTasks(){
-  dashboardTasks.innerHTML = "";
+function renderDashboardTasks() {
+  dashboardTasks.innerHTML = '';
 
-  tasks.slice(0,4).forEach(task => {
-    const item = document.createElement("div");
-    item.className = "quick-item" + (task.done ? " done" : "");
+  tasks.slice(0, 4).forEach((task) => {
+    const item = document.createElement('div');
+    item.className = 'quick-item' + (task.done ? ' done' : '');
 
     item.innerHTML = `
-      <span>${task.done ? "✓" : "○"}</span>
+      <span>${task.done ? '✓' : '○'}</span>
       <span>${escapeHTML(task.title)}</span>
       <span class="category">${task.category}</span>
     `;
@@ -212,75 +221,75 @@ function renderDashboardTasks(){
     dashboardTasks.appendChild(item);
   });
 
-  if(tasks.length === 0){
+  if (tasks.length === 0) {
     dashboardTasks.innerHTML = '<div class="quick-item">No tasks yet — add one in My Tasks.</div>';
   }
 }
 
-function updateStats(){
-  const completed = tasks.filter(t => t.done).length;
+function updateStats() {
+  const completed = tasks.filter((t) => t.done).length;
   const total = tasks.length;
   const progress = total ? Math.round((completed / total) * 100) : 0;
 
-  document.querySelector("#dashCompleted").textContent = completed;
-  document.querySelector("#dashProgress").textContent = progress + "%";
-  document.querySelector("#dashProgressBar").style.width = progress + "%";
-  document.querySelector("#dashCompletedText").textContent =
-    total ? completed + " of " + total + " tasks" : "Start your first task";
+  document.querySelector('#dashCompleted').textContent = completed;
+  document.querySelector('#dashProgress').textContent = progress + '%';
+  document.querySelector('#dashProgressBar').style.width = progress + '%';
+  document.querySelector('#dashCompletedText').textContent = total
+    ? completed + ' of ' + total + ' tasks'
+    : 'Start your first task';
 }
 
-function escapeHTML(value){
-  const div = document.createElement("div");
+function escapeHTML(value) {
+  const div = document.createElement('div');
   div.textContent = value;
   return div.innerHTML;
 }
 
-function createTask(){
+function createTask() {
   const title = newTask.value.trim();
 
-  if(!title){
-    taskError.textContent = "Enter a task before adding it.";
+  if (!title) {
+    taskError.textContent = 'Enter a task before adding it.';
     return;
   }
 
-  taskError.textContent = "";
+  taskError.textContent = '';
 
   tasks.push({
     id: Date.now(),
     title,
     category: taskCategory.value,
     priority: taskPriority.value,
-    done:false
+    done: false,
   });
 
-  newTask.value = "";
+  newTask.value = '';
   renderTasks();
 }
 
-addTask.addEventListener("click", createTask);
+addTask.addEventListener('click', createTask);
 
-newTask.addEventListener("keydown", e => {
-  if(e.key === "Enter") createTask();
+newTask.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') createTask();
 });
 
-
 // Event delegation: the parent handles all task check/delete actions.
-taskContainer.addEventListener("click", e => {
-  const row = e.target.closest(".task-row");
-  if(!row) return;
+taskContainer.addEventListener('click', (e) => {
+  const row = e.target.closest('.task-row');
+  if (!row) return;
 
   const id = Number(row.dataset.id);
-  const task = tasks.find(t => t.id === id);
+  const task = tasks.find((t) => t.id === id);
 
-  if(e.target.matches(".delete")){
+  if (e.target.matches('.delete')) {
     const index = [...taskContainer.children].indexOf(row);
-    tasks = tasks.filter(t => t.id !== id);
+    tasks = tasks.filter((t) => t.id !== id);
     renderTasks();
     const rows = taskContainer.querySelectorAll('.task-row');
     (rows[Math.min(index, rows.length - 1)]?.querySelector('.delete') || newTask).focus();
   }
 
-  if(e.target.matches(".task-check")){
+  if (e.target.matches('.task-check')) {
     task.done = e.target.checked;
     row.classList.toggle('completed', task.done);
     renderDashboardTasks();
@@ -288,63 +297,60 @@ taskContainer.addEventListener("click", e => {
   }
 });
 
-
 // ---------- TASK FILTER ----------
-document.querySelectorAll(".filter").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
+document.querySelectorAll('.filter').forEach((button) => {
+  button.addEventListener('click', () => {
+    document.querySelectorAll('.filter').forEach((b) => b.classList.remove('active'));
+    button.classList.add('active');
 
     activeFilter = button.dataset.filter;
     renderTasks();
   });
 });
 
-
 // ---------- STUDENT LIVE SEARCH ----------
-const studentSearch = document.querySelector("#studentSearch");
-const studentCards = document.querySelectorAll(".person");
-const studentResult = document.querySelector("#studentResult");
-const noMatch = document.querySelector("#noMatch");
+const studentSearch = document.querySelector('#studentSearch');
+const studentCards = document.querySelectorAll('.person');
+const studentResult = document.querySelector('#studentResult');
+const noMatch = document.querySelector('#noMatch');
 
-studentSearch.addEventListener("input", e => {
+studentSearch.addEventListener('input', (e) => {
   const term = e.target.value.toLowerCase().trim();
   let count = 0;
 
-  studentCards.forEach(card => {
-    const match = (card.dataset.search + " " + card.textContent).toLowerCase().includes(term);
-    card.style.display = match ? "flex" : "none";
-    if(match) count++;
+  studentCards.forEach((card) => {
+    const match = (card.dataset.search + ' ' + card.textContent).toLowerCase().includes(term);
+    card.style.display = match ? 'flex' : 'none';
+    if (match) count++;
   });
 
-  studentResult.textContent = count + (count === 1 ? " student" : " students");
-  noMatch.style.display = count === 0 ? "block" : "none";
+  studentResult.textContent = count + (count === 1 ? ' student' : ' students');
+  noMatch.style.display = count === 0 ? 'block' : 'none';
 });
-
 
 // ---------- ATTENDANCE ----------
 const attendanceData = [
-  ["Sudip", true],
-  ["Azim", true],
-  ["Shonx", true],
-  ["Eric", true],
-  ["Roshan", true]
+  ['Sudip', true],
+  ['Azim', true],
+  ['Shonx', true],
+  ['Eric', true],
+  ['Roshan', true],
 ];
 
-const attendanceList = document.querySelector("#attendanceList");
+const attendanceList = document.querySelector('#attendanceList');
 
-function renderAttendance(){
-  attendanceList.innerHTML = "";
+function renderAttendance() {
+  attendanceList.innerHTML = '';
 
   attendanceData.forEach((student, index) => {
-    const row = document.createElement("div");
-    row.className = "att-row" + (!student[1] ? " absent" : "");
+    const row = document.createElement('div');
+    row.className = 'att-row' + (!student[1] ? ' absent' : '');
     row.dataset.index = index;
 
     row.innerHTML = `
       <span class="att-name">${student[0]}</span>
-      <button class="att-button ${student[1] ? "present" : "absent"}">
-        ${student[1] ? "Present" : "Absent"}
+      <button class="att-button ${student[1] ? 'present' : 'absent'}">
+        ${student[1] ? 'Present' : 'Absent'}
       </button>
     `;
 
@@ -355,10 +361,10 @@ function renderAttendance(){
 }
 
 // Event delegation on ONE parent.
-attendanceList.addEventListener("click", e => {
-  if(!e.target.matches(".att-button")) return;
+attendanceList.addEventListener('click', (e) => {
+  if (!e.target.matches('.att-button')) return;
 
-  const row = e.target.closest(".att-row");
+  const row = e.target.closest('.att-row');
   const index = Number(row.dataset.index);
 
   attendanceData[index][1] = !attendanceData[index][1];
@@ -370,20 +376,20 @@ attendanceList.addEventListener("click", e => {
   updateAttendanceStats();
 });
 
-function updateAttendanceStats(){
-  const present = attendanceData.filter(s => s[1]).length;
+function updateAttendanceStats() {
+  const present = attendanceData.filter((s) => s[1]).length;
   const total = attendanceData.length;
   const absent = total - present;
   const rate = Math.round((present / total) * 100);
 
-  document.querySelector("#presentNumber").textContent = present;
-  document.querySelector("#absentNumber").textContent = absent;
-  document.querySelector("#donutText").textContent = present + "/" + total;
-  document.querySelector("#attendanceRate").textContent = rate + "%";
-  document.querySelector("#dashPresent").textContent = present + "/" + total;
+  document.querySelector('#presentNumber').textContent = present;
+  document.querySelector('#absentNumber').textContent = absent;
+  document.querySelector('#donutText').textContent = present + '/' + total;
+  document.querySelector('#attendanceRate').textContent = rate + '%';
+  document.querySelector('#dashPresent').textContent = present + '/' + total;
 
   const degrees = rate * 3.6;
-  document.querySelector(".donut").style.background =
+  document.querySelector('.donut').style.background =
     `conic-gradient(var(--green) 0deg ${degrees}deg, #e9ebf0 ${degrees}deg 360deg)`;
 }
 

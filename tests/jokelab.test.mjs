@@ -7,35 +7,102 @@ const source = fs.readFileSync(new URL('../week6/jokelab/script.js', import.meta
 
 function app(fetch) {
   class Element {
-    constructor() { this.textContent = ''; this.children = []; this.listeners = {}; this.attributes = {}; this.disabled = false; }
-    addEventListener(type, fn) { this.listeners[type] = fn; }
-    setAttribute(name, value) { this.attributes[name] = value; }
-    querySelector(selector) { return this.parts[selector]; }
-    append(...children) { this.children.push(...children); }
-    appendChild(child) { this.append(child); }
-    replaceChildren(...children) { this.children = children; }
-    click() { if (!this.disabled) return this.listeners.click?.({ preventDefault() {} }); }
+    constructor() {
+      this.textContent = '';
+      this.children = [];
+      this.listeners = {};
+      this.attributes = {};
+      this.disabled = false;
+    }
+    addEventListener(type, fn) {
+      this.listeners[type] = fn;
+    }
+    setAttribute(name, value) {
+      this.attributes[name] = value;
+    }
+    querySelector(selector) {
+      return this.parts?.[selector];
+    }
+    querySelectorAll(selector) {
+      return this.children
+        .flatMap((child) => child.children ?? [])
+        .filter((child) => selector === '.remove-button' && child.className === 'remove-button');
+    }
+    focus() {
+      this.focused = true;
+    }
+    append(...children) {
+      this.children.push(...children);
+    }
+    appendChild(child) {
+      this.append(child);
+    }
+    replaceChildren(...children) {
+      this.children = children;
+    }
+    click() {
+      if (!this.disabled) return this.listeners.click?.({ preventDefault() {} });
+    }
   }
   const elements = new Map();
-  const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
+  const get = (id) => {
+    if (!elements.has(id)) elements.set(id, new Element());
+    return elements.get(id);
+  };
   get('load-joke').parts = { '.button-icon': new Element(), 'span:nth-child(2)': new Element() };
   const storage = new Map();
   const timers = new Map();
+  const windowListeners = {};
   let nextTimer = 0;
   const context = vm.createContext({
     document: { getElementById: get, createElement: () => new Element() },
-    fetch, AbortController,
-    setTimeout(fn, ms) { timers.set(++nextTimer, { fn, ms }); return nextTimer; },
-    clearTimeout(id) { timers.delete(id); },
-    localStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value) },
-    console: { error() {} }, window: { scrollTo() {} }
+    fetch,
+    AbortController,
+    setTimeout(fn, ms) {
+      timers.set(++nextTimer, { fn, ms });
+      return nextTimer;
+    },
+    clearTimeout(id) {
+      timers.delete(id);
+    },
+    localStorage: {
+      getItem: (key) => storage.get(key) ?? null,
+      setItem: (key, value) => storage.set(key, value),
+    },
+    console: { error() {} },
+    window: {
+      scrollTo() {},
+      addEventListener(type, fn) {
+        windowListeners[type] = fn;
+      },
+    },
   });
   vm.runInContext(source, context);
-  return { get, timers, storage };
+  return { get, timers, storage, context, windowListeners };
 }
 
-const joke = (id = 1) => ({ error: false, type: 'twopart', id, setup: 'Why did the developer smile?', delivery: 'The tests passed.' });
-const response = data => ({ ok: true, json: async () => data });
+const joke = (id = 1) => ({
+  error: false,
+  type: 'twopart',
+  id,
+  setup: 'Why did the developer smile?',
+  delivery: 'The tests passed.',
+});
+const response = (data) => ({ ok: true, json: async () => data });
+
+test('storage events refresh favourites saved in another tab', () => {
+  const ui = app(async () => response(joke()));
+  ui.storage.set(
+    'randomJokeFavourites',
+    JSON.stringify([{ id: 'other-tab', setup: 'Question', punchline: 'Answer' }]),
+  );
+  ui.windowListeners.storage({ key: 'randomJokeFavourites', storageArea: ui.context.localStorage });
+  assert.equal(ui.get('favourites-list').children.length, 1);
+  assert.equal(ui.get('favourite-count').textContent, 1);
+  ui.storage.delete('randomJokeFavourites');
+  ui.windowListeners.storage({ key: null, storageArea: ui.context.localStorage });
+  assert.equal(ui.get('favourites-list').children.length, 0);
+});
 
 test('reload requests another joke and favourites survive subsequent reloads', async () => {
   let requests = 0;
@@ -63,9 +130,17 @@ test('reload requests another joke and favourites survive subsequent reloads', a
 
 for (const [name, fetch] of [
   ['HTTP failure', async () => ({ ok: false, status: 503 })],
-  ['network failure', async () => { throw new TypeError('Failed to fetch'); }],
-  ['malformed data', async () => response({ error: false, type: 'twopart', setup: 'Missing punchline' })],
-  ['API error payload', async () => response({ error: true, message: 'Unavailable' })]
+  [
+    'network failure',
+    async () => {
+      throw new TypeError('Failed to fetch');
+    },
+  ],
+  [
+    'malformed data',
+    async () => response({ error: false, type: 'twopart', setup: 'Missing punchline' }),
+  ],
+  ['API error payload', async () => response({ error: true, message: 'Unavailable' })],
 ]) {
   test(name + ' restores the reload button and does not allow saving an empty joke', async () => {
     const ui = app(fetch);
@@ -84,7 +159,9 @@ test('a stalled request times out, blocks duplicate clicks and can be retried', 
   let requests = 0;
   const ui = app((url, { signal }) => {
     if (++requests > 1) return Promise.resolve(response(joke()));
-    return new Promise((resolve, reject) => signal.addEventListener('abort', () => reject(new DOMException('Timed out', 'AbortError'))));
+    return new Promise((resolve, reject) =>
+      signal.addEventListener('abort', () => reject(new DOMException('Timed out', 'AbortError'))),
+    );
   });
   const pending = ui.get('load-joke').click();
   ui.get('load-joke').click();

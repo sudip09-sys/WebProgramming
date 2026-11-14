@@ -1,9 +1,9 @@
 /* Byte is an original lightweight website companion. No tracking or network calls. */
 (() => {
   'use strict';
-  if(document.getElementById('sudip-mini-pet'))return;
-  const style=document.createElement('style');
-  style.textContent=`
+  if (document.getElementById('sudip-mini-pet')) return;
+  const style = document.createElement('style');
+  style.textContent = `
   #sudip-mini-pet{position:fixed;right:18px;bottom:76px;z-index:810;width:86px;height:100px;font:12px/1.4 system-ui,sans-serif;color:#eee6f8;isolation:isolate;pointer-events:none}
   #sudip-mini-pet *,#sudip-pet-panel *{box-sizing:border-box}
   #sudip-mini-pet button,#sudip-pet-panel button{font:inherit;letter-spacing:normal;text-transform:none;cursor:pointer;min-width:0;max-width:none;margin:0;box-shadow:none;pointer-events:auto}
@@ -46,8 +46,10 @@
   @media(prefers-reduced-motion:reduce){#sudip-mini-pet *{animation:none!important;transition:none!important}}
   `;
   document.head.append(style);
-  const root=document.createElement('div');root.id='sudip-mini-pet';root.dataset.mood='idle';
-  root.innerHTML=`<button type="button" class="byte-body" aria-label="Meet Byte, your code companion" aria-expanded="false" aria-controls="sudip-pet-panel" title="Meet Byte · drag to move">
+  const root = document.createElement('div');
+  root.id = 'sudip-mini-pet';
+  root.dataset.mood = 'idle';
+  root.innerHTML = `<button type="button" class="byte-body" aria-label="Meet Byte, your code companion" aria-expanded="false" aria-controls="sudip-pet-panel" title="Meet Byte · drag to move">
     <svg class="byte-art" viewBox="0 0 82 76" aria-hidden="true"><defs><linearGradient id="byte-coat" x2=".8" y2="1"><stop stop-color="#e3d2f7"/><stop offset="1" stop-color="#9b80b8"/></linearGradient></defs>
     <path class="byte-tail" d="M59 59C83 62 79 41 70 45C64 49 75 51 66 55" fill="none" stroke="#a68ac0" stroke-width="8" stroke-linecap="round"/>
     <ellipse cx="39" cy="69" rx="24" ry="4" fill="#0003"/><path d="M24 43C17 53 19 67 26 68H53C61 64 59 49 51 43Z" fill="url(#byte-coat)"/>
@@ -59,26 +61,169 @@
     <ellipse cx="25" cy="43" rx="4" ry="2" fill="#e9b7d5" opacity=".7"/><ellipse cx="55" cy="43" rx="4" ry="2" fill="#e9b7d5" opacity=".7"/>
     <path d="M30 68V62M50 68V62" stroke="#775c91" stroke-width="1.3" stroke-linecap="round"/><path d="M35 56L31 59L35 62M44 56L48 59L44 62" fill="none" stroke="#6c517f" stroke-width="1.6" stroke-linecap="round"/>
     </svg><span class="byte-label">BYTE</span></button><span class="byte-snooze" aria-hidden="true">z z</span><span class="byte-hearts" aria-hidden="true">♥ · ♥</span><button type="button" class="byte-restore" aria-label="Show Byte" title="Show Byte">🐾</button>`;
-  const panel=document.createElement('section');panel.id='sudip-pet-panel';panel.hidden=true;panel.setAttribute('aria-label','Byte, your code companion');
-  panel.innerHTML=`<header><strong>Hey, I’m Byte.</strong><button type="button" class="byte-close" aria-label="Close pet controls">×</button></header><p role="status">Your tiny study buddy. Drag me somewhere comfy, or stay for a little break.</p><div class="byte-actions"><button type="button" data-byte="pet">Pet ♥</button><button type="button" data-byte="treat">Treat ◦</button><button type="button" data-byte="nap">Nap ☾</button></div><button type="button" class="byte-hide">Tuck Byte away</button>`;
-  document.body.append(root,panel);
-  const body=root.querySelector('.byte-body'),message=panel.querySelector('p'),nap=panel.querySelector('[data-byte=nap]');let timer=0,drag=null,moved=false;
-  try{root.dataset.hidden=localStorage.getItem('sudip-mini-pet-hidden')==='1'?'true':'false';}catch{root.dataset.hidden='false';}
-  try{const p=JSON.parse(localStorage.getItem('sudip-mini-pet-position'));if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=0&&p.x<=1&&p.y>=0&&p.y<=1){root.style.left=Math.max(8,Math.min(innerWidth-94,p.x*(innerWidth-86)))+'px';root.style.top=Math.max(8,Math.min(innerHeight-108,p.y*(innerHeight-100)))+'px';root.style.right='auto';root.style.bottom='auto';}}catch{}
-  function positionPanel(){const r=root.getBoundingClientRect(),p=panel.getBoundingClientRect();panel.style.left=Math.max(12,Math.min(innerWidth-p.width-12,r.right-p.width))+'px';const top=r.top-p.height-12;panel.style.top=Math.max(12,Math.min(innerHeight-p.height-12,top>12?top:r.bottom+10))+'px';}
-  function close(){panel.hidden=true;body.setAttribute('aria-expanded','false');}
-  function show(){panel.hidden=false;body.setAttribute('aria-expanded','true');positionPanel();}
-  function hide(value){root.dataset.hidden=String(value);close();try{localStorage.setItem('sudip-mini-pet-hidden',value?'1':'0');}catch{}if(value)root.querySelector('.byte-restore').focus();else body.focus();}
-  body.addEventListener('click',e=>{if(moved&&e.detail!==0){moved=false;return;}if(panel.hidden)show();else close();});
-  panel.querySelector('.byte-close').onclick=()=>{close();body.focus();};panel.querySelector('.byte-hide').onclick=()=>hide(true);root.querySelector('.byte-restore').onclick=()=>hide(false);
-  panel.addEventListener('click',e=>{const action=e.target.closest('[data-byte]')?.dataset.byte;if(!action)return;clearTimeout(timer);
-    if(action==='nap'){const sleeping=root.dataset.mood!=='nap';root.dataset.mood=sleeping?'nap':'idle';nap.textContent=sleeping?'Wake ☀':'Nap ☾';message.textContent=sleeping?'Just resting my eyes. Good ideas need little breaks, too.':'Good morning! Ready for another little experiment?';return;}
-    root.dataset.mood='idle';nap.textContent='Nap ☾';void root.offsetWidth;root.dataset.mood='happy';message.textContent=action==='pet'?'Prrr. That’s the good stuff. You’ve got this, human.':'A byte-sized snack! My favourite. Thank you ♥';timer=setTimeout(()=>{root.dataset.mood='idle';},1800);
+  const panel = document.createElement('section');
+  panel.id = 'sudip-pet-panel';
+  panel.hidden = true;
+  panel.setAttribute('aria-label', 'Byte, your code companion');
+  panel.innerHTML = `<header><strong>Hey, I’m Byte.</strong><button type="button" class="byte-close" aria-label="Close pet controls">×</button></header><p role="status">Your tiny study buddy. Drag me somewhere comfy, or stay for a little break.</p><div class="byte-actions"><button type="button" data-byte="pet">Pet ♥</button><button type="button" data-byte="treat">Treat ◦</button><button type="button" data-byte="nap">Nap ☾</button></div><button type="button" class="byte-hide">Tuck Byte away</button>`;
+  document.body.append(root, panel);
+  const body = root.querySelector('.byte-body'),
+    message = panel.querySelector('p'),
+    nap = panel.querySelector('[data-byte=nap]');
+  let timer = 0,
+    drag = null,
+    moved = false;
+  try {
+    root.dataset.hidden = localStorage.getItem('sudip-mini-pet-hidden') === '1' ? 'true' : 'false';
+  } catch {
+    root.dataset.hidden = 'false';
+  }
+  try {
+    const p = JSON.parse(localStorage.getItem('sudip-mini-pet-position'));
+    if (
+      p &&
+      Number.isFinite(p.x) &&
+      Number.isFinite(p.y) &&
+      p.x >= 0 &&
+      p.x <= 1 &&
+      p.y >= 0 &&
+      p.y <= 1
+    ) {
+      root.style.left = Math.max(8, Math.min(innerWidth - 94, p.x * (innerWidth - 86))) + 'px';
+      root.style.top = Math.max(8, Math.min(innerHeight - 108, p.y * (innerHeight - 100))) + 'px';
+      root.style.right = 'auto';
+      root.style.bottom = 'auto';
+    }
+  } catch {}
+  function positionPanel() {
+    const r = root.getBoundingClientRect(),
+      p = panel.getBoundingClientRect();
+    panel.style.left = Math.max(12, Math.min(innerWidth - p.width - 12, r.right - p.width)) + 'px';
+    const top = r.top - p.height - 12;
+    panel.style.top =
+      Math.max(12, Math.min(innerHeight - p.height - 12, top > 12 ? top : r.bottom + 10)) + 'px';
+  }
+  function close() {
+    panel.hidden = true;
+    body.setAttribute('aria-expanded', 'false');
+  }
+  function show() {
+    panel.hidden = false;
+    body.setAttribute('aria-expanded', 'true');
+    positionPanel();
+  }
+  function hide(value) {
+    root.dataset.hidden = String(value);
+    close();
+    try {
+      localStorage.setItem('sudip-mini-pet-hidden', value ? '1' : '0');
+    } catch {}
+    if (value) root.querySelector('.byte-restore').focus();
+    else body.focus();
+  }
+  body.addEventListener('click', (e) => {
+    if (moved && e.detail !== 0) {
+      moved = false;
+      return;
+    }
+    if (panel.hidden) show();
+    else close();
   });
-  body.addEventListener('pointerdown',e=>{if(e.button!==0)return;const r=root.getBoundingClientRect();drag={x:e.clientX,y:e.clientY,left:r.left,top:r.top};moved=false;body.setPointerCapture(e.pointerId);});
-  body.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>6)moved=true;if(!moved)return;root.dataset.dragging='true';close();root.style.left=Math.max(8,Math.min(innerWidth-94,drag.left+dx))+'px';root.style.top=Math.max(8,Math.min(innerHeight-108,drag.top+dy))+'px';root.style.right='auto';root.style.bottom='auto';});
-  function endDrag(){drag=null;root.dataset.dragging='false';if(moved)try{const r=root.getBoundingClientRect();localStorage.setItem('sudip-mini-pet-position',JSON.stringify({x:r.left/Math.max(1,innerWidth-86),y:r.top/Math.max(1,innerHeight-100)}));}catch{}}body.addEventListener('pointerup',endDrag);body.addEventListener('pointercancel',()=>{endDrag();moved=false;});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){close();body.focus();}});
-  document.addEventListener('pointerdown',e=>{if(!root.contains(e.target)&&!panel.contains(e.target))close();},{passive:true});
-  window.addEventListener('resize',()=>{if(root.style.left){root.style.left=Math.max(8,Math.min(innerWidth-94,parseFloat(root.style.left)))+'px';root.style.top=Math.max(8,Math.min(innerHeight-108,parseFloat(root.style.top)))+'px';}if(!panel.hidden)positionPanel();},{passive:true});
+  panel.querySelector('.byte-close').onclick = () => {
+    close();
+    body.focus();
+  };
+  panel.querySelector('.byte-hide').onclick = () => hide(true);
+  root.querySelector('.byte-restore').onclick = () => hide(false);
+  panel.addEventListener('click', (e) => {
+    const action = e.target.closest('[data-byte]')?.dataset.byte;
+    if (!action) return;
+    clearTimeout(timer);
+    if (action === 'nap') {
+      const sleeping = root.dataset.mood !== 'nap';
+      root.dataset.mood = sleeping ? 'nap' : 'idle';
+      nap.textContent = sleeping ? 'Wake ☀' : 'Nap ☾';
+      message.textContent = sleeping
+        ? 'Just resting my eyes. Good ideas need little breaks, too.'
+        : 'Good morning! Ready for another little experiment?';
+      return;
+    }
+    root.dataset.mood = 'idle';
+    nap.textContent = 'Nap ☾';
+    void root.offsetWidth;
+    root.dataset.mood = 'happy';
+    message.textContent =
+      action === 'pet'
+        ? 'Prrr. That’s the good stuff. You’ve got this, human.'
+        : 'A byte-sized snack! My favourite. Thank you ♥';
+    timer = setTimeout(() => {
+      root.dataset.mood = 'idle';
+    }, 1800);
+  });
+  body.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    const r = root.getBoundingClientRect();
+    drag = { x: e.clientX, y: e.clientY, left: r.left, top: r.top };
+    moved = false;
+    body.setPointerCapture(e.pointerId);
+  });
+  body.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x,
+      dy = e.clientY - drag.y;
+    if (Math.hypot(dx, dy) > 6) moved = true;
+    if (!moved) return;
+    root.dataset.dragging = 'true';
+    close();
+    root.style.left = Math.max(8, Math.min(innerWidth - 94, drag.left + dx)) + 'px';
+    root.style.top = Math.max(8, Math.min(innerHeight - 108, drag.top + dy)) + 'px';
+    root.style.right = 'auto';
+    root.style.bottom = 'auto';
+  });
+  function endDrag() {
+    drag = null;
+    root.dataset.dragging = 'false';
+    if (moved)
+      try {
+        const r = root.getBoundingClientRect();
+        localStorage.setItem(
+          'sudip-mini-pet-position',
+          JSON.stringify({
+            x: r.left / Math.max(1, innerWidth - 86),
+            y: r.top / Math.max(1, innerHeight - 100),
+          }),
+        );
+      } catch {}
+  }
+  body.addEventListener('pointerup', endDrag);
+  body.addEventListener('pointercancel', () => {
+    endDrag();
+    moved = false;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !panel.hidden) {
+      close();
+      body.focus();
+    }
+  });
+  document.addEventListener(
+    'pointerdown',
+    (e) => {
+      if (!root.contains(e.target) && !panel.contains(e.target)) close();
+    },
+    { passive: true },
+  );
+  window.addEventListener(
+    'resize',
+    () => {
+      if (root.style.left) {
+        root.style.left =
+          Math.max(8, Math.min(innerWidth - 94, parseFloat(root.style.left))) + 'px';
+        root.style.top =
+          Math.max(8, Math.min(innerHeight - 108, parseFloat(root.style.top))) + 'px';
+      }
+      if (!panel.hidden) positionPanel();
+    },
+    { passive: true },
+  );
 })();

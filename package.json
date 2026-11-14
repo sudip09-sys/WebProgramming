@@ -2,6 +2,10 @@
   "name": "sudip-webprogramming",
   "private": true,
   "scripts": {
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/api-examples.test.mjs tests/jokelab.test.mjs scripts/text-reveal.test.mjs scripts/review-regressions.test.mjs teamproject/engine.test.mjs",
+    "validate": "npm run check && npm test",
     "build:performance": "node scripts/build-performance.mjs"
   },
   "devDependencies": {

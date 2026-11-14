@@ -8,7 +8,9 @@ function StudentCard({ name, id, major }) {
         <span className="student-id">ID: {id}</span>
       </div>
       <div className="card-body">
-        <p><strong>Major:</strong> {major}</p>
+        <p>
+          <strong>Major:</strong> {major}
+        </p>
       </div>
     </div>
   );

@@ -1,26 +1,327 @@
 <!doctype html>
-<html lang="en" data-course-skin="red" data-course-tone="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Week 10_2 — Accessibility Modifications Report | Sudip Sah</title><link rel="stylesheet" href="../assets/css/skip-link.css"><script src="../assets/js/skip-link.js" defer></script><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f3eb;color:#202e27;font:16px/1.65 system-ui,sans-serif}header,main,footer{max-width:960px;margin:auto;padding:24px}header{border-bottom:1px solid #c9cdc0}h1{font:500 clamp(34px,5vw,54px)/1.12 Georgia,serif}h2{font:500 28px Georgia,serif;margin-top:36px}a{color:#255b3b;text-underline-offset:4px}a:focus-visible{outline:3px solid #255b3b;outline-offset:4px}.label{font-size:12px;letter-spacing:1px;font-weight:700}table{border-collapse:collapse;width:100%;background:#fffef8;margin:20px 0}th,td{padding:14px;border:1px solid #c9cdc0;text-align:left;vertical-align:top}th{background:#e6eadf}code,kbd{background:#e6eadf;padding:2px 5px;border-radius:3px}pre{background:#e6eadf;padding:18px;overflow:auto}.table-wrap{overflow:auto}.note{border-left:4px solid #255b3b;padding:15px 20px;background:#e6eadf}footer{font-size:13px;border-top:1px solid #c9cdc0}@media(max-width:600px){th,td{padding:10px;font-size:14px}}@media print{body{background:white;font-size:11pt}header,main,footer{max-width:none;padding:12px}a.skip{display:none}h2{break-after:avoid}tr,pre,.note{break-inside:avoid}a{color:inherit}}
-</style>
-<link rel="stylesheet" href="../assets/css/course-theme.css?v=20261108-course2">
-<script src="../assets/js/course-catalog.js?v=20261108-course1" defer></script>
-<script src="../assets/js/course-theme.js?v=20261108-course2" data-course-theme defer></script>
-</head><body data-course-mode="page" data-course-group="Git &amp; deployment"><a class="skip" href="#main">Skip to the main content</a><header><nav aria-label="Report navigation"><a href="./">← Week 10 submission</a> · <a href="./portfolio/">Portfolio</a></nav></header><main id="main" tabindex="-1"><p class="label">WEB PROGRAMMING / WEEK 10_2 / 5 NOVEMBER 2026</p><h1>Accessibility modifications<br>and verification report</h1><p>Sudip Sah · Student ID: 202637610</p>
-<h2>1. Problem and purpose</h2><p>The instructor requested a visible skip link on the first Tab press and a way to reach the main content without traversing every navigation link. The portfolio previously placed its return navigation before the skip link. Several pages also lacked an explicitly focusable main-content target.</p><p>This revision makes the skip link the first keyboard stop and transfers keyboard focus to the main landmark when activated. The shared behavior covers the main homepage, Week 10 hub, portfolio, Book Search and Git exercise.</p>
-<h2>2. Changes made</h2><div class="table-wrap"><table><thead><tr><th scope="col">Area</th><th scope="col">Before</th><th scope="col">After</th></tr></thead><tbody>
-<tr><th scope="row">First keyboard stop</th><td>Portfolio return navigation appeared first; Book Search and Git exercise had no skip link.</td><td>“Skip to the main content” is the first link immediately after the body opening.</td></tr>
-<tr><th scope="row">Main target</th><td>Main elements were not explicitly focusable; Git exercise lacked a main wrapper.</td><td>One <code>main id="main" tabindex="-1"</code> target per page.</td></tr>
-<tr><th scope="row">Activation</th><td>A fragment link alone depended on browser focus behavior.</td><td>A shared click handler focuses and scrolls to main. Keyboard Enter activates the native link; the fragment remains as a fallback.</td></tr>
-<tr><th scope="row">Visibility and motion</th><td>Skip-link styling varied by page.</td><td>Shared fixed-position link, high stacking order, visible focus ring and reduced-motion support.</td></tr>
-<tr><th scope="row">Evidence</th><td>The existing audit PDF covered the original portfolio deployment.</td><td>This report documents the subsequent keyboard modifications separately, preserving the original audit’s scope.</td></tr>
-</tbody></table></div>
-<h2>3. Keyboard test procedure</h2><ol><li>Open a page freshly, with focus in the page.</li><li>Press <kbd>Tab</kbd>: “Skip to the main content” becomes visible and focused.</li><li>Press <kbd>Enter</kbd>: focus moves to the main-content landmark.</li><li>Press <kbd>Tab</kbd>: focus continues to the first available link or control inside the main content, bypassing the navigation above it.</li></ol><p class="note">Tab moves between controls; Enter activates a link. The implementation retains this standard keyboard behavior rather than making Tab automatically activate the skip link.</p>
-<h2>4. Verification results</h2><p>Verified in the live Chrome browser on 5 November 2026 after deployment of commit <code>821375e</code>.</p><div class="table-wrap"><table><thead><tr><th scope="col">Page</th><th scope="col">First Tab</th><th scope="col">Enter</th><th scope="col">Next Tab</th><th scope="col">Result</th></tr></thead><tbody>
-<tr><th scope="row"><a href="../">Homepage</a></th><td>Skip link</td><td>Main landmark</td><td>Explore the coursework button</td><td>Pass</td></tr>
-<tr><th scope="row"><a href="./">Week 10 hub</a></th><td>Skip link</td><td>Main landmark</td><td>Open portfolio link</td><td>Pass</td></tr>
-<tr><th scope="row"><a href="./portfolio/">Portfolio</a></th><td>Skip link</td><td>Main landmark</td><td>Explore my work link</td><td>Pass</td></tr>
-<tr><th scope="row"><a href="./book-search/">Book Search</a></th><td>Skip link</td><td>Main landmark</td><td>Sudip Lab link inside main; the navigation above main is skipped</td><td>Pass</td></tr>
-<tr><th scope="row"><a href="./git-exercise/">Git exercise</a></th><td>Skip link</td><td>Main landmark</td><td>No interactive elements in main; Tab wraps to the first link</td><td>Pass</td></tr>
-</tbody></table></div><p>The focused skip link was also visually checked on the Week 10 hub. It appears at the top left with a high-contrast outline.</p>
-<h2>5. Portfolio checklist and evidence</h2><ul><li>Semantic header, navigation, main and footer landmarks are present in the portfolio.</li><li>The portfolio includes a name, photo with descriptive alt text, biography, skills and three project links.</li><li>Responsive CSS, dark mode and project filtering are implemented.</li><li>The original <a href="https://github.com/sudip09-sys/Portfolio/commits/main">portfolio history</a> contains at least five meaningful implementation commits.</li><li>The saved original <a href="./evidence/lighthouse-mobile-scores.jpg">Lighthouse screenshot</a> records Accessibility 100, Performance 94, Best Practices 100 and SEO 100 for <code>/Portfolio/</code>. It is not a fresh score for the modified Week 10 pages.</li></ul><p>Scope: this report addresses the instructor’s keyboard feedback and the supplied deployment checklist. It does not claim a new Lighthouse run, physical-phone testing, a screen-reader audit, quiz completion or LMS submission.</p>
-<h2>6. Modified files</h2><p>Modified pages: <code>index.html</code>, <code>week10/index.html</code>, <code>week10/portfolio/index.html</code>, <code>week10/book-search/index.html</code>, <code>week10/git-exercise/index.html</code>. Shared files: <code>assets/css/skip-link.css</code> and <code>assets/js/skip-link.js</code>.</p><p><a href="https://github.com/sudip09-sys/WebProgramming/commit/821375e7d33e0c3334c42c523178bf7b9afa044e">View the implementation commit</a>.</p><p>To save this report as PDF, use the browser’s Print → Save as PDF.</p></main><footer>Sudip Sah / Web Programming · Week 10_2 modification report</footer></body></html>
+<html lang="en" data-course-skin="red" data-course-tone="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Week 10_2 — Accessibility Modifications Report | Sudip Sah</title>
+    <link rel="stylesheet" href="../assets/css/skip-link.css" />
+    <script src="../assets/js/skip-link.js" defer></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f3eb;
+        color: #202e27;
+        font:
+          16px/1.65 system-ui,
+          sans-serif;
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: auto;
+        padding: 24px;
+      }
+      header {
+        border-bottom: 1px solid #c9cdc0;
+      }
+      h1 {
+        font:
+          500 clamp(34px, 5vw, 54px)/1.12 Georgia,
+          serif;
+      }
+      h2 {
+        font:
+          500 28px Georgia,
+          serif;
+        margin-top: 36px;
+      }
+      a {
+        color: #255b3b;
+        text-underline-offset: 4px;
+      }
+      a:focus-visible {
+        outline: 3px solid #255b3b;
+        outline-offset: 4px;
+      }
+      .label {
+        font-size: 12px;
+        letter-spacing: 1px;
+        font-weight: 700;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #fffef8;
+        margin: 20px 0;
+      }
+      th,
+      td {
+        padding: 14px;
+        border: 1px solid #c9cdc0;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #e6eadf;
+      }
+      code,
+      kbd {
+        background: #e6eadf;
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
+      pre {
+        background: #e6eadf;
+        padding: 18px;
+        overflow: auto;
+      }
+      .table-wrap {
+        overflow: auto;
+      }
+      .note {
+        border-left: 4px solid #255b3b;
+        padding: 15px 20px;
+        background: #e6eadf;
+      }
+      footer {
+        font-size: 13px;
+        border-top: 1px solid #c9cdc0;
+      }
+      @media (max-width: 600px) {
+        th,
+        td {
+          padding: 10px;
+          font-size: 14px;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+          font-size: 11pt;
+        }
+        header,
+        main,
+        footer {
+          max-width: none;
+          padding: 12px;
+        }
+        a.skip {
+          display: none;
+        }
+        h2 {
+          break-after: avoid;
+        }
+        tr,
+        pre,
+        .note {
+          break-inside: avoid;
+        }
+        a {
+          color: inherit;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/css/course-theme.css?v=20261108-course2" />
+    <script src="../assets/js/course-catalog.js?v=20261108-course1" defer></script>
+    <script src="../assets/js/course-theme.js?v=20261108-course2" data-course-theme defer></script>
+  </head>
+  <body data-course-mode="page" data-course-group="Git &amp; deployment">
+    <a class="skip" href="#main">Skip to the main content</a>
+    <header>
+      <nav aria-label="Report navigation">
+        <a href="./">← Week 10 submission</a> · <a href="./portfolio/">Portfolio</a>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1">
+      <p class="label">WEB PROGRAMMING / WEEK 10_2 / 5 NOVEMBER 2026</p>
+      <h1>Accessibility modifications<br />and verification report</h1>
+      <p>Sudip Sah · Student ID: 202637610</p>
+      <h2>1. Problem and purpose</h2>
+      <p>
+        The instructor requested a visible skip link on the first Tab press and a way to reach the
+        main content without traversing every navigation link. The portfolio previously placed its
+        return navigation before the skip link. Several pages also lacked an explicitly focusable
+        main-content target.
+      </p>
+      <p>
+        This revision makes the skip link the first keyboard stop and transfers keyboard focus to
+        the main landmark when activated. The shared behavior covers the main homepage, Week 10 hub,
+        portfolio, Book Search and Git exercise.
+      </p>
+      <h2>2. Changes made</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Area</th>
+              <th scope="col">Before</th>
+              <th scope="col">After</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">First keyboard stop</th>
+              <td>
+                Portfolio return navigation appeared first; Book Search and Git exercise had no skip
+                link.
+              </td>
+              <td>
+                “Skip to the main content” is the first link immediately after the body opening.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Main target</th>
+              <td>
+                Main elements were not explicitly focusable; Git exercise lacked a main wrapper.
+              </td>
+              <td>One <code>main id="main" tabindex="-1"</code> target per page.</td>
+            </tr>
+            <tr>
+              <th scope="row">Activation</th>
+              <td>A fragment link alone depended on browser focus behavior.</td>
+              <td>
+                A shared click handler focuses and scrolls to main. Keyboard Enter activates the
+                native link; the fragment remains as a fallback.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Visibility and motion</th>
+              <td>Skip-link styling varied by page.</td>
+              <td>
+                Shared fixed-position link, high stacking order, visible focus ring and
+                reduced-motion support.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Evidence</th>
+              <td>The existing audit PDF covered the original portfolio deployment.</td>
+              <td>
+                This report documents the subsequent keyboard modifications separately, preserving
+                the original audit’s scope.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2>3. Keyboard test procedure</h2>
+      <ol>
+        <li>Open a page freshly, with focus in the page.</li>
+        <li>Press <kbd>Tab</kbd>: “Skip to the main content” becomes visible and focused.</li>
+        <li>Press <kbd>Enter</kbd>: focus moves to the main-content landmark.</li>
+        <li>
+          Press <kbd>Tab</kbd>: focus continues to the first available link or control inside the
+          main content, bypassing the navigation above it.
+        </li>
+      </ol>
+      <p class="note">
+        Tab moves between controls; Enter activates a link. The implementation retains this standard
+        keyboard behavior rather than making Tab automatically activate the skip link.
+      </p>
+      <h2>4. Verification results</h2>
+      <p>
+        Verified in the live Chrome browser on 5 November 2026 after deployment of commit
+        <code>821375e</code>.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Page</th>
+              <th scope="col">First Tab</th>
+              <th scope="col">Enter</th>
+              <th scope="col">Next Tab</th>
+              <th scope="col">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><a href="../">Homepage</a></th>
+              <td>Skip link</td>
+              <td>Main landmark</td>
+              <td>Explore the coursework button</td>
+              <td>Pass</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="./">Week 10 hub</a></th>
+              <td>Skip link</td>
+              <td>Main landmark</td>
+              <td>Open portfolio link</td>
+              <td>Pass</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="./portfolio/">Portfolio</a></th>
+              <td>Skip link</td>
+              <td>Main landmark</td>
+              <td>Explore my work link</td>
+              <td>Pass</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="./book-search/">Book Search</a></th>
+              <td>Skip link</td>
+              <td>Main landmark</td>
+              <td>Sudip Lab link inside main; the navigation above main is skipped</td>
+              <td>Pass</td>
+            </tr>
+            <tr>
+              <th scope="row"><a href="./git-exercise/">Git exercise</a></th>
+              <td>Skip link</td>
+              <td>Main landmark</td>
+              <td>No interactive elements in main; Tab wraps to the first link</td>
+              <td>Pass</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The focused skip link was also visually checked on the Week 10 hub. It appears at the top
+        left with a high-contrast outline.
+      </p>
+      <h2>5. Portfolio checklist and evidence</h2>
+      <ul>
+        <li>
+          Semantic header, navigation, main and footer landmarks are present in the portfolio.
+        </li>
+        <li>
+          The portfolio includes a name, photo with descriptive alt text, biography, skills and
+          three project links.
+        </li>
+        <li>Responsive CSS, dark mode and project filtering are implemented.</li>
+        <li>
+          The original
+          <a href="https://github.com/sudip09-sys/Portfolio/commits/main">portfolio history</a>
+          contains at least five meaningful implementation commits.
+        </li>
+        <li>
+          The saved original
+          <a href="./evidence/lighthouse-mobile-scores.jpg">Lighthouse screenshot</a> records
+          Accessibility 100, Performance 94, Best Practices 100 and SEO 100 for
+          <code>/Portfolio/</code>. It is not a fresh score for the modified Week 10 pages.
+        </li>
+      </ul>
+      <p>
+        Scope: this report addresses the instructor’s keyboard feedback and the supplied deployment
+        checklist. It does not claim a new Lighthouse run, physical-phone testing, a screen-reader
+        audit, quiz completion or LMS submission.
+      </p>
+      <h2>6. Modified files</h2>
+      <p>
+        Modified pages: <code>index.html</code>, <code>week10/index.html</code>,
+        <code>week10/portfolio/index.html</code>, <code>week10/book-search/index.html</code>,
+        <code>week10/git-exercise/index.html</code>. Shared files:
+        <code>assets/css/skip-link.css</code> and <code>assets/js/skip-link.js</code>.
+      </p>
+      <p>
+        <a
+          href="https://github.com/sudip09-sys/WebProgramming/commit/821375e7d33e0c3334c42c523178bf7b9afa044e"
+          >View the implementation commit</a
+        >.
+      </p>
+      <p>To save this report as PDF, use the browser’s Print → Save as PDF.</p>
+    </main>
+    <footer>Sudip Sah / Web Programming · Week 10_2 modification report</footer>
+  </body>
+</html>

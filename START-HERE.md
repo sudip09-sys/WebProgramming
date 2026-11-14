@@ -1,20 +1,62 @@
-# Open your Web Studio in VS Code
+# Run and edit the coursework
 
-1. Extract the ZIP completely; do not edit files inside the ZIP viewer.
-2. In VS Code, choose **File → Open Folder** and select the extracted **WebProgramming** folder. You can also open **WebProgramming.code-workspace**.
-3. Open the terminal in VS Code and run `node scripts/serve.mjs`. This requires Node.js 18 or newer.
-4. Open **http://127.0.0.1:4173** in your browser. Stop the server with **Ctrl+C**.
+Sudip Sah · 202637610 · Web Programming
 
-Alternatively, install the recommended **Live Server** extension, right-click **index.html**, and choose **Open with Live Server**.
+Open the repository folder in VS Code. Extract a downloaded ZIP before opening it.
 
-## Where to edit
+## Run the site
 
-- Homepage layout: `index.html`
-- Shared design: `assets/css/studio.css`
-- Homepage search and filters: `assets/js/home.js`
-- Creative prompts and saved ideas: `assets/js/idea-mixer.js`
-- Course navigation data: `assets/js/course-data.js`
-- Book search: `assets/js/books.js`
-- Exercises: `coursework/` and the original `Week*/` folders
+```sh
+node scripts/serve.mjs
+```
 
-After editing, run `node scripts/check.mjs` to check links and JavaScript syntax. The ZIP includes the source and project files, with no Git history, credentials, or installed dependencies. API demonstrations need internet access. Saved sparks and favourites are stored by the browser and are not part of the ZIP.
+Open http://127.0.0.1:4173. Stop the server with Ctrl+C. Published pages do not need a build to run. Use a server instead of opening HTML files directly because some examples use JavaScript modules.
+
+## Source locations
+
+| What to edit | Source |
+|---|---|
+| Homepage layout | `index.html` |
+| Homepage styles | `assets/home/styles.css`, `assets/home/premium.css`, `assets/home/project-art.css` |
+| Homepage search | `assets/home/home.mjs` |
+| Homepage animation | `assets/home/experience.mjs`, `assets/home/text-reveal.mjs` |
+| Idea Mixer | `assets/js/idea-mixer.js` |
+| Shared coursework theme | `assets/css/course-theme.css`, `assets/js/course-theme.js` |
+| Coursework navigation data | `assets/js/course-catalog.js` |
+| Weekly exercises | Numbered weekly folders; see [COURSE_MAP.md](COURSE_MAP.md) |
+| StudyHub | `week4/studyhub/` |
+| JokeLab | `week6/jokelab/` |
+| Book Search | `week7/solution.html`, `assets/js/books.js` |
+| Memory Match | `teamproject/engine.mjs`, `teamproject/game.mjs`, `teamproject/style.css` |
+| Monday React | `Week11 monday/project/src/` |
+| Friday React | `Week11 friday/project/src/` |
+
+The homepage loads optimized bundles. Rebuild them after changing the corresponding source:
+
+```sh
+npm ci
+npm run build:performance
+```
+
+## Check the work
+
+```sh
+npm run validate
+```
+
+This checks local HTML targets and JavaScript syntax, including `.mjs` modules, then runs the tests in `tests/`, `scripts/` and the game engine. React checks are separate.
+
+## React projects
+
+Use Node.js 24 to match the runtime used for this cleanup. Each React project needs its own dependencies. From the repository root:
+
+```sh
+cd "Week11 friday/project"
+npm ci
+npm run check
+npm run dev
+```
+
+Use the same commands inside `Week11 monday/project` for Monday. After editing, run `npm run build` inside that project. Its postbuild script copies output into the published parent folder. Commit source and generated output together.
+
+See [EVALUATION.md](EVALUATION.md) for the folder guide and demonstration checklist.
