@@ -208,3 +208,5 @@ body[data-course-mode="page"] a:where(:not(.course-tools a):not(.course-drawer a
 body[data-course-mode="page"] .success:not(:empty) { background: #193429; color: #d5f2de; border-color: #67d194; }
 html[data-course-tone="dark"] body[data-course-mode="page"] .error { color: #ff91a0; }
 body[data-course-mode="page"] button.secondary { background: var(--panel); color: var(--ink); }
+
+:root[data-course-tone="light"] body[data-course-mode="page"] :where(button.primary, .button.primary, .btn-primary, .primary-btn) { color: #fff !important; }

@@ -11,10 +11,12 @@
   const pageMode = body.dataset.courseMode;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let tone = 'dark';
+  let userMotionEnabled = true;
   let motionEnabled = !reducedMotion.matches;
   try {
     tone = localStorage.getItem('sudip-course-tone') === 'light' ? 'light' : 'dark';
-    motionEnabled = !reducedMotion.matches && localStorage.getItem('sudip-course-motion') !== 'off';
+    userMotionEnabled = localStorage.getItem('sudip-course-motion') !== 'off';
+    motionEnabled = userMotionEnabled && !reducedMotion.matches;
   } catch {
     // Controls also work when browser storage is unavailable.
   }
@@ -266,7 +268,7 @@
   }
 
   function applyMotion() {
-    if (reducedMotion.matches) motionEnabled = false;
+    motionEnabled = userMotionEnabled && !reducedMotion.matches;
     motionButton.textContent = reducedMotion.matches ? 'Reduced motion' : motionEnabled ? 'Motion on' : 'Motion off';
     motionButton.disabled = reducedMotion.matches;
     motionButton.setAttribute('aria-pressed', String(motionEnabled));
@@ -277,12 +279,11 @@
   }
   applyMotion();
   motionButton.addEventListener('click', () => {
-    motionEnabled = !motionEnabled;
+    userMotionEnabled = !userMotionEnabled;
     applyMotion();
-    try { localStorage.setItem('sudip-course-motion', motionEnabled ? 'on' : 'off'); } catch {}
+    try { localStorage.setItem('sudip-course-motion', userMotionEnabled ? 'on' : 'off'); } catch {}
   });
   reducedMotion.addEventListener('change', () => {
-    motionEnabled = !reducedMotion.matches;
     applyMotion();
   });
   }

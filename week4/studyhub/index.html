@@ -144,14 +144,14 @@
 
       <section class="card task-builder">
         <div class="builder-row">
-          <input id="newTask" placeholder="What do you need to study?">
-          <select id="taskCategory">
+          <input aria-label="New task" id="newTask" placeholder="What do you need to study?">
+          <select id="taskCategory" aria-label="Task category">
             <option value="Coding">Coding</option>
             <option value="Database">Database</option>
             <option value="Korean">Korean</option>
             <option value="University">University</option>
           </select>
-          <select id="taskPriority">
+          <select id="taskPriority" aria-label="Task priority">
             <option value="Normal">Normal</option>
             <option value="High">High</option>
             <option value="Low">Low</option>
@@ -180,7 +180,7 @@
       <section class="card search-card">
         <div class="search-line">
           <span>⌕</span>
-          <input id="studentSearch" placeholder="Search name, major or interest...">
+          <input aria-label="Search students" id="studentSearch" placeholder="Search name, major or interest...">
           <strong id="studentResult">5 students</strong>
         </div>
       </section>
@@ -226,18 +226,18 @@
     </section>
   </main>
 
-  <div id="profileModal" class="modal hidden">
+  <dialog id="profileModal" class="modal" aria-labelledby="profile-modal-title">
     <div class="modal-box">
       <button id="closeModal" class="close">×</button>
       <span class="label">EDIT PROFILE</span>
-      <h2>Update your workspace</h2>
-      <label>Name</label>
+      <h2 id="profile-modal-title">Update your workspace</h2>
+      <label for="editName">Name</label>
       <input id="editName" value="Sudip Sah">
-      <label>Major</label>
+      <label for="editMajor">Major</label>
       <input id="editMajor" value="Computer Engineering">
       <button id="saveProfile" class="primary full">Save changes</button>
     </div>
-  </div>
+  </dialog>
 
   <script src="script.js"></script>
 <script src="../../assets/js/spider-small.js?v=20261108-small2" defer data-sudip-spider></script></body>

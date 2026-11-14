@@ -69,7 +69,7 @@
   function close(){panel.hidden=true;body.setAttribute('aria-expanded','false');}
   function show(){panel.hidden=false;body.setAttribute('aria-expanded','true');positionPanel();}
   function hide(value){root.dataset.hidden=String(value);close();try{localStorage.setItem('sudip-mini-pet-hidden',value?'1':'0');}catch{}if(value)root.querySelector('.byte-restore').focus();else body.focus();}
-  body.addEventListener('click',()=>{if(moved){moved=false;return;}if(panel.hidden)show();else close();});
+  body.addEventListener('click',e=>{if(moved&&e.detail!==0){moved=false;return;}if(panel.hidden)show();else close();});
   panel.querySelector('.byte-close').onclick=()=>{close();body.focus();};panel.querySelector('.byte-hide').onclick=()=>hide(true);root.querySelector('.byte-restore').onclick=()=>hide(false);
   panel.addEventListener('click',e=>{const action=e.target.closest('[data-byte]')?.dataset.byte;if(!action)return;clearTimeout(timer);
     if(action==='nap'){const sleeping=root.dataset.mood!=='nap';root.dataset.mood=sleeping?'nap':'idle';nap.textContent=sleeping?'Wake ☀':'Nap ☾';message.textContent=sleeping?'Just resting my eyes. Good ideas need little breaks, too.':'Good morning! Ready for another little experiment?';return;}

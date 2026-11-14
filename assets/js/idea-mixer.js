@@ -27,7 +27,7 @@
     list.replaceChildren();
     document.getElementById('saved-count').textContent = '(' + saved.length + ')';
     document.getElementById('saved-empty').hidden = saved.length > 0;
-    saved.forEach(id => {
+    saved.forEach((id, index) => {
       const prompt = byId.get(id);
       const item = document.createElement('li');
       const info = document.createElement('div');
@@ -46,6 +46,8 @@
         saved = saved.filter(value => value !== id);
         const persisted = persist();
         render();
+        const controls = list.querySelectorAll('button');
+        (controls[Math.min(index, controls.length - 1)] || save).focus();
         status.textContent = persisted ? 'Idea removed from your saved sparks.' : 'Removed for this visit. Browser storage is unavailable.';
       });
       info.append(title, detail, link);
