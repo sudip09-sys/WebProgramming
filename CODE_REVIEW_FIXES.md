@@ -1,8 +1,10 @@
-# CodeRabbit review fixes
+# Repository fixes and validation
+
+**Repository author:** Sudip Sah
 
 Reviewed snapshot: `9ba651d88db0767f0a3ae91c3cd2c9d5af5861bd`.
 
-49 reported issues: 47 addressed, 2 false positives. Duplicate reports against historical and current paths are counted separately, as in the original review. The changes are prepared on a review branch; this file does not claim a clean CodeRabbit rerun.
+49 reported issues: 47 addressed, 2 false positives. Duplicate reports against historical and current paths are counted separately, as in the original review. The changes are prepared on a review branch and validated with the checks listed below.
 
 ## Changes
 
