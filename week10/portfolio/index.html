@@ -15,8 +15,9 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=20261113-contact-nav" />
-    <script src="app.js?v=20261113-contact-nav" defer></script>
+    <link rel="stylesheet" href="style.css?v=20261114-react" />
+    <script src="app.js?v=20261114-react" defer></script>
+    <script type="module" src="assets/projects.min.js?v=20261114-react"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to the main content</a>
@@ -93,149 +94,162 @@
       </div>
 
       <section class="work-section section shell" id="work" aria-labelledby="work-title">
-        <div class="section-heading reveal">
-          <div>
-            <p class="eyebrow"><span class="section-number">01</span> THE THINGS I MAKE</p>
-            <h2 id="work-title">SELECTED WORK<span class="red">.</span></h2>
-            <p>Small experiments. Real interactions. A little personality.</p>
+        <div id="portfolio-projects">
+          <div class="section-heading reveal">
+            <div>
+              <p class="eyebrow"><span class="section-number">01</span> THE THINGS I MAKE</p>
+              <h2 id="work-title">SELECTED WORK<span class="red">.</span></h2>
+              <p>Small experiments. Real interactions. A little personality.</p>
+            </div>
+            <div class="filters" role="group" aria-label="Filter projects" hidden>
+              <button type="button" data-filter="all" aria-pressed="true">All</button
+              ><button type="button" data-filter="web" aria-pressed="false">Web projects</button
+              ><button type="button" data-filter="editing" aria-pressed="false">
+                Video editing
+              </button>
+            </div>
           </div>
-          <div class="filters" role="group" aria-label="Filter projects" hidden>
-            <button type="button" data-filter="all" aria-pressed="true">All</button
-            ><button type="button" data-filter="web" aria-pressed="false">Web projects</button
-            ><button type="button" data-filter="editing" aria-pressed="false">Video editing</button>
+          <div class="project-stage reveal" aria-label="Project showcase">
+            <div class="stage-orbit" aria-hidden="true"></div>
+            <div class="project-deck" id="project-deck" aria-label="Selected projects">
+              <article class="project-card" data-category="web" data-project="memory">
+                <div class="project-poster memory-poster" aria-hidden="true">
+                  <div class="poster-topline">MEMORY MATCH <span>01 / INTERACTIVE</span></div>
+                  <div class="memory-tiles">
+                    <span>?</span><span class="flipped">✦</span><span>?</span><span>?</span
+                    ><span>?</span><span>?</span><span class="flipped">✦</span><span>?</span>
+                  </div>
+                  <div class="poster-bottomline">
+                    A LITTLE FOCUS GOES A LONG WAY. <span>↗</span>
+                  </div>
+                </div>
+                <div class="project-copy">
+                  <div class="project-meta">
+                    <span>JAVASCRIPT / TEAM PROJECT</span><span>01</span>
+                  </div>
+                  <h3>Memory Match</h3>
+                  <p>
+                    A game of focus, timed challenges and two-player duels. Built around clear
+                    states and responsive feedback.
+                  </p>
+                  <div class="project-links">
+                    <a
+                      href="https://sudip09-sys.github.io/WebProgramming/teamproject/"
+                      target="_blank"
+                      rel="noopener"
+                      >Play the game <span aria-hidden="true">↗</span></a
+                    ><button type="button" data-details="memory" hidden>
+                      Behind the build <span aria-hidden="true">+</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+              <article class="project-card" data-category="web" data-project="books">
+                <div class="project-poster book-poster" aria-hidden="true">
+                  <div class="poster-topline">BOOK SEARCH <span>02 / DISCOVER</span></div>
+                  <div class="book-scene">
+                    <span class="book book-one">ONE<br />MORE<br />CHAPTER.</span
+                    ><span class="book book-two">THE ART<br />OF<br />GETTING<br />LOST.</span
+                    ><span class="book book-three">FIND<br />YOUR<br />NEXT.</span>
+                  </div>
+                  <div class="book-searchbar">
+                    <span>⌕</span> Search by title or author <span>↗</span>
+                  </div>
+                </div>
+                <div class="project-copy">
+                  <div class="project-meta">
+                    <span>OPEN LIBRARY / FETCH API</span><span>02</span>
+                  </div>
+                  <h3>Book Search</h3>
+                  <p>
+                    A simple way to explore books, covers and publication details, with loading and
+                    error states that make sense.
+                  </p>
+                  <div class="project-links">
+                    <a
+                      href="https://sudip09-sys.github.io/webpro-book-search/"
+                      target="_blank"
+                      rel="noopener"
+                      >Explore the app <span aria-hidden="true">↗</span></a
+                    ><button type="button" data-details="books" hidden>
+                      Behind the build <span aria-hidden="true">+</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+              <article class="project-card" data-category="web" data-project="jokes">
+                <div class="project-poster joke-poster" aria-hidden="true">
+                  <div class="poster-topline">JOKELAB <span>03 / JUST FOR FUN</span></div>
+                  <div class="joke-art">
+                    <span class="joke-smile">:)</span
+                    ><span>GOOD CODE.<br />QUESTIONABLE<br /><em>PUNCHLINES.</em></span>
+                  </div>
+                  <div class="poster-bottomline">
+                    FETCH A LAUGH. KEEP A FAVOURITE. <span>↗</span>
+                  </div>
+                </div>
+                <div class="project-copy">
+                  <div class="project-meta">
+                    <span>ASYNC JAVASCRIPT / LOCAL STORAGE</span><span>03</span>
+                  </div>
+                  <h3>JokeLab</h3>
+                  <p>
+                    A tiny comedy club: fetch a joke, save a favourite and come back for another.
+                    API errors get a second chance too.
+                  </p>
+                  <div class="project-links">
+                    <a
+                      href="https://sudip09-sys.github.io/WebProgramming/week6/jokelab/"
+                      target="_blank"
+                      rel="noopener"
+                      >Find a punchline <span aria-hidden="true">↗</span></a
+                    ><button type="button" data-details="jokes" hidden>
+                      Behind the build <span aria-hidden="true">+</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+              <article class="project-card" data-category="editing" data-project="editing">
+                <div class="project-poster editing-poster" aria-hidden="true">
+                  <div class="poster-topline">LUMACREATIVES <span>04 / IN THE EDIT</span></div>
+                  <div class="film-scene">
+                    <span class="film-frame frame-before">THE RAW.</span
+                    ><span class="film-frame frame-after">THE FEELING.</span>
+                  </div>
+                  <div class="edit-timeline"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+                  <div class="poster-bottomline">PACING. COLOR. STORY. <span>↗</span></div>
+                </div>
+                <div class="project-copy">
+                  <div class="project-meta">
+                    <span>VIDEO EDITING / COLOR GRADING</span><span>04</span>
+                  </div>
+                  <h3>LumaCreatives</h3>
+                  <p>
+                    My creative work lives in the cut: the rhythm, the color and the details that
+                    turn footage into a story.
+                  </p>
+                  <div class="project-links">
+                    <a
+                      href="https://www.instagram.com/lumacreatives_/"
+                      target="_blank"
+                      rel="noopener"
+                      >View editing profile <span aria-hidden="true">↗</span></a
+                    ><button type="button" data-details="editing" hidden>
+                      My approach <span aria-hidden="true">+</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="deck-controls" hidden>
+              <button type="button" id="project-prev" aria-label="Previous project">←</button>
+              <p id="project-position" role="status" aria-live="polite">01 / 04</p>
+              <button type="button" id="project-next" aria-label="Next project">→</button>
+            </div>
           </div>
+          <div class="project-index" role="group" aria-label="Choose a project" hidden></div>
+          <p id="filter-status" class="sr-only" role="status" aria-live="polite"></p>
         </div>
-        <div class="project-stage reveal" aria-label="Project showcase">
-          <div class="stage-orbit" aria-hidden="true"></div>
-          <div class="project-deck" id="project-deck" aria-label="Selected projects">
-            <article class="project-card" data-category="web" data-project="memory">
-              <div class="project-poster memory-poster" aria-hidden="true">
-                <div class="poster-topline">MEMORY MATCH <span>01 / INTERACTIVE</span></div>
-                <div class="memory-tiles">
-                  <span>?</span><span class="flipped">✦</span><span>?</span><span>?</span
-                  ><span>?</span><span>?</span><span class="flipped">✦</span><span>?</span>
-                </div>
-                <div class="poster-bottomline">A LITTLE FOCUS GOES A LONG WAY. <span>↗</span></div>
-              </div>
-              <div class="project-copy">
-                <div class="project-meta">
-                  <span>JAVASCRIPT / TEAM PROJECT</span><span>01</span>
-                </div>
-                <h3>Memory Match</h3>
-                <p>
-                  A game of focus, timed challenges and two-player duels. Built around clear states
-                  and responsive feedback.
-                </p>
-                <div class="project-links">
-                  <a
-                    href="https://sudip09-sys.github.io/WebProgramming/teamproject/"
-                    target="_blank"
-                    rel="noopener"
-                    >Play the game <span aria-hidden="true">↗</span></a
-                  ><button type="button" data-details="memory" hidden>
-                    Behind the build <span aria-hidden="true">+</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-            <article class="project-card" data-category="web" data-project="books">
-              <div class="project-poster book-poster" aria-hidden="true">
-                <div class="poster-topline">BOOK SEARCH <span>02 / DISCOVER</span></div>
-                <div class="book-scene">
-                  <span class="book book-one">ONE<br />MORE<br />CHAPTER.</span
-                  ><span class="book book-two">THE ART<br />OF<br />GETTING<br />LOST.</span
-                  ><span class="book book-three">FIND<br />YOUR<br />NEXT.</span>
-                </div>
-                <div class="book-searchbar">
-                  <span>⌕</span> Search by title or author <span>↗</span>
-                </div>
-              </div>
-              <div class="project-copy">
-                <div class="project-meta"><span>OPEN LIBRARY / FETCH API</span><span>02</span></div>
-                <h3>Book Search</h3>
-                <p>
-                  A simple way to explore books, covers and publication details, with loading and
-                  error states that make sense.
-                </p>
-                <div class="project-links">
-                  <a
-                    href="https://sudip09-sys.github.io/webpro-book-search/"
-                    target="_blank"
-                    rel="noopener"
-                    >Explore the app <span aria-hidden="true">↗</span></a
-                  ><button type="button" data-details="books" hidden>
-                    Behind the build <span aria-hidden="true">+</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-            <article class="project-card" data-category="web" data-project="jokes">
-              <div class="project-poster joke-poster" aria-hidden="true">
-                <div class="poster-topline">JOKELAB <span>03 / JUST FOR FUN</span></div>
-                <div class="joke-art">
-                  <span class="joke-smile">:)</span
-                  ><span>GOOD CODE.<br />QUESTIONABLE<br /><em>PUNCHLINES.</em></span>
-                </div>
-                <div class="poster-bottomline">FETCH A LAUGH. KEEP A FAVOURITE. <span>↗</span></div>
-              </div>
-              <div class="project-copy">
-                <div class="project-meta">
-                  <span>ASYNC JAVASCRIPT / LOCAL STORAGE</span><span>03</span>
-                </div>
-                <h3>JokeLab</h3>
-                <p>
-                  A tiny comedy club: fetch a joke, save a favourite and come back for another. API
-                  errors get a second chance too.
-                </p>
-                <div class="project-links">
-                  <a
-                    href="https://sudip09-sys.github.io/WebProgramming/week6/jokelab/"
-                    target="_blank"
-                    rel="noopener"
-                    >Find a punchline <span aria-hidden="true">↗</span></a
-                  ><button type="button" data-details="jokes" hidden>
-                    Behind the build <span aria-hidden="true">+</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-            <article class="project-card" data-category="editing" data-project="editing">
-              <div class="project-poster editing-poster" aria-hidden="true">
-                <div class="poster-topline">LUMACREATIVES <span>04 / IN THE EDIT</span></div>
-                <div class="film-scene">
-                  <span class="film-frame frame-before">THE RAW.</span
-                  ><span class="film-frame frame-after">THE FEELING.</span>
-                </div>
-                <div class="edit-timeline"><i></i><i></i><i></i><i></i><i></i><b></b></div>
-                <div class="poster-bottomline">PACING. COLOR. STORY. <span>↗</span></div>
-              </div>
-              <div class="project-copy">
-                <div class="project-meta">
-                  <span>VIDEO EDITING / COLOR GRADING</span><span>04</span>
-                </div>
-                <h3>LumaCreatives</h3>
-                <p>
-                  My creative work lives in the cut: the rhythm, the color and the details that turn
-                  footage into a story.
-                </p>
-                <div class="project-links">
-                  <a href="https://www.instagram.com/lumacreatives_/" target="_blank" rel="noopener"
-                    >View editing profile <span aria-hidden="true">↗</span></a
-                  ><button type="button" data-details="editing" hidden>
-                    My approach <span aria-hidden="true">+</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-          </div>
-          <div class="deck-controls" hidden>
-            <button type="button" id="project-prev" aria-label="Previous project">←</button>
-            <p id="project-position" role="status" aria-live="polite">01 / 04</p>
-            <button type="button" id="project-next" aria-label="Next project">→</button>
-          </div>
-        </div>
-        <div class="project-index" role="group" aria-label="Choose a project" hidden></div>
-        <p id="filter-status" class="sr-only" role="status" aria-live="polite"></p>
       </section>
 
       <section class="about-section section shell" id="about" aria-labelledby="about-title">
@@ -452,21 +466,5 @@
     <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" hidden>
       <span class="motion-indicator" aria-hidden="true"></span><span>Pause motion</span>
     </button>
-
-    <dialog id="project-dialog" aria-labelledby="dialog-title">
-      <div class="dialog-heading">
-        <p class="eyebrow">BEHIND THE BUILD</p>
-        <button type="button" id="dialog-close" aria-label="Close project details">Close ×</button>
-      </div>
-      <p class="eyebrow" id="dialog-category"></p>
-      <h2 id="dialog-title"></h2>
-      <p id="dialog-description"></p>
-      <h3>The details that matter</h3>
-      <ul id="dialog-features"></ul>
-      <div class="actions">
-        <a class="button primary" id="dialog-live" target="_blank" rel="noopener">Open project ↗</a
-        ><a class="text-link" id="dialog-source" target="_blank" rel="noopener">View source ↗</a>
-      </div>
-    </dialog>
   </body>
 </html>

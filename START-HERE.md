@@ -19,6 +19,7 @@ Open http://127.0.0.1:4173. Stop the server with Ctrl+C. Published pages do not 
 | Homepage layout | `index.html` |
 | Homepage styles | `assets/home/styles.css`, `assets/home/premium.css`, `assets/home/project-art.css` |
 | Homepage search | `assets/home/home.mjs` |
+| Portfolio React projects and filters | `week10/portfolio/src/` |
 | Homepage animation | `assets/home/experience.mjs`, `assets/home/text-reveal.mjs` |
 | Idea Mixer | `assets/js/idea-mixer.js` |
 | Shared coursework theme | `assets/css/course-theme.css`, `assets/js/course-theme.js` |
@@ -38,13 +39,16 @@ npm ci
 npm run build:performance
 ```
 
+Rebuild the portfolio's React section separately with `npm run build:portfolio`.
+
 ## Check the work
 
 ```sh
+npm ci
 npm run validate
 ```
 
-This checks local HTML targets and JavaScript syntax, including `.mjs` modules, then runs the tests in `tests/`, `scripts/` and the game engine. React checks are separate.
+This checks local HTML targets and JavaScript syntax, including `.mjs` modules, then runs the tests in `tests/`, `scripts/` and the game engine, plus the portfolio React check. Monday and Friday app checks run inside their own project folders.
 
 ## React projects
 

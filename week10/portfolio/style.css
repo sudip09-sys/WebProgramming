@@ -862,13 +862,13 @@ h2 {
 .project-index > button[aria-pressed='true']:after {
   opacity: 1;
 }
-.is-enhanced .project-deck {
+.portfolio-projects[data-ready] .project-deck {
   display: block;
   height: 510px;
   perspective: 1800px;
   transform-style: preserve-3d;
 }
-.is-enhanced .project-card {
+.portfolio-projects[data-ready] .project-card {
   position: absolute;
   top: 10px;
   left: 50%;
@@ -885,13 +885,13 @@ h2 {
   backface-visibility: hidden;
   will-change: transform;
 }
-.is-enhanced .project-card[data-slot='0'] {
+.portfolio-projects[data-ready] .project-card[data-slot='0'] {
   border-color: #ff6a7777;
   box-shadow:
     0 22px 70px #0005,
     0 0 35px #ef1b3210;
 }
-.is-enhanced .project-card[data-slot='-1'] {
+.portfolio-projects[data-ready] .project-card[data-slot='-1'] {
   --shift: -81%;
   --turn: 24deg;
   --roll: -3deg;
@@ -900,7 +900,7 @@ h2 {
   --layer: 1;
   cursor: pointer;
 }
-.is-enhanced .project-card[data-slot='1'] {
+.portfolio-projects[data-ready] .project-card[data-slot='1'] {
   --shift: 81%;
   --turn: -24deg;
   --roll: 3deg;
@@ -909,7 +909,7 @@ h2 {
   --layer: 1;
   cursor: pointer;
 }
-.is-enhanced .project-card[data-slot='2'] {
+.portfolio-projects[data-ready] .project-card[data-slot='2'] {
   --shift: 0%;
   --turn: 0deg;
   --size: 0.65;
@@ -1706,23 +1706,23 @@ html[data-motion='off'] .skill-tile {
   .project-links button {
     font-size: 9px;
   }
-  .is-enhanced .project-card {
+  .portfolio-projects[data-ready] .project-card {
     width: 90%;
     top: 5px;
   }
-  .is-enhanced .project-card[data-slot='-1'] {
+  .portfolio-projects[data-ready] .project-card[data-slot='-1'] {
     --shift: -88%;
     --size: 0.82;
     --opacity: 0.25;
     --turn: 15deg;
   }
-  .is-enhanced .project-card[data-slot='1'] {
+  .portfolio-projects[data-ready] .project-card[data-slot='1'] {
     --shift: 88%;
     --size: 0.82;
     --opacity: 0.25;
     --turn: -15deg;
   }
-  .is-enhanced .project-deck {
+  .portfolio-projects[data-ready] .project-deck {
     height: 470px;
     perspective: 1300px;
   }
@@ -1924,7 +1924,7 @@ html[data-motion='off'] .skill-tile {
   .hero-footer {
     font-size: 6px;
   }
-  .is-enhanced .project-card {
+  .portfolio-projects[data-ready] .project-card {
     width: 94%;
   }
   .project-copy {
@@ -1933,7 +1933,7 @@ html[data-motion='off'] .skill-tile {
   .project-copy p {
     font-size: 11px;
   }
-  .is-enhanced .project-deck {
+  .portfolio-projects[data-ready] .project-deck {
     height: 465px;
   }
   .project-links {
@@ -2038,13 +2038,13 @@ html[data-motion='off'] .skill-tile {
   .about-heading h2 {
     font-size: 34px;
   }
-  .is-enhanced .project-deck {
+  .portfolio-projects[data-ready] .project-deck {
     display: grid;
     height: auto;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
   }
-  .is-enhanced .project-card {
+  .portfolio-projects[data-ready] .project-card {
     position: static;
     width: auto;
     transform: none !important;
@@ -2121,5 +2121,71 @@ html[data-motion='off'] .skill-tile {
 @media (max-width: 600px) {
   .hero-art.photo-frame {
     width: min(84%, 20rem);
+  }
+}
+
+/* Project cards keep the same artwork while React handles selection and filtering. */
+.portfolio-projects .section-heading .filters {
+  max-width: 440px;
+  flex-wrap: wrap;
+}
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  font: 9px var(--mono);
+  color: var(--muted);
+}
+.project-technologies li {
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+.portfolio-projects .project-links {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.project-results {
+  font: 10px var(--mono);
+  color: var(--muted);
+  margin: 16px 0 0;
+}
+.directory-poster {
+  background: radial-gradient(ellipse at 70% 30%, #493d78, transparent 75%), #17131f;
+}
+.directory-avatars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+.directory-avatars span {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 76px;
+  border: 1px solid #ffffff30;
+  border-radius: 12px;
+  background: #fff1;
+  font: 600 36px var(--display);
+  color: #e6daf8;
+}
+.empty-projects {
+  padding: 40px 0;
+  color: var(--muted);
+}
+@media (max-width: 600px) {
+  .portfolio-projects .section-heading .filters {
+    max-width: none;
+  }
+  .portfolio-projects[data-ready] .project-deck {
+    height: 510px;
+  }
+  .portfolio-projects .project-copy p {
+    min-height: 0;
   }
 }

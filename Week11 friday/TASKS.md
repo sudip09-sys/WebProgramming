@@ -11,4 +11,8 @@ Student: Sudip Sah · 202637610 · Computer Engineering
 
 Run npm ci, npm run check and npm run build from project/.
 
+7. [React in my portfolio](../week10/portfolio/index.html#work): the selected-work section renders reusable React project cards, technology filters and detail dialogs. Its source is in `week10/portfolio/src/` and builds with `npm run build:portfolio` from the repository root.
+
+See [WEEK11_CHECKLIST.md](../WEEK11_CHECKLIST.md) for the page/source map and submission checks.
+
 Submit coursework through the course platform. The site contains the exercises and supporting evidence.

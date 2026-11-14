@@ -24,6 +24,7 @@ This repository contains my Web Programming exercises and projects. The [homepag
 | React introduction | `Week11 monday/project/src/` | StudentCard props and concept checks |
 | React components | `Week11 friday/project/src/` | Student Directory, ProductCard, Course Catalog, Gallery and examples |
 | Team project | `teamproject/` | Memory Match engine, rendering, tests, report and presentation |
+| Portfolio React section | `week10/portfolio/src/` | Reusable project cards, technology filters and project details inside the portfolio |
 
 ## Source and build output
 

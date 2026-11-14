@@ -5,10 +5,16 @@
     "start": "node scripts/serve.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/api-examples.test.mjs tests/jokelab.test.mjs scripts/text-reveal.test.mjs scripts/review-regressions.test.mjs teamproject/engine.test.mjs",
-    "validate": "npm run check && npm test",
-    "build:performance": "node scripts/build-performance.mjs"
+    "validate": "npm run check && npm test && npm run check:portfolio",
+    "build:performance": "node scripts/build-performance.mjs",
+    "build:portfolio": "node scripts/build-portfolio.mjs",
+    "check:portfolio": "node scripts/check-portfolio.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
   }
 }
