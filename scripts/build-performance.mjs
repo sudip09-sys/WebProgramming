@@ -1,5 +1,6 @@
 import {build, transform} from 'esbuild';
 import fs from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
 const root = new URL('../', import.meta.url);
 const out = new URL('assets/optimized/', root);
 await fs.mkdir(out,{recursive:true});
@@ -20,6 +21,6 @@ for(const [input,output] of Object.entries({
 })) {
  let contents=await fs.readFile(new URL(input,root),'utf8');
  if(input.endsWith('spider.js')) contents=contents.replace('mini-pet.js?v=20261031','mini-pet.min.js');
- await build({stdin:{contents,resolveDir:new URL(input.replace(/[^/]+$/,''),root).pathname.replace(/^\/([A-Za-z]:)/,'$1'),sourcefile:input,loader:'js'},outfile:new URL(output,out).pathname.replace(/^\/([A-Za-z]:)/,'$1'),bundle:true,minify:true,format:input.endsWith('.mjs')?'esm':'iife',target:'chrome100'});
+ await build({stdin:{contents,resolveDir:fileURLToPath(new URL('./',new URL(input,root))),sourcefile:input,loader:'js'},outfile:fileURLToPath(new URL(output,out)),bundle:true,minify:true,format:input.endsWith('.mjs')?'esm':'iife',target:'chrome100'});
 }
 

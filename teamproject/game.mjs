@@ -4,7 +4,7 @@ let game,clock,reveal,last,previewEnds=0,announcedResult=false;
 function advance(){
  const now=performance.now();
  if(game.phase==='preview'){
-  if(now>=previewEnds){endPreview(game);last=now;}
+  if(now>=previewEnds){endPreview(game);tick(game,(now-previewEnds)/1000);last=now;}
  }else{tick(game,(now-last)/1000);last=now;}
 }
 function render(){

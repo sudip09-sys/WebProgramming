@@ -16,15 +16,17 @@ document.querySelectorAll("nav a").forEach(a=>{
   });
 });
 
+try {
 if(localStorage.getItem("sudip-theme")==="dark"){
   document.body.classList.add("dark");
   themeBtn.textContent="☀ Light";
 }
+} catch { /* Theme controls work without persistent storage. */ }
 
 themeBtn.addEventListener("click",()=>{
   document.body.classList.toggle("dark");
   const dark=document.body.classList.contains("dark");
-  localStorage.setItem("sudip-theme",dark?"dark":"light");
+  try { localStorage.setItem("sudip-theme",dark?"dark":"light"); } catch {}
   themeBtn.textContent=dark?"☀ Light":"◐ Theme";
 });
 

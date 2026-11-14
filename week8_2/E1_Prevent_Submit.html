@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="../assets/css/course-theme.css?v=20261108-course2">
 <script src="../assets/js/course-catalog.js?v=20261108-course1" defer></script>
 <script src="../assets/js/course-theme.js?v=20261108-course2" data-course-theme defer></script>
-</head><body data-course-mode="page" data-course-group="Forms"><a class="skip" href="#main">Skip to content</a><main id="main"><nav aria-label="Course navigation"><a href="../index.html#coursework">Home / Coursework</a><a href="../week8_1/index.html">Monday forms</a><a href="index.html">Friday validation</a></nav><header><p class="eyebrow">WEEK 8 FRIDAY / JAVASCRIPT FORM VALIDATION</p><h1>E1 · A welcome without a reload</h1><p>Submit an empty username, then try your name.</p></header><form class="panel" id="login" novalidate><label for="username">Username</label><input id="username" name="username" type="text" autocomplete="username" aria-describedby="username-error" aria-invalid="false"><span id="username-error" class="error" aria-live="polite"></span><button type="submit">Log in</button><p id="result" class="success" role="status" aria-live="polite"></p></form><footer>Sudip Sah · 202637610 · K0126002 · Gachon University<br>Practice only. No accounts are created and no form data is sent or saved.</footer></main><script>function feedback(el,message,neutral=false){
+</head><body data-course-mode="page" data-course-group="Forms"><a class="skip" href="#main">Skip to content</a><main id="main"><nav aria-label="Course navigation"><a href="../index.html#coursework">Home / Coursework</a><a href="../week8_1/index.html">Monday forms</a><a href="index.html">Friday validation</a></nav><header><p class="eyebrow">WEEK 8 FRIDAY / JAVASCRIPT FORM VALIDATION</p><h1>E1 · A welcome without a reload</h1><p>Submit an empty username, then try your name.</p></header><form class="panel" id="login" novalidate><label for="username">Username</label><input id="username" name="username" type="text" autocomplete="username" aria-describedby="username-error" aria-invalid="false"><span id="username-error" class="error" aria-live="polite"></span><button type="submit" disabled>Log in</button><p id="result" class="success" role="status" aria-live="polite"></p></form><footer>Sudip Sah · 202637610 · K0126002 · Gachon University<br>Practice only. No accounts are created and no form data is sent or saved.</footer></main><script>function feedback(el,message,neutral=false){
  document.getElementById(el.id+'-error').textContent=message;
  el.setAttribute('aria-invalid',message?'true':'false');
  el.classList.toggle('valid-err',!!message&&!neutral);
@@ -18,4 +18,5 @@ form.addEventListener('submit',e=>{
  if(!name) username.focus();
 });
 username.addEventListener('input',()=>{result.textContent='';feedback(username,'',true);});
+form.querySelector('button[type=submit]').disabled=false;
 </script><script src="../assets/js/spider-small.js?v=20261108-small2" defer data-sudip-spider></script></body></html>

@@ -58,6 +58,8 @@ const resetTimer = document.querySelector("#resetTimer");
 
 let seconds = 25 * 60;
 let timerId = null;
+let deadline = 0;
+let remainingMs = seconds * 1000;
 let sessions = 0;
 
 function renderTimer(){
@@ -70,36 +72,43 @@ function renderTimer(){
   timerBar.style.width = Math.max(0, progress) + "%";
 }
 
+function updateTimer(){
+  remainingMs = Math.max(0, deadline - Date.now());
+  seconds = Math.ceil(remainingMs / 1000);
+  renderTimer();
+  if(remainingMs === 0){
+    clearInterval(timerId);
+    timerId = null;
+    sessions++;
+    document.querySelector("#sessionCount").textContent = sessions;
+    timerState.textContent = "DONE";
+    alert("Focus session complete! Great work 🎉");
+  }
+}
+
 startTimer.addEventListener("click", () => {
   if(timerId !== null) return;
-
+  if(remainingMs <= 0) remainingMs = 25 * 60 * 1000;
+  deadline = Date.now() + remainingMs;
+  seconds = Math.ceil(remainingMs / 1000);
+  renderTimer();
   timerState.textContent = "FOCUSING";
-
-  timerId = setInterval(() => {
-    seconds--;
-    renderTimer();
-
-    if(seconds <= 0){
-      clearInterval(timerId);
-      timerId = null;
-      sessions++;
-      document.querySelector("#sessionCount").textContent = sessions;
-      timerState.textContent = "DONE";
-      alert("Focus session complete! Great work 🎉");
-    }
-  },1000);
+  timerId = setInterval(updateTimer, 1000);
 });
 
 pauseTimer.addEventListener("click", () => {
+  if(timerId === null) return;
+  updateTimer();
   clearInterval(timerId);
   timerId = null;
-  timerState.textContent = "PAUSED";
+  if(remainingMs > 0) timerState.textContent = "PAUSED";
 });
 
 resetTimer.addEventListener("click", () => {
   clearInterval(timerId);
   timerId = null;
   seconds = 25 * 60;
+  remainingMs = seconds * 1000;
   timerState.textContent = "READY";
   renderTimer();
 });
@@ -115,8 +124,9 @@ const saveProfile = document.querySelector("#saveProfile");
 const editName = document.querySelector("#editName");
 const editMajor = document.querySelector("#editMajor");
 
-editProfile.addEventListener("click", () => modal.classList.remove("hidden"));
-closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+editProfile.addEventListener("click", () => { modal.showModal(); editName.focus(); });
+closeModal.addEventListener("click", () => modal.close());
+modal.addEventListener("close", () => editProfile.focus());
 
 saveProfile.addEventListener("click", () => {
   const name = editName.value.trim();
@@ -133,7 +143,7 @@ saveProfile.addEventListener("click", () => {
   document.querySelector(".user-mini strong").textContent = name;
   document.querySelector(".user-mini small").textContent = major;
 
-  modal.classList.add("hidden");
+  modal.close();
 });
 
 
@@ -171,9 +181,9 @@ function renderTasks(){
     row.dataset.id = task.id;
 
     row.innerHTML = `
-      <input class="task-check" type="checkbox" ${task.done ? "checked" : ""}>
+      <input class="task-check" aria-labelledby="task-title-${task.id}" type="checkbox" ${task.done ? "checked" : ""}>
       <div class="task-info">
-        <strong>${escapeHTML(task.title)}</strong>
+        <strong id="task-title-${task.id}">${escapeHTML(task.title)}</strong>
         <small>${task.category} • <span class="${task.priority === "High" ? "priority-high" : task.priority === "Low" ? "priority-low" : ""}">${task.priority} priority</span></small>
       </div>
       <button class="delete">Delete</button>
@@ -263,13 +273,18 @@ taskContainer.addEventListener("click", e => {
   const task = tasks.find(t => t.id === id);
 
   if(e.target.matches(".delete")){
+    const index = [...taskContainer.children].indexOf(row);
     tasks = tasks.filter(t => t.id !== id);
     renderTasks();
+    const rows = taskContainer.querySelectorAll('.task-row');
+    (rows[Math.min(index, rows.length - 1)]?.querySelector('.delete') || newTask).focus();
   }
 
   if(e.target.matches(".task-check")){
     task.done = e.target.checked;
-    renderTasks();
+    row.classList.toggle('completed', task.done);
+    renderDashboardTasks();
+    updateStats();
   }
 });
 
@@ -297,7 +312,7 @@ studentSearch.addEventListener("input", e => {
   let count = 0;
 
   studentCards.forEach(card => {
-    const match = card.dataset.search.includes(term);
+    const match = (card.dataset.search + " " + card.textContent).toLowerCase().includes(term);
     card.style.display = match ? "flex" : "none";
     if(match) count++;
   });
@@ -347,7 +362,12 @@ attendanceList.addEventListener("click", e => {
   const index = Number(row.dataset.index);
 
   attendanceData[index][1] = !attendanceData[index][1];
-  renderAttendance();
+  const present = attendanceData[index][1];
+  row.classList.toggle('absent', !present);
+  e.target.classList.toggle('present', present);
+  e.target.classList.toggle('absent', !present);
+  e.target.textContent = present ? 'Present' : 'Absent';
+  updateAttendanceStats();
 });
 
 function updateAttendanceStats(){

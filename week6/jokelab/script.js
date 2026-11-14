@@ -28,7 +28,9 @@ let favourites = readFavourites();
 function readFavourites() {
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    return Array.isArray(stored) ? stored : [];
+    return Array.isArray(stored) ? stored.filter(joke => joke &&
+      (typeof joke.id === 'string' || typeof joke.id === 'number') &&
+      typeof joke.setup === 'string' && typeof joke.punchline === 'string') : [];
   } catch {
     return [];
   }
@@ -164,11 +166,15 @@ function renderFavourites() {
     remove.setAttribute("aria-label", `Remove favourite ${index + 1}`);
 
     remove.addEventListener("click", () => {
+      favourites = readFavourites();
       const previous = [...favourites];
-      favourites.splice(index, 1);
+      favourites = favourites.filter(item => !(item.id === joke.id ||
+        (item.setup === joke.setup && item.punchline === joke.punchline)));
 
       if (persistFavourites()) {
         renderFavourites();
+        const controls = favouritesList.querySelectorAll('.remove-button');
+        (controls[Math.min(index, controls.length - 1)] || loadButton).focus();
       } else {
         favourites = previous;
       }
@@ -196,6 +202,7 @@ saveButton.addEventListener("click", () => {
 
   hideError();
 
+  favourites = readFavourites();
   const duplicate = favourites.some(
     joke => joke.id === currentJoke.id ||
       (joke.setup === currentJoke.setup &&
@@ -218,6 +225,7 @@ saveButton.addEventListener("click", () => {
 });
 
 clearButton.addEventListener("click", () => {
+  favourites = readFavourites();
   if (favourites.length === 0) return;
 
   const previous = [...favourites];
@@ -234,7 +242,14 @@ loadButton.addEventListener("click", loadJoke);
 
 $("back-to-top").addEventListener("click", event => {
   event.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: "auto" });
 });
 
 renderFavourites();
+
+window.addEventListener('storage', event => {
+  if(event.storageArea === localStorage && (event.key === STORAGE_KEY || event.key === null)){
+    favourites = readFavourites();
+    renderFavourites();
+  }
+});

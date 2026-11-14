@@ -40,3 +40,5 @@ newsletter.addEventListener('submit', event => {
   document.getElementById('newsletter-status').textContent = invalid.length ? 'Please correct the indicated fields.' : 'Subscription form validated. Demo only: no data was sent or saved.';
   if (invalid.length) invalid[0].focus();
 });
+
+newsletter.querySelector('[type=submit]').disabled = false;
