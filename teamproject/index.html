@@ -1,20 +1,217 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090c"><title>Memory Match | Sudip Lab</title><meta name="description" content="Play Memory Match: timed challenges, relaxed practice and a local two-player duel. Match symbols, build streaks and beat your score."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"><link rel="stylesheet" href="../assets/optimized/game.min.css"><script type="module" src="../assets/optimized/game.min.mjs"></script><link rel="stylesheet" href="validation.css"><script src="validation.js" defer></script><link rel="stylesheet" href="portfolio-theme.css?v=1"><script src="background.js?v=1" defer></script></head>
-<body><canvas id="embers" aria-hidden="true"></canvas><nav class="course-nav" aria-label="Course submission"><a href="https://sudip09-sys.github.io/WebProgramming/week10/" style="text-decoration:underline;text-underline-offset:4px">← All Git and deployment exercises</a></nav><a class="skip-link" href="#main">Skip to main content</a><header><a href="../index.html">← Sudip Lab</a><a class="brand" href="#">✳ MEMORY<span>MATCH</span></a><div class="header-links"><a href="../week10/portfolio/">Portfolio ↗</a><a href="README.md">How it works ↗</a><button id="motion-toggle" type="button" aria-pressed="false" hidden>Pause background</button></div></header>
-<main id="main" tabindex="-1"><section class="intro"><div><p class="eyebrow">THE BRAIN'S FAVORITE PLAYGROUND</p><h1>MEMORY<br><em>MATCH.</em></h1><p class="hero-lead">Trust your eyes. Test your memory.<br>One perfect match at a time.</p><div class="hero-actions"><a class="primary" href="#play">Play the game ↗</a><a href="#recording">Watch presentation ↓</a></div></div><div class="hero-cards" aria-hidden="true"><span>✦</span><span>✦</span><small>FIND YOUR OTHER HALF</small></div></section>
-<div class="layout" id="play"><aside class="setup"><span class="eyebrow">01 / SET YOUR CHALLENGE</span><h2>Your game.<br>Your rules.</h2>
-<label>Difficulty<select id="level"><option value="easy">Warm-up · 6 pairs</option><option value="medium" selected>Focused · 8 pairs</option><option value="hard">Expert · 12 pairs</option></select></label>
-<label>Game mode<select id="mode"><option value="timed">⚡ Beat the clock</option><option value="practice">☁ No-pressure practice</option><option value="duel">⚔ Two-player duel</option></select></label>
-<button id="start" class="primary">Let's play →</button><button id="hint" disabled>◎ Peek at the board</button>
-<p class="note">Start with a 3-second preview. Settings apply when you start a new round.</p>
-<div class="tip"><b>MAKE IT A STREAK</b><p>Match without missing to earn up to <strong>200 points</strong> per pair.</p></div>
-<details><summary>The rules, in 30 seconds</summary><ul><li>Find two identical symbols.</li><li>Matches earn 100 points, plus 25 per consecutive prior match, capped at 200.</li><li>A miss resets your streak.</li><li>Peek reveals every card for a second. It costs 50 points, floored at zero.</li><li>The timed clock continues in background tabs after the preview.</li><li>Duel is on one device: matching keeps your turn; missing passes it. Most pairs wins.</li></ul></details>
-</aside>
-<section class="arena" aria-label="Memory game"><div class="arena-head"><span class="eyebrow">02 / MAKE THE CONNECTION</span><span id="combo" class="pill">READY WHEN YOU ARE</span></div>
-<div class="stats"><div><span>PAIRS</span><strong id="pairs">0 / 8</strong></div><div><span>MOVES</span><strong id="moves">0</strong></div><div><span>TIME LEFT</span><strong id="time">100s</strong></div><div><span>SCORE</span><strong id="points">0</strong></div></div>
-<progress id="progress" value="0" max="8" aria-label="Matched pairs"></progress>
-<p id="status" role="status">Press “Let's play” to reveal your board.</p>
-<div id="board" class="board" role="group" aria-label="Memory cards"></div>
-<section id="result" class="result" aria-live="polite" hidden><div id="result-icon" aria-hidden="true">✦</div><h2 id="result-title" tabindex="-1"></h2><p id="result-copy"></p><button id="again" class="primary">Play another round ↗</button></section>
-<div class="arena-footer"><span>◆ Same symbol. Perfect pair.</span><span>Tab + Enter to play with a keyboard</span></div><noscript>Enable JavaScript to play this game.</noscript></section></div>
-<section class="team-info" aria-labelledby="challenge-heading"><h2 id="challenge-heading">Name your challenge</h2><p>Set a player name before your next round. Saved on this device only.</p><form id="challenge-form" novalidate><label for="player-name">Player name (2–20 characters)</label><input id="player-name" name="player" required minlength="2" maxlength="20" autocomplete="nickname" aria-describedby="player-error"><p id="player-error" class="field-error" aria-live="polite"></p><button type="submit">Save player name</button><p id="challenge-status" role="status"></p></form></section><section class="team-info" aria-labelledby="team-heading"><p class="eyebrow">WEB PROGRAMMING / TEAM PROJECT</p><h2 id="team-heading">Meet the team.</h2><p>Sudip · Sondor · Eric · Abinash</p><p>Memory Match explores JavaScript game state through timed challenges, practice, and a local two-player duel.</p><nav aria-label="Team presentation materials" style="display:flex;flex-wrap:wrap;gap:18px"><a href="presentation.html">Open presentation ↗</a><a href="report.html">Project report ↗</a><a href="submission.html">Submission guide ↗</a><a href="https://github.com/sudip09-sys/WebProgramming/tree/main/teamproject">Source code ↗</a></nav><details style="margin-top:24px"><summary>Presentation roles</summary><p>Presentation order: Abinash introduces the game and its objectives; Sudip demonstrates gameplay and explains modes and scoring; Sondor explains implementation and game states; Eric covers timing, testing and the conclusion.</p></details></section><section id="recording" aria-labelledby="recording-heading"><p class="eyebrow">TEAM PRESENTATION</p><h2 id="recording-heading">Recorded presentation</h2><p>Sudip · Sondor · Eric · Abinash</p><p id="recording-status">The complete group presentation is now available.</p><video id="presentation-video" controls playsinline preload="none" aria-label="Memory Match complete group presentation" style="display:block;width:100%;max-width:960px;aspect-ratio:16/9;background:#000;border-radius:12px"><source src="https://github.com/sudip09-sys/WebProgramming/releases/download/TeamPresentationProject/MemoryMatch_Group_Presentation_Corrected_v2.mp4" type="video/mp4">Your browser does not support video playback. Use the download link below.</video><p>Press play to watch here, or use fullscreen for a larger view.</p><p><a href="https://github.com/sudip09-sys/WebProgramming/releases/download/TeamPresentationProject/MemoryMatch_Group_Presentation_Corrected_v2.mp4">Download Group Presentation (MP4 · 60.2 MB)</a></p><p>Presentation outline: introduction, gameplay, implementation, validation and a recorded demonstration.</p></section></main><footer>WEB PROGRAMMING / TEAM PROJECT<span>A little focus goes a long way.</span></footer></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#09090c" />
+    <title>Memory Match | Sudip Lab</title>
+    <meta
+      name="description"
+      content="Play Memory Match: timed challenges, relaxed practice and a local two-player duel. Match symbols, build streaks and beat your score."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=DM+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"
+    />
+    <link rel="stylesheet" href="../assets/optimized/game.min.css" />
+    <script type="module" src="../assets/optimized/game.min.mjs"></script>
+    <link rel="stylesheet" href="validation.css" />
+    <script src="validation.js" defer></script>
+    <link rel="stylesheet" href="portfolio-theme.css?v=1" />
+    <script src="background.js?v=1" defer></script>
+  </head>
+  <body>
+    <canvas id="embers" aria-hidden="true"></canvas>
+    <nav class="course-nav" aria-label="Course submission">
+      <a
+        href="https://sudip09-sys.github.io/WebProgramming/week10/"
+        style="text-decoration: underline; text-underline-offset: 4px"
+        >← All Git and deployment exercises</a
+      >
+    </nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a href="../index.html">← Sudip Lab</a
+      ><a class="brand" href="#">✳ MEMORY<span>MATCH</span></a>
+      <div class="header-links">
+        <a href="../week10/portfolio/">Portfolio ↗</a><a href="README.md">How it works ↗</a
+        ><button id="motion-toggle" type="button" aria-pressed="false" hidden>
+          Pause background
+        </button>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <section class="intro">
+        <div>
+          <p class="eyebrow">THE BRAIN'S FAVORITE PLAYGROUND</p>
+          <h1>MEMORY<br /><em>MATCH.</em></h1>
+          <p class="hero-lead">
+            Trust your eyes. Test your memory.<br />One perfect match at a time.
+          </p>
+          <div class="hero-actions">
+            <a class="primary" href="#play">Play the game ↗</a
+            ><a href="#recording">Watch presentation ↓</a>
+          </div>
+        </div>
+        <div class="hero-cards" aria-hidden="true">
+          <span>✦</span><span>✦</span><small>FIND YOUR OTHER HALF</small>
+        </div>
+      </section>
+      <div class="layout" id="play">
+        <aside class="setup">
+          <span class="eyebrow">01 / SET YOUR CHALLENGE</span>
+          <h2>Your game.<br />Your rules.</h2>
+          <label
+            >Difficulty<select id="level">
+              <option value="easy">Warm-up · 6 pairs</option>
+              <option value="medium" selected>Focused · 8 pairs</option>
+              <option value="hard">Expert · 12 pairs</option>
+            </select></label
+          >
+          <label
+            >Game mode<select id="mode">
+              <option value="timed">⚡ Beat the clock</option>
+              <option value="practice">☁ No-pressure practice</option>
+              <option value="duel">⚔ Two-player duel</option>
+            </select></label
+          >
+          <button id="start" class="primary">Let's play →</button
+          ><button id="hint" disabled>◎ Peek at the board</button>
+          <p class="note">
+            Start with a 3-second preview. Settings apply when you start a new round.
+          </p>
+          <div class="tip">
+            <b>MAKE IT A STREAK</b>
+            <p>Match without missing to earn up to <strong>200 points</strong> per pair.</p>
+          </div>
+          <details>
+            <summary>The rules, in 30 seconds</summary>
+            <ul>
+              <li>Find two identical symbols.</li>
+              <li>Matches earn 100 points, plus 25 per consecutive prior match, capped at 200.</li>
+              <li>A miss resets your streak.</li>
+              <li>Peek reveals every card for a second. It costs 50 points, floored at zero.</li>
+              <li>The timed clock continues in background tabs after the preview.</li>
+              <li>
+                Duel is on one device: matching keeps your turn; missing passes it. Most pairs wins.
+              </li>
+            </ul>
+          </details>
+        </aside>
+        <section class="arena" aria-label="Memory game">
+          <div class="arena-head">
+            <span class="eyebrow">02 / MAKE THE CONNECTION</span
+            ><span id="combo" class="pill">READY WHEN YOU ARE</span>
+          </div>
+          <div class="stats">
+            <div><span>PAIRS</span><strong id="pairs">0 / 8</strong></div>
+            <div><span>MOVES</span><strong id="moves">0</strong></div>
+            <div><span>TIME LEFT</span><strong id="time">100s</strong></div>
+            <div><span>SCORE</span><strong id="points">0</strong></div>
+          </div>
+          <progress id="progress" value="0" max="8" aria-label="Matched pairs"></progress>
+          <p id="status" role="status">Press “Let's play” to reveal your board.</p>
+          <div id="board" class="board" role="group" aria-label="Memory cards"></div>
+          <section id="result" class="result" aria-live="polite" hidden>
+            <div id="result-icon" aria-hidden="true">✦</div>
+            <h2 id="result-title" tabindex="-1"></h2>
+            <p id="result-copy"></p>
+            <button id="again" class="primary">Play another round ↗</button>
+          </section>
+          <div class="arena-footer">
+            <span>◆ Same symbol. Perfect pair.</span
+            ><span>Tab + Enter to play with a keyboard</span>
+          </div>
+          <noscript>Enable JavaScript to play this game.</noscript>
+        </section>
+      </div>
+      <section class="team-info" aria-labelledby="challenge-heading">
+        <h2 id="challenge-heading">Name your challenge</h2>
+        <p>Set a player name before your next round. Saved on this device only.</p>
+        <form id="challenge-form" novalidate>
+          <label for="player-name">Player name (2–20 characters)</label
+          ><input
+            id="player-name"
+            name="player"
+            required
+            minlength="2"
+            maxlength="20"
+            autocomplete="nickname"
+            aria-describedby="player-error"
+          />
+          <p id="player-error" class="field-error" aria-live="polite"></p>
+          <button type="submit">Save player name</button>
+          <p id="challenge-status" role="status"></p>
+        </form>
+      </section>
+      <section class="team-info" aria-labelledby="team-heading">
+        <p class="eyebrow">WEB PROGRAMMING / TEAM PROJECT</p>
+        <h2 id="team-heading">Meet the team.</h2>
+        <p>Sudip · Sondor · Eric · Abinash</p>
+        <p>
+          Memory Match explores JavaScript game state through timed challenges, practice, and a
+          local two-player duel.
+        </p>
+        <nav
+          aria-label="Team presentation materials"
+          style="display: flex; flex-wrap: wrap; gap: 18px"
+        >
+          <a href="presentation.html">Open presentation ↗</a
+          ><a href="report.html">Project report ↗</a><a href="submission.html">Submission guide ↗</a
+          ><a href="https://github.com/sudip09-sys/WebProgramming/tree/main/teamproject"
+            >Source code ↗</a
+          >
+        </nav>
+        <details style="margin-top: 24px">
+          <summary>Presentation roles</summary>
+          <p>
+            Presentation order: Abinash introduces the game and its objectives; Sudip demonstrates
+            gameplay and explains modes and scoring; Sondor explains implementation and game states;
+            Eric covers timing, testing and the conclusion.
+          </p>
+        </details>
+      </section>
+      <section id="recording" aria-labelledby="recording-heading">
+        <p class="eyebrow">TEAM PRESENTATION</p>
+        <h2 id="recording-heading">Recorded presentation</h2>
+        <p>Sudip · Sondor · Eric · Abinash</p>
+        <p id="recording-status">The complete group presentation is now available.</p>
+        <video
+          id="presentation-video"
+          controls
+          playsinline
+          preload="none"
+          aria-label="Memory Match complete group presentation"
+          style="
+            display: block;
+            width: 100%;
+            max-width: 960px;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 12px;
+          "
+        >
+          <source
+            src="https://github.com/sudip09-sys/WebProgramming/releases/download/TeamPresentationProject/MemoryMatch_Group_Presentation_Corrected_v2.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support video playback. Use the download link below.
+        </video>
+        <p>Press play to watch here, or use fullscreen for a larger view.</p>
+        <p>
+          <a
+            href="https://github.com/sudip09-sys/WebProgramming/releases/download/TeamPresentationProject/MemoryMatch_Group_Presentation_Corrected_v2.mp4"
+            >Download Group Presentation (MP4 · 60.2 MB)</a
+          >
+        </p>
+        <p>
+          Presentation outline: introduction, gameplay, implementation, validation and a recorded
+          demonstration.
+        </p>
+      </section>
+    </main>
+    <footer>WEB PROGRAMMING / TEAM PROJECT<span>A little focus goes a long way.</span></footer>
+  </body>
+</html>

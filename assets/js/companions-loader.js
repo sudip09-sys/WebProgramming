@@ -12,9 +12,9 @@
     document.body.append(companion);
   };
   const schedule = () => {
-    if ('requestIdleCallback' in window) requestIdleCallback(load, {timeout: 1500});
+    if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 1500 });
     else setTimeout(load, 0);
   };
   if (document.readyState === 'complete') schedule();
-  else window.addEventListener('load', schedule, {once: true});
+  else window.addEventListener('load', schedule, { once: true });
 })();

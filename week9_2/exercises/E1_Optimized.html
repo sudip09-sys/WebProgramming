@@ -1,1 +1,77 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Performance Test Page - Optimized</title><script src="e1-app.js" defer></script><style>body{font-family:system-ui;padding:24px;max-width:600px;margin:auto;color:#20243c}img{width:100%;height:auto;border-radius:8px;margin:12px 0}h2{color:#963a00}.gallery{margin-top:40px}p{line-height:1.7}</style></head><body><main><h1>Performance Test Page</h1><p>Optimized image and script loading.</p><img src="../assets/photo-800.webp" srcset="../assets/photo-400.webp 400w, ../assets/photo-800.webp 800w" sizes="(max-width:648px) calc(100vw - 48px),600px" alt="Two yellow trams on tracks along a Lisbon street" width="800" height="400" fetchpriority="high"><h2>What changed?</h2><p>The primary image is eager and has explicit dimensions. An external deferred script updates the status after the DOM has been parsed. Responsive image candidates avoid transferring a full camera-sized image to a small screen.</p><p>Off-screen gallery photographs use native lazy loading and reserve their aspect ratios to keep text from jumping. All assets are served from this exercise folder, avoiding random redirects during the optimized audit.</p><p id="app-status" role="status">Waiting for the deferred script.</p><section class="gallery"><h2>Lower gallery</h2><img src="../assets/movie3.jpg" alt="A winding path along a wooded coastline" width="400" height="560" loading="lazy"><img src="../assets/movie4.jpg" alt="Hand tools and work gloves arranged on a wooden surface" width="400" height="560" loading="lazy"></section><p><a href="E1_Lighthouse.html">Back to exercise findings</a></p></main></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Performance Test Page - Optimized</title>
+    <script src="e1-app.js" defer></script>
+    <style>
+      body {
+        font-family: system-ui;
+        padding: 24px;
+        max-width: 600px;
+        margin: auto;
+        color: #20243c;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 12px 0;
+      }
+      h2 {
+        color: #963a00;
+      }
+      .gallery {
+        margin-top: 40px;
+      }
+      p {
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Performance Test Page</h1>
+      <p>Optimized image and script loading.</p>
+      <img
+        src="../assets/photo-800.webp"
+        srcset="../assets/photo-400.webp 400w, ../assets/photo-800.webp 800w"
+        sizes="(max-width:648px) calc(100vw - 48px),600px"
+        alt="Two yellow trams on tracks along a Lisbon street"
+        width="800"
+        height="400"
+        fetchpriority="high"
+      />
+      <h2>What changed?</h2>
+      <p>
+        The primary image is eager and has explicit dimensions. An external deferred script updates
+        the status after the DOM has been parsed. Responsive image candidates avoid transferring a
+        full camera-sized image to a small screen.
+      </p>
+      <p>
+        Off-screen gallery photographs use native lazy loading and reserve their aspect ratios to
+        keep text from jumping. All assets are served from this exercise folder, avoiding random
+        redirects during the optimized audit.
+      </p>
+      <p id="app-status" role="status">Waiting for the deferred script.</p>
+      <section class="gallery">
+        <h2>Lower gallery</h2>
+        <img
+          src="../assets/movie3.jpg"
+          alt="A winding path along a wooded coastline"
+          width="400"
+          height="560"
+          loading="lazy"
+        /><img
+          src="../assets/movie4.jpg"
+          alt="Hand tools and work gloves arranged on a wooden surface"
+          width="400"
+          height="560"
+          loading="lazy"
+        />
+      </section>
+      <p><a href="E1_Lighthouse.html">Back to exercise findings</a></p>
+    </main>
+  </body>
+</html>

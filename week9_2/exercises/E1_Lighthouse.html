@@ -1,9 +1,199 @@
-<!doctype html><html lang="en" data-course-skin="red" data-course-tone="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>E1 · Lighthouse audit · Sudip Sah</title><link rel="stylesheet" href="../../assets/css/studio.css"><script src="../../assets/js/theme.js" defer></script><style>.exercise-nav{display:flex;gap:12px;flex-wrap:wrap}.preview img{max-width:100%;height:auto}pre{white-space:pre-wrap;overflow-wrap:anywhere}.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}.compare figure{margin:0}.compare img{width:100%;height:auto}table{border-collapse:collapse;width:100%}th,td{padding:10px;text-align:left;border-bottom:1px solid var(--line)}.gallery{margin-top:40px}@media(max-width:650px){.compare{grid-template-columns:1fr}}</style>
-<link rel="stylesheet" href="../../assets/css/course-theme.css?v=20261108-course2">
-<script src="../../assets/js/course-catalog.js?v=20261108-course1" defer></script>
-<script src="../../assets/js/course-theme.js?v=20261108-course2" data-course-theme defer></script>
-</head><body data-course-mode="page" data-course-group="Accessibility &amp; performance"><a class="skip" href="#main">Skip to content</a><header class="topbar"><nav class="wrap" aria-label="Coursework"><a class="brand" href="../../index.html">Sudip Lab</a><a href="../index.html">Week 9.2</a><button id="theme-toggle" type="button">Dark mode</button></nav></header><main id="main" class="page"><p class="eyebrow">WEEK 9.2 / PERFORMANCE PRACTICE</p><h1>E1 · Lighthouse audit</h1><nav class="exercise-nav" aria-label="Exercises"><a href="index.html">All exercises</a><a href="E1_Lighthouse.html">E1 · Lighthouse</a><a href="E2_Responsive_Images.html">E2 · Images</a><a href="E3_Script_Loading.html">E3 · Scripts</a><a href="../lab/index.html">Movie lab</a></nav><p><a href="../Sudip_Performance_Exercises_Report.pdf">Download the exercises explanation PDF</a></p><section class="demo"><h2>Completed task</h2><p>Audit the starter, identify the slowest metric and load a corrected page. The audit results and answers are recorded below after measurement.</p><p><a href="E1_Before.html">Open the exercise starter</a> · <a href="E1_Optimized.html">Open the optimized practice page</a></p><p>The optimized page uses a deferred external app script, smaller local images, explicit image dimensions, and lazy loading only for the lower gallery. The unused jQuery dependency is removed.</p></section><section><h2>Code used</h2><pre><code>&lt;script src=&quot;e1-app.js&quot; defer&gt;&lt;/script&gt;
+<!doctype html>
+<html lang="en" data-course-skin="red" data-course-tone="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>E1 · Lighthouse audit · Sudip Sah</title>
+    <link rel="stylesheet" href="../../assets/css/studio.css" />
+    <script src="../../assets/js/theme.js" defer></script>
+    <style>
+      .exercise-nav {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .preview img {
+        max-width: 100%;
+        height: auto;
+      }
+      pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .compare figure {
+        margin: 0;
+      }
+      .compare img {
+        width: 100%;
+        height: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+      }
+      .gallery {
+        margin-top: 40px;
+      }
+      @media (max-width: 650px) {
+        .compare {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="../../assets/css/course-theme.css?v=20261108-course2" />
+    <script src="../../assets/js/course-catalog.js?v=20261108-course1" defer></script>
+    <script
+      src="../../assets/js/course-theme.js?v=20261108-course2"
+      data-course-theme
+      defer
+    ></script>
+  </head>
+  <body data-course-mode="page" data-course-group="Accessibility &amp; performance">
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="topbar">
+      <nav class="wrap" aria-label="Coursework">
+        <a class="brand" href="../../index.html">Sudip Lab</a><a href="../index.html">Week 9.2</a
+        ><button id="theme-toggle" type="button">Dark mode</button>
+      </nav>
+    </header>
+    <main id="main" class="page">
+      <p class="eyebrow">WEEK 9.2 / PERFORMANCE PRACTICE</p>
+      <h1>E1 · Lighthouse audit</h1>
+      <nav class="exercise-nav" aria-label="Exercises">
+        <a href="index.html">All exercises</a><a href="E1_Lighthouse.html">E1 · Lighthouse</a
+        ><a href="E2_Responsive_Images.html">E2 · Images</a
+        ><a href="E3_Script_Loading.html">E3 · Scripts</a><a href="../lab/index.html">Movie lab</a>
+      </nav>
+      <p>
+        <a href="../Sudip_Performance_Exercises_Report.pdf"
+          >Download the exercises explanation PDF</a
+        >
+      </p>
+      <section class="demo">
+        <h2>Completed task</h2>
+        <p>
+          Audit the starter, identify the slowest metric and load a corrected page. The audit
+          results and answers are recorded below after measurement.
+        </p>
+        <p>
+          <a href="E1_Before.html">Open the exercise starter</a> ·
+          <a href="E1_Optimized.html">Open the optimized practice page</a>
+        </p>
+        <p>
+          The optimized page uses a deferred external app script, smaller local images, explicit
+          image dimensions, and lazy loading only for the lower gallery. The unused jQuery
+          dependency is removed.
+        </p>
+      </section>
+      <section>
+        <h2>Code used</h2>
+        <pre><code>&lt;script src=&quot;e1-app.js&quot; defer&gt;&lt;/script&gt;
 &lt;img src=&quot;../assets/photo-800.webp&quot; alt=&quot;Two yellow trams on tracks along a Lisbon street&quot;
      width=&quot;800&quot; height=&quot;400&quot; fetchpriority=&quot;high&quot;&gt;
 &lt;img src=&quot;../assets/movie3.jpg&quot; alt=&quot;A wooded coastline&quot;
-     width=&quot;400&quot; height=&quot;560&quot; loading=&quot;lazy&quot;&gt;</code></pre></section><section id="audit-results"><h2>Measured results and answers</h2><p>Performance score: <strong>77 before → 100 after</strong>.</p><p>The longest time-based metric in the starter run was <strong>Largest Contentful Paint: 5.0 s</strong>. CLS is unitless, so it is not compared numerically with seconds.</p><p>The starter loads large random images through remote redirects, with no dimensions, and downloads a blocking jQuery script. The optimized page removes the unused library, serves smaller local images and reserves their layout space; the change also replaces nondeterministic remote photography with local sample assets, so this is a combined exercise comparison, not an isolated measurement of defer.</p><table><thead><tr><th scope="col">Metric</th><th scope="col">Before</th><th scope="col">After</th></tr></thead><tbody><tr><th scope="row">First Contentful Paint</th><td>1.5 s</td><td>0.6 s</td></tr><tr><th scope="row">Largest Contentful Paint</th><td>5.0 s</td><td>1.2 s</td></tr><tr><th scope="row">Speed Index</th><td>2.4 s</td><td>0.6 s</td></tr><tr><th scope="row">Total Blocking Time</th><td>0 ms</td><td>0 ms</td></tr><tr><th scope="row">Cumulative Layout Shift</th><td>0.116</td><td>0.001</td></tr></tbody></table><p>Mobile Lighthouse, identical default simulated network/CPU settings, one run each on the local server. Full evidence is available below.</p><details><summary>View before-and-after audit screenshots</summary><div class="compare"><figure><a href="../evidence/e1-before.report.html"><img src="../evidence/e1-before.png" alt="Exercise 1 Lighthouse before score and metric breakdown" width="1440" height="1100" loading="lazy"></a><figcaption>Before · <a href="../evidence/e1-before.report.html">Full report</a> · <a href="../evidence/e1-before.report.json">Raw JSON</a></figcaption></figure><figure><a href="../evidence/e1-after.report.html"><img src="../evidence/e1-after.png" alt="Exercise 1 Lighthouse after score and metric breakdown" width="1440" height="1100" loading="lazy"></a><figcaption>After · <a href="../evidence/e1-after.report.html">Full report</a> · <a href="../evidence/e1-after.report.json">Raw JSON</a></figcaption></figure></div></details></section></main><footer class="wrap">Sudip Sah · Gachon University · Web Programming</footer></body></html>
+     width=&quot;400&quot; height=&quot;560&quot; loading=&quot;lazy&quot;&gt;</code></pre>
+      </section>
+      <section id="audit-results">
+        <h2>Measured results and answers</h2>
+        <p>Performance score: <strong>77 before → 100 after</strong>.</p>
+        <p>
+          The longest time-based metric in the starter run was
+          <strong>Largest Contentful Paint: 5.0 s</strong>. CLS is unitless, so it is not compared
+          numerically with seconds.
+        </p>
+        <p>
+          The starter loads large random images through remote redirects, with no dimensions, and
+          downloads a blocking jQuery script. The optimized page removes the unused library, serves
+          smaller local images and reserves their layout space; the change also replaces
+          nondeterministic remote photography with local sample assets, so this is a combined
+          exercise comparison, not an isolated measurement of defer.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Metric</th>
+              <th scope="col">Before</th>
+              <th scope="col">After</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">First Contentful Paint</th>
+              <td>1.5 s</td>
+              <td>0.6 s</td>
+            </tr>
+            <tr>
+              <th scope="row">Largest Contentful Paint</th>
+              <td>5.0 s</td>
+              <td>1.2 s</td>
+            </tr>
+            <tr>
+              <th scope="row">Speed Index</th>
+              <td>2.4 s</td>
+              <td>0.6 s</td>
+            </tr>
+            <tr>
+              <th scope="row">Total Blocking Time</th>
+              <td>0 ms</td>
+              <td>0 ms</td>
+            </tr>
+            <tr>
+              <th scope="row">Cumulative Layout Shift</th>
+              <td>0.116</td>
+              <td>0.001</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Mobile Lighthouse, identical default simulated network/CPU settings, one run each on the
+          local server. Full evidence is available below.
+        </p>
+        <details>
+          <summary>View before-and-after audit screenshots</summary>
+          <div class="compare">
+            <figure>
+              <a href="../evidence/e1-before.report.html"
+                ><img
+                  src="../evidence/e1-before.png"
+                  alt="Exercise 1 Lighthouse before score and metric breakdown"
+                  width="1440"
+                  height="1100"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                Before · <a href="../evidence/e1-before.report.html">Full report</a> ·
+                <a href="../evidence/e1-before.report.json">Raw JSON</a>
+              </figcaption>
+            </figure>
+            <figure>
+              <a href="../evidence/e1-after.report.html"
+                ><img
+                  src="../evidence/e1-after.png"
+                  alt="Exercise 1 Lighthouse after score and metric breakdown"
+                  width="1440"
+                  height="1100"
+                  loading="lazy"
+              /></a>
+              <figcaption>
+                After · <a href="../evidence/e1-after.report.html">Full report</a> ·
+                <a href="../evidence/e1-after.report.json">Raw JSON</a>
+              </figcaption>
+            </figure>
+          </div>
+        </details>
+      </section>
+    </main>
+    <footer class="wrap">Sudip Sah · Gachon University · Web Programming</footer>
+  </body>
+</html>

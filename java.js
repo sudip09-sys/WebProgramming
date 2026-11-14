@@ -1,41 +1,45 @@
-const menuBtn=document.getElementById("menuBtn");
-const nav=document.getElementById("navMenu");
-const themeBtn=document.getElementById("themeBtn");
-const backTop=document.getElementById("backTop");
-const year=document.getElementById("year");
+const menuBtn = document.getElementById('menuBtn');
+const nav = document.getElementById('navMenu');
+const themeBtn = document.getElementById('themeBtn');
+const backTop = document.getElementById('backTop');
+const year = document.getElementById('year');
 
-menuBtn.addEventListener("click",()=>{
-  nav.classList.toggle("open");
-  menuBtn.textContent=nav.classList.contains("open")?"✕":"☰";
+menuBtn.addEventListener('click', () => {
+  nav.classList.toggle('open');
+  menuBtn.textContent = nav.classList.contains('open') ? '✕' : '☰';
 });
 
-document.querySelectorAll("nav a").forEach(a=>{
-  a.addEventListener("click",()=>{
-    nav.classList.remove("open");
-    menuBtn.textContent="☰";
+document.querySelectorAll('nav a').forEach((a) => {
+  a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    menuBtn.textContent = '☰';
   });
 });
 
 try {
-if(localStorage.getItem("sudip-theme")==="dark"){
-  document.body.classList.add("dark");
-  themeBtn.textContent="☀ Light";
+  if (localStorage.getItem('sudip-theme') === 'dark') {
+    document.body.classList.add('dark');
+    themeBtn.textContent = '☀ Light';
+  }
+} catch {
+  /* Theme controls work without persistent storage. */
 }
-} catch { /* Theme controls work without persistent storage. */ }
 
-themeBtn.addEventListener("click",()=>{
-  document.body.classList.toggle("dark");
-  const dark=document.body.classList.contains("dark");
-  try { localStorage.setItem("sudip-theme",dark?"dark":"light"); } catch {}
-  themeBtn.textContent=dark?"☀ Light":"◐ Theme";
+themeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const dark = document.body.classList.contains('dark');
+  try {
+    localStorage.setItem('sudip-theme', dark ? 'dark' : 'light');
+  } catch {}
+  themeBtn.textContent = dark ? '☀ Light' : '◐ Theme';
 });
 
-year.textContent=new Date().getFullYear();
+year.textContent = new Date().getFullYear();
 
-window.addEventListener("scroll",()=>{
-  backTop.classList.toggle("show",window.scrollY>450);
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('show', window.scrollY > 450);
 });
 
-backTop.addEventListener("click",()=>{
-  window.scrollTo({top:0,behavior:"smooth"});
+backTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });

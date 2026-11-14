@@ -1,24 +1,24 @@
-
-const API_URL = "https://v2.jokeapi.dev/joke/Programming?type=twopart&safe-mode&blacklistFlags=nsfw,religious,political,racist,sexist,explicit";
+const API_URL =
+  'https://v2.jokeapi.dev/joke/Programming?type=twopart&safe-mode&blacklistFlags=nsfw,religious,political,racist,sexist,explicit';
 const REQUEST_TIMEOUT_MS = 8000;
-const STORAGE_KEY = "randomJokeFavourites";
+const STORAGE_KEY = 'randomJokeFavourites';
 
 const $ = (id) => document.getElementById(id);
 
-const loadButton = $("load-joke");
-const saveButton = $("save-favourite");
-const clearButton = $("clear-favourites");
-const saveLabel = $("save-label");
-const status = $("status");
-const spinner = $("spinner");
-const jokeContent = $("joke-content");
-const setupElement = $("setup");
-const punchlineElement = $("punchline");
-const errorElement = $("error-message");
-const jokeNumber = $("joke-number");
-const favouritesList = $("favourites-list");
-const emptyState = $("favourites-empty");
-const favouriteCount = $("favourite-count");
+const loadButton = $('load-joke');
+const saveButton = $('save-favourite');
+const clearButton = $('clear-favourites');
+const saveLabel = $('save-label');
+const status = $('status');
+const spinner = $('spinner');
+const jokeContent = $('joke-content');
+const setupElement = $('setup');
+const punchlineElement = $('punchline');
+const errorElement = $('error-message');
+const jokeNumber = $('joke-number');
+const favouritesList = $('favourites-list');
+const emptyState = $('favourites-empty');
+const favouriteCount = $('favourite-count');
 
 let currentJoke = null;
 let isLoading = false;
@@ -27,10 +27,16 @@ let favourites = readFavourites();
 
 function readFavourites() {
   try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    return Array.isArray(stored) ? stored.filter(joke => joke &&
-      (typeof joke.id === 'string' || typeof joke.id === 'number') &&
-      typeof joke.setup === 'string' && typeof joke.punchline === 'string') : [];
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    return Array.isArray(stored)
+      ? stored.filter(
+          (joke) =>
+            joke &&
+            (typeof joke.id === 'string' || typeof joke.id === 'number') &&
+            typeof joke.setup === 'string' &&
+            typeof joke.punchline === 'string',
+        )
+      : [];
   } catch {
     return [];
   }
@@ -41,7 +47,7 @@ function persistFavourites() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(favourites));
     return true;
   } catch (error) {
-    console.error("Could not save favourites:", error);
+    console.error('Could not save favourites:', error);
     showError("Your browser couldn't save this collection. Check your storage settings.");
     return false;
   }
@@ -53,19 +59,20 @@ function showError(message) {
 }
 
 function hideError() {
-  errorElement.textContent = "";
+  errorElement.textContent = '';
   errorElement.hidden = true;
 }
 
 function setLoading(loading) {
   isLoading = loading;
   loadButton.disabled = loading;
-  loadButton.setAttribute("aria-busy", String(loading));
+  loadButton.setAttribute('aria-busy', String(loading));
   spinner.hidden = !loading;
 
-  loadButton.querySelector(".button-icon").textContent = loading ? "…" : "↻";
-  loadButton.querySelector("span:nth-child(2)").textContent =
-    loading ? "Finding a good one..." : "Give me another";
+  loadButton.querySelector('.button-icon').textContent = loading ? '…' : '↻';
+  loadButton.querySelector('span:nth-child(2)').textContent = loading
+    ? 'Finding a good one...'
+    : 'Give me another';
 
   saveButton.disabled = loading || !currentJoke;
 }
@@ -77,8 +84,8 @@ async function loadJoke() {
   currentJoke = null;
   jokeContent.hidden = true;
   saveButton.disabled = true;
-  saveLabel.textContent = "Save to collection";
-  status.textContent = "Preparing something funny...";
+  saveLabel.textContent = 'Save to collection';
+  status.textContent = 'Preparing something funny...';
   status.hidden = false;
   setLoading(true);
 
@@ -88,8 +95,8 @@ async function loadJoke() {
   try {
     const response = await fetch(API_URL, {
       signal: controller.signal,
-      headers: { Accept: "application/json" },
-      cache: "no-store"
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
     });
 
     if (!response.ok) {
@@ -99,21 +106,25 @@ async function loadJoke() {
     const data = await response.json();
 
     if (
-      !data || data.error !== false || data.type !== "twopart" ||
-      typeof data.setup !== "string" || !data.setup.trim() ||
-      typeof data.delivery !== "string" || !data.delivery.trim()
+      !data ||
+      data.error !== false ||
+      data.type !== 'twopart' ||
+      typeof data.setup !== 'string' ||
+      !data.setup.trim() ||
+      typeof data.delivery !== 'string' ||
+      !data.delivery.trim()
     ) {
-      throw new Error("The API returned an unexpected response.");
+      throw new Error('The API returned an unexpected response.');
     }
 
     currentJoke = {
       id: `jokeapi-${data.id ?? Date.now()}`,
       setup: data.setup,
-      punchline: data.delivery
+      punchline: data.delivery,
     };
 
     jokeCount += 1;
-    jokeNumber.textContent = `NO. ${String(jokeCount).padStart(3, "0")}`;
+    jokeNumber.textContent = `NO. ${String(jokeCount).padStart(3, '0')}`;
 
     setupElement.textContent = currentJoke.setup;
     punchlineElement.textContent = currentJoke.punchline;
@@ -123,18 +134,20 @@ async function loadJoke() {
     saveButton.disabled = false;
 
     const alreadySaved = favourites.some(
-      joke => joke.id === currentJoke.id ||
-        (joke.setup === currentJoke.setup &&
-         joke.punchline === currentJoke.punchline)
+      (joke) =>
+        joke.id === currentJoke.id ||
+        (joke.setup === currentJoke.setup && joke.punchline === currentJoke.punchline),
     );
 
-    if (alreadySaved) saveLabel.textContent = "Already saved";
+    if (alreadySaved) saveLabel.textContent = 'Already saved';
   } catch (error) {
-    console.error("Joke request failed:", error);
+    console.error('Joke request failed:', error);
     status.textContent = "Looks like the joke's on us.";
-    showError(error.name === "AbortError"
-      ? "The joke service took too long. Please try again."
-      : "The joke service is unavailable right now. Please try again.");
+    showError(
+      error.name === 'AbortError'
+        ? 'The joke service took too long. Please try again.'
+        : 'The joke service is unavailable right now. Please try again.',
+    );
   } finally {
     clearTimeout(timeout);
     setLoading(false);
@@ -149,27 +162,32 @@ function renderFavourites() {
   clearButton.disabled = favourites.length === 0;
 
   favourites.forEach((joke, index) => {
-    const card = document.createElement("article");
-    card.className = "favourite-item";
+    const card = document.createElement('article');
+    card.className = 'favourite-item';
 
-    const top = document.createElement("div");
-    top.className = "favourite-item-top";
+    const top = document.createElement('div');
+    top.className = 'favourite-item-top';
 
-    const number = document.createElement("span");
-    number.className = "favourite-index";
-    number.textContent = `KEEPER NO. ${String(index + 1).padStart(2, "0")}`;
+    const number = document.createElement('span');
+    number.className = 'favourite-index';
+    number.textContent = `KEEPER NO. ${String(index + 1).padStart(2, '0')}`;
 
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "remove-button";
-    remove.textContent = "Remove ×";
-    remove.setAttribute("aria-label", `Remove favourite ${index + 1}`);
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'remove-button';
+    remove.textContent = 'Remove ×';
+    remove.setAttribute('aria-label', `Remove favourite ${index + 1}`);
 
-    remove.addEventListener("click", () => {
+    remove.addEventListener('click', () => {
       favourites = readFavourites();
       const previous = [...favourites];
-      favourites = favourites.filter(item => !(item.id === joke.id ||
-        (item.setup === joke.setup && item.punchline === joke.punchline)));
+      favourites = favourites.filter(
+        (item) =>
+          !(
+            item.id === joke.id ||
+            (item.setup === joke.setup && item.punchline === joke.punchline)
+          ),
+      );
 
       if (persistFavourites()) {
         renderFavourites();
@@ -180,15 +198,15 @@ function renderFavourites() {
       }
     });
 
-    const setup = document.createElement("p");
-    setup.className = "favourite-setup";
+    const setup = document.createElement('p');
+    setup.className = 'favourite-setup';
     setup.textContent = joke.setup;
 
-    const divider = document.createElement("div");
-    divider.className = "favourite-divider";
+    const divider = document.createElement('div');
+    divider.className = 'favourite-divider';
 
-    const punchline = document.createElement("p");
-    punchline.className = "favourite-punchline";
+    const punchline = document.createElement('p');
+    punchline.className = 'favourite-punchline';
     punchline.textContent = joke.punchline;
 
     top.append(number, remove);
@@ -197,20 +215,20 @@ function renderFavourites() {
   });
 }
 
-saveButton.addEventListener("click", () => {
+saveButton.addEventListener('click', () => {
   if (!currentJoke || isLoading) return;
 
   hideError();
 
   favourites = readFavourites();
   const duplicate = favourites.some(
-    joke => joke.id === currentJoke.id ||
-      (joke.setup === currentJoke.setup &&
-       joke.punchline === currentJoke.punchline)
+    (joke) =>
+      joke.id === currentJoke.id ||
+      (joke.setup === currentJoke.setup && joke.punchline === currentJoke.punchline),
   );
 
   if (duplicate) {
-    saveLabel.textContent = "Already in collection";
+    saveLabel.textContent = 'Already in collection';
     return;
   }
 
@@ -218,13 +236,13 @@ saveButton.addEventListener("click", () => {
 
   if (persistFavourites()) {
     renderFavourites();
-    saveLabel.textContent = "Saved to collection ✓";
+    saveLabel.textContent = 'Saved to collection ✓';
   } else {
     favourites.shift();
   }
 });
 
-clearButton.addEventListener("click", () => {
+clearButton.addEventListener('click', () => {
   favourites = readFavourites();
   if (favourites.length === 0) return;
 
@@ -238,17 +256,17 @@ clearButton.addEventListener("click", () => {
   }
 });
 
-loadButton.addEventListener("click", loadJoke);
+loadButton.addEventListener('click', loadJoke);
 
-$("back-to-top").addEventListener("click", event => {
+$('back-to-top').addEventListener('click', (event) => {
   event.preventDefault();
-  window.scrollTo({ top: 0, behavior: "auto" });
+  window.scrollTo({ top: 0, behavior: 'auto' });
 });
 
 renderFavourites();
 
-window.addEventListener('storage', event => {
-  if(event.storageArea === localStorage && (event.key === STORAGE_KEY || event.key === null)){
+window.addEventListener('storage', (event) => {
+  if (event.storageArea === localStorage && (event.key === STORAGE_KEY || event.key === null)) {
     favourites = readFavourites();
     renderFavourites();
   }

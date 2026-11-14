@@ -1,0 +1,25 @@
+node_modules/
+**/node_modules/
+**/dist/
+**/.check*/
+assets/optimized/
+**/evidence/
+**/package-lock.json
+Week11 monday/assets/
+Week11 friday/assets/
+Week11 monday/*.html
+Week11 friday/*.html
+!Week11 monday/index.html
+!Week11 friday/tasks.html
+week9_2/lab/broken.html
+week9_2/exercises/E1_Before.html
+coursework/
+projects/
+Week2_1/
+Week2_2/
+Week3_1/
+Week3_2/
+Week3_Assignment/
+Week4_1/
+Week4_2/
+Week6_Random_Joke_Fetcher/

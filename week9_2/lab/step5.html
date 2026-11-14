@@ -1,183 +1,711 @@
 <!doctype html>
 <html lang="en" data-course-skin="red" data-course-tone="dark">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CineReview - Step 5: Labels and error messages</title>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-  body { font-family: Arial, sans-serif; margin: 0; background: #fff; }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>CineReview - Step 5: Labels and error messages</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #fff;
+      }
 
-  /* [A4] Low-contrast navigation: white text on #666 background (ratio ~3.1:1, fails AA) */
-  .nav { background: #666; padding: 12px 24px; display: flex; align-items: center; gap: 20px; }
-  .nav-logo { color: #fff; font-size: 20px; font-weight: bold; }
-  .nav a { color: #ccc; text-decoration: none; font-size: 14px; }
+      /* [A4] Low-contrast navigation: white text on #666 background (ratio ~3.1:1, fails AA) */
+      .nav {
+        background: #666;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .nav-logo {
+        color: #fff;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .nav a {
+        color: #ccc;
+        text-decoration: none;
+        font-size: 14px;
+      }
 
-  .hero { background: #333; color: #aaa; /* [A4] #aaa on #333 â ratio ~2.6:1, fails AA */ padding: 48px 24px; text-align: center; }
-  .hero h1 { font-size: 32px; margin-bottom: 8px; }
-  .hero p { font-size: 16px; margin-bottom: 20px; }
+      .hero {
+        background: #333;
+        color: #aaa; /* [A4] #aaa on #333 â ratio ~2.6:1, fails AA */
+        padding: 48px 24px;
+        text-align: center;
+      }
+      .hero h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+      .hero p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
 
-  /* [A2] Fake search button â styled div, not a real button */
-  .search-wrap { display: flex; justify-content: center; gap: 0; }
-  .search-wrap input { padding: 10px 16px; font-size: 14px; border: none; border-radius: 4px 0 0 4px; width: 280px; }
-  .fake-btn { background: #e50914; color: #fff; padding: 10px 20px; cursor: pointer; border-radius: 0 4px 4px 0; font-size: 14px; }
-  /* [A5] No label for the search input */
+      /* [A2] Fake search button â styled div, not a real button */
+      .search-wrap {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+      }
+      .search-wrap input {
+        padding: 10px 16px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px 0 0 4px;
+        width: 280px;
+      }
+      .fake-btn {
+        background: #e50914;
+        color: #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 0 4px 4px 0;
+        font-size: 14px;
+      }
+      /* [A5] No label for the search input */
 
-  .section { padding: 32px 24px; max-width: 1000px; margin: 0 auto; }
-  .section-title { font-size: 22px; font-weight: bold; margin-bottom: 20px; }
+      .section {
+        padding: 32px 24px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .section-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
 
-  .movie-grid { display: flex; flex-wrap: wrap; gap: 20px; }
-  .movie-card { background: #f5f5f5; border-radius: 8px; width: 220px; overflow: hidden; }
-  /* [P1] Images have no width/height and no loading=lazy â causes layout shift and loads all at once */
-  .movie-card img { width: 100%; display: block; }
-  .movie-info { padding: 12px; }
-  .movie-title { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
-  /* [A4] Low-contrast: #999 on white â ratio ~2.8:1, fails AA for normal text */
-  .movie-year { font-size: 12px; color: #999; margin-bottom: 8px; }
-  .movie-rating { font-size: 13px; color: #999; margin-bottom: 10px; }
-  /* [A2] Div-based button â no keyboard focus, no role, not operable by screen reader */
-  .movie-btn { background: #e50914; color: #fff; padding: 8px; text-align: center; cursor: pointer; border-radius: 4px; font-size: 13px; }
+      .movie-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .movie-card {
+        background: #f5f5f5;
+        border-radius: 8px;
+        width: 220px;
+        overflow: hidden;
+      }
+      /* [P1] Images have no width/height and no loading=lazy â causes layout shift and loads all at once */
+      .movie-card img {
+        width: 100%;
+        display: block;
+      }
+      .movie-info {
+        padding: 12px;
+      }
+      .movie-title {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      /* [A4] Low-contrast: #999 on white â ratio ~2.8:1, fails AA for normal text */
+      .movie-year {
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 8px;
+      }
+      .movie-rating {
+        font-size: 13px;
+        color: #999;
+        margin-bottom: 10px;
+      }
+      /* [A2] Div-based button â no keyboard focus, no role, not operable by screen reader */
+      .movie-btn {
+        background: #e50914;
+        color: #fff;
+        padding: 8px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 13px;
+      }
 
-  .featured { background: #eee; padding: 32px 24px; }
-  .featured-inner { max-width: 1000px; margin: 0 auto; display: flex; gap: 24px; align-items: flex-start; }
-  .featured-inner img { width: 180px; border-radius: 6px; flex-shrink: 0; }
-  .featured-text h2 { font-size: 22px; margin-bottom: 8px; }
-  /* [A4] Low-contrast: #aaaaaa on #eeeeee â ratio ~1.6:1, fails badly */
-  .featured-text p { font-size: 14px; color: #aaaaaa; line-height: 1.7; }
-  .featured-text .read-more { color: #e50914; font-size: 13px; text-decoration: underline; }
-  /* [A6] "Click here" link text â meaningless out of context */
+      .featured {
+        background: #eee;
+        padding: 32px 24px;
+      }
+      .featured-inner {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .featured-inner img {
+        width: 180px;
+        border-radius: 6px;
+        flex-shrink: 0;
+      }
+      .featured-text h2 {
+        font-size: 22px;
+        margin-bottom: 8px;
+      }
+      /* [A4] Low-contrast: #aaaaaa on #eeeeee â ratio ~1.6:1, fails badly */
+      .featured-text p {
+        font-size: 14px;
+        color: #aaaaaa;
+        line-height: 1.7;
+      }
+      .featured-text .read-more {
+        color: #e50914;
+        font-size: 13px;
+        text-decoration: underline;
+      }
+      /* [A6] "Click here" link text â meaningless out of context */
 
-  .newsletter { padding: 32px 24px; background: #fff; max-width: 500px; margin: 0 auto; text-align: center; }
-  .newsletter h2 { font-size: 20px; margin-bottom: 8px; }
-  /* [A4] Low-contrast hint text */
-  .newsletter p { font-size: 13px; color: #bbb; margin-bottom: 16px; }
-  /* [A5] No labels on newsletter inputs */
-  .newsletter input[type=text],
-  .newsletter input[type=email] { display: block; width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
-  /* [A2] Submit is a styled div, not a button */
-  .nl-submit { background: #e50914; color: #fff; padding: 12px; text-align: center; cursor: pointer; border-radius: 4px; font-size: 14px; }
+      .newsletter {
+        padding: 32px 24px;
+        background: #fff;
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .newsletter h2 {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+      /* [A4] Low-contrast hint text */
+      .newsletter p {
+        font-size: 13px;
+        color: #bbb;
+        margin-bottom: 16px;
+      }
+      /* [A5] No labels on newsletter inputs */
+      .newsletter input[type='text'],
+      .newsletter input[type='email'] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      /* [A2] Submit is a styled div, not a button */
+      .nl-submit {
+        background: #e50914;
+        color: #fff;
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+      }
 
-  .footer { background: #222; color: #666; /* [A4] #666 on #222 â ratio ~2.2:1, fails AA */ padding: 24px; text-align: center; font-size: 12px; }
-  /* [A6] Footer links say "click here" */
-  .footer a { color: #888; }
-</style>
-<style>/* Shared responsive layout and keyboard focus. */
-*{box-sizing:border-box} .nav{flex-wrap:wrap}.nav nav ul{display:flex;gap:20px;list-style:none;padding:0;margin:0}.nav nav{flex:1}.nav a{display:inline-block;padding:8px 0}.nav-logo{margin:0}.hero{scroll-margin-top:20px}.movie-grid{list-style:none;padding:0;margin:0}.movie-grid>li{display:flex}.movie-card{margin:0}.movie-title{margin-top:0}.movie-card img{height:auto}.movie-info p{margin-top:0}.section-title{margin-top:0}.fake-btn,.movie-btn,.nl-submit{border:0;font-family:inherit;min-height:44px}.movie-btn,.nl-submit{width:100%}.search-wrap input{max-width:100%;min-width:0}.search-wrap{flex-wrap:wrap}.featured-inner img{height:auto}.featured-text{min-width:0}.newsletter{text-align:left}.newsletter input{box-sizing:border-box}.footer a{display:inline-block;padding:8px}.lab-progress{padding:16px 24px;background:#eef0f8;color:#20243c;display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-bottom:1px solid #a7acc5}.lab-progress a{color:#293f80;padding:5px}.lab-progress a[aria-current]{font-weight:bold;text-decoration-thickness:3px}.skip{position:absolute;left:-10000px}.skip:focus{left:10px;top:10px;background:white;color:#111;padding:12px;z-index:1000}:focus-visible{outline:3px solid #1266b4;outline-offset:4px}.field-error{color:#9c1520!important;min-height:1.4em}.form-label{display:block;font-weight:bold;margin:10px 0 5px}.search-label{color:inherit}#search-status{min-height:1.5em}.details-copy{padding:12px;font-size:14px;background:#fff}.sr-note{font-size:13px}.extra-info{max-width:1000px;margin:auto;padding:24px}.extra-info p{line-height:1.7}.lab-help{font-size:13px}.movie-card[hidden],li[hidden],[hidden]{display:none!important}@media(max-width:600px){.nav{gap:8px}.nav nav ul{gap:12px;flex-wrap:wrap}.featured-inner{flex-direction:column}.section,.featured{padding:24px 16px}.movie-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.movie-card{width:100%}.movie-grid>li{min-width:0}.newsletter{padding:24px 16px}}@media(max-width:370px){.movie-grid{grid-template-columns:1fr}}</style>
-<style>.nav{background:#333}.nav a,.nav-logo{color:#fff}.hero{background:#333;color:#eee}.movie-year,.movie-rating{color:#555}.featured-text p{color:#555}.featured-text .read-more{color:#a30810}.newsletter p{color:#555}.footer{background:#222;color:#ccc}.footer a{color:#ddd}.fake-btn,.movie-btn,.nl-submit{background:#b20710;color:#fff}</style>
+      .footer {
+        background: #222;
+        color: #666; /* [A4] #666 on #222 â ratio ~2.2:1, fails AA */
+        padding: 24px;
+        text-align: center;
+        font-size: 12px;
+      }
+      /* [A6] Footer links say "click here" */
+      .footer a {
+        color: #888;
+      }
+    </style>
+    <style>
+      /* Shared responsive layout and keyboard focus. */
+      * {
+        box-sizing: border-box;
+      }
+      .nav {
+        flex-wrap: wrap;
+      }
+      .nav nav ul {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .nav nav {
+        flex: 1;
+      }
+      .nav a {
+        display: inline-block;
+        padding: 8px 0;
+      }
+      .nav-logo {
+        margin: 0;
+      }
+      .hero {
+        scroll-margin-top: 20px;
+      }
+      .movie-grid {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .movie-grid > li {
+        display: flex;
+      }
+      .movie-card {
+        margin: 0;
+      }
+      .movie-title {
+        margin-top: 0;
+      }
+      .movie-card img {
+        height: auto;
+      }
+      .movie-info p {
+        margin-top: 0;
+      }
+      .section-title {
+        margin-top: 0;
+      }
+      .fake-btn,
+      .movie-btn,
+      .nl-submit {
+        border: 0;
+        font-family: inherit;
+        min-height: 44px;
+      }
+      .movie-btn,
+      .nl-submit {
+        width: 100%;
+      }
+      .search-wrap input {
+        max-width: 100%;
+        min-width: 0;
+      }
+      .search-wrap {
+        flex-wrap: wrap;
+      }
+      .featured-inner img {
+        height: auto;
+      }
+      .featured-text {
+        min-width: 0;
+      }
+      .newsletter {
+        text-align: left;
+      }
+      .newsletter input {
+        box-sizing: border-box;
+      }
+      .footer a {
+        display: inline-block;
+        padding: 8px;
+      }
+      .lab-progress {
+        padding: 16px 24px;
+        background: #eef0f8;
+        color: #20243c;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        border-bottom: 1px solid #a7acc5;
+      }
+      .lab-progress a {
+        color: #293f80;
+        padding: 5px;
+      }
+      .lab-progress a[aria-current] {
+        font-weight: bold;
+        text-decoration-thickness: 3px;
+      }
+      .skip {
+        position: absolute;
+        left: -10000px;
+      }
+      .skip:focus {
+        left: 10px;
+        top: 10px;
+        background: white;
+        color: #111;
+        padding: 12px;
+        z-index: 1000;
+      }
+      :focus-visible {
+        outline: 3px solid #1266b4;
+        outline-offset: 4px;
+      }
+      .field-error {
+        color: #9c1520 !important;
+        min-height: 1.4em;
+      }
+      .form-label {
+        display: block;
+        font-weight: bold;
+        margin: 10px 0 5px;
+      }
+      .search-label {
+        color: inherit;
+      }
+      #search-status {
+        min-height: 1.5em;
+      }
+      .details-copy {
+        padding: 12px;
+        font-size: 14px;
+        background: #fff;
+      }
+      .sr-note {
+        font-size: 13px;
+      }
+      .extra-info {
+        max-width: 1000px;
+        margin: auto;
+        padding: 24px;
+      }
+      .extra-info p {
+        line-height: 1.7;
+      }
+      .lab-help {
+        font-size: 13px;
+      }
+      .movie-card[hidden],
+      li[hidden],
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 600px) {
+        .nav {
+          gap: 8px;
+        }
+        .nav nav ul {
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+        .featured-inner {
+          flex-direction: column;
+        }
+        .section,
+        .featured {
+          padding: 24px 16px;
+        }
+        .movie-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
+        }
+        .movie-card {
+          width: 100%;
+        }
+        .movie-grid > li {
+          min-width: 0;
+        }
+        .newsletter {
+          padding: 24px 16px;
+        }
+      }
+      @media (max-width: 370px) {
+        .movie-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <style>
+      .nav {
+        background: #333;
+      }
+      .nav a,
+      .nav-logo {
+        color: #fff;
+      }
+      .hero {
+        background: #333;
+        color: #eee;
+      }
+      .movie-year,
+      .movie-rating {
+        color: #555;
+      }
+      .featured-text p {
+        color: #555;
+      }
+      .featured-text .read-more {
+        color: #a30810;
+      }
+      .newsletter p {
+        color: #555;
+      }
+      .footer {
+        background: #222;
+        color: #ccc;
+      }
+      .footer a {
+        color: #ddd;
+      }
+      .fake-btn,
+      .movie-btn,
+      .nl-submit {
+        background: #b20710;
+        color: #fff;
+      }
+    </style>
 
-<link rel="stylesheet" href="../../assets/css/course-theme.css?v=20261108-course2">
-<script src="../../assets/js/course-catalog.js?v=20261108-course1" defer></script>
-<script src="../../assets/js/course-theme.js?v=20261108-course2" data-course-theme defer></script>
-</head>
-<body data-course-mode="demo" data-course-group="Accessibility &amp; performance">
+    <link rel="stylesheet" href="../../assets/css/course-theme.css?v=20261108-course2" />
+    <script src="../../assets/js/course-catalog.js?v=20261108-course1" defer></script>
+    <script
+      src="../../assets/js/course-theme.js?v=20261108-course2"
+      data-course-theme
+      defer
+    ></script>
+  </head>
+  <body data-course-mode="demo" data-course-group="Accessibility &amp; performance">
+    <a href="#main" class="skip">Skip to main content</a>
+    <nav aria-label="Lab steps" class="lab-progress">
+      <a href="../index.html">Week 9.2</a><a href="index.html">Lab guide</a
+      ><a href="broken.html">Original starter</a><a href="step1.html">1. Semantic HTML</a
+      ><a href="step2.html">2. Buttons and descriptive links</a
+      ><a href="step3.html">3. Image alternatives</a><a href="step4.html">4. Color contrast</a
+      ><a href="step5.html" aria-current="page">5. Labels and error messages</a
+      ><a href="step6.html">6. Image loading and layout stability</a
+      ><a href="step7.html">7. Deferred scripts</a>
+    </nav>
+    <header class="nav">
+      <p class="nav-logo">CineReview</p>
+      <nav aria-label="CineReview">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#now-showing">Top Rated</a></li>
+          <li><a href="#editor-pick">New Releases</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<a href="#main" class="skip">Skip to main content</a><nav aria-label="Lab steps" class="lab-progress"><a href="../index.html">Week 9.2</a><a href="index.html">Lab guide</a><a href="broken.html">Original starter</a><a href="step1.html">1. Semantic HTML</a><a href="step2.html">2. Buttons and descriptive links</a><a href="step3.html">3. Image alternatives</a><a href="step4.html">4. Color contrast</a><a href="step5.html" aria-current="page">5. Labels and error messages</a><a href="step6.html">6. Image loading and layout stability</a><a href="step7.html">7. Deferred scripts</a></nav><header class="nav">
-  <p class="nav-logo">CineReview</p>
-  <nav aria-label="CineReview"><ul>
-<li><a href="#home">Home</a></li>
-  <li><a href="#now-showing">Top Rated</a></li>
-  <li><a href="#editor-pick">New Releases</a></li>
-  <li><a href="#about">About</a></li>
-</ul></nav></header>
+    <main id="main" tabindex="-1">
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <h1 id="hero-title">Discover Great Movies</h1>
+        <p>Read expert reviews and find your next favorite film.</p>
+        <label for="movie-search" class="form-label search-label">Search movies</label>
+        <form class="search-wrap" id="search-form" role="search">
+          <input type="search" placeholder="Search movies..." id="movie-search" name="query" />
+          <button class="fake-btn" type="submit">Search</button>
+        </form>
+        <p id="search-status" role="status"></p>
+      </section>
 
-<main id="main" tabindex="-1"><section class="hero" id="home" aria-labelledby="hero-title">
-  <h1 id="hero-title">Discover Great Movies</h1>
-  <p>Read expert reviews and find your next favorite film.</p>
-  <label for="movie-search" class="form-label search-label">Search movies</label><form class="search-wrap" id="search-form" role="search">
-    <input type="search" placeholder="Search movies..." id="movie-search" name="query">
-    <button class="fake-btn" type="submit">Search</button>
-  </form>
-<p id="search-status" role="status"></p></section>
+      <section class="section" aria-labelledby="now-showing">
+        <h2 class="section-title" id="now-showing">Now Showing</h2>
+        <ul class="movie-grid">
+          <li>
+            <article class="movie-card">
+              <img
+                src="https://picsum.photos/seed/movie1/400/560"
+                alt="Dark grapes growing in clusters on a vine"
+              />
+              <section class="movie-info" aria-labelledby="movie-1">
+                <h3 class="movie-title" id="movie-1">Echoes of Tomorrow</h3>
+                <p class="movie-year">2024 • Sci-Fi</p>
+                <p class="movie-rating">★★★★☆ 4.1/5</p>
+                <button
+                  class="movie-btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="details-0"
+                  aria-label="View details: Echoes of Tomorrow"
+                  data-details="details-0"
+                >
+                  View Details
+                </button>
+                <section
+                  id="details-0"
+                  hidden=""
+                  aria-label="Echoes of Tomorrow details"
+                  class="details-copy"
+                >
+                  <p>A fictional science-fiction story about the choices that shape tomorrow.</p>
+                </section>
+              </section>
+            </article>
+          </li>
+          <li>
+            <article class="movie-card">
+              <img
+                src="https://picsum.photos/seed/movie2/400/560"
+                alt="Two yellow trams on tracks along a Lisbon street"
+              />
+              <section class="movie-info" aria-labelledby="movie-2">
+                <h3 class="movie-title" id="movie-2">The Last Harbor</h3>
+                <p class="movie-year">2024 • Drama</p>
+                <p class="movie-rating">★★★★★ 4.8/5</p>
+                <button
+                  class="movie-btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="details-1"
+                  aria-label="View details: The Last Harbor"
+                  data-details="details-1"
+                >
+                  View Details
+                </button>
+                <section
+                  id="details-1"
+                  hidden=""
+                  aria-label="The Last Harbor details"
+                  class="details-copy"
+                >
+                  <p>A fictional drama about grief and redemption in a coastal town.</p>
+                </section>
+              </section>
+            </article>
+          </li>
+          <li>
+            <article class="movie-card">
+              <img
+                src="https://picsum.photos/seed/movie3/400/560"
+                alt="A winding path along a wooded coastline"
+              />
+              <section class="movie-info" aria-labelledby="movie-3">
+                <h3 class="movie-title" id="movie-3">Crimson Horizon</h3>
+                <p class="movie-year">2023 • Thriller</p>
+                <p class="movie-rating">★★★☆☆ 3.5/5</p>
+                <button
+                  class="movie-btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="details-2"
+                  aria-label="View details: Crimson Horizon"
+                  data-details="details-2"
+                >
+                  View Details
+                </button>
+                <section
+                  id="details-2"
+                  hidden=""
+                  aria-label="Crimson Horizon details"
+                  class="details-copy"
+                >
+                  <p>A fictional thriller about a mystery beyond the city.</p>
+                </section>
+              </section>
+            </article>
+          </li>
+          <li>
+            <article class="movie-card">
+              <img
+                src="https://picsum.photos/seed/movie4/400/560"
+                alt="Hand tools and work gloves arranged on a wooden surface"
+              />
+              <section class="movie-info" aria-labelledby="movie-4">
+                <h3 class="movie-title" id="movie-4">Hollow Forest</h3>
+                <p class="movie-year">2023 • Horror</p>
+                <p class="movie-rating">★★★★☆ 4.0/5</p>
+                <button
+                  class="movie-btn"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="details-3"
+                  aria-label="View details: Hollow Forest"
+                  data-details="details-3"
+                >
+                  View Details
+                </button>
+                <section
+                  id="details-3"
+                  hidden=""
+                  aria-label="Hollow Forest details"
+                  class="details-copy"
+                >
+                  <p>A fictional horror story set deep in the forest.</p>
+                </section>
+              </section>
+            </article>
+          </li>
+        </ul>
+      </section>
 
-<section class="section" aria-labelledby="now-showing">
-  <h2 class="section-title" id="now-showing">Now Showing</h2>
-  <ul class="movie-grid">
+      <section class="featured" id="editor-pick" aria-labelledby="featured-title">
+        <article class="featured-inner">
+          <img src="https://picsum.photos/seed/featured/360/500" alt="" />
+          <section class="featured-text" aria-labelledby="featured-title">
+            <h2 id="featured-title">Editor's Pick: The Last Harbor</h2>
+            <p>
+              A masterful exploration of grief and redemption set against the backdrop of a small
+              coastal town. Director Yuna Park delivers career-defining work, and lead actress
+              Ji-won Lee is absolutely magnetic in every scene. The cinematography alone is worth
+              the price of admission.
+            </p>
+            <a class="read-more" href="#full-review">Read the review of The Last Harbor</a> to read
+            the full review.
+            <p class="sr-note">
+              Photographs are placeholder artwork from Lorem Picsum; the films and reviews are
+              fictional.
+            </p>
+          </section>
+        </article>
+      </section>
 
-    <li>
-<article class="movie-card">
-      <img src="https://picsum.photos/seed/movie1/400/560" alt="Dark grapes growing in clusters on a vine">
-      <section class="movie-info" aria-labelledby="movie-1">
-        <h3 class="movie-title" id="movie-1">Echoes of Tomorrow</h3>
-        <p class="movie-year">2024 • Sci-Fi</p>
-        <p class="movie-rating">★★★★☆ 4.1/5</p>
-        <button class="movie-btn" type="button" aria-expanded="false" aria-controls="details-0" aria-label="View details: Echoes of Tomorrow" data-details="details-0">View Details</button>
-      <section id="details-0" hidden="" aria-label="Echoes of Tomorrow details" class="details-copy"><p>A fictional science-fiction story about the choices that shape tomorrow.</p></section></section>
-    </article>
+      <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+        <h2 id="newsletter-title">Stay Updated</h2>
+        <p>Get the latest reviews delivered to your inbox.</p>
+        <p id="newsletter-help">Demo only: no information is sent or saved.</p>
+        <form id="newsletter-form" novalidate="" aria-describedby="newsletter-help">
+          <label for="subscriber-name" class="form-label">Your name</label
+          ><input
+            type="text"
+            placeholder="Your name"
+            id="subscriber-name"
+            name="name"
+            autocomplete="name"
+            required=""
+            aria-describedby="subscriber-name-error"
+            aria-invalid="false"
+          />
+          <p id="subscriber-name-error" class="field-error"></p>
+          <label for="subscriber-email" class="form-label">Email address</label
+          ><input
+            type="email"
+            placeholder="Your email address"
+            id="subscriber-email"
+            name="email"
+            autocomplete="email"
+            required=""
+            aria-describedby="subscriber-email-error"
+            aria-invalid="false"
+          />
+          <p id="subscriber-email-error" class="field-error"></p>
+          <button class="nl-submit" type="submit" disabled>Subscribe Now</button>
+          <p id="newsletter-status" role="status"></p>
+        </form>
+      </section>
 
-    </li>
-<li>
-<article class="movie-card">
-      <img src="https://picsum.photos/seed/movie2/400/560" alt="Two yellow trams on tracks along a Lisbon street">
-      <section class="movie-info" aria-labelledby="movie-2">
-        <h3 class="movie-title" id="movie-2">The Last Harbor</h3>
-        <p class="movie-year">2024 • Drama</p>
-        <p class="movie-rating">★★★★★ 4.8/5</p>
-        <button class="movie-btn" type="button" aria-expanded="false" aria-controls="details-1" aria-label="View details: The Last Harbor" data-details="details-1">View Details</button>
-      <section id="details-1" hidden="" aria-label="The Last Harbor details" class="details-copy"><p>A fictional drama about grief and redemption in a coastal town.</p></section></section>
-    </article>
+      <section class="extra-info">
+        <h2>More from CineReview</h2>
+        <section id="full-review">
+          <h3>The Last Harbor: full review</h3>
+          <p>
+            A moving fictional drama about loss and reconciliation. Its coastal setting and measured
+            performances make it our editor’s pick.
+          </p>
+        </section>
+        <section id="privacy">
+          <h3>Privacy policy</h3>
+          <p>
+            This classroom demo does not send or store newsletter information. Search runs entirely
+            in your browser.
+          </p>
+        </section>
+        <section id="contact">
+          <h3>Contact CineReview</h3>
+          <p>
+            This is a fictional movie-review website created for the accessibility and performance
+            lab.
+          </p>
+        </section>
+      </section>
+    </main>
+    <footer class="footer" id="about">
+      <p>CineReview © 2024. All rights reserved.</p>
+      <p>
+        <a href="#privacy">Privacy policy</a> for our privacy policy •
+        <a href="#contact">Contact CineReview</a> for contact
+      </p>
+    </footer>
 
-    </li>
-<li>
-<article class="movie-card">
-      <img src="https://picsum.photos/seed/movie3/400/560" alt="A winding path along a wooded coastline">
-      <section class="movie-info" aria-labelledby="movie-3">
-        <h3 class="movie-title" id="movie-3">Crimson Horizon</h3>
-        <p class="movie-year">2023 • Thriller</p>
-        <p class="movie-rating">★★★☆☆ 3.5/5</p>
-        <button class="movie-btn" type="button" aria-expanded="false" aria-controls="details-2" aria-label="View details: Crimson Horizon" data-details="details-2">View Details</button>
-      <section id="details-2" hidden="" aria-label="Crimson Horizon details" class="details-copy"><p>A fictional thriller about a mystery beyond the city.</p></section></section>
-    </article>
-
-    </li>
-<li>
-<article class="movie-card">
-      <img src="https://picsum.photos/seed/movie4/400/560" alt="Hand tools and work gloves arranged on a wooden surface">
-      <section class="movie-info" aria-labelledby="movie-4">
-        <h3 class="movie-title" id="movie-4">Hollow Forest</h3>
-        <p class="movie-year">2023 • Horror</p>
-        <p class="movie-rating">★★★★☆ 4.0/5</p>
-        <button class="movie-btn" type="button" aria-expanded="false" aria-controls="details-3" aria-label="View details: Hollow Forest" data-details="details-3">View Details</button>
-      <section id="details-3" hidden="" aria-label="Hollow Forest details" class="details-copy"><p>A fictional horror story set deep in the forest.</p></section></section>
-    </article>
-
-  </li>
-</ul>
-</section>
-
-<section class="featured" id="editor-pick" aria-labelledby="featured-title">
-  <article class="featured-inner">
-    <img src="https://picsum.photos/seed/featured/360/500" alt="">
-    <section class="featured-text" aria-labelledby="featured-title">
-      <h2 id="featured-title">Editor's Pick: The Last Harbor</h2>
-      <p>A masterful exploration of grief and redemption set against the backdrop of a small coastal town. Director Yuna Park delivers career-defining work, and lead actress Ji-won Lee is absolutely magnetic in every scene. The cinematography alone is worth the price of admission.</p>
-      <a class="read-more" href="#full-review">Read the review of The Last Harbor</a> to read the full review.
-    <p class="sr-note">Photographs are placeholder artwork from Lorem Picsum; the films and reviews are fictional.</p></section>
-  </article>
-</section>
-
-<section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
-  <h2 id="newsletter-title">Stay Updated</h2>
-  <p>Get the latest reviews delivered to your inbox.</p>
-  <p id="newsletter-help">Demo only: no information is sent or saved.</p>
-<form id="newsletter-form" novalidate="" aria-describedby="newsletter-help">
-<label for="subscriber-name" class="form-label">Your name</label><input type="text" placeholder="Your name" id="subscriber-name" name="name" autocomplete="name" required="" aria-describedby="subscriber-name-error" aria-invalid="false">
-  <p id="subscriber-name-error" class="field-error"></p>
-<label for="subscriber-email" class="form-label">Email address</label><input type="email" placeholder="Your email address" id="subscriber-email" name="email" autocomplete="email" required="" aria-describedby="subscriber-email-error" aria-invalid="false">
-  <p id="subscriber-email-error" class="field-error"></p>
-<button class="nl-submit" type="submit" disabled>Subscribe Now</button>
-<p id="newsletter-status" role="status"></p>
-</form></section>
-
-<section class="extra-info"><h2>More from CineReview</h2>
-<section id="full-review"><h3>The Last Harbor: full review</h3>
-<p>A moving fictional drama about loss and reconciliation. Its coastal setting and measured performances make it our editor’s pick.</p></section><section id="privacy"><h3>Privacy policy</h3>
-<p>This classroom demo does not send or store newsletter information. Search runs entirely in your browser.</p></section><section id="contact"><h3>Contact CineReview</h3>
-<p>This is a fictional movie-review website created for the accessibility and performance lab.</p></section></section></main><footer class="footer" id="about">
-  <p>CineReview © 2024. All rights reserved.</p>
-  <p><a href="#privacy">Privacy policy</a> for our privacy policy • <a href="#contact">Contact CineReview</a> for contact</p>
-</footer>
-
-<script src="lab.js"></script>
-</body>
+    <script src="lab.js"></script>
+  </body>
 </html>

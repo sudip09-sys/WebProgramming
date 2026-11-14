@@ -8,9 +8,15 @@ function StudentProfileCard({ name, studentId, major, year, gpa }) {
         <span className="student-id">ID: {studentId}</span>
       </div>
       <div className="card-body">
-        <p><strong>Major:</strong> {major}</p>
-        <p><strong>Year:</strong> {year}</p>
-        <p><strong>GPA:</strong> {gpa}</p>
+        <p>
+          <strong>Major:</strong> {major}
+        </p>
+        <p>
+          <strong>Year:</strong> {year}
+        </p>
+        <p>
+          <strong>GPA:</strong> {gpa}
+        </p>
       </div>
     </div>
   );

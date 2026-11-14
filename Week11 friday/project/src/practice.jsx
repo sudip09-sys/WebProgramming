@@ -24,7 +24,10 @@ export function NotificationItem({ type, message }) {
   return (
     <li className={`notification notification-${type}`}>
       <span aria-hidden="true">{icon}</span>
-      <span><span className="notification-type">{type}: </span>{message}</span>
+      <span>
+        <span className="notification-type">{type}: </span>
+        {message}
+      </span>
     </li>
   );
 }
@@ -32,8 +35,12 @@ export function NotificationItem({ type, message }) {
 export function NotificationList() {
   return (
     <ul className="notifications">
-      {notifications.map(notification => (
-        <NotificationItem key={notification.id} type={notification.type} message={notification.message} />
+      {notifications.map((notification) => (
+        <NotificationItem
+          key={notification.id}
+          type={notification.type}
+          message={notification.message}
+        />
       ))}
     </ul>
   );
@@ -53,20 +60,40 @@ export default function Practice() {
   return (
     <main className="page">
       <header className="site-header">
-        <a className="brand" href="../#coursework">SUDIP<span> / LAB</span></a>
-        <nav aria-label="Course navigation"><a href="./tasks.html">Friday tasks</a><a href="../#coursework">Coursework</a><a href="../week10/portfolio/">Portfolio</a><a className="nav-link" href="./">Directory <span aria-hidden="true">&#8599;</span></a></nav>
+        <a className="brand" href="../#coursework">
+          SUDIP<span> / LAB</span>
+        </a>
+        <nav aria-label="Course navigation">
+          <a href="./tasks.html">Friday tasks</a>
+          <a href="../#coursework">Coursework</a>
+          <a href="../week10/portfolio/">Portfolio</a>
+          <a className="nav-link" href="./">
+            Directory <span aria-hidden="true">&#8599;</span>
+          </a>
+        </nav>
       </header>
       <section className="intro practice-intro">
         <p className="eyebrow">WEB PROGRAMMING · WEEK 11</p>
-        <h1>SMALL COMPONENTS.<br /><span className="outline">BIG POSSIBILITIES</span><span className="title-dot">.</span></h1>
-        <p className="intro-copy">Three exercises in passing data, rendering lists, and composing interfaces.</p>
+        <h1>
+          SMALL COMPONENTS.
+          <br />
+          <span className="outline">BIG POSSIBILITIES</span>
+          <span className="title-dot">.</span>
+        </h1>
+        <p className="intro-copy">
+          Three exercises in passing data, rendering lists, and composing interfaces.
+        </p>
       </section>
       <div className="practice-grid">
         <section className="exercise" aria-labelledby="exercise-one">
           <div className="exercise-number">EXERCISE 01</div>
           <h2 id="exercise-one">A profile, with defaults.</h2>
           <p>Pass a name, role, and email. The avatar uses its default prop.</p>
-          <ProfileCard name="Sudip Sah" role="Computer Engineering Student" email="Sudipsah909@gmail.com" />
+          <ProfileCard
+            name="Sudip Sah"
+            role="Computer Engineering Student"
+            email="Sudipsah909@gmail.com"
+          />
         </section>
         <section className="exercise" aria-labelledby="exercise-two">
           <div className="exercise-number">EXERCISE 02</div>
@@ -80,15 +107,25 @@ export default function Practice() {
           <p>Both boxes use Card. Their titles and children are different.</p>
           <div className="wrapper-grid">
             <Card title="What I am learning">
-              <ul><li>Reusable components and props</li><li>Lists with stable keys</li><li>Conditional rendering</li></ul>
+              <ul>
+                <li>Reusable components and props</li>
+                <li>Lists with stable keys</li>
+                <li>Conditional rendering</li>
+              </ul>
             </Card>
             <Card title="My next step">
-              <p>Explore the student directory and see how the same component displays three different students.</p>
+              <p>
+                Explore the student directory and see how the same component displays three
+                different students.
+              </p>
             </Card>
           </div>
         </section>
       </div>
-      <footer className="site-footer"><span>Sudip Sah · 202637610</span><span>Week 11 Friday / Study guide practice</span></footer>
+      <footer className="site-footer">
+        <span>Sudip Sah · 202637610</span>
+        <span>Week 11 Friday / Study guide practice</span>
+      </footer>
     </main>
   );
 }
