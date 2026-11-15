@@ -705,3 +705,201 @@ h1 {
 body {
   background: radial-gradient(ellipse at 95% 12%, #72132618, transparent 40%), var(--bg);
 }
+
+/* Interactive practice uses the same palette as the other exercises. */
+.interactive-practice {
+  grid-template-columns: 1fr;
+}
+.interactive-practice .exercise {
+  scroll-margin-top: 24px;
+}
+.lab-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.lab-jumps {
+  margin-top: 28px;
+  font: 11px var(--mono);
+  gap: 22px;
+}
+.lab-jumps a,
+.lab-link {
+  color: #ff8794;
+}
+.profile-playground {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.profile-editor {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.profile-editor legend,
+.lab-caption {
+  color: var(--muted);
+  font: 10px/1.8 var(--mono);
+  margin: 0 0 14px;
+}
+.profile-editor > label:not(.check-row) {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+.profile-editor input:not([type='checkbox']) {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  padding: 11px 12px;
+}
+.profile-editor input:focus-visible,
+.lab-button:focus-visible,
+.check-row input:focus-visible,
+.lab-explanation summary:focus-visible,
+.lab-explanation pre:focus-visible {
+  outline: 2px solid #ff8794;
+  outline-offset: 4px;
+}
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  cursor: pointer;
+}
+.check-row input {
+  accent-color: #f32b42;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  margin: 2px 0 0;
+}
+.profile-editor .check-row {
+  margin: 18px 0;
+}
+.lab-button {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #ffffff06;
+  color: var(--text);
+  padding: 10px 12px;
+  font:
+    11px/1.4 'DM Sans',
+    system-ui,
+    sans-serif;
+  cursor: pointer;
+}
+.lab-button:hover:not(:disabled) {
+  background: #f32b4218;
+  border-color: #ff8794;
+}
+.lab-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.lab-note {
+  color: var(--muted);
+  font-size: 11px !important;
+  line-height: 1.8;
+  margin: 14px 0 0 !important;
+}
+.inbox-status {
+  font: 12px var(--mono);
+  color: #ffb6bf;
+}
+.demo-inbox > .lab-toolbar {
+  margin: 18px 0;
+}
+.notification-copy {
+  min-width: 0;
+  flex: 1;
+}
+.notification-copy p {
+  margin: 6px 0 12px;
+  overflow-wrap: anywhere;
+}
+.notification.is-read {
+  background: transparent;
+  border-left-color: var(--muted);
+}
+.notification-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.inbox-empty {
+  padding: 28px 18px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.concept-checks {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+.progress-label {
+  display: block;
+  font: 12px var(--mono);
+}
+#concept-progress {
+  display: block;
+  width: 100%;
+  height: 14px;
+  margin: 18px 0;
+  accent-color: #f32b42;
+}
+#concept-progress::-webkit-progress-bar {
+  background: #ffffff12;
+  border-radius: 8px;
+}
+#concept-progress::-webkit-progress-value {
+  background: #f32b42;
+  border-radius: 8px;
+}
+#concept-progress::-moz-progress-bar {
+  background: #f32b42;
+}
+.lab-link {
+  display: block;
+  font-size: 12px;
+  margin: 18px 0;
+}
+.lab-explanation {
+  border-top: 1px solid var(--line);
+  margin-top: 26px;
+  padding-top: 20px;
+}
+.lab-explanation summary {
+  cursor: pointer;
+  color: #ffb6bf;
+  font-size: 12px;
+}
+.lab-explanation p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.lab-explanation pre {
+  background: var(--bg);
+  padding: 18px;
+  overflow-x: auto;
+  border-radius: 6px;
+  font: 11px/1.8 var(--mono);
+}
+@media (max-width: 650px) {
+  .profile-playground {
+    grid-template-columns: 1fr;
+  }
+}

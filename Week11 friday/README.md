@@ -27,3 +27,7 @@ Open a page such as index.html or gallery.html at the address printed by Vite. R
 - Original CSS uses the portfolio's black/red palette, condensed type, outlined headings, subtle backgrounds and responsive layouts.
 
 Three confirmed student IDs: Sudip 202637610, Abinash 202637724, Eric 202637684. All are Year 1 Computer Engineering. User-provided GPAs: Sudip 4.45, Abinash 4.39, Eric 4.22. Course-team labels and demonstration scores are sample data. No official result is claimed.
+
+## Interactive practice
+
+The practice page includes an editable profile preview, default/initials avatar switch, a demo inbox with unread filtering and read/dismiss/reset controls, and a four-concept checklist with live progress. Each section explains its props, state and composition. All messages are sample data; edits and progress reset on reload and are not sent anywhere.

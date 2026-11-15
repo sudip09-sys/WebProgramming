@@ -119,3 +119,17 @@ assert.ok(
 assert.equal(render(examples.Alert, { type: 'info', message: '' }), '');
 assert.ok(render(examples.StudentList).includes('202637684'));
 console.log('PASS: grade threshold boundary, empty alert, and keyed student list.');
+
+assert.ok(
+  render(practice.NotificationList, { items: [] }).includes('No notifications in this view'),
+);
+const readMessage = render(practice.NotificationList, {
+  items: [{ id: 'sample', type: 'warning', message: 'Test reminder', read: true }],
+});
+assert.ok(readMessage.includes('notification-warning is-read'));
+assert.ok(readMessage.includes('Read'));
+const practicePage = render(practice.default);
+assert.ok(practicePage.includes('2 unread / 3 demo notifications'));
+assert.ok(practicePage.includes('0 of 4 concepts checked'));
+assert.ok(practicePage.includes('These are not real messages'));
+console.log('PASS: demo inbox empty/read states and initial practice progress.');
