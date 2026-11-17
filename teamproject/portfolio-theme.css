@@ -389,3 +389,36 @@ summary:focus-visible,
     scroll-behavior: auto;
   }
 }
+
+/* Team links stay separate from presentation and report navigation. */
+.member-sites {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 14px;
+  padding: 0;
+  margin: 24px 0;
+}
+.member-sites a {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff04;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.member-sites a:hover {
+  border-color: #ff9cab;
+  background: #f32b4210;
+}
+.member-sites strong {
+  color: var(--text);
+  font-size: 16px;
+}
+.member-sites a > span {
+  font-size: 12px;
+}
