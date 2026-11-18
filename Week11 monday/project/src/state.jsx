@@ -13,8 +13,7 @@ function Exercise({ title, concept, children }) {
   );
 }
 
-function Counter() {
-  const [count, setCount] = useState(0);
+function Counter({ count, setCount }) {
   return (
     <Exercise title="1. Count practice rounds" concept="Functional updates use the previous count.">
       <p role="status">Rounds: {count}</p>
@@ -27,8 +26,7 @@ function Counter() {
   );
 }
 
-function Greeting() {
-  const [name, setName] = useState('');
+function Greeting({ name, setName }) {
   return (
     <Exercise title="2. Name your session" concept="A controlled input keeps its value in React state.">
       <label>Display name <input value={name} onChange={event => setName(event.target.value)} /></label>
@@ -79,12 +77,13 @@ function Toggle() {
   );
 }
 
-function Checklist() {
-  const [items, setItems] = useState([
+const initialChecklist = [
     { id: 'notes', title: 'Review the props examples', done: false },
     { id: 'demo', title: 'Try the Memory Match demo', done: false },
     { id: 'props', title: 'Finish the StudentCard lab', done: true },
-  ]);
+];
+
+function Checklist({ items, setItems, clearCompleted }) {
   const [filter, setFilter] = useState('All');
   const visible = items.filter(item => filter === 'All' || item.done === (filter === 'Done'));
 
@@ -107,7 +106,7 @@ function Checklist() {
           </li>
         ))}
       </ul>
-      <button disabled={!items.some(item => item.done)} onClick={() => setItems(current => current.filter(item => !item.done))}>Clear completed</button>
+      <button disabled={!items.some(item => item.done)} onClick={clearCompleted}>Clear completed</button>
     </Exercise>
   );
 }
@@ -173,6 +172,18 @@ function SavedNote() {
 }
 
 function StateLab() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+  const [items, setItems] = useState(initialChecklist);
+  const [archived, setArchived] = useState(0);
+  const completed = archived + items.filter(item => item.done).length;
+  const total = archived + items.length;
+
+  function clearCompleted() {
+    setArchived(completed);
+    setItems(items.filter(item => !item.done));
+  }
+
   return (
     <div className="page state-lab">
       <header className="site-header">
@@ -185,12 +196,24 @@ function StateLab() {
           <h1>REACT <span className="outline">STATE LAB</span><span className="title-dot">.</span></h1>
           <p className="intro-copy">Set up a study session, work through your queue, and leave a note for next time.</p>
         </section>
+        <section className="session-dashboard" aria-labelledby="session-title">
+          <div>
+            <h2 id="session-title">{name.trim() || 'Your study session'}</h2>
+            <p>Update your name, count rounds, or tick off coursework to see this dashboard change.</p>
+          </div>
+          <div className="session-stats">
+            <strong><output>{count}</output> practice rounds</strong>
+            <label><output>{completed} / {total}</output> tasks complete
+              <progress value={completed} max={total} />
+            </label>
+          </div>
+        </section>
         <div className="practice-grid">
-          <Counter />
-          <Greeting />
+          <Counter count={count} setCount={setCount} />
+          <Greeting name={name} setName={setName} />
           <TaskList />
           <Toggle />
-          <Checklist />
+          <Checklist items={items} setItems={setItems} clearCompleted={clearCompleted} />
           <ProfileForm />
           <SavedNote />
         </div>
