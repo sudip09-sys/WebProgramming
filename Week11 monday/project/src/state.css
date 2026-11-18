@@ -1,0 +1,43 @@
+.state-lab :is(form, label:has(input:not([type=checkbox]), textarea)) {
+  display: grid;
+  gap: 8px;
+}
+.state-lab button {
+  justify-self: start;
+  border: 1px solid #ffffff40;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: #242129;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.state-lab button[aria-pressed=true] {
+  background: #9c2035;
+}
+.state-lab button:disabled {
+  opacity: .55;
+  cursor: default;
+}
+.state-lab :is(input:not([type=checkbox]), textarea) {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ffffff40;
+  border-radius: 6px;
+  background: var(--bg);
+  color: inherit;
+  font: inherit;
+}
+.state-lab :is(button, input, textarea):focus-visible {
+  outline: 2px solid #ff8996;
+  outline-offset: 3px;
+}
+.state-lab .controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.state-lab li {
+  margin-block: 8px;
+  overflow-wrap: anywhere;
+}
