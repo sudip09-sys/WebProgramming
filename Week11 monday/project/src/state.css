@@ -41,3 +41,35 @@
   margin-block: 8px;
   overflow-wrap: anywhere;
 }
+
+.session-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: clamp(20px, 4vw, 36px);
+  border: 1px solid #f32b4266;
+  border-radius: 12px;
+  background: linear-gradient(125deg, #29141b, var(--panel) 70%);
+}
+.session-dashboard h2 {
+  margin: 0;
+  font: 700 40px/1 var(--display);
+  overflow-wrap: anywhere;
+}
+.session-dashboard p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+.session-stats {
+  display: grid;
+  gap: 12px;
+  font: 14px/1.5 var(--mono);
+}
+.session-stats progress {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  accent-color: var(--red);
+}
