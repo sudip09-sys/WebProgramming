@@ -16,8 +16,8 @@ function Exercise({ title, concept, children }) {
 function Counter() {
   const [count, setCount] = useState(0);
   return (
-    <Exercise title="1. Practice rep counter" concept="Functional updates use the previous count.">
-      <p role="status">Reps: {count}</p>
+    <Exercise title="1. Count practice rounds" concept="Functional updates use the previous count.">
+      <p role="status">Rounds: {count}</p>
       <div className="controls">
         <button onClick={() => setCount(value => value - 1)}>Decrease</button>
         <button onClick={() => setCount(value => value + 1)}>Increase</button>
@@ -30,9 +30,9 @@ function Counter() {
 function Greeting() {
   const [name, setName] = useState('');
   return (
-    <Exercise title="2. Lab greeting" concept="A controlled input keeps its value in React state.">
+    <Exercise title="2. Name your session" concept="A controlled input keeps its value in React state.">
       <label>Display name <input value={name} onChange={event => setName(event.target.value)} /></label>
-      <p>Welcome to the lab, {name.trim() || 'student'}!</p>
+      <p>Ready to study, {name.trim() || 'student'}!</p>
     </Exercise>
   );
 }
@@ -70,20 +70,20 @@ function TaskList() {
 function Toggle() {
   const [open, setOpen] = useState(false);
   return (
-    <Exercise title="4. Reveal a hint" concept="A boolean controls whether the hint is visible.">
+    <Exercise title="4. Quick React tip" concept="A boolean controls whether the hint is visible.">
       <button aria-expanded={open} aria-controls="state-hint" onClick={() => setOpen(value => !value)}>
         {open ? 'Hide hint' : 'Show hint'}
       </button>
-      <p id="state-hint" hidden={!open}>State can change when someone interacts with a component.</p>
+      <p id="state-hint" hidden={!open}>Try adding a task without refreshing. React updates the queue as soon as its state changes.</p>
     </Exercise>
   );
 }
 
 function Checklist() {
   const [items, setItems] = useState([
-    { id: 'notes', title: 'Review lecture notes', done: false },
-    { id: 'demo', title: 'Try a live demo', done: false },
-    { id: 'props', title: 'Review StudentCard props', done: true },
+    { id: 'notes', title: 'Review the props examples', done: false },
+    { id: 'demo', title: 'Try the Memory Match demo', done: false },
+    { id: 'props', title: 'Finish the StudentCard lab', done: true },
   ]);
   const [filter, setFilter] = useState('All');
   const visible = items.filter(item => filter === 'All' || item.done === (filter === 'Done'));
@@ -131,7 +131,7 @@ function ProfileForm() {
     }
   }
   return (
-    <Exercise title="6. Lab profile form" concept="Keep two controlled fields together in an object.">
+    <Exercise title="6. Check your lab profile" concept="Keep two controlled fields together in an object.">
       <form onSubmit={submit} noValidate>
         <label>Name <input name="name" required value={profile.name} onChange={update} /></label>
         <label>Email <input name="email" type="email" required value={profile.email} onChange={update} /></label>
@@ -164,7 +164,7 @@ function SavedNote() {
   }, [note]);
 
   return (
-    <Exercise title="7. Study note" concept="An effect saves your note whenever it changes.">
+    <Exercise title="7. Leave yourself a note" concept="An effect saves your note whenever it changes.">
       <label>Note <textarea rows={4} value={note} onChange={event => setNote(event.target.value)} /></label>
       <button disabled={!note} onClick={() => setNote('')}>Clear note</button>
       <p role="status">{status}</p>
@@ -181,8 +181,9 @@ function StateLab() {
       </header>
       <main>
         <section className="intro practice-intro">
-          <p className="eyebrow">WEEK 11 MONDAY / REACT PRACTICE</p>
-          <h1>STATE &amp; <span className="outline">EVENTS</span><span className="title-dot">.</span></h1>
+          <p className="eyebrow">SUDIP / STUDY SESSION</p>
+          <h1>REACT <span className="outline">STATE LAB</span><span className="title-dot">.</span></h1>
+          <p className="intro-copy">Set up a study session, work through your queue, and leave a note for next time.</p>
         </section>
         <div className="practice-grid">
           <Counter />
