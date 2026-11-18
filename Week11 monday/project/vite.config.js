@@ -6,6 +6,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        state: fileURLToPath(new URL('./state.html', import.meta.url)),
         lab: fileURLToPath(new URL('./lab.html', import.meta.url)),
         review: fileURLToPath(new URL('./review.html', import.meta.url)),
       },
