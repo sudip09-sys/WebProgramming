@@ -24,6 +24,9 @@ main .hero{padding:36px 0 22px}
 .desk-tools h3,.desk-tools p{margin:0 0 6px}.desk-tools button[aria-pressed=true]{background:#652530;border-color:#ff7180}
 .shop{align-items:start}.budget-label{display:block;font-weight:700}.budget-label input[type=range]{padding:0;accent-color:var(--red)}
 .shop progress{width:100%;accent-color:var(--red)}.budget-over{color:#ff9da8}.desk-items{list-style:none;padding:0}.desk-items li{border-top:1px solid var(--line);padding-top:8px}.desk-items small{display:block}.desk-total{font-size:16px;font-weight:700;color:var(--text)}
+.launchpad{display:grid;grid-template-columns:1fr minmax(0,.78fr);align-items:center;gap:28px;margin:26px 0;padding:32px!important;border:1px solid var(--line);border-radius:18px;background:radial-gradient(ellipse at 0% 100%,#59162290,transparent 70%),#141318}
+.launchpad h1{font-size:clamp(52px,8vw,104px);margin:12px 0}.launch-button{background:#a61931;font-weight:700}.launch-preview{padding:20px;border:1px solid var(--line);border-radius:12px;background:#0c0b0f}.launch-detail{min-height:116px}.launch-detail h2,.launch-detail p{margin:0 0 8px}.launch-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.launch-choices button{text-align:left;margin:0;font-size:.86rem}.launch-choices button[aria-pressed=true]{background:#652530;border-color:#ff7180}.workspace{scroll-margin-top:16px}.workspace:focus-visible{outline:2px solid #ff7180;outline-offset:5px}
+@media(max-width:820px){.launchpad{grid-template-columns:1fr;gap:16px;padding:20px!important}.launch-detail{min-height:0}}
 </style></head><body><div id="root"></div><noscript>Enable JavaScript to use the React exercises.</noscript>
 <script type="module">
 import {r as loadReact,n as loadDOM} from "../Week11%20monday/assets/jsx-runtime-D0USXF-_.js";
@@ -164,8 +167,23 @@ function StudyQueue(){
       button('Remove',()=>setItems(previous=>previous.filter(row=>row.id!==item.id)),{'aria-label':'Remove '+item.title})))));
 }
 const exercises=[ShoppingCart,Counter,ScoreBoard,WordCount,QuickTip,StudyQueue];
+const briefs=[
+  'Pick a setup, add gear, and see how it fits your budget.',
+  'Walk back through your last five count values.',
+  'Change either player’s score and watch the combined total.',
+  'See word and character counts as you type.',
+  'Reveal a tip and click through React state examples.',
+  'Add tasks, check them off, and track your progress.'
+];
 function App(){
   const [active,setActive]=useState(0);
+  const [preview,setPreview]=useState(0);
+  function openExercise(){
+    setActive(preview);
+    const workspace=document.getElementById('workspace');
+    workspace.focus({preventScroll:true});
+    workspace.scrollIntoView({block:'start'});
+  }
   const [practiced,setPracticed]=useState([]);
   const [id,label]=sections[active];
   const done=practiced.includes(id);
@@ -176,10 +194,19 @@ function App(){
     h('header',{className:'header'},
       h('a',{className:'brand',href:'../#coursework'},'SUDIP',h('span',null,' / LAB')),
       h('nav',{'aria-label':'Course navigation'},h('a',{href:'../#coursework'},'Coursework'))),
-    h('div',{className:'hero'},
-      h('p',{className:'eyebrow'},'WEEK 12 MONDAY / WEB PROGRAMMING'),
-      h('h1',null,'REACT ',h('span',null,'STATE'))),
-    h('div',{className:'workspace'},
+    h('section',{className:'hero launchpad','aria-labelledby':'week-title'},
+      h('div',{className:'launch-copy'},
+        h('p',{className:'eyebrow'},'WEEK 12 MONDAY / WEB PROGRAMMING'),
+        h('h1',{id:'week-title'},'REACT ',h('span',null,'STATE')),
+        h('p',{className:'lead'},'Start with the Tech Desk Builder homework or pick an exercise to practice how React remembers changes.'),
+        button('Open '+sections[preview][1]+' ↓',openExercise,{className:'launch-button'})),
+      h('div',{className:'launch-preview'},
+        h('div',{className:'launch-detail','aria-live':'polite'},
+          h('p',{className:'eyebrow'},preview===0?'HOMEWORK':'PRACTICE'),
+          h('h2',null,sections[preview][1]),h('p',null,briefs[preview])),
+        h('div',{className:'launch-choices',role:'group','aria-label':'Preview an exercise'},
+          sections.map(([id,label],index)=>button(label,()=>setPreview(index),{key:id,'aria-pressed':preview===index}))))),
+    h('div',{className:'workspace',id:'workspace',tabIndex:-1,'aria-label':'Exercise workspace'},
       h('div',{className:'exercise-menu'},
         h('h2',null,'Exercises'),
         h('p',{role:'status'},practiced.length+' of '+sections.length+' practiced'),
