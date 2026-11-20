@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 12 React State | Sudip Sah</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui;background:#11101a;color:#f7f1ff}*{box-sizing:border-box}
+main{max-width:1100px;margin:auto;padding:clamp(14px,4vw,48px)}header{padding:0 0 20px}h1{font-size:clamp(2rem,6vw,4rem);line-height:1;margin:.55em 0 .25em}h2,h3{line-height:1.2}a{color:#f9a8d4}
+section,article,aside{border:1px solid #594765;border-radius:16px;padding:16px;background:#20182a;min-width:0}section{margin-bottom:14px}article,aside{background:#2a2035}
+.shop{display:grid;grid-template-columns:2fr 1fr;gap:14px}.products,.labs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}.labs{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+img{width:100%;height:auto;max-height:100px;background:#352843;border-radius:10px}button,input,textarea{font:inherit}button{border:1px solid #b590c4;border-radius:8px;padding:.4rem .7rem;background:#402c50;color:inherit;cursor:pointer;margin:.15rem}button:disabled{opacity:.5;cursor:default}button:hover:not(:disabled){background:#63376b}
+:focus-visible{outline:3px solid #ffd68e;outline-offset:2px}textarea,input:not([type=checkbox]){display:block;width:100%;background:#15101d;border:1px solid #a689b3;color:inherit;border-radius:8px;padding:.5rem;margin:.35rem 0}textarea{resize:vertical}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px}li{margin-block:.4rem;overflow-wrap:anywhere}
+@media(max-width:740px){.shop{grid-template-columns:1fr}}
+</style></head><body><div id="root"></div><noscript>Enable JavaScript to use the React exercises.</noscript>
+<script type="module">
+import {r as loadReact,n as loadDOM} from "../Week11%20monday/assets/jsx-runtime-D0USXF-_.js";
+const {useState,createElement:h}=loadReact();
+const {createRoot}=loadDOM();
+const button=(label,action,props={})=>h('button',{type:'button',onClick:action,...props},label);
+const card=(title,...children)=>h('section',null,h('h2',null,title),...children);
+const money=new Intl.NumberFormat('en-KR',{style:'currency',currency:'KRW'});
+const products=[
+  [1,'Coffee',4500,'☕'],[2,'Sandwich',7000,'🥪'],[3,'Water',1000,'💧'],
+  [4,'Croissant',3500,'🥐'],[5,'Apple',1800,'🍎']
+].map(([id,name,price,icon])=>({id,name,price,image:'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100"><text x="80" y="70" font-size="60" text-anchor="middle">'+icon+'</text></svg>')}));
+function ShoppingCart(){
+  const [items,setItems]=useState([]);
+  function change(product,delta){
+    setItems(previous=>{
+      const item=previous.find(row=>row.id===product.id);
+      if(!item) return delta>0?[...previous,{...product,quantity:1}]:previous;
+      if(item.quantity+delta<=0) return previous.filter(row=>row.id!==product.id);
+      return previous.map(row=>row.id===product.id?{...row,quantity:row.quantity+delta}:row);
+    });
+  }
+  const total=items.reduce((sum,item)=>sum+item.price*item.quantity,0);
+  return card('Campus Café · Shopping Cart',
+    h('div',{className:'shop'},
+      h('div',{className:'products'},products.map(product=>h('article',{key:product.id},
+        h('img',{src:product.image,alt:'',width:160,height:100}),
+        h('h3',null,product.name),h('p',null,money.format(product.price)),
+        button('Add',()=>change(product,1),{'aria-label':'Add '+product.name})))),
+      h('aside',{'aria-label':'Cart'},h('h3',null,'Your cart'),
+        items.length===0?h('p',null,'Your cart is empty.'):h('ul',null,items.map(item=>h('li',{key:item.id},
+          h('strong',null,item.name),h('div',{className:'controls'},
+          button('−',()=>change(item,-1),{'aria-label':'Decrease '+item.name}),
+          h('span',null,item.quantity),
+          button('+',()=>change(item,1),{'aria-label':'Increase '+item.name}),
+          button('Remove',()=>setItems(previous=>previous.filter(row=>row.id!==item.id)),{'aria-label':'Remove '+item.name}))))),
+        h('p',{role:'status'},'Total: '+money.format(total)))));
+}
+function Counter(){
+  const [count,setCount]=useState(0);
+  const [history,setHistory]=useState([0]);
+  function save(next){
+    if(next===count)return;
+    setCount(next);
+    setHistory(previous=>[...previous,next].slice(-5));
+  }
+  function undo(){
+    if(history.length<2)return;
+    setCount(history[history.length-2]);
+    setHistory(previous=>previous.slice(0,-1));
+  }
+  return card('Counter with History',h('p',{role:'status'},'Count: '+count),
+    h('div',{className:'controls'},button('+1',()=>save(count+1)),button('−1',()=>save(count-1)),button('Reset',()=>save(0)),button('Undo',undo,{disabled:history.length<2})),
+    h('p',null,'Last five values: '+history.join(' → ')));
+}
+function PlayerScore({name,score,update}){
+  return h('article',null,h('h3',null,name+': '+score),button('−',()=>update(-1),{'aria-label':'Decrease '+name}),button('+',()=>update(1),{'aria-label':'Increase '+name}));
+}
+function ScoreBoard(){
+  const [first,setFirst]=useState(0);
+  const [second,setSecond]=useState(0);
+  return card('Two-Player Scoreboard',h('div',{className:'controls'},
+    h(PlayerScore,{name:'Player 1',score:first,update:delta=>setFirst(previous=>previous+delta)}),
+    h(PlayerScore,{name:'Player 2',score:second,update:delta=>setSecond(previous=>previous+delta)})),
+    h('p',{role:'status'},'Combined score: '+(first+second)),button('Reset scores',()=>{setFirst(0);setSecond(0)}));
+}
+function WordCount(){
+  const [text,setText]=useState('');
+  const words=text.trim()?text.trim().split(/\s+/).length:0;
+  return card('Live Word Count',h('label',null,'Practice notes',h('textarea',{rows:4,value:text,onChange:e=>setText(e.target.value)})),
+    h('p',{role:'status'},words+' words · '+text.length+' characters'));
+}
+const tips=['Call useState at the top level of your component.','Use a new array when adding or removing items.','Keep shared state in the closest common parent.'];
+function QuickTip(){
+  const [open,setOpen]=useState(false);
+  const [index,setIndex]=useState(0);
+  return card('Quick React Tip',button(open?'Hide details':'Show details',()=>setOpen(previous=>!previous),{'aria-expanded':open,'aria-controls':'tip-details'}),
+    h('div',{id:'tip-details',hidden:!open},h('p',{role:'status'},tips[index]),button('Next tip',()=>setIndex(previous=>(previous+1)%tips.length))));
+}
+function StudyQueue(){
+  const [input,setInput]=useState('');
+  const [items,setItems]=useState([]);
+  function add(event){
+    event.preventDefault();
+    const title=input.trim();
+    if(!title)return;
+    const id=crypto.randomUUID();
+    setItems(previous=>[...previous,{id,title,done:false}]);
+    setInput('');
+  }
+  return card('Study Queue',h('form',{onSubmit:add},h('label',null,'New study task',h('input',{value:input,onChange:e=>setInput(e.target.value),required:true})),h('button',{type:'submit'},'Add')),
+    h('p',{role:'status'},items.filter(item=>item.done).length+' of '+items.length+' complete'),
+    h('ul',null,items.map(item=>h('li',{key:item.id},h('label',null,h('input',{type:'checkbox',checked:item.done,onChange:()=>setItems(previous=>previous.map(row=>row.id===item.id?{...row,done:!row.done}:row))}),item.title),
+      button('Remove',()=>setItems(previous=>previous.filter(row=>row.id!==item.id)),{'aria-label':'Remove '+item.title})))));
+}
+function App(){
+  return h('main',null,h('header',null,h('a',{href:'../'},'← Coursework home'),h('h1',null,'Week 12 · React State'),h('p',null,'Sudip Sah · Web Programming')),
+    h(ShoppingCart),h('div',{className:'labs'},h(Counter),h(ScoreBoard),h(WordCount),h(QuickTip),h(StudyQueue)));
+}
+createRoot(document.querySelector('#root')).render(h(App));
+</script></body></html>
