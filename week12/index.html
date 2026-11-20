@@ -1,13 +1,15 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Week 12 React State | Sudip Sah</title>
+<link rel="stylesheet" href="../assets/week11-hub.css">
 <style>
-:root{color-scheme:dark;font:16px/1.5 system-ui;background:#11101a;color:#f7f1ff}*{box-sizing:border-box}
+
 main{max-width:1100px;margin:auto;padding:clamp(14px,4vw,48px)}header{padding:0 0 20px}h1{font-size:clamp(2rem,6vw,4rem);line-height:1;margin:.55em 0 .25em}h2,h3{line-height:1.2}a{color:#f9a8d4}
-section,article,aside{border:1px solid #594765;border-radius:16px;padding:16px;background:#20182a;min-width:0}section{margin-bottom:14px}article,aside{background:#2a2035}
+section.task{margin-bottom:14px;scroll-margin-top:20px}article,aside{border:1px solid var(--line);border-radius:12px;padding:16px;background:#211b21;min-width:0}
 .shop{display:grid;grid-template-columns:2fr 1fr;gap:14px}.products,.labs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}.labs{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-img{width:100%;height:auto;max-height:100px;background:#352843;border-radius:10px}button,input,textarea{font:inherit}button{border:1px solid #b590c4;border-radius:8px;padding:.4rem .7rem;background:#402c50;color:inherit;cursor:pointer;margin:.15rem}button:disabled{opacity:.5;cursor:default}button:hover:not(:disabled){background:#63376b}
-:focus-visible{outline:3px solid #ffd68e;outline-offset:2px}textarea,input:not([type=checkbox]){display:block;width:100%;background:#15101d;border:1px solid #a689b3;color:inherit;border-radius:8px;padding:.5rem;margin:.35rem 0}textarea{resize:vertical}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px}li{margin-block:.4rem;overflow-wrap:anywhere}
+img{width:100%;height:auto;max-height:100px;background:#301b24;border-radius:10px}button,input,textarea{font:inherit}button{border:1px solid #a85763;border-radius:8px;padding:.4rem .7rem;background:#40222a;color:inherit;cursor:pointer;margin:.15rem}button:disabled{opacity:.5;cursor:default}button:hover:not(:disabled){background:#74303d}
+:focus-visible{outline:3px solid #ffd68e;outline-offset:2px}textarea,input:not([type=checkbox]){display:block;width:100%;background:#110e12;border:1px solid #a85763;color:inherit;border-radius:8px;padding:.5rem;margin:.35rem 0}textarea{resize:vertical}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px}li{margin-block:.4rem;overflow-wrap:anywhere}
+.jump{margin-bottom:24px}.jump a{border:1px solid var(--line);padding:8px 12px;border-radius:6px}.jump a:hover{border-color:var(--red)}.task:target{border-color:var(--red)}
 @media(max-width:740px){.shop{grid-template-columns:1fr}}
 </style></head><body><div id="root"></div><noscript>Enable JavaScript to use the React exercises.</noscript>
 <script type="module">
@@ -15,7 +17,14 @@ import {r as loadReact,n as loadDOM} from "../Week11%20monday/assets/jsx-runtime
 const {useState,createElement:h}=loadReact();
 const {createRoot}=loadDOM();
 const button=(label,action,props={})=>h('button',{type:'button',onClick:action,...props},label);
-const card=(title,...children)=>h('section',null,h('h2',null,title),...children);
+const sections=[
+  ['cart','Shopping Cart'],['counter','Counter with History'],['scoreboard','Two-Player Scoreboard'],
+  ['words','Live Word Count'],['tips','Quick React Tip'],['queue','Study Queue']
+];
+const card=(title,...children)=>{
+  const id=sections.find(([,label])=>title.endsWith(label))[0];
+  return h('section',{className:'task',id,'aria-labelledby':id+'-title'},h('h2',{id:id+'-title'},title),...children);
+};
 const money=new Intl.NumberFormat('en-KR',{style:'currency',currency:'KRW'});
 const products=[
   [1,'Coffee',4500,'☕'],[2,'Sandwich',7000,'🥪'],[3,'Water',1000,'💧'],
@@ -45,7 +54,7 @@ function ShoppingCart(){
           h('span',null,item.quantity),
           button('+',()=>change(item,1),{'aria-label':'Increase '+item.name}),
           button('Remove',()=>setItems(previous=>previous.filter(row=>row.id!==item.id)),{'aria-label':'Remove '+item.name}))))),
-        h('p',{role:'status'},'Total: '+money.format(total)))));
+        h('p',{role:'status'},'Total: '+money.format(total)),button('Clear cart',()=>setItems([]),{disabled:items.length===0}))));
 }
 function Counter(){
   const [count,setCount]=useState(0);
@@ -79,7 +88,7 @@ function WordCount(){
   const [text,setText]=useState('');
   const words=text.trim()?text.trim().split(/\s+/).length:0;
   return card('Live Word Count',h('label',null,'Practice notes',h('textarea',{rows:4,value:text,onChange:e=>setText(e.target.value)})),
-    h('p',{role:'status'},words+' words · '+text.length+' characters'));
+    h('p',{role:'status'},words+' words · '+text.length+' characters'),button('Clear notes',()=>setText(''),{disabled:!text}));
 }
 const tips=['Call useState at the top level of your component.','Use a new array when adding or removing items.','Keep shared state in the closest common parent.'];
 function QuickTip(){
@@ -101,11 +110,15 @@ function StudyQueue(){
   }
   return card('Study Queue',h('form',{onSubmit:add},h('label',null,'New study task',h('input',{value:input,onChange:e=>setInput(e.target.value),required:true})),h('button',{type:'submit'},'Add')),
     h('p',{role:'status'},items.filter(item=>item.done).length+' of '+items.length+' complete'),
+    button('Clear completed',()=>setItems(previous=>previous.filter(item=>!item.done)),{disabled:!items.some(item=>item.done)}),
     h('ul',null,items.map(item=>h('li',{key:item.id},h('label',null,h('input',{type:'checkbox',checked:item.done,onChange:()=>setItems(previous=>previous.map(row=>row.id===item.id?{...row,done:!row.done}:row))}),item.title),
       button('Remove',()=>setItems(previous=>previous.filter(row=>row.id!==item.id)),{'aria-label':'Remove '+item.title})))));
 }
 function App(){
-  return h('main',null,h('header',null,h('a',{href:'../'},'← Coursework home'),h('h1',null,'Week 12 · React State'),h('p',null,'Sudip Sah · Web Programming')),
+  return h('main',{className:'shell'},
+    h('header',{className:'header'},h('a',{className:'brand',href:'../#coursework'},'SUDIP',h('span',null,' / LAB')),h('nav',{'aria-label':'Course navigation'},h('a',{href:'../#coursework'},'Coursework'),h('a',{href:'../Week11%20friday/tasks.html'},'Week 11 Friday'))),
+    h('div',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 MONDAY / WEB PROGRAMMING'),h('h1',null,'REACT ',h('span',null,'STATE')),h('p',{className:'lead'},'Build a café order, undo changes, keep score, and practice updating React state.')),
+    h('nav',{className:'jump','aria-label':'Jump to an exercise'},sections.map(([id,label])=>h('a',{key:id,href:'#'+id},label))),
     h(ShoppingCart),h('div',{className:'labs'},h(Counter),h(ScoreBoard),h(WordCount),h(QuickTip),h(StudyQueue)));
 }
 createRoot(document.querySelector('#root')).render(h(App));
