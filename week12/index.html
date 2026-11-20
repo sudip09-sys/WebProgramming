@@ -35,11 +35,11 @@ const card=(title,...children)=>{
 };
 const money=new Intl.NumberFormat('en-KR',{style:'currency',currency:'KRW'});
 const products=[
-  [1,'Marshall Major IV Headphones',149000,'https://kotofoto.ru/product_img/3302/497364/497364_marshall-major-iv-black.jpg?v=1775020661'],
-  [2,'Dell XPS 13 Laptop',1390000,'https://lcdn.mediagalaxy.ro/media/catalog/product/d/e/dell_xps_13_9345_platinum_1_3927abe5.jpg'],
-  [3,'Apple iPad (A16)',529000,'https://dmau.imgix.net/media/catalog/product/i/p/ipad_a16_wifi_blue_pdp_image_position_1__anz_ogwqocvpqgzcahys.jpg'],
-  [4,'Apple iPhone 16',1090000,'https://ranzcpmemberextras.rewards-plus.com.au/image/cache/catalog/Product%20Images/Apple/iPhone%2016/iPhone%2016%20128GB%20Black-1100x1100.png'],
-  [5,'Apple MacBook Air',1590000,'https://eduplaninternational.com/cdn/shop/files/mid1_2065aefd-7568-40ad-8367-0d448ca4163d.jpg?v=1769780236']
+  [1,"Marshall Monitor III A.N.C.",449000,"https://www.fujiya-avic.co.jp/img/goods/1/200000069895_1.jpg"],
+  [2,"Acer Predator Helios 16",2390000,"https://cdn.gamenotebaku.az/productimg/111/530/gamenote_img_16_1718911127.png.webp"],
+  [3,"13-inch iPad Pro (M5)",1990000,"https://lcdn.altex.ro/media/catalog/product/i/p/ipad_pro_13inch_m5_wifi_space_black_2_1fc50113.jpg"],
+  [4,"iPhone 17 Pro Max (Silver)",1990000,"https://www.aucklanddutyfree.co.nz/media/catalog/product/1/0/101506045_0_45d6.jpg?width=800"],
+  [5,"16-inch MacBook Pro (M5 Max)",5490000,"https://www.svacampusstore.com/cdn/shop/files/mbp16-silver-select-202603_5cad1269-b08d-453e-bb9c-242dabb96fb2.png?v=1772557311&width=1000"]
 ].map(([id,name,price,image])=>({id,name,price,image}));
 function ShoppingCart(){
   const [items,setItems]=useState([]);
