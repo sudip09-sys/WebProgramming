@@ -7,7 +7,7 @@
 main{max-width:1100px;margin:auto;padding:clamp(14px,4vw,48px)}header{padding:0 0 20px}h1{font-size:clamp(2rem,6vw,4rem);line-height:1;margin:.55em 0 .25em}h2,h3{line-height:1.2}a{color:#f9a8d4}
 section.task{margin-bottom:14px;scroll-margin-top:20px}article,aside{border:1px solid var(--line);border-radius:12px;padding:16px;background:#211b21;min-width:0}
 .shop{display:grid;grid-template-columns:2fr 1fr;gap:14px}.products,.labs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}.labs{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-img{width:100%;height:auto;max-height:100px;background:#301b24;border-radius:10px}button,input,textarea{font:inherit}button{border:1px solid #a85763;border-radius:8px;padding:.4rem .7rem;background:#40222a;color:inherit;cursor:pointer;margin:.15rem}button:disabled{opacity:.5;cursor:default}button:hover:not(:disabled){background:#74303d}
+.products img{display:block;width:100%;height:160px;object-fit:contain;background:#f4f2f1;border-radius:10px;padding:10px}button,input,textarea{font:inherit}button{border:1px solid #a85763;border-radius:8px;padding:.4rem .7rem;background:#40222a;color:inherit;cursor:pointer;margin:.15rem}button:disabled{opacity:.5;cursor:default}button:hover:not(:disabled){background:#74303d}
 :focus-visible{outline:3px solid #ffd68e;outline-offset:2px}textarea,input:not([type=checkbox]){display:block;width:100%;background:#110e12;border:1px solid #a85763;color:inherit;border-radius:8px;padding:.5rem;margin:.35rem 0}textarea{resize:vertical}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px}li{margin-block:.4rem;overflow-wrap:anywhere}
 .jump{margin-bottom:24px}.jump a{border:1px solid var(--line);padding:8px 12px;border-radius:6px}.jump a:hover{border-color:var(--red)}.task:target{border-color:var(--red)}
 @media(max-width:740px){.shop{grid-template-columns:1fr}}
@@ -35,9 +35,12 @@ const card=(title,...children)=>{
 };
 const money=new Intl.NumberFormat('en-KR',{style:'currency',currency:'KRW'});
 const products=[
-  [1,'Coffee',4500,'☕'],[2,'Sandwich',7000,'🥪'],[3,'Water',1000,'💧'],
-  [4,'Croissant',3500,'🥐'],[5,'Apple',1800,'🍎']
-].map(([id,name,price,icon])=>({id,name,price,image:'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="160" height="100"><text x="80" y="70" font-size="60" text-anchor="middle">'+icon+'</text></svg>')}));
+  [1,'Marshall Major IV Headphones',149000,'https://kotofoto.ru/product_img/3302/497364/497364_marshall-major-iv-black.jpg?v=1775020661'],
+  [2,'Dell XPS 13 Laptop',1390000,'https://lcdn.mediagalaxy.ro/media/catalog/product/d/e/dell_xps_13_9345_platinum_1_3927abe5.jpg'],
+  [3,'Apple iPad (A16)',529000,'https://dmau.imgix.net/media/catalog/product/i/p/ipad_a16_wifi_blue_pdp_image_position_1__anz_ogwqocvpqgzcahys.jpg'],
+  [4,'Apple iPhone 16',1090000,'https://ranzcpmemberextras.rewards-plus.com.au/image/cache/catalog/Product%20Images/Apple/iPhone%2016/iPhone%2016%20128GB%20Black-1100x1100.png'],
+  [5,'Apple MacBook Air',1590000,'https://eduplaninternational.com/cdn/shop/files/mid1_2065aefd-7568-40ad-8367-0d448ca4163d.jpg?v=1769780236']
+].map(([id,name,price,image])=>({id,name,price,image}));
 function ShoppingCart(){
   const [items,setItems]=useState([]);
   function change(product,delta){
@@ -49,13 +52,13 @@ function ShoppingCart(){
     });
   }
   const total=items.reduce((sum,item)=>sum+item.price*item.quantity,0);
-  return card('Campus Café · Shopping Cart',
+  return card('Tech Desk · Shopping Cart',
     h('div',{className:'shop'},
       h('div',{className:'products'},products.map(product=>h('article',{key:product.id},
-        h('img',{src:product.image,alt:'',width:160,height:100}),
+        h('img',{src:product.image,alt:product.name,width:320,height:220,decoding:'async'}),
         h('h3',null,product.name),h('p',null,money.format(product.price)),
         button('Add',()=>change(product,1),{'aria-label':'Add '+product.name})))),
-      h('aside',{'aria-label':'Cart'},h('h3',null,'Your cart'),
+      h('aside',{'aria-label':'Cart'},h('h3',null,'Your cart'),h('p',null,'Demo prices in KRW'),
         items.length===0?h('p',null,'Your cart is empty.'):h('ul',null,items.map(item=>h('li',{key:item.id},
           h('strong',null,item.name),h('div',{className:'controls'},
           button('−',()=>change(item,-1),{'aria-label':'Decrease '+item.name}),
