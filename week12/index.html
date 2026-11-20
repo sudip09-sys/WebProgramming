@@ -11,6 +11,14 @@ img{width:100%;height:auto;max-height:100px;background:#301b24;border-radius:10p
 :focus-visible{outline:3px solid #ffd68e;outline-offset:2px}textarea,input:not([type=checkbox]){display:block;width:100%;background:#110e12;border:1px solid #a85763;color:inherit;border-radius:8px;padding:.5rem;margin:.35rem 0}textarea{resize:vertical}.controls{display:flex;align-items:center;flex-wrap:wrap;gap:6px}li{margin-block:.4rem;overflow-wrap:anywhere}
 .jump{margin-bottom:24px}.jump a{border:1px solid var(--line);padding:8px 12px;border-radius:6px}.jump a:hover{border-color:var(--red)}.task:target{border-color:var(--red)}
 @media(max-width:740px){.shop{grid-template-columns:1fr}}
+main .hero{padding:36px 0 22px}
+.workspace{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start;padding-bottom:40px}
+.exercise-menu{display:grid;gap:6px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.exercise-menu h2,.exercise-menu p{margin:0}.exercise-menu progress{width:100%;accent-color:var(--red);margin-bottom:8px}
+.exercise-menu button{text-align:left;margin:0}.exercise-menu button[aria-pressed=true]{border-color:#ff7180;background:#652530}
+.exercise-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.exercise-stage .task:hover{transform:none}.exercise-stage .task h2{margin-top:0}
+@media(max-width:780px){.workspace{grid-template-columns:1fr}.exercise-menu{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-menu h2,.exercise-menu p,.exercise-menu progress{grid-column:1/-1}}
 </style></head><body><div id="root"></div><noscript>Enable JavaScript to use the React exercises.</noscript>
 <script type="module">
 import {r as loadReact,n as loadDOM} from "../Week11%20monday/assets/jsx-runtime-D0USXF-_.js";
@@ -114,12 +122,39 @@ function StudyQueue(){
     h('ul',null,items.map(item=>h('li',{key:item.id},h('label',null,h('input',{type:'checkbox',checked:item.done,onChange:()=>setItems(previous=>previous.map(row=>row.id===item.id?{...row,done:!row.done}:row))}),item.title),
       button('Remove',()=>setItems(previous=>previous.filter(row=>row.id!==item.id)),{'aria-label':'Remove '+item.title})))));
 }
+const exercises=[ShoppingCart,Counter,ScoreBoard,WordCount,QuickTip,StudyQueue];
 function App(){
+  const [active,setActive]=useState(0);
+  const [practiced,setPracticed]=useState([]);
+  const [id,label]=sections[active];
+  const done=practiced.includes(id);
+  function togglePractice(){
+    setPracticed(previous=>previous.includes(id)?previous.filter(item=>item!==id):[...previous,id]);
+  }
   return h('main',{className:'shell'},
-    h('header',{className:'header'},h('a',{className:'brand',href:'../#coursework'},'SUDIP',h('span',null,' / LAB')),h('nav',{'aria-label':'Course navigation'},h('a',{href:'../#coursework'},'Coursework'),h('a',{href:'../Week11%20friday/tasks.html'},'Week 11 Friday'))),
-    h('div',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 MONDAY / WEB PROGRAMMING'),h('h1',null,'REACT ',h('span',null,'STATE')),h('p',{className:'lead'},'Build a café order, undo changes, keep score, and practice updating React state.')),
-    h('nav',{className:'jump','aria-label':'Jump to an exercise'},sections.map(([id,label])=>h('a',{key:id,href:'#'+id},label))),
-    h(ShoppingCart),h('div',{className:'labs'},h(Counter),h(ScoreBoard),h(WordCount),h(QuickTip),h(StudyQueue)));
+    h('header',{className:'header'},
+      h('a',{className:'brand',href:'../#coursework'},'SUDIP',h('span',null,' / LAB')),
+      h('nav',{'aria-label':'Course navigation'},h('a',{href:'../#coursework'},'Coursework'))),
+    h('div',{className:'hero'},
+      h('p',{className:'eyebrow'},'WEEK 12 MONDAY / WEB PROGRAMMING'),
+      h('h1',null,'REACT ',h('span',null,'STATE'))),
+    h('div',{className:'workspace'},
+      h('div',{className:'exercise-menu'},
+        h('h2',null,'Exercises'),
+        h('p',{role:'status'},practiced.length+' of '+sections.length+' practiced'),
+        h('progress',{max:sections.length,value:practiced.length,'aria-label':'Practice progress'}),
+        sections.map(([key,name],index)=>button(name,()=>setActive(index),{
+          key,'aria-pressed':active===index,'aria-controls':'panel-'+key,
+          'aria-label':name+(practiced.includes(key)?', practiced':'')
+        }))),
+      h('div',{className:'exercise-stage'},
+        h('div',{className:'exercise-toolbar'},h('span',{className:'eyebrow'},active===0?'HOMEWORK':'PRACTICE'),
+          button(done?'Practiced ✓':'Mark as practiced',togglePractice,{'aria-pressed':done})),
+        sections.map(([key,name],index)=>h('div',{key,id:'panel-'+key,hidden:active!==index},h(exercises[index]))),
+        h('div',{className:'exercise-toolbar'},
+          button('← Previous',()=>setActive(previous=>previous-1),{disabled:active===0}),
+          h('span',{className:'eyebrow',role:'status'},label+' · '+(active+1)+' / '+sections.length),
+          button('Next →',()=>setActive(previous=>previous+1),{disabled:active===sections.length-1})))));
 }
 createRoot(document.querySelector('#root')).render(h(App));
 </script></body></html>
