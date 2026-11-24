@@ -78,10 +78,10 @@ function Samples(){
         button('Switch accent',()=>setMode(value=>value==='gold'?'red':'gold')))));
 }
 
-loadDOM().createRoot(document.getElementById('lab')).render(h(ReactLab));
+createRoot(document.getElementById('lab')).render(h(ReactLab));
 function ReactLab(){
   return h('main',null,
-    h('section',{className:'hero'},h('p',{className:'eyebrow'},'SUDIP LAB / WEEK 12_2'),h('h1',null,'React Effects'),h('p',null,'Practise synchronizing a React page with the browser and an API.'),h('a',{href:'#exercises'},'Jump to exercises')),
-    h(Samples),
-    h('section',{id:'exercises','aria-labelledby':'exercise-heading'},h('h2',{id:'exercise-heading'},'Exercises'),h('div',{className:'grid'},h(TabTitle),h(ProfileSearch),h(NamePreview))));
+    h('section',{className:'hero launchpad'},h('p',{className:'eyebrow'},'WEEK 12_2 / WEB PROGRAMMING'),h('h1',null,'React Effects'),h('p',null,'Update the tab title, look up a GitHub profile, and build a name badge.'),h('a',{href:'#exercises'},'Jump to exercises')),
+    h('section',{id:'exercises','aria-labelledby':'exercise-heading'},h('h2',{id:'exercise-heading'},'Exercises'),h('div',{className:'grid'},h(TabTitle),h(ProfileSearch),h(NamePreview))),
+    h(Samples));
 }
