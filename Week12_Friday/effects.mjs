@@ -17,34 +17,75 @@ function TabTitle(){
 }
 
 function ProfileSearch(){
-  const [draft,setDraft]=useState('octocat');
+  const [draft,setDraft]=useState('sudip09-sys');
   const [query,setQuery]=useState(null);
   const [result,setResult]=useState(null);
+  const [sort,setSort]=useState('recent');
   useEffect(()=>{
     if(!query)return;
     const controller=new AbortController();
+    const {signal}=controller;
+    const url='https://api.github.com/users/'+encodeURIComponent(query.name);
+    async function getJSON(path){
+      const response=await fetch(url+path,{signal});
+      if(!response.ok){
+        const limited=response.status===429||response.headers.get('x-ratelimit-remaining')==='0';
+        throw new Error(limited?'GitHub’s search limit was reached. Try again later.':response.status===404?'GitHub user not found.':'GitHub could not complete the request.');
+      }
+      return response.json();
+    }
     async function lookup(){
       try{
-        const response=await fetch('https://api.github.com/users/'+encodeURIComponent(query.name),{signal:controller.signal});
-        if(!response.ok)throw new Error(response.status===404?'User not found.':'GitHub could not complete the lookup. Try again later.');
-        const user=await response.json();
-        if(!controller.signal.aborted)setResult({user});
+        const user=await getJSON('');
+        if(signal.aborted)return;
+        setResult({user});
+        try{
+          const repos=await getJSON('/repos?sort=updated&direction=desc&per_page=8');
+          if(!signal.aborted)setResult({user,repos});
+        }catch(error){
+          if(!signal.aborted)setResult({user,repoError:error.message});
+        }
       }catch(error){
-        if(!controller.signal.aborted)setResult({error:error.message});
+        if(!signal.aborted)setResult({error:error.message});
       }
     }
     lookup();
     return ()=>controller.abort();
   },[query]);
-  return card('E2 · GitHub profile finder','Search for a public profile. A new search cancels the previous request.',
-    h('form',{onSubmit:e=>{
-      e.preventDefault();
-      if(!draft.trim())return;
+
+  const user=result?.user;
+  const repos=result?.repos;
+  const visible=repos&&[...repos].sort((a,b)=>sort==='stars'?b.stargazers_count-a.stargazers_count:Date.parse(b.updated_at)-Date.parse(a.updated_at));
+  const stats=user&&[['Public repos',user.public_repos],['Followers',user.followers],['Following',user.following]];
+  const profile=user&&h('section',{className:'profile-result','aria-label':'GitHub profile'},
+    h('div',{className:'profile-heading'},
+      h('img',{src:'https://avatars.githubusercontent.com/u/'+Number(user.id),alt:'',width:72,height:72}),
+      h('div',null,h('h4',null,user.name||user.login),
+        h('a',{href:'https://github.com/'+encodeURIComponent(user.login)},'@'+user.login),
+        user.location&&h('p',null,user.location))),
+    user.bio&&h('p',null,user.bio),
+    h('dl',{className:'profile-stats'},stats.map(([label,value])=>h('div',{key:label},h('dt',null,label),h('dd',null,value)))),
+    h('h4',null,'Recent public repositories'),
+    h('p',{role:'status'},result.repoError||(!repos?'Loading repositories…':repos.length===0?'No public repositories found.':repos.length+' repositories loaded.')),
+    repos?.length>0&&h('div',null,
+      h('div',{role:'group','aria-label':'Sort recent repositories'},
+        ['recent','stars'].map(mode=>h('button',{key:mode,type:'button','aria-pressed':sort===mode,onClick:()=>setSort(mode)},mode==='recent'?'Recently updated':'Most stars'))),
+      h('ul',{className:'profile-repos'},visible.map(repo=>h('li',{key:repo.id},
+        h('a',{href:'https://github.com/'+encodeURIComponent(user.login)+'/'+encodeURIComponent(repo.name)},repo.name),
+        repo.description&&h('p',null,repo.description),
+        h('small',null,[repo.language,repo.stargazers_count+' stars',repo.forks_count+' forks'].filter(Boolean).join(' · ')))))));
+
+  return card('E2 · GitHub profile dashboard','Search a public profile and explore its latest repositories.',
+    h('form',{onSubmit:event=>{
+      event.preventDefault();
+      const name=draft.trim();
+      if(!name)return;
       setResult(null);
-      setQuery({name:draft.trim()});
+      setSort('recent');
+      setQuery({name});
     }},field('GitHub username',draft,setDraft),h('button',{disabled:!draft.trim()},'Look up')),
-    h('div',{role:'status'},query&&!result?'Looking up '+query.name+'…':result?.error||
-      (result?.user&&h('a',{href:'https://github.com/'+encodeURIComponent(result.user.login)},result.user.name||result.user.login))));
+    h('p',{role:'status'},query&&!result?'Looking up @'+query.name+'…':result?.error||''),
+    profile);
 }
 
 function NamePreview(){
