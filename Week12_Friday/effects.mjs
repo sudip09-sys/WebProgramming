@@ -9,7 +9,7 @@ function TabTitle(){
   const [count,set]=useState(0);
   useEffect(()=>{
     const previous=document.title;
-    document.title=count ? '('+count+') Lab reminders' : 'Week 12_2 | Sudip Lab';
+    document.title=count ? '('+count+') Lab reminders' : 'Week 12 Friday | Sudip Lab';
     return ()=>{document.title=previous;};
   },[count]);
   return card('E1 · Lab reminders','Add a reminder and watch the browser tab title.',
@@ -78,10 +78,31 @@ function Samples(){
         button('Switch accent',()=>setMode(value=>value==='gold'?'red':'gold')))));
 }
 
-createRoot(document.getElementById('lab')).render(h(ReactLab));
+const labs=[
+  {name:'Tab-title reminders',component:TabTitle,code:'useEffect(() => {\\n  const previous = document.title;\\n  document.title = formatTitle(count);\\n  return () => { document.title = previous; };\\n}, [count]);'},
+  {name:'GitHub profile finder',component:ProfileSearch,code:'useEffect(() => {\\n  const controller = new AbortController();\\n  loadProfile(query, controller.signal);\\n  return () => controller.abort();\\n}, [query]);'},
+  {name:'Name badge preview',component:NamePreview,code:"const fullName = [first.trim(), last.trim()]\\n  .filter(Boolean).join(' ');"}
+];
 function ReactLab(){
-  return h('main',null,
-    h('section',{className:'hero launchpad'},h('p',{className:'eyebrow'},'WEEK 12_2 / WEB PROGRAMMING'),h('h1',null,'React Effects'),h('p',null,'Update the tab title, look up a GitHub profile, and build a name badge.'),h('a',{href:'#exercises'},'Jump to exercises')),
-    h('section',{id:'exercises','aria-labelledby':'exercise-heading'},h('h2',{id:'exercise-heading'},'Exercises'),h('div',{className:'grid'},h(TabTitle),h(ProfileSearch),h(NamePreview))),
+  const [active,setActive]=useState(0);
+  const [done,setDone]=useState([]);
+  function togglePractice(){
+    setDone(items=>items.includes(active)?items.filter(index=>index!==active):[...items,active]);
+  }
+  return h('main',{className:'friday'},
+    h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
+      h('h1',null,'React Effects'),h('p',null,'Track reminders, look up a GitHub profile and build a name badge.'),
+      h('a',{href:'#exercises'},'Open exercise workspace')),
+    h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
+      h('aside',null,h('h2',null,'Exercises'),
+        h('p',{role:'status'},done.length+' of '+labs.length+' practiced'),
+        h('progress',{value:done.length,max:labs.length,'aria-label':'Practice progress'}),
+        labs.map((lab,index)=>h('button',{key:lab.name,type:'button','aria-pressed':index===active,onClick:()=>setActive(index)},lab.name+(done.includes(index)?' ✓':'')))),
+      h('div',{className:'stage'},
+        labs.map((lab,index)=>h('div',{key:lab.name,hidden:index!==active},
+          h(lab.component),h('details',null,h('summary',null,'See the React pattern'),h('pre',null,h('code',null,lab.code))))),
+        h('button',{type:'button','aria-pressed':done.includes(active),onClick:togglePractice},done.includes(active)?'Practiced ✓':'Mark as practiced'))),
     h(Samples));
 }
+
+createRoot(document.getElementById('lab')).render(h(ReactLab));
