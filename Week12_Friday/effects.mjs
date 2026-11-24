@@ -18,7 +18,7 @@ function TabTitle(){
 
 function ProfileSearch(){
   const [draft,setDraft]=useState('sudip09-sys');
-  const [query,setQuery]=useState(null);
+  const [query,setQuery]=useState({name:'sudip09-sys'});
   const [result,setResult]=useState(null);
   const [sort,setSort]=useState('recent');
   useEffect(()=>{
@@ -125,14 +125,14 @@ const labs=[
   {name:'Name badge preview',component:NamePreview,code:"const fullName = [first.trim(), last.trim()]\\n  .filter(Boolean).join(' ');"}
 ];
 function ReactLab(){
-  const [active,setActive]=useState(0);
+  const [active,setActive]=useState(1);
   const [done,setDone]=useState([]);
   function togglePractice(){
     setDone(items=>items.includes(active)?items.filter(index=>index!==active):[...items,active]);
   }
   return h('main',{className:'friday'},
     h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
-      h('h1',null,'React Effects'),h('p',null,'Track reminders, look up a GitHub profile and build a name badge.'),
+      h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Track reminders, look up a GitHub profile and build a name badge.'),
       h('a',{href:'#exercises'},'Open exercise workspace')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
