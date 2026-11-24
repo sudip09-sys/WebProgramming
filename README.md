@@ -21,6 +21,8 @@ Coursework and projects arranged by week.
 - [Week 11 Monday - React Foundations, StudentCard and State Lab](<Week11 monday/index.html>)
   - [Live React State Lab and study dashboard](https://sudip09-sys.github.io/WebProgramming/Week11%20monday/state.html) — seven interactive exercises. The dashboard updates the session name, practice rounds and checklist progress as you work.
 - [Week 11 Friday - React tasks, props and homework](<Week11 friday/tasks.html>)
+- [Week 12 - React State](week12/index.html)
+- [Week 12_2 - React Effects](week12_2/index.html)
 
 ## Projects
 
