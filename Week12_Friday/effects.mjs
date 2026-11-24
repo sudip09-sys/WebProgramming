@@ -143,6 +143,12 @@ function ReactLab(){
         labs.map((lab,index)=>h('div',{key:lab.name,hidden:index!==active},
           h(lab.component),h('details',null,h('summary',null,'See the React pattern'),h('pre',null,h('code',null,lab.code))))),
         h('button',{type:'button','aria-pressed':done.includes(active),onClick:togglePractice},done.includes(active)?'Practiced ✓':'Mark as practiced'))),
+    h('section',{className:'stage',id:'what-i-learned','aria-labelledby':'recap-title'},
+      h('h2',{id:'recap-title'},'What I learned'),
+      h('ul',null,
+        h('li',null,h('strong',null,'Tab title. '),'I used ',h('code',null,'useEffect'),' to update the browser tab title when the reminder count changes.'),
+        h('li',null,h('strong',null,'GitHub lookup. '),'I cancel the previous request in the effect cleanup when a new search starts.'),
+        h('li',null,h('strong',null,'Name badge. '),'I build the full name from the two inputs during rendering because both values are already in state.'))),
     h(Samples));
 }
 
