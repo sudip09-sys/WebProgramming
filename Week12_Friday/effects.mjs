@@ -138,13 +138,14 @@ function Stopwatch({visible}){
   const fastest=laps.length?Math.min(...laps.map((lap,index)=>lap-(laps[index-1]||0))):null;
   const control=(label,onClick,disabled=false)=>h('button',{type:'button',onClick,disabled},label);
   return card('E3 · Stopwatch and laps','Start, stop, and reset the timer. Lap splits show the time since the previous lap.',
-    h('p',{className:'friday-reading',role:'timer'},formatTime(total)),
+    h('div',{className:'stopwatch-dial',style:{'--sweep':(total%60000)/60000*360+'deg'}},h('p',{className:'friday-reading',role:'timer'},formatTime(total))),
     control('Start',()=>{const mark=performance.now();setNow(mark);setStarted(mark);},started!==null),
     control('Stop',()=>{setElapsed(elapsed+performance.now()-started);setStarted(null);},started===null),
     control('Lap',()=>setLaps([...laps,elapsed+performance.now()-started]),started===null),
     control('Reset',()=>{setStarted(null);setElapsed(0);setLaps([]);}),
     fastest!==null&&h('p',{className:'best-lap'},'Fastest split · '+formatTime(fastest)),
-    laps.length>0&&h('ol',null,laps.map((lap,index)=>h('li',{key:index},'Lap '+(index+1)+' · '+formatTime(lap)+' total · '+formatTime(lap-(laps[index-1]||0))+' split'))));
+    laps.length>0&&h('ol',null,laps.map((lap,index)=>h('li',{key:index},'Lap '+(index+1)+' · '+formatTime(lap)+' total · '+formatTime(lap-(laps[index-1]||0))+' split',
+      h('meter',{min:0,max:Math.max(1,...laps.map((value,i)=>value-(laps[i-1]||0))),value:lap-(laps[index-1]||0),'aria-label':'Lap '+(index+1)+' split duration'})))));
 }
 
 function weatherLabel(code){
@@ -196,6 +197,9 @@ function Weather(){
   },[place]);
   const placeName=p=>[p.name,p.admin1,p.country].filter(Boolean).join(', ');
   const data=reading?.data;
+  const low=data?.daily?Math.min(...data.daily.temperature_2m_min):0;
+  const high=data?.daily?Math.max(...data.daily.temperature_2m_max):0;
+  const scale=Math.max(1,high-low);
   return card('Homework · Weather dashboard','Find a city and select a match to load its current conditions.',
     h('form',{onSubmit:event=>{
       event.preventDefault();
@@ -215,6 +219,9 @@ function Weather(){
         h('ul',{className:'forecast'},data.daily.time.map((date,index)=>h('li',{key:date},
           h('time',{dateTime:date},new Intl.DateTimeFormat('en',{weekday:'short',timeZone:'UTC'}).format(new Date(date))),
           h('span',null,weatherLabel(data.daily.weather_code[index])),
+          h('div',{className:'temperature-track','aria-hidden':true},h('span',{style:{
+            left:(data.daily.temperature_2m_min[index]-low)/scale*100+'%',
+            width:(data.daily.temperature_2m_max[index]-data.daily.temperature_2m_min[index])/scale*100+'%'}})),
           h('strong',null,data.daily.temperature_2m_max[index]+'° / '+data.daily.temperature_2m_min[index]+'°')))))),
     h('p',null,h('a',{href:'https://open-meteo.com/'},'Weather data by Open-Meteo')));
 }
@@ -233,6 +240,16 @@ function ReactLab(){
     document.documentElement.dataset.theme=theme;
     try{localStorage.setItem('sudip-friday-theme',theme);}catch{}
   },[theme]);
+  useEffect(()=>{
+    const toggle=document.getElementById('friday-theme');
+    const light=theme==='light';
+    toggle.textContent=light?'Dark mode':'Light mode';
+    toggle.setAttribute('aria-pressed',String(light));
+    toggle.hidden=false;
+    const flip=()=>setTheme(light?'dark':'light');
+    toggle.addEventListener('click',flip);
+    return ()=>toggle.removeEventListener('click',flip);
+  },[theme]);
   const [done,setDone]=useState([]);
   function togglePractice(){
     setDone(items=>items.includes(active)?items.filter(index=>index!==active):[...items,active]);
@@ -240,8 +257,7 @@ function ReactLab(){
   return h('main',{className:'friday'},
     h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
       h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Try timed laps, check local weather, and see how React effects handle timers and requests.'),
-      h('a',{href:'#exercises'},'Open exercise workspace'),
-      h('button',{type:'button',className:'theme-switch','aria-pressed':theme==='light','aria-label':'Light mode',onClick:()=>setTheme(value=>value==='dark'?'light':'dark')},theme==='dark'?'Switch to light mode':'Switch to dark mode')),
+      h('a',{href:'#exercises'},'Open exercise workspace')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
         h('p',{role:'status'},done.length+' of '+labs.length+' practiced'),
