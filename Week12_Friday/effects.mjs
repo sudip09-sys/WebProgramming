@@ -119,9 +119,103 @@ function Samples(){
         button('Switch accent',()=>setMode(value=>value==='gold'?'red':'gold')))));
 }
 
+function formatTime(ms){
+  const seconds=Math.floor(ms/1000);
+  return [Math.floor(seconds/60),seconds%60].map(n=>String(n).padStart(2,'0')).join(':')+'.'+Math.floor(ms%1000/100);
+}
+
+function Stopwatch({visible}){
+  const [elapsed,setElapsed]=useState(0);
+  const [started,setStarted]=useState(null);
+  const [now,setNow]=useState(0);
+  const [laps,setLaps]=useState([]);
+  const total=elapsed+(started===null?0:now-started);
+  useEffect(()=>{
+    if(started===null||!visible)return;
+    const id=setInterval(()=>setNow(performance.now()),50);
+    return ()=>clearInterval(id);
+  },[started,visible]);
+  const control=(label,onClick,disabled=false)=>h('button',{type:'button',onClick,disabled},label);
+  return card('E3 · Stopwatch and laps','Start, stop, and reset the timer. Lap splits show the time since the previous lap.',
+    h('p',{className:'friday-reading',role:'timer'},formatTime(total)),
+    control('Start',()=>{const mark=performance.now();setNow(mark);setStarted(mark);},started!==null),
+    control('Stop',()=>{setElapsed(elapsed+performance.now()-started);setStarted(null);},started===null),
+    control('Lap',()=>setLaps([...laps,elapsed+performance.now()-started]),started===null),
+    control('Reset',()=>{setStarted(null);setElapsed(0);setLaps([]);}),
+    laps.length>0&&h('ol',null,laps.map((lap,index)=>h('li',{key:index},'Lap '+(index+1)+' · '+formatTime(lap)+' total · '+formatTime(lap-(laps[index-1]||0))+' split'))));
+}
+
+function weatherLabel(code){
+  if(code===0)return 'Clear';
+  if(code<=2)return 'Partly cloudy';
+  if(code===3)return 'Overcast';
+  if(code<=48)return 'Fog';
+  if(code<=57)return 'Drizzle';
+  if(code<=67)return 'Rain';
+  if(code<=77)return 'Snow';
+  if(code<=82)return 'Rain showers';
+  if(code<=86)return 'Snow showers';
+  return 'Thunderstorm';
+}
+
+async function weatherJSON(url,signal){
+  const response=await fetch(url,{signal});
+  if(response.status===429)throw Error('Weather service rate limit reached. Try again later.');
+  if(!response.ok)throw Error('Weather service is unavailable. Try again.');
+  return response.json();
+}
+
+function Weather(){
+  const [city,setCity]=useState('Seoul');
+  const [search,setSearch]=useState(null);
+  const [matches,setMatches]=useState(null);
+  const [place,setPlace]=useState(null);
+  const [reading,setReading]=useState(null);
+  useEffect(()=>{
+    if(!search)return;
+    const controller=new AbortController();
+    const {signal}=controller;
+    weatherJSON('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&name='+encodeURIComponent(search.name),signal)
+      .then(data=>{if(!signal.aborted)setMatches({places:data.results||[]});})
+      .catch(error=>{if(!signal.aborted)setMatches({error:error.message});});
+    return ()=>controller.abort();
+  },[search]);
+  useEffect(()=>{
+    if(!place)return;
+    const controller=new AbortController();
+    const {signal}=controller;
+    const params=new URLSearchParams({latitude:place.latitude,longitude:place.longitude,timezone:'auto',
+      current:'temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code'});
+    weatherJSON('https://api.open-meteo.com/v1/forecast?'+params,signal)
+      .then(data=>{if(!data.current)throw Error('No current conditions are available.');if(!signal.aborted)setReading({data});})
+      .catch(error=>{if(!signal.aborted)setReading({error:error.message});});
+    return ()=>controller.abort();
+  },[place]);
+  const placeName=p=>[p.name,p.admin1,p.country].filter(Boolean).join(', ');
+  const data=reading?.data;
+  return card('Homework · Weather dashboard','Find a city and select a match to load its current conditions.',
+    h('form',{onSubmit:event=>{
+      event.preventDefault();
+      if(city.trim().length<2)return;
+      setMatches(null);setPlace(null);setReading(null);setSearch({name:city.trim()});
+    }},field('City name',city,setCity),h('button',{disabled:city.trim().length<2},'Find city')),
+    h('p',{role:'status'},matches?.error||(search&&!matches?'Finding cities…':matches?.places?.length===0?'No cities found. Try another name.':'')),
+    matches?.places?.length>0&&h('div',{role:'group','aria-label':'Matching cities'},matches.places.map(p=>
+      h('button',{type:'button',key:p.id,'aria-pressed':place?.id===p.id,onClick:()=>{setReading(null);setPlace({...p});}},placeName(p)))),
+    h('p',{role:'status'},reading?.error||(place&&!reading?'Loading weather for '+place.name+'…':'')),
+    data&&h('section',{className:'profile-result','aria-label':'Current weather'},
+      h('h4',null,placeName(place)),h('p',{className:'friday-reading'},data.current.temperature_2m+' °C'),
+      h('p',null,weatherLabel(data.current.weather_code)),
+      h('dl',{className:'profile-stats'},[['Feels like',data.current.apparent_temperature+' °C'],['Wind',data.current.wind_speed_10m+' km/h'],['Humidity',data.current.relative_humidity_2m+'%']].map(([label,value])=>h('div',{key:label},h('dt',null,label),h('dd',null,value)))),
+      h('small',null,'Local reading: '+data.current.time.replace('T',' ')+' · '+data.timezone)),
+    h('p',null,h('a',{href:'https://open-meteo.com/'},'Weather data by Open-Meteo')));
+}
+
 const labs=[
   {name:'Tab-title reminders',component:TabTitle,code:'useEffect(() => {\\n  const previous = document.title;\\n  document.title = formatTitle(count);\\n  return () => { document.title = previous; };\\n}, [count]);'},
   {name:'GitHub profile finder',component:ProfileSearch,code:'useEffect(() => {\\n  const controller = new AbortController();\\n  loadProfile(query, controller.signal);\\n  return () => controller.abort();\\n}, [query]);'},
+  {name:'Stopwatch and laps',component:Stopwatch,code:'The timer effect returns clearInterval when stopped or hidden.'},
+  {name:'Weather dashboard',component:Weather,code:'The weather effect fetches on location change and aborts during cleanup.'},
   {name:'Name badge preview',component:NamePreview,code:"const fullName = [first.trim(), last.trim()]\\n  .filter(Boolean).join(' ');"}
 ];
 function ReactLab(){
@@ -132,7 +226,7 @@ function ReactLab(){
   }
   return h('main',{className:'friday'},
     h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
-      h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Track reminders, look up a GitHub profile and build a name badge.'),
+      h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Try timed laps, check local weather, and see how React effects handle timers and requests.'),
       h('a',{href:'#exercises'},'Open exercise workspace')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
@@ -141,7 +235,7 @@ function ReactLab(){
         labs.map((lab,index)=>h('button',{key:lab.name,type:'button','aria-pressed':index===active,onClick:()=>setActive(index)},lab.name+(done.includes(index)?' ✓':'')))),
       h('div',{className:'stage'},
         labs.map((lab,index)=>h('div',{key:lab.name,hidden:index!==active},
-          h(lab.component),h('details',null,h('summary',null,'See the React pattern'),h('pre',null,h('code',null,lab.code))))),
+          h(lab.component,{visible:index===active}),h('details',null,h('summary',null,'See the React pattern'),h('pre',null,h('code',null,lab.code))))),
         h('button',{type:'button','aria-pressed':done.includes(active),onClick:togglePractice},done.includes(active)?'Practiced ✓':'Mark as practiced'))),
     h('section',{className:'stage',id:'what-i-learned','aria-labelledby':'recap-title'},
       h('h2',{id:'recap-title'},'What I learned'),
