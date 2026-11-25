@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>try{const theme=localStorage.getItem('sudip-friday-theme');if(theme==='light'||theme==='dark')document.documentElement.dataset.theme=theme;}catch{}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Week 12 Friday | Sudip Lab</title>
@@ -15,7 +16,16 @@ a{color:#ff9da8}output{display:block;margin-top:12px}.task:hover{transform:none}
 .profile-result{margin-top:16px;padding:18px;border:1px solid #70313d;border-radius:12px;background:#151218;overflow-wrap:anywhere}.profile-heading{display:flex;align-items:center;gap:14px}.profile-heading img{border-radius:50%;flex-shrink:0}.profile-result h4,.profile-heading p{margin:.25rem 0}.profile-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,90px),1fr));gap:8px;margin:16px 0}.profile-stats div,.profile-repos li{padding:10px;border:1px solid #643541;border-radius:8px}.profile-stats dt,.profile-repos small{color:#e3b8c2;font-size:.8rem}.profile-stats dd{margin:0;font-size:1.3rem;font-weight:700}.profile-repos{display:grid;gap:8px;list-style:none;padding:0}.profile-repos p{margin:.3em 0}
 .friday .hero{position:relative;background:linear-gradient(115deg,#10121a,#511b30);padding:clamp(26px,6vw,70px)}.friday .hero h1{font-size:clamp(3rem,10vw,8rem);letter-spacing:-.07em}.friday .hero em{color:#ff7897;font-style:normal}.friday .workbench{gap:22px}.friday .stage{background:linear-gradient(145deg,#2d1926,#151218 65%)}.friday .profile-heading img{outline:3px solid #b94c70;outline-offset:4px}.friday .profile-stats dd{color:#ff91ab;font-size:1.9rem}.friday .profile-repos{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}.friday .profile-repos li{background:#241722}
 .friday .friday-reading{font:700 clamp(2rem,6vw,4rem)/1 var(--mono,monospace);color:#ff91ab;margin:18px 0}
+.friday .theme-switch{margin-inline-start:8px}.best-lap{font-weight:700}.forecast{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;list-style:none;padding:0}.forecast li{display:grid;gap:6px;border:1px solid var(--line);border-radius:10px;padding:10px}.forecast time{font-weight:700}
+html[data-theme=light]{--bg:#f7f1f4;--panel:#fff;--text:#291723;--muted:#664953;--line:#dbc3ce;--red:#9c254c;background:#f7f1f4;color:#291723;color-scheme:light}
+html[data-theme=light] body{background:#f7f1f4;color:#291723;color-scheme:light}
+[data-theme=light] .friday .hero{background:linear-gradient(115deg,#fff,#f6d8e5)}
+[data-theme=light] .friday :is(aside,.stage,.task,.profile-result,.profile-repos li,output,pre){background:#fff;color:#291723}
+[data-theme=light] :is(a,.friday .hero em,.friday .friday-reading,.friday .profile-stats dd,.friday .stage summary,.profile-stats dt,.profile-repos small){color:#8a2045}
+[data-theme=light] .friday :is(button,input,.hero a){background:#f9e5ee;color:#50142d}
+[data-theme=light] .friday button[aria-pressed=true]{background:#882345;color:#fff}
+[data-theme=light] .friday :focus-visible{outline-color:#882345}
 </style>
 </head>
-<body><div class="shell"><header class="header"><a class="brand" href="../#coursework">SUDIP<span> / LAB</span></a><nav aria-label="Course navigation"><a href="../#coursework">Coursework</a><a href="../week12/">Week 12 State</a><a href="#exercises">Exercises</a></nav></header><div id="lab"></div></div><noscript>Enable JavaScript to run the exercises.</noscript><script type="module" src="./effects.mjs?v=stopwatch-weather"></script></body>
+<body><div class="shell"><header class="header"><a class="brand" href="../#coursework">SUDIP<span> / LAB</span></a><nav aria-label="Course navigation"><a href="../#coursework">Coursework</a><a href="../week12/">Week 12 State</a><a href="#exercises">Exercises</a></nav></header><div id="lab"></div></div><noscript>Enable JavaScript to run the exercises.</noscript><script type="module" src="./effects.mjs?v=theme-and-forecast"></script></body>
 </html>

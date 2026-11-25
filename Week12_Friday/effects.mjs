@@ -135,6 +135,7 @@ function Stopwatch({visible}){
     const id=setInterval(()=>setNow(performance.now()),50);
     return ()=>clearInterval(id);
   },[started,visible]);
+  const fastest=laps.length?Math.min(...laps.map((lap,index)=>lap-(laps[index-1]||0))):null;
   const control=(label,onClick,disabled=false)=>h('button',{type:'button',onClick,disabled},label);
   return card('E3 · Stopwatch and laps','Start, stop, and reset the timer. Lap splits show the time since the previous lap.',
     h('p',{className:'friday-reading',role:'timer'},formatTime(total)),
@@ -142,6 +143,7 @@ function Stopwatch({visible}){
     control('Stop',()=>{setElapsed(elapsed+performance.now()-started);setStarted(null);},started===null),
     control('Lap',()=>setLaps([...laps,elapsed+performance.now()-started]),started===null),
     control('Reset',()=>{setStarted(null);setElapsed(0);setLaps([]);}),
+    fastest!==null&&h('p',{className:'best-lap'},'Fastest split · '+formatTime(fastest)),
     laps.length>0&&h('ol',null,laps.map((lap,index)=>h('li',{key:index},'Lap '+(index+1)+' · '+formatTime(lap)+' total · '+formatTime(lap-(laps[index-1]||0))+' split'))));
 }
 
@@ -185,6 +187,7 @@ function Weather(){
     const controller=new AbortController();
     const {signal}=controller;
     const params=new URLSearchParams({latitude:place.latitude,longitude:place.longitude,timezone:'auto',
+      forecast_days:4,daily:'temperature_2m_max,temperature_2m_min,weather_code',
       current:'temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code'});
     weatherJSON('https://api.open-meteo.com/v1/forecast?'+params,signal)
       .then(data=>{if(!data.current)throw Error('No current conditions are available.');if(!signal.aborted)setReading({data});})
@@ -207,7 +210,12 @@ function Weather(){
       h('h4',null,placeName(place)),h('p',{className:'friday-reading'},data.current.temperature_2m+' °C'),
       h('p',null,weatherLabel(data.current.weather_code)),
       h('dl',{className:'profile-stats'},[['Feels like',data.current.apparent_temperature+' °C'],['Wind',data.current.wind_speed_10m+' km/h'],['Humidity',data.current.relative_humidity_2m+'%']].map(([label,value])=>h('div',{key:label},h('dt',null,label),h('dd',null,value)))),
-      h('small',null,'Local reading: '+data.current.time.replace('T',' ')+' · '+data.timezone)),
+      h('small',null,'Local reading: '+data.current.time.replace('T',' ')+' · '+data.timezone),
+      data.daily&&h('section',{'aria-label':'Four-day forecast'},h('h4',null,'Four-day forecast'),
+        h('ul',{className:'forecast'},data.daily.time.map((date,index)=>h('li',{key:date},
+          h('time',{dateTime:date},new Intl.DateTimeFormat('en',{weekday:'short',timeZone:'UTC'}).format(new Date(date))),
+          h('span',null,weatherLabel(data.daily.weather_code[index])),
+          h('strong',null,data.daily.temperature_2m_max[index]+'° / '+data.daily.temperature_2m_min[index]+'°')))))),
     h('p',null,h('a',{href:'https://open-meteo.com/'},'Weather data by Open-Meteo')));
 }
 
@@ -220,6 +228,11 @@ const labs=[
 ];
 function ReactLab(){
   const [active,setActive]=useState(1);
+  const [theme,setTheme]=useState(()=>document.documentElement.dataset.theme||'dark');
+  useEffect(()=>{
+    document.documentElement.dataset.theme=theme;
+    try{localStorage.setItem('sudip-friday-theme',theme);}catch{}
+  },[theme]);
   const [done,setDone]=useState([]);
   function togglePractice(){
     setDone(items=>items.includes(active)?items.filter(index=>index!==active):[...items,active]);
@@ -227,7 +240,8 @@ function ReactLab(){
   return h('main',{className:'friday'},
     h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
       h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Try timed laps, check local weather, and see how React effects handle timers and requests.'),
-      h('a',{href:'#exercises'},'Open exercise workspace')),
+      h('a',{href:'#exercises'},'Open exercise workspace'),
+      h('button',{type:'button',className:'theme-switch','aria-pressed':theme==='light','aria-label':'Light mode',onClick:()=>setTheme(value=>value==='dark'?'light':'dark')},theme==='dark'?'Switch to light mode':'Switch to dark mode')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
         h('p',{role:'status'},done.length+' of '+labs.length+' practiced'),
