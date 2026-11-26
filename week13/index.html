@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>React Forms Lab · Week 13 Monday</title>
+  <style>
+    :root { color-scheme:dark; --surface:#151519; --line:#37333c; --text:#f8f5f8; --muted:#c6bfca; --accent:#ff8d9b; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:radial-gradient(ellipse at top right,#3b1828,transparent 42rem),#101014; color:var(--text); font:1rem/1.55 system-ui,sans-serif; }
+    main { width:min(70rem,calc(100% - 2rem)); margin:auto; padding:2.5rem 0 4rem; }
+    header { padding:0 0 1.5rem; }
+    h1 { margin:.15em 0; font-size:clamp(2.7rem,8vw,5.5rem); line-height:1.05; letter-spacing:-.055em; }
+    h2,h3,h4 { margin:0 0 .7rem; line-height:1.2; }
+    p { margin:.35rem 0 .75rem; }
+    a { color:var(--accent); text-underline-offset:.2em; }
+    :focus-visible { outline:2px solid #ffc0cb; outline-offset:3px; }
+    .week { color:var(--accent); margin-top:1.5rem; font-weight:700; letter-spacing:.08em; }
+    .lab-nav,.choices,.actions,.tags { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; }
+    .lab-nav { margin-bottom:1.25rem; }
+    .lab-nav a,.choices label { border:1px solid var(--line); border-radius:.7rem; padding:.4rem .65rem; }
+    .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .card { padding:clamp(1rem,3vw,1.6rem); border:1px solid var(--line); background:var(--surface); border-radius:1rem; scroll-margin:1rem; }
+    .card:target { border-color:var(--accent); }
+    #profile,#registration { grid-column:1/-1; }
+    .profile-grid { display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:1.25rem; align-items:start; }
+    form,.field { display:grid; gap:.45rem; }
+    form { gap:.7rem; }
+    fieldset { border:0; padding:0; margin:0; min-width:0; }
+    legend { margin-bottom:.35rem; }
+    input,textarea,select,button { font:inherit; }
+    input:not([type=checkbox],[type=radio]),textarea,select { border:1px solid var(--line); border-radius:.55rem; background:#101014; color:inherit; padding:.6rem .75rem; width:100%; min-width:0; }
+    input[type=radio],input[type=checkbox],progress { accent-color:var(--accent); }
+    textarea { min-height:6rem; resize:vertical; }
+    button { border:1px solid transparent; border-radius:.55rem; padding:.45rem .8rem; background:var(--accent); color:#231018; font-weight:700; justify-self:start; cursor:pointer; }
+    button.secondary { color:var(--text); border-color:var(--line); background:transparent; }
+    button:disabled { opacity:.55; cursor:default; }
+    progress { width:100%; margin-top:.7rem; }
+    .error { color:#ff9cad; }
+    .status { color:var(--muted); }
+    .preview { background:#211923; border:1px solid var(--line); padding:1rem; border-radius:.8rem; overflow-wrap:anywhere; }
+    .avatar { width:5rem; aspect-ratio:1; object-fit:cover; border-radius:50%; }
+    .bio { white-space:pre-wrap; }
+    @media(max-width:42rem) { .cards,.profile-grid { grid-template-columns:minmax(0,1fr); } }
+  </style>
+  <script defer crossorigin src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script defer crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script defer src="forms.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="../">← Coursework homepage</a>
+      <p class="week">Week 13 Monday</p>
+      <h1>React Forms Lab</h1>
+      <p>Try six exercises in controlled inputs, validation, and multi-step forms. The forms run locally in your browser.</p>
+    </header>
+    <div id="week13-lab"></div>
+    <noscript>Enable JavaScript to use the React exercises.</noscript>
+  </main>
+</body>
+</html>
