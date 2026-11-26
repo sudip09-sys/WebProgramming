@@ -75,7 +75,7 @@ function ProfileSearch(){
         repo.description&&h('p',null,repo.description),
         h('small',null,[repo.language,repo.stargazers_count+' stars',repo.forks_count+' forks'].filter(Boolean).join(' · ')))))));
 
-  return card('E2 · GitHub profile dashboard','Search a public profile and explore its latest repositories.',
+  return card('Challenge · GitHub profile dashboard','Search a public profile and explore its latest repositories.',
     h('form',{onSubmit:event=>{
       event.preventDefault();
       const name=draft.trim();
@@ -205,6 +205,7 @@ function Weather(){
   const high=data?.daily?Math.max(...data.daily.temperature_2m_max):0;
   const scale=Math.max(1,high-low);
   return card('Homework · Weather dashboard','Search by city or enter coordinates to load current conditions and a four-day forecast.',
+    h('div',{className:'weather-inputs'},h('section',{'aria-label':'City search'},
     h('form',{onSubmit:event=>{
       event.preventDefault();
       if(city.trim().length<2)return;
@@ -212,8 +213,8 @@ function Weather(){
     }},field('City name',city,setCity),h('button',{disabled:city.trim().length<2},'Find city')),
     h('p',{role:'status'},matches?.error||(search&&!matches?'Finding cities…':matches?.places?.length===0?'No cities found. Try another name.':'')),
     matches?.places?.length>0&&h('div',{role:'group','aria-label':'Matching cities'},matches.places.map(p=>
-      h('button',{type:'button',key:p.id,'aria-pressed':place?.id===p.id,onClick:()=>{setReading(null);setPlace({...p});}},placeName(p)))),
-    h('details',null,h('summary',null,'Search by coordinates'),
+      h('button',{type:'button',key:p.id,'aria-pressed':place?.id===p.id,onClick:()=>{setReading(null);setPlace({...p});}},placeName(p))))),
+    h('section',{'aria-label':'Coordinate search'},
       h('form',{onSubmit:event=>{
         event.preventDefault();
         const latitude=Number(coordinates.latitude), longitude=Number(coordinates.longitude);
@@ -228,7 +229,7 @@ function Weather(){
       }},field('Latitude',coordinates.latitude,value=>setCoordinates(previous=>({...previous,latitude:value}))),
         field('Longitude',coordinates.longitude,value=>setCoordinates(previous=>({...previous,longitude:value}))),
         h('button',{type:'submit'},'Load coordinates')),
-      h('p',{role:'status'},inputError)),
+      h('p',{role:'status'},inputError))),
     reading?.error&&place&&button('Retry weather',()=>{setReading(null);setPlace({...place});}),
     h('p',{role:'status'},reading?.error||(place&&!reading?'Loading weather for '+place.name+'…':'')),
     data&&h('section',{className:'profile-result','aria-label':'Current weather'},
@@ -275,8 +276,50 @@ function RequestRace(){
     h('p',{role:'status'},message));
 }
 
+function UserDirectory(){
+  const [id,setId]=useState(1);
+  const [attempt,setAttempt]=useState(0);
+  const [result,setResult]=useState(null);
+  useEffect(()=>{
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort('timeout'),8000);
+    async function loadUser(){
+      try{
+        const response=await fetch('https://jsonplaceholder.typicode.com/users/'+id,{signal:controller.signal});
+        if(!response.ok)throw Error(response.status===404?'No profile exists for user '+id+'.':'The directory could not load right now.');
+        const user=await response.json();
+        if(!controller.signal.aborted)setResult({user});
+      }catch(error){
+        if(!controller.signal.aborted||controller.signal.reason==='timeout'){
+          setResult({error:controller.signal.aborted?'The request timed out. Try again.':error.message});
+        }
+      }finally{clearTimeout(timeout);}
+    }
+    loadUser();
+    return ()=>{clearTimeout(timeout);controller.abort();};
+  },[id,attempt]);
+  function search(next){
+    setResult(null);
+    setId(next);
+    setAttempt(previous=>previous+1);
+  }
+  const user=result?.user;
+  return card('E2 · People directory','Switch profiles to fetch a new record. Try a missing ID to see how the page handles a failed request.',
+    h('div',{role:'group','aria-label':'Select a sample user'},[1,2,3,4,5].map(value=>h('button',{type:'button',key:value,'aria-pressed':value===id,onClick:()=>search(value)},'User '+value))),
+    button('Test missing user',()=>search(999)),
+    h('p',{role:'status'},result?.error||(!result?'Loading user '+id+'…':'Loaded user '+id)),
+    result?.error&&button('Retry request',()=>search(id)),
+    user&&h('section',{className:'profile-result','aria-label':'Sample user profile'},
+      h('div',{className:'profile-heading'},h('span',{className:'directory-avatar','aria-hidden':true},user.name.split(' ').slice(0,2).map(word=>word[0]).join('')),
+        h('div',null,h('h4',null,user.name),h('p',null,'@'+user.username))),
+      h('dl',{className:'profile-stats'},[['Company',user.company.name],['City',user.address.city],['Email',user.email]].map(([label,value])=>h('div',{key:label},h('dt',null,label),h('dd',null,value)))),
+      h('p',null,user.company.catchPhrase)),
+    h('p',null,h('a',{href:'https://jsonplaceholder.typicode.com/'},'Sample data from JSONPlaceholder')));
+}
+
 const labs=[
   {name:'Tab-title reminders',component:TabTitle,code:'useEffect(() => {\\n  const previous = document.title;\\n  document.title = formatTitle(count);\\n  return () => { document.title = previous; };\\n}, [count]);'},
+  {name:'Fetch a User',component:UserDirectory,code:'Fetch the selected user in an effect, handle loading and errors, and abort on cleanup.'},
   {name:'GitHub profile finder',component:ProfileSearch,code:'useEffect(() => {\\n  const controller = new AbortController();\\n  loadProfile(query, controller.signal);\\n  return () => controller.abort();\\n}, [query]);'},
   {name:'Stopwatch and laps',component:Stopwatch,code:'The timer effect returns clearInterval when stopped or hidden.'},
   {name:'Weather dashboard',component:Weather,code:'The weather effect fetches on location change and aborts during cleanup.'},
@@ -285,7 +328,7 @@ const labs=[
   {name:'Name badge preview',component:NamePreview,code:"const fullName = [first.trim(), last.trim()]\\n  .filter(Boolean).join(' ');"}
 ];
 function ReactLab(){
-  const [active,setActive]=useState(()=>location.hash==='#weather-homework'?3:1);
+  const [active,setActive]=useState(()=>location.hash==='#weather-homework'?labs.findIndex(lab=>lab.component===Weather):1);
   const [theme,setTheme]=useState(()=>document.documentElement.dataset.theme||'dark');
   useEffect(()=>{
     document.documentElement.dataset.theme=theme;
@@ -308,7 +351,7 @@ function ReactLab(){
   return h('main',{className:'friday'},
     h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
       h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Try timed laps, check local weather, and see how React effects handle timers and requests.'),
-      h('a',{href:'#exercises'},'Open exercise workspace'),h('a',{href:'#weather-homework',onClick:()=>setActive(3)},'Weather homework')),
+      h('a',{href:'#exercises'},'Open exercise workspace'),h('a',{href:'#weather-homework',onClick:()=>setActive(labs.findIndex(lab=>lab.component===Weather))},'Weather homework')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
         h('p',{role:'status'},done.length+' of '+labs.length+' practiced'),
