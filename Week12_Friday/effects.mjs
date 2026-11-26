@@ -168,11 +168,15 @@ async function weatherJSON(url,signal){
   return response.json();
 }
 
+const defaultWeatherPlace={name:'Seoul',country:'South Korea',latitude:37.5665,longitude:126.978};
+
 function Weather(){
   const [city,setCity]=useState('Seoul');
   const [search,setSearch]=useState(null);
   const [matches,setMatches]=useState(null);
-  const [place,setPlace]=useState(null);
+  const [place,setPlace]=useState(defaultWeatherPlace);
+  const [coordinates,setCoordinates]=useState({latitude:'',longitude:''});
+  const [inputError,setInputError]=useState('');
   const [reading,setReading]=useState(null);
   useEffect(()=>{
     if(!search)return;
@@ -200,15 +204,32 @@ function Weather(){
   const low=data?.daily?Math.min(...data.daily.temperature_2m_min):0;
   const high=data?.daily?Math.max(...data.daily.temperature_2m_max):0;
   const scale=Math.max(1,high-low);
-  return card('Homework · Weather dashboard','Find a city and select a match to load its current conditions.',
+  return card('Homework · Weather dashboard','Search by city or enter coordinates to load current conditions and a four-day forecast.',
     h('form',{onSubmit:event=>{
       event.preventDefault();
       if(city.trim().length<2)return;
-      setMatches(null);setPlace(null);setReading(null);setSearch({name:city.trim()});
+      setInputError('');setMatches(null);setPlace(null);setReading(null);setSearch({name:city.trim()});
     }},field('City name',city,setCity),h('button',{disabled:city.trim().length<2},'Find city')),
     h('p',{role:'status'},matches?.error||(search&&!matches?'Finding cities…':matches?.places?.length===0?'No cities found. Try another name.':'')),
     matches?.places?.length>0&&h('div',{role:'group','aria-label':'Matching cities'},matches.places.map(p=>
       h('button',{type:'button',key:p.id,'aria-pressed':place?.id===p.id,onClick:()=>{setReading(null);setPlace({...p});}},placeName(p)))),
+    h('details',null,h('summary',null,'Search by coordinates'),
+      h('form',{onSubmit:event=>{
+        event.preventDefault();
+        const latitude=Number(coordinates.latitude), longitude=Number(coordinates.longitude);
+        if(!coordinates.latitude.trim()||!coordinates.longitude.trim()||
+          !Number.isFinite(latitude)||!Number.isFinite(longitude)||
+          Math.abs(latitude)>90||Math.abs(longitude)>180){
+          setInputError('Enter latitude between −90 and 90 and longitude between −180 and 180.');
+          return;
+        }
+        setInputError('');setSearch(null);setMatches(null);setReading(null);
+        setPlace({name:latitude.toFixed(4)+', '+longitude.toFixed(4),latitude,longitude});
+      }},field('Latitude',coordinates.latitude,value=>setCoordinates(previous=>({...previous,latitude:value}))),
+        field('Longitude',coordinates.longitude,value=>setCoordinates(previous=>({...previous,longitude:value}))),
+        h('button',{type:'submit'},'Load coordinates')),
+      h('p',{role:'status'},inputError)),
+    reading?.error&&place&&button('Retry weather',()=>{setReading(null);setPlace({...place});}),
     h('p',{role:'status'},reading?.error||(place&&!reading?'Loading weather for '+place.name+'…':'')),
     data&&h('section',{className:'profile-result','aria-label':'Current weather'},
       h('h4',null,placeName(place)),h('p',{className:'friday-reading'},data.current.temperature_2m+' °C'),
@@ -226,15 +247,45 @@ function Weather(){
     h('p',null,h('a',{href:'https://open-meteo.com/'},'Weather data by Open-Meteo')));
 }
 
+function ViewportListener(){
+  const [width,setWidth]=useState(()=>window.innerWidth);
+  useEffect(()=>{
+    const measure=()=>setWidth(window.innerWidth);
+    window.addEventListener('resize',measure);
+    return ()=>window.removeEventListener('resize',measure);
+  },[]);
+  return card('Practice · Viewport listener','Resize the browser to see the result. The effect removes its listener on unmount.',
+    h('output',null,width+' px · '+(width<720?'Compact layout':'Wide layout')));
+}
+
+function RequestRace(){
+  const [request,setRequest]=useState(null);
+  const [message,setMessage]=useState('Choose a reply speed.');
+  useEffect(()=>{
+    if(!request)return;
+    const timer=setTimeout(()=>setMessage(request.label+' reply arrived.'),request.delay);
+    return ()=>clearTimeout(timer);
+  },[request]);
+  function send(label,delay){
+    setMessage('Waiting for the '+label.toLowerCase()+' reply…');
+    setRequest({label,delay});
+  }
+  return card('Practice · Stale replies','Start Slow, then immediately click Fast. The slow reply is canceled so it cannot overwrite the fast result.',
+    button('Slow request',()=>send('Slow',1800)),button('Fast request',()=>send('Fast',250)),
+    h('p',{role:'status'},message));
+}
+
 const labs=[
   {name:'Tab-title reminders',component:TabTitle,code:'useEffect(() => {\\n  const previous = document.title;\\n  document.title = formatTitle(count);\\n  return () => { document.title = previous; };\\n}, [count]);'},
   {name:'GitHub profile finder',component:ProfileSearch,code:'useEffect(() => {\\n  const controller = new AbortController();\\n  loadProfile(query, controller.signal);\\n  return () => controller.abort();\\n}, [query]);'},
   {name:'Stopwatch and laps',component:Stopwatch,code:'The timer effect returns clearInterval when stopped or hidden.'},
   {name:'Weather dashboard',component:Weather,code:'The weather effect fetches on location change and aborts during cleanup.'},
+  {name:'Viewport listener',component:ViewportListener,code:'Add a resize listener in the effect and remove it in cleanup.'},
+  {name:'Stale replies',component:RequestRace,code:'Cancel the previous operation when the request dependency changes.'},
   {name:'Name badge preview',component:NamePreview,code:"const fullName = [first.trim(), last.trim()]\\n  .filter(Boolean).join(' ');"}
 ];
 function ReactLab(){
-  const [active,setActive]=useState(1);
+  const [active,setActive]=useState(()=>location.hash==='#weather-homework'?3:1);
   const [theme,setTheme]=useState(()=>document.documentElement.dataset.theme||'dark');
   useEffect(()=>{
     document.documentElement.dataset.theme=theme;
@@ -257,14 +308,14 @@ function ReactLab(){
   return h('main',{className:'friday'},
     h('section',{className:'hero'},h('p',{className:'eyebrow'},'WEEK 12 FRIDAY / WEB PROGRAMMING'),
       h('h1',null,'React ',h('em',null,'Effects.')),h('p',null,'Try timed laps, check local weather, and see how React effects handle timers and requests.'),
-      h('a',{href:'#exercises'},'Open exercise workspace')),
+      h('a',{href:'#exercises'},'Open exercise workspace'),h('a',{href:'#weather-homework',onClick:()=>setActive(3)},'Weather homework')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
         h('p',{role:'status'},done.length+' of '+labs.length+' practiced'),
         h('progress',{value:done.length,max:labs.length,'aria-label':'Practice progress'}),
         labs.map((lab,index)=>h('button',{key:lab.name,type:'button','aria-pressed':index===active,onClick:()=>setActive(index)},lab.name+(done.includes(index)?' ✓':'')))),
       h('div',{className:'stage'},
-        labs.map((lab,index)=>h('div',{key:lab.name,hidden:index!==active},
+        labs.map((lab,index)=>h('div',{key:lab.name,id:lab.component===Weather?'weather-homework':undefined,hidden:index!==active},
           h(lab.component,{visible:index===active}),h('details',null,h('summary',null,'See the React pattern'),h('pre',null,h('code',null,lab.code))))),
         h('button',{type:'button','aria-pressed':done.includes(active),onClick:togglePractice},done.includes(active)?'Practiced ✓':'Mark as practiced'))),
     h('section',{className:'stage',id:'what-i-learned','aria-labelledby':'recap-title'},
