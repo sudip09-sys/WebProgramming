@@ -278,12 +278,29 @@
   }
 
   const components = [Counter, Contact, Skills, Feedback, Registration, Profile];
+  function activeExercise() {
+    const id = location.hash.slice(1);
+    return tasks.some(([key]) => key === id) ? id : tasks[0][0];
+  }
+
   function Lab() {
-    return h(React.Fragment, null,
+    const [active, setActive] = useState(activeExercise);
+
+    useEffect(() => {
+      const sync = () => setActive(activeExercise());
+      window.addEventListener('hashchange', sync);
+      return () => window.removeEventListener('hashchange', sync);
+    }, []);
+
+    return h('div', { className: 'lab-layout' },
       h('nav', { className: 'lab-nav', 'aria-label': 'Exercises' },
-        tasks.map(([id, label]) => h('a', { key: id, href: '#' + id }, label))),
-      h('div', { className: 'cards' }, tasks.map(([id, label], index) =>
-        h('section', { key: id, id, className: 'card', 'aria-labelledby': id + '-title' },
+        [['Practice', tasks.slice(0, 3)], ['Challenges', tasks.slice(3, 5)], ['Homework', tasks.slice(5)]]
+          .map(([title, exercises]) => h('div', { className: 'exercise-group', key: title },
+            h('h2', null, title),
+            h('ul', null, exercises.map(([id, label]) =>
+              h('li', { key: id }, h('a', { href: '#' + id, 'aria-current': id === active ? 'location' : undefined }, label))))))),
+      h('div', { className: 'exercise-workspace' }, tasks.map(([id, label], index) =>
+        h('section', { key: id, id, hidden: id !== active, className: 'card', 'aria-labelledby': id + '-title' },
           h('h2', { id: id + '-title' }, label), h(components[index])))));
   }
 
@@ -302,7 +319,7 @@
     if (location.hash) {
       const observer = new MutationObserver(() => {
         const section = document.getElementById(location.hash.slice(1));
-        if (section) { section.scrollIntoView(); observer.disconnect(); }
+        if (section && !section.hidden) { section.scrollIntoView({ block: 'nearest' }); observer.disconnect(); }
       });
       observer.observe(lab, { childList: true, subtree: true });
     }
