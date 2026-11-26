@@ -42,6 +42,25 @@
     .avatar { width:5rem; aspect-ratio:1; object-fit:cover; border-radius:50%; }
     .bio { white-space:pre-wrap; }
     @media(max-width:42rem) { .cards,.profile-grid { grid-template-columns:minmax(0,1fr); } }
+    .registration-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:1.5rem; align-items:start; }
+    .registration-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); list-style:none; gap:.45rem; padding:0; margin:0; }
+    .registration-stages li { padding:.38rem .2rem; border-bottom:2px solid var(--line); color:var(--muted); font-size:.82rem; }
+    .registration-stages li[aria-current] { color:var(--text); border-color:var(--accent); }
+    .registration-stages li[data-complete=true] { color:var(--accent); }
+    .registration-step { color:var(--muted); font-size:.85rem; }
+    .campus-pass { --pass-color:#ff9eaa; padding:1.25rem; border:1px solid var(--pass-color); border-radius:1rem; background:radial-gradient(ellipse at top right,color-mix(in srgb,var(--pass-color) 25%,transparent),transparent 65%),#18151c; overflow-wrap:anywhere; }
+    .campus-pass[data-role=TA] { --pass-color:#82dec9; }
+    .campus-pass[data-role=Instructor] { --pass-color:#c9b1ff; }
+    .pass-header,.campus-pass dl { display:flex; justify-content:space-between; gap:.75rem; flex-wrap:wrap; }
+    .pass-header,.campus-pass dt { color:var(--pass-color); font:.72rem/1.5 ui-monospace,monospace; letter-spacing:.04em; }
+    .pass-status { border:1px solid currentColor; padding:0 .35em; border-radius:.25em; }
+    .pass-identity { display:flex; align-items:center; gap:.85rem; margin:1.5rem 0; }
+    .pass-identity strong { font-size:1.25rem; }
+    .pass-identity p,.campus-pass dd { margin:0; }
+    .pass-monogram { flex:none; display:grid; place-items:center; width:3rem; aspect-ratio:1; border-radius:.65rem; background:var(--pass-color); color:#201722; font-weight:800; }
+    .campus-pass dl { margin:0; border-top:1px solid var(--line); padding-top:.75rem; }
+    .campus-pass dd { color:var(--text); }
+    @media(max-width:42rem) { .registration-layout { grid-template-columns:minmax(0,1fr); } }
   </style>
   <script defer crossorigin src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script defer crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
