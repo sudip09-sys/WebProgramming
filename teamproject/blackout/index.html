@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10140f">
+<title>Memory Match: Blackout</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #10140f;
+    --surface: #181e16;
+    --deep: #121711;
+    --line: #3b4937;
+    --text: #f2f3ea;
+    --muted: #a9b5a4;
+    --lime: #b8fa69;
+    --amber: #ffca7f;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-family: "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    min-height: 100vh; margin: 0; color: var(--text);
+    background: radial-gradient(ellipse at 73% 0%, #253321 0, var(--bg) 49%);
+  }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  button:disabled { cursor: default; }
+  :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  .frame { width: min(1100px, calc(100% - 56px)); margin-inline: auto; }
+  .top { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 850; letter-spacing: .05em; line-height: 1.15; }
+  .brand small { display: block; margin-top: 3px; color: var(--lime); font: 600 .64rem var(--mono); letter-spacing: .24em; }
+  .logo { width: 28px; height: 28px; position: relative; flex-shrink: 0; color: var(--lime); }
+  .logo::before, .logo::after { content: ""; position: absolute; width: 15px; height: 19px; border: 2px solid currentColor; border-radius: 3px; right: 0; top: 2px; transform: rotate(13deg); }
+  .logo::after { left: 0; top: 5px; transform: rotate(-13deg); background: var(--bg); }
+  .button { min-height: 42px; padding: 8px 15px; border: 1px solid #5c7054; border-radius: 6px; background: transparent; color: var(--text); font-size: .85rem; font-weight: 750; }
+  .button:hover:not(:disabled) { background: #293925; }
+  .button:disabled { opacity: .48; }
+  .primary { border-color: transparent; background: var(--lime); color: #13210b; }
+  .primary:hover:not(:disabled) { background: #d6ffa3; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .eyebrow { margin: 0 0 9px; color: var(--lime); font: 700 .73rem/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .hero { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 28px; padding-block: clamp(30px, 7vw, 78px) 30px; }
+  .hero h1 { margin: 0; font-size: clamp(3.2rem, 9vw, 8.25rem); line-height: .82; letter-spacing: -.09em; }
+  .hero p:not(.eyebrow) { max-width: 34ch; line-height: 1.5; color: var(--muted); margin-block: 18px; }
+  .hero-board { display: grid; grid-template-columns: repeat(3, 1fr); width: min(100%, 360px); gap: 8px; justify-self: end; transform: rotate(-5deg); }
+  .hero-board span { display: grid; place-items: center; aspect-ratio: 1.3; border: 1px solid #485945; border-radius: 7px; color: #b4c9ab; background: #212d1e; font: 700 clamp(1.35rem, 4vw, 3.1rem)/1 "Segoe UI Symbol", sans-serif; }
+  .hero-board .lit { background: #324728; border-color: #829f63; color: var(--lime); }
+  .menu-nav { display: flex; flex-wrap: wrap; gap: 7px; padding-block: 0 12px; border-bottom: 1px solid var(--line); }
+  .menu-nav .button[aria-pressed="true"] { background: #2b3d23; border-color: #7b9a63; color: var(--lime); }
+  .menu-panel { padding-block: 17px 28px; }
+  .stage-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .stage-tile { display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: start; text-align: left; gap: 9px; width: 100%; height: 100%; padding: 14px; border: 1px solid var(--line); border-radius: 8px; color: var(--text); background: var(--surface); }
+  button.stage-tile:not(:disabled):hover, .stage-tile[aria-current] { background: #263522; border-color: #77985f; }
+  .stage-tile:disabled { color: var(--muted); }
+  .stage-index { color: var(--lime); font: 700 .72rem/1.55 var(--mono); }
+  .stage-tile strong, .stage-tile small { display: block; }
+  .stage-tile strong { font-size: .96rem; }
+  .stage-tile small { margin-top: 4px; color: var(--muted); font-size: .74rem; }
+  .records { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .records th, .records td { padding: 12px 9px; text-align: start; border-bottom: 1px solid var(--line); }
+  .records thead th { color: var(--muted); font: 700 .72rem var(--mono); }
+  .setting { display: flex; align-items: center; gap: 10px; }
+  .setting input { width: 20px; height: 20px; accent-color: var(--lime); }
+  .muted { color: var(--muted); }
+  .play { display: grid; grid-template-columns: minmax(170px, 225px) minmax(0, 1fr); gap: 32px; padding-block: 25px; }
+  .play .stage-grid { grid-template-columns: 1fr; }
+  .play .stage-tile { padding: 10px; }
+  .title-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .title-line h1 { font-size: clamp(2rem, 6vw, 4rem); margin: 0; letter-spacing: -.065em; line-height: 1; }
+  .clock { margin: 0; text-align: end; white-space: nowrap; color: var(--lime); font: 700 clamp(1.52rem, 4vw, 2.75rem)/1 var(--mono); }
+  .clock[data-low] { color: var(--amber); }
+  .clock small { display: block; margin-top: 5px; color: var(--muted); font: 600 .63rem var(--mono); text-transform: uppercase; }
+  .objective { color: var(--muted); margin-block: 9px 13px; line-height: 1.4; font-size: .89rem; }
+  .meter { height: 3px; background: var(--line); margin-bottom: 10px; }
+  #meter-fill { display: block; height: 100%; transform: scaleX(var(--remaining, 1)); transform-origin: left; background: var(--lime); }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin: 0 0 10px; }
+  .metric { padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+  .metric dt { color: var(--muted); font: 600 .63rem var(--mono); text-transform: uppercase; }
+  .metric dd { margin: 3px 0 0; font: 700 1rem var(--mono); }
+  .arena { position: relative; padding: 9px; border: 1px solid var(--line); border-radius: 10px; background: var(--deep); }
+  .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+  .card { display: grid; place-items: center; position: relative; min-height: 48px; min-width: 0; height: clamp(48px, 9.2vw, 94px); border: 1px solid #485743; border-radius: 6px; background: #212b1f; color: var(--text); transition: background 150ms, border-color 150ms; }
+  .card[aria-disabled="true"] { cursor: default; }
+  .card:hover:not([aria-disabled="true"]) { border-color: #b6d59a; }
+  .card[data-face="hidden"]::before { content: ""; width: min(25%, 27px); aspect-ratio: 1; border: 1px solid #718769; transform: rotate(45deg); background: linear-gradient(90deg, transparent 48%, #617d56 48% 52%, transparent 52%); }
+  .card[data-face="open"] { background: #344030; border-color: #7f9178; }
+  .card[data-face="match"], .card[data-face="selected"], .card[data-face="swap"] { border-color: var(--lime); background: #303f25; color: var(--lime); }
+  .card[data-face="match"]::after, .card[data-face="selected"]::after, .card[data-face="swap"]::after { content: "✓"; position: absolute; top: 3px; right: 6px; font: 700 .77rem var(--mono); }
+  .card[data-face="swap"]::after { content: "↔"; }
+  .card[data-face="miss"] { border-color: var(--amber); background: #3b2d1c; color: var(--amber); }
+  .symbol { font: clamp(1.42rem, 4.8vw, 3.2rem)/1 "Segoe UI Symbol", "DejaVu Sans", sans-serif; }
+  .card[data-face="open"] .symbol, .card[data-face="miss"] .symbol { animation: reveal 175ms ease-out both; }
+  @keyframes reveal { from { transform: scale(.77); opacity: .32; } to { transform: scale(1); opacity: 1; } }
+  .blackout { position: absolute; display: grid; place-items: center; inset: 1px; border-radius: 9px; background: #090d08; color: #c8e9ba; font: 750 clamp(1rem, 4vw, 1.8rem) var(--mono); letter-spacing: .2em; text-transform: uppercase; }
+  .below { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 7px 12px; min-height: 46px; margin-top: 8px; }
+  #game-status { margin: 0; font-size: .83rem; color: var(--text); }
+  .key-hint { margin: 6px 0 0; color: var(--muted); font-size: .72rem; }
+  .result { margin-top: 9px; padding: 14px; border: 1px solid #728869; border-radius: 8px; background: var(--surface); }
+  .result h2, dialog h2 { margin: 0; font-size: 1.38rem; letter-spacing: -.04em; }
+  .result p, dialog p { color: var(--muted); margin: 6px 0 12px; font-size: .85rem; }
+  dialog { max-width: min(365px, calc(100% - 28px)); padding: 23px; border: 1px solid #708864; border-radius: 8px; background: var(--surface); color: var(--text); }
+  dialog::backdrop { background: #090e09df; }
+  @media (max-width: 730px) {
+    .frame { width: calc(100% - 28px); }
+    .play { grid-template-columns: 1fr; gap: 16px; padding-block: 15px; }
+    .play .stage-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .stage-tile, .play .stage-tile { padding: 8px; grid-template-columns: 1fr; gap: 2px; }
+    .stage-tile strong { font-size: .78rem; }
+    .stage-tile small { font-size: .67rem; }
+    .hero { gap: 14px; }
+  }
+  @media (max-width: 430px) {
+    .top { min-height: 61px; }
+    .hero { grid-template-columns: 1fr; padding-block: 28px 20px; }
+    .hero-board { display: none; }
+    .stage-grid { gap: 5px; }
+    .arena { padding: 6px; }
+    .board { gap: 5px; }
+    .metric { padding-inline: 7px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header class="top frame">
+  <div class="brand"><span class="logo" aria-hidden="true"></span><span>MEMORY MATCH<small>BLACKOUT</small></span></div>
+  <div class="actions">
+    <button class="button" id="back" type="button" hidden>Main menu</button>
+    <button class="button" id="pause" type="button" hidden>Pause</button>
+  </div>
+</header>
+<main class="frame">
+  <section id="lobby" aria-labelledby="lobby-title">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Memory Match</p>
+        <h1 id="lobby-title" tabindex="-1">Blackout</h1>
+        <p>Memorize the board. Catch the swap. Then clear the pairs before time runs out.</p>
+        <button class="button primary" id="continue" type="button">Play campaign</button>
+      </div>
+      <div class="hero-board" aria-hidden="true"><span>☾</span><span>◆</span><span class="lit">★</span><span>☀</span><span class="lit">★</span><span>♥</span></div>
+    </div>
+    <nav class="menu-nav" aria-label="Main menu">
+      <button class="button" id="nav-campaign" type="button" aria-pressed="true" aria-controls="stage-panel">Campaign</button>
+      <button class="button" id="nav-practice" type="button" aria-pressed="false" aria-controls="stage-panel">Practice</button>
+      <button class="button" id="nav-records" type="button" aria-pressed="false" aria-controls="records-panel">Records</button>
+      <button class="button" id="nav-settings" type="button" aria-pressed="false" aria-controls="settings-panel">Settings</button>
+    </nav>
+    <section class="menu-panel" id="stage-panel" aria-label="Choose a stage">
+      <p class="muted" id="stage-instructions" hidden>Choose any stage and study at your own pace.</p>
+      <ol class="stage-grid" id="stage-menu"></ol>
+    </section>
+    <section class="menu-panel" id="records-panel" aria-label="Campaign records" hidden>
+      <table class="records">
+        <thead><tr><th scope="col">Stage</th><th scope="col">Best score</th><th scope="col">Active time</th></tr></thead>
+        <tbody id="record-rows"></tbody>
+      </table>
+      <p class="muted" id="records-note"></p>
+    </section>
+    <section class="menu-panel" id="settings-panel" aria-label="Settings" hidden>
+      <label class="setting"><input id="sound" type="checkbox"> Game sounds</label>
+    </section>
+  </section>
+  <section class="play" id="play" aria-labelledby="stage-title" hidden>
+    <aside aria-labelledby="mode-title">
+      <h2 class="eyebrow" id="mode-title">Campaign</h2>
+      <ol class="stage-grid" id="stage-map"></ol>
+    </aside>
+    <section aria-label="Play area">
+      <div class="title-line">
+        <h1 id="stage-title" tabindex="-1">Calibration</h1>
+        <p class="clock"><span id="time">00:03</span><small id="time-label">Study time</small></p>
+      </div>
+      <p class="objective" id="objective"></p>
+      <div class="meter" id="meter" aria-hidden="true"><span id="meter-fill"></span></div>
+      <dl class="metrics">
+        <div class="metric"><dt id="counter-label">Pairs</dt><dd id="counter"></dd></div>
+        <div class="metric"><dt>Moves</dt><dd id="moves">0</dd></div>
+        <div class="metric"><dt>Score</dt><dd id="score">0</dd></div>
+      </dl>
+      <div class="arena">
+        <div class="board" id="board" role="group" aria-label="Memory cards"></div>
+        <div class="blackout" id="blackout" aria-hidden="true" hidden>Blackout</div>
+      </div>
+      <div class="below">
+        <p id="game-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <button class="button primary" id="phase-action" type="button" hidden></button>
+      </div>
+      <p class="key-hint" id="key-hint">Arrow keys to move · Enter or Space to select</p>
+      <section class="result" id="result" aria-labelledby="result-title" hidden>
+        <h2 id="result-title" tabindex="-1"></h2>
+        <p id="result-copy"></p>
+        <div class="actions">
+          <button class="button primary" id="next" type="button" hidden>Next stage</button>
+          <button class="button" id="retry" type="button">Retry</button>
+          <button class="button" id="compare" type="button" aria-pressed="false" hidden>Show before</button>
+          <button class="button" id="result-menu" type="button">Main menu</button>
+        </div>
+      </section>
+    </section>
+  </section>
+</main>
+<dialog id="pause-dialog" aria-labelledby="pause-title">
+  <h2 id="pause-title">Paused</h2>
+  <p id="pause-copy">The timer is stopped.</p>
+  <div class="actions">
+    <button class="button primary" id="resume" type="button" autofocus>Resume</button>
+    <button class="button" id="restart" type="button">Restart</button>
+    <button class="button" id="leave" type="button">Main menu</button>
+  </div>
+</dialog>
+<script>
+"use strict";
+
+// The matching rules are reused from the WebProgramming Memory Match engine.
+const matching = (() => {
+  const levels = {
+    easy: { pairs: 6, time: 120, hints: 3, columns: 4 },
+    medium: { pairs: 8, time: 100, hints: 2, columns: 4 },
+    hard: { pairs: 12, time: 90, hints: 1, columns: 6 },
+  };
+  function create(level = 'medium', mode = 'timed') {
+    const config = levels[level];
+    const icons = ['☀', '☾', '★', '◆', '♣', '♥', '♫', '✿', '⚡', '☂', '☕', '⚓'];
+    const cards = icons.slice(0, config.pairs).flatMap((symbol) => [
+      { symbol, matched: false },
+      { symbol, matched: false },
+    ]);
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    return {
+      config,
+      mode,
+      cards,
+      open: [],
+      moves: 0,
+      pairs: 0,
+      streak: 0,
+      points: 0,
+      hints: config.hints,
+      time: config.time,
+      phase: 'playing',
+      player: 0,
+      scores: [0, 0],
+    };
+  }
+  function flip(g, i) {
+    if (g.phase !== 'playing' || !g.cards[i] || g.cards[i].matched || g.open.includes(i)) return;
+    g.open.push(i);
+    if (g.open.length < 2) return;
+    g.moves++;
+    const [a, b] = g.open;
+    if (g.cards[a].symbol === g.cards[b].symbol) {
+      g.cards[a].matched = g.cards[b].matched = true;
+      g.pairs++;
+      g.streak++;
+      g.points += 100 + Math.min(g.streak - 1, 4) * 25;
+      g.scores[g.player]++;
+      g.open = [];
+      if (g.pairs === g.config.pairs) g.phase = 'won';
+    } else {
+      g.streak = 0;
+      g.phase = 'mismatch';
+    }
+  }
+  function settle(g) {
+    if (g.phase !== 'mismatch') return;
+    g.open = [];
+    if (g.mode === 'duel') g.player = 1 - g.player;
+    g.phase = 'playing';
+  }
+  return { create, flip, settle };
+})();
+
+const stages = Object.freeze([
+  { name: "Calibration", detail: "Six pairs", pairs: 6, study: 3000, match: 75000 },
+  { name: "Signal Loss", detail: "Spot the swap", pairs: 8, study: 10000, guess: 20000 },
+  { name: "Lockdown", detail: "Swap, then match", pairs: 8, study: 8000, guess: 15000, match: 70000 },
+]);
+const columns = 4;
+const blackoutLength = 700;
+const mismatchLength = 800;
+const swapPoints = 200;
+const storageKey = "memory-match-blackout:v1";
+const symbols = { "☀": "Sun", "☾": "Moon", "★": "Star", "◆": "Diamond", "♣": "Clover", "♥": "Heart", "♫": "Music note", "✿": "Flower" };
+const actions = new Set(["guess", "match"]);
+const navNames = ["campaign", "practice", "records", "settings"];
+const audioNotes = {
+  flip: [290], match: [480, 640], miss: [220, 155], blackout: [160], win: [440, 554, 659], loss: [294, 196],
+};
+const $ = id => document.getElementById(id);
+const board = $("board");
+const phaseAction = $("phase-action");
+const pauseDialog = $("pause-dialog");
+const clockValue = $("time");
+const clockLabel = $("time-label");
+const clockFill = $("meter-fill");
+const status = $("game-status");
+
+let saved = loadProgress();
+let storageAvailable = saved.available;
+let nav = "campaign";
+let round = null;
+let frame = null;
+let focusedCard = 0;
+let audioContext;
+
+function emptyProgress() {
+  return { available: true, sound: false, records: stages.map(() => null) };
+}
+
+function loadProgress() {
+  const progress = emptyProgress();
+  let raw;
+  try {
+    raw = localStorage.getItem(storageKey);
+  } catch {
+    progress.available = false;
+    return progress;
+  }
+  if (!raw) return progress;
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return progress;
+    progress.sound = parsed.sound === true;
+    if (Array.isArray(parsed.records)) {
+      for (let index = 0; index < stages.length; index++) {
+        const record = parsed.records[index];
+        if (!record || !Number.isSafeInteger(record.score) || record.score <= 0 ||
+            !Number.isSafeInteger(record.ms) || record.ms < 0) break;
+        progress.records[index] = { score: record.score, ms: record.ms };
+      }
+    }
+  } catch {
+    // Invalid saved data starts a fresh campaign.
+  }
+  return progress;
+}
+
+function saveProgress() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify({ sound: saved.sound, records: saved.records }));
+    storageAvailable = true;
+  } catch {
+    storageAvailable = false;
+  }
+}
+
+function nextStageIndex() {
+  const firstUncleared = saved.records.indexOf(null);
+  return firstUncleared === -1 ? stages.length - 1 : firstUncleared;
+}
+
+function recordWin() {
+  const candidate = { score: round.game.points, ms: Math.round(round.elapsed) };
+  const existing = saved.records[round.index];
+  if (!existing || candidate.score > existing.score ||
+      (candidate.score === existing.score && candidate.ms < existing.ms)) {
+    saved.records[round.index] = candidate;
+    saveProgress();
+  }
+}
+
+function playCue(cue) {
+  if (!saved.sound) return;
+  const Audio = window.AudioContext || window.webkitAudioContext;
+  if (!Audio) return;
+  try {
+    audioContext ??= new Audio();
+    const play = () => {
+      if (!saved.sound || audioContext.state !== "running") return;
+      const at = audioContext.currentTime;
+      audioNotes[cue].forEach((frequency, index) => {
+        const start = at + .075 * index;
+        const tone = audioContext.createOscillator();
+        const volume = audioContext.createGain();
+        tone.type = "sine";
+        tone.frequency.value = frequency;
+        volume.gain.setValueAtTime(.07, start);
+        volume.gain.exponentialRampToValueAtTime(.001, start + .11);
+        tone.connect(volume).connect(audioContext.destination);
+        tone.start(start);
+        tone.stop(start + .12);
+      });
+    };
+    if (audioContext.state === "suspended") audioContext.resume().then(play).catch(() => {});
+    else play();
+  } catch {
+    // Gameplay stays available if the audio device cannot start.
+  }
+}
+
+function stageStatus(index) {
+  if (saved.records[index]) return "Cleared";
+  return index <= nextStageIndex() ? "Available" : "Locked";
+}
+
+function drawStages(container, practice, playable) {
+  const rows = stages.map((stage, index) => {
+    const item = document.createElement("li");
+    const tile = document.createElement(playable ? "button" : "div");
+    tile.className = "stage-tile";
+    if (!playable && index === round.index) tile.setAttribute("aria-current", "step");
+    if (playable) {
+      tile.type = "button";
+      tile.disabled = !practice && index > nextStageIndex();
+      tile.addEventListener("click", () => startRound(index, practice));
+    }
+    const number = document.createElement("span");
+    number.className = "stage-index";
+    number.textContent = String(index + 1).padStart(2, "0");
+    const copy = document.createElement("span");
+    const name = document.createElement("strong");
+    name.textContent = stage.name;
+    const detail = document.createElement("small");
+    detail.textContent = practice ? stage.detail : stage.detail + " · " + stageStatus(index);
+    copy.append(name, detail);
+    tile.append(number, copy);
+    item.append(tile);
+    return item;
+  });
+  container.replaceChildren(...rows);
+}
+
+function activeTime(ms) {
+  return (ms / 1000).toFixed(1) + " s";
+}
+
+function drawRecords() {
+  const rows = stages.map((stage, index) => {
+    const row = document.createElement("tr");
+    const name = document.createElement("th");
+    name.scope = "row";
+    name.textContent = stage.name;
+    const score = document.createElement("td");
+    const duration = document.createElement("td");
+    const record = saved.records[index];
+    score.textContent = record ? String(record.score) : "—";
+    duration.textContent = record ? activeTime(record.ms) : "—";
+    row.append(name, score, duration);
+    return row;
+  });
+  $("record-rows").replaceChildren(...rows);
+  $("records-note").textContent = storageAvailable ?
+    (saved.records.some(Boolean) ? "" : "Clear a campaign stage to set a record.") :
+    "Progress is available for this session because browser storage is unavailable.";
+}
+
+function drawLobby() {
+  const practice = nav === "practice";
+  $("stage-panel").hidden = nav !== "campaign" && !practice;
+  $("records-panel").hidden = nav !== "records";
+  $("settings-panel").hidden = nav !== "settings";
+  $("stage-instructions").hidden = !practice;
+  $("sound").checked = saved.sound;
+  $("continue").textContent = saved.records.every(Boolean) ? "Replay Lockdown" :
+    saved.records.some(Boolean) ? "Continue campaign" : "Play campaign";
+  navNames.forEach(name => $("nav-" + name).setAttribute("aria-pressed", String(name === nav)));
+  if (nav === "records") drawRecords();
+  else if (nav === "campaign" || practice) drawStages($("stage-menu"), practice, true);
+}
+
+const cards = Array.from({ length: 16 }, (_, index) => {
+  const button = document.createElement("button");
+  button.className = "card";
+  button.type = "button";
+  const symbol = document.createElement("span");
+  symbol.className = "symbol";
+  symbol.setAttribute("aria-hidden", "true");
+  button.append(symbol);
+  button.addEventListener("click", () => useCard(index));
+  button.addEventListener("focus", () => focusIndex(index));
+  board.append(button);
+  return { button, symbol };
+});
+
+function selectSwap(deck) {
+  const first = Math.floor(Math.random() * deck.length);
+  const candidates = deck.flatMap((card, index) => card.symbol === deck[first].symbol ? [] : [index]);
+  return Object.freeze([first, candidates[Math.floor(Math.random() * candidates.length)]]);
+}
+
+function swapDeck(deck, [first, second]) {
+  const swapped = deck.slice();
+  [swapped[first], swapped[second]] = [swapped[second], swapped[first]];
+  return swapped;
+}
+
+function makeRound(index, practice) {
+  const stage = stages[index];
+  const game = matching.create(stage.pairs === 6 ? "easy" : "medium", "practice");
+  const swappedPositions = stage.guess ? selectSwap(game.cards) : null;
+  const swappedDeck = swappedPositions ? swapDeck(game.cards, swappedPositions) : null;
+  return {
+    index, stage, practice, game, swappedPositions, swappedDeck,
+    before: Object.freeze(game.cards.map(card => card.symbol)),
+    after: swappedDeck ? Object.freeze(swappedDeck.map(card => card.symbol)) : null,
+    selected: new Set(), phase: "study", deadline: null, mismatchEnd: null,
+    pausedAt: null, actionStart: null, elapsed: 0, showingBefore: false,
+  };
+}
+
+function focusIndex(index) {
+  focusedCard = index;
+  cards.forEach(({ button }, position) => {
+    button.tabIndex = !board.inert && index === position && !button.hidden ? 0 : -1;
+  });
+}
+
+function cardView(index, card) {
+  if (round.pausedAt !== null || round.phase === "blackout") return { face: "hidden" };
+  if (round.phase === "result" && round.after) {
+    const layout = round.showingBefore ? round.before : round.after;
+    const face = round.swappedPositions.includes(index) ? "swap" : "open";
+    return { face, value: layout[index] };
+  }
+  if (round.phase === "study") return { face: "open", value: round.before[index] };
+  if (round.phase === "guess") {
+    return { face: round.selected.has(index) ? "selected" : "open", value: round.after[index] };
+  }
+  if (card.matched) return { face: "match", value: card.symbol };
+  if (round.phase === "match" && round.game.open.includes(index)) {
+    return { face: round.game.phase === "mismatch" ? "miss" : "open", value: card.symbol };
+  }
+  return { face: "hidden" };
+}
+
+function drawBoard() {
+  const phase = round.phase;
+  const disabled = round.pausedAt !== null || phase === "blackout";
+  const guessing = phase === "guess";
+  board.inert = disabled;
+  cards.forEach(({ button, symbol }, index) => {
+    const card = round.game.cards[index];
+    button.hidden = !card;
+    if (!card) return;
+    const { face, value } = cardView(index, card);
+    button.dataset.face = face;
+    symbol.hidden = !value;
+    symbol.textContent = value ?? "";
+    const row = Math.floor(index / columns) + 1;
+    const column = index % columns + 1;
+    const information = { match: ", matched", swap: ", swapped" };
+    const label = "Row " + row + ", column " + column;
+    button.setAttribute("aria-label", label + (value ? ", " + symbols[value] + (information[face] ?? "") : ""));
+    const canFlip = phase === "match" && round.game.phase === "playing" && face === "hidden";
+    button.setAttribute("aria-disabled", String(disabled || (!guessing && !canFlip)));
+    if (guessing) button.setAttribute("aria-pressed", String(round.selected.has(index)));
+    else button.removeAttribute("aria-pressed");
+  });
+  focusIndex(focusedCard);
+}
+
+function drawMetrics() {
+  const showSelection = round.phase === "guess" || (round.phase === "result" && !round.stage.match);
+  $("counter-label").textContent = showSelection ? "Selected" : "Pairs";
+  $("counter").textContent = showSelection ? round.selected.size + " / 2" :
+    round.game.pairs + " / " + round.stage.pairs;
+  $("moves").textContent = round.game.moves;
+  $("score").textContent = round.game.points;
+}
+
+function formatClock(ms) {
+  const seconds = Math.ceil(ms / 1000);
+  return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+}
+
+function drawClock(now) {
+  const labels = { study: "Study time", guess: "Guess time", match: "Time left" };
+  const showTimer = round.deadline !== null && round.phase !== "blackout";
+  const remaining = showTimer ? Math.max(0, round.deadline - now) : 0;
+  const text = showTimer ? formatClock(remaining) : "—";
+  const label = round.phase === "result" ? "Round ended" :
+    round.phase === "blackout" ? "Blackout" : round.practice ? "Untimed" : labels[round.phase];
+  if (clockValue.textContent !== text) clockValue.textContent = text;
+  if (clockLabel.textContent !== label) clockLabel.textContent = label;
+  clockValue.parentElement.toggleAttribute("data-low", showTimer && actions.has(round.phase) && remaining <= 10000);
+  $("meter").hidden = !showTimer;
+  if (showTimer) clockFill.style.setProperty("--remaining", String(remaining / round.stage[round.phase]));
+}
+
+function showPhaseAction(label, enabled = true) {
+  phaseAction.hidden = !label;
+  phaseAction.textContent = label ?? "";
+  phaseAction.disabled = !enabled;
+}
+
+function announce(message) {
+  status.textContent = message;
+}
+
+function focusCard() {
+  cards[focusedCard].button.focus({ preventScroll: true });
+}
+
+function cancelFrame() {
+  if (frame !== null) cancelAnimationFrame(frame);
+  frame = null;
+}
+
+function queueFrame() {
+  if (frame === null && round && round.pausedAt === null &&
+      (round.deadline !== null || round.mismatchEnd !== null)) {
+    frame = requestAnimationFrame(updateFrame);
+  }
+}
+
+function enterPhase(phase, now) {
+  const { stage } = round;
+  round.phase = phase;
+  const duration = phase === "blackout" ? blackoutLength : round.practice ? null : stage[phase];
+  round.deadline = duration === null ? null : now + duration;
+  $("blackout").hidden = phase !== "blackout";
+  const study = phase === "study";
+  const guess = phase === "guess";
+  if (guess) round.game.cards = round.swappedDeck;
+  if (actions.has(phase)) round.actionStart = now;
+  const objective = study ? "Memorize the positions of the cards." :
+    phase === "blackout" ? "Two cards are changing places." :
+    guess ? "Find the two cards that swapped." : "Find all " + stage.pairs + " pairs.";
+  $("objective").textContent = objective;
+  showPhaseAction(guess ? "Confirm swap" : study && round.practice ? (stage.guess ? "Start blackout" : "Start matching") : null, !guess);
+  announce(study ? (round.practice ? "Study at your own pace." : "Study the cards before the countdown ends.") :
+    phase === "blackout" ? "Blackout started." :
+    guess ? "Select two positions, then confirm your guess." :
+    stage.guess ? "Swap correct. Now match pairs on the rearranged board." : "Flip two cards to find a pair.");
+  drawBoard();
+  drawMetrics();
+  drawClock(now);
+  if (phase === "blackout") {
+    $("stage-title").focus({ preventScroll: true });
+    playCue("blackout");
+  } else focusCard();
+  queueFrame();
+}
+
+function startRound(index, practice) {
+  if (!stages[index] || (!practice && index > nextStageIndex())) return;
+  cancelFrame();
+  if (pauseDialog.open) pauseDialog.close();
+  round = makeRound(index, practice);
+  focusedCard = 0;
+  $("lobby").hidden = true;
+  $("play").hidden = false;
+  $("back").hidden = false;
+  $("pause").hidden = false;
+  $("result").hidden = true;
+  $("key-hint").hidden = false;
+  $("compare").setAttribute("aria-pressed", "false");
+  $("compare").textContent = "Show before";
+  $("stage-title").textContent = round.stage.name;
+  $("mode-title").textContent = practice ? "Practice" : "Campaign";
+  drawStages($("stage-map"), practice, false);
+  const now = performance.now();
+  enterPhase("study", now);
+  if (document.hidden) pauseRound(true);
+}
+
+function startAfterStudy(now) {
+  enterPhase(round.stage.guess ? "blackout" : "match", now);
+}
+
+function stopActionClock(now) {
+  if (round.actionStart !== null) {
+    round.elapsed += Math.max(0, now - round.actionStart);
+    round.actionStart = null;
+  }
+}
+
+function finishRound(won, reason, now) {
+  if (round.phase === "result") return;
+  stopActionClock(now);
+  cancelFrame();
+  round.deadline = null;
+  round.mismatchEnd = null;
+  round.phase = "result";
+  if (won && !round.practice) recordWin();
+  $("blackout").hidden = true;
+  $("pause").hidden = true;
+  $("key-hint").hidden = true;
+  $("objective").textContent = round.after ? "The two swapped positions are marked on the board." : "Round complete.";
+  $("result").hidden = false;
+  $("result-title").textContent = won ? round.stage.name + " cleared" : reason;
+  const performanceText = round.game.points + " points · " + activeTime(round.elapsed) + " active";
+  $("result-copy").textContent = won ? performanceText :
+    "You scored " + round.game.points + " points. Try the stage again.";
+  $("next").hidden = !won || round.index === stages.length - 1;
+  $("retry").textContent = won ? "Play again" : "Retry";
+  $("compare").hidden = !round.after;
+  showPhaseAction(null);
+  drawBoard();
+  drawMetrics();
+  drawClock(now);
+  drawStages($("stage-map"), round.practice, false);
+  announce(won ? "Stage cleared." : reason + ".");
+  $("result-title").focus({ preventScroll: false });
+  playCue(won ? "win" : "loss");
+}
+
+function advance(now) {
+  if (!round || round.pausedAt !== null || round.phase === "result") return;
+  if (round.deadline !== null && now >= round.deadline) {
+    const phase = round.phase;
+    if (phase === "study") startAfterStudy(now);
+    else if (phase === "blackout") enterPhase("guess", now);
+    else finishRound(false, "Time’s up", round.deadline);
+    return;
+  }
+  if (round.mismatchEnd !== null && now >= round.mismatchEnd) {
+    matching.settle(round.game);
+    round.mismatchEnd = null;
+    drawBoard();
+    announce("Try another pair.");
+  }
+}
+
+function updateFrame(now) {
+  frame = null;
+  advance(now);
+  if (!round || round.pausedAt !== null || round.phase === "result") return;
+  drawClock(now);
+  queueFrame();
+}
+
+function useCard(index) {
+  if (!round || round.pausedAt !== null) return;
+  const phase = round.phase;
+  const now = performance.now();
+  advance(now);
+  if (phase !== round.phase) return;
+  if (phase === "guess") {
+    if (round.selected.has(index)) round.selected.delete(index);
+    else if (round.selected.size < 2) round.selected.add(index);
+    else {
+      announce("Deselect a position before choosing another.");
+      return;
+    }
+    drawBoard();
+    drawMetrics();
+    phaseAction.disabled = round.selected.size !== 2;
+    announce(round.selected.size + " of 2 positions selected.");
+    playCue("flip");
+  } else if (phase === "match") flipMatchCard(index, now);
+}
+
+function flipMatchCard(index, now) {
+  const game = round.game;
+  if (!game.cards[index] || game.phase !== "playing" || game.cards[index].matched || game.open.includes(index)) return;
+  const priorPairs = game.pairs;
+  matching.flip(game, index);
+  if (game.phase === "won") {
+    finishRound(true, "", now);
+    return;
+  }
+  if (game.phase === "mismatch") {
+    round.mismatchEnd = now + mismatchLength;
+    announce("No match.");
+    playCue("miss");
+  } else if (game.pairs > priorPairs) {
+    announce(game.streak > 1 ? game.streak + " matches in a row." : "Pair matched.");
+    playCue("match");
+  } else {
+    announce(symbols[game.cards[index].symbol] + " revealed.");
+    playCue("flip");
+  }
+  drawBoard();
+  drawMetrics();
+  queueFrame();
+}
+
+function doPhaseAction() {
+  if (!round || round.pausedAt !== null) return;
+  const prior = round.phase;
+  const now = performance.now();
+  advance(now);
+  if (prior !== round.phase) return;
+  if (round.phase === "study" && round.practice) startAfterStudy(now);
+  if (prior !== "guess" || round.selected.size !== 2) return;
+  if (!round.swappedPositions.every(index => round.selected.has(index))) {
+    finishRound(false, "Swap missed", now);
+    return;
+  }
+  round.game.points += swapPoints;
+  if (round.stage.match) {
+    stopActionClock(now);
+    enterPhase("match", now);
+    playCue("match");
+  } else finishRound(true, "", now);
+}
+
+function pauseRound(away = false) {
+  if (!round || round.pausedAt !== null || round.phase === "result") return;
+  const previousFocus = document.activeElement;
+  const now = performance.now();
+  advance(now);
+  if (round.phase === "result") return;
+  stopActionClock(now);
+  round.pausedAt = now;
+  round.previousFocus = previousFocus;
+  cancelFrame();
+  drawClock(now);
+  drawBoard();
+  $("pause-copy").textContent = away ? "The game paused when you switched away." : "The timer is stopped.";
+  pauseDialog.showModal();
+}
+
+function resumeRound() {
+  if (!round || round.pausedAt === null || document.hidden) return;
+  const now = performance.now();
+  const pausedFor = now - round.pausedAt;
+  if (round.deadline !== null) round.deadline += pausedFor;
+  if (round.mismatchEnd !== null) round.mismatchEnd += pausedFor;
+  if (actions.has(round.phase)) round.actionStart = now;
+  round.pausedAt = null;
+  pauseDialog.close();
+  drawBoard();
+  const target = round.previousFocus;
+  if (target && !target.hidden && !target.disabled && !target.closest("[inert]")) {
+    target.focus({ preventScroll: true });
+  } else if (!board.inert) focusCard();
+  else $("stage-title").focus({ preventScroll: true });
+  queueFrame();
+}
+
+function mainMenu() {
+  cancelFrame();
+  if (pauseDialog.open) pauseDialog.close();
+  round = null;
+  $("play").hidden = true;
+  $("back").hidden = true;
+  $("pause").hidden = true;
+  $("lobby").hidden = false;
+  drawLobby();
+  $("lobby-title").focus({ preventScroll: false });
+}
+
+board.addEventListener("keydown", event => {
+  if (board.inert || !round) return;
+  const moves = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -columns, ArrowDown: columns };
+  const delta = moves[event.key];
+  if (delta === undefined) return;
+  event.preventDefault();
+  if ((delta === -1 && focusedCard % columns === 0) ||
+      (delta === 1 && focusedCard % columns === columns - 1)) return;
+  const next = cards[focusedCard + delta];
+  if (next && !next.button.hidden) next.button.focus({ preventScroll: true });
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && round && round.phase !== "result" && !pauseDialog.open) {
+    event.preventDefault();
+    pauseRound();
+  }
+});
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) pauseRound(true);
+});
+pauseDialog.addEventListener("cancel", event => event.preventDefault());
+navNames.forEach(name => $("nav-" + name).addEventListener("click", () => {
+  nav = name;
+  drawLobby();
+}));
+$("continue").addEventListener("click", () => startRound(nextStageIndex(), false));
+$("sound").addEventListener("change", () => {
+  saved.sound = $("sound").checked;
+  saveProgress();
+  playCue("match");
+});
+$("back").addEventListener("click", mainMenu);
+$("pause").addEventListener("click", () => pauseRound());
+$("resume").addEventListener("click", resumeRound);
+$("restart").addEventListener("click", () => startRound(round.index, round.practice));
+$("leave").addEventListener("click", mainMenu);
+phaseAction.addEventListener("click", doPhaseAction);
+$("retry").addEventListener("click", () => startRound(round.index, round.practice));
+$("next").addEventListener("click", () => startRound(round.index + 1, round.practice));
+$("result-menu").addEventListener("click", mainMenu);
+$("compare").addEventListener("click", () => {
+  round.showingBefore = !round.showingBefore;
+  $("compare").setAttribute("aria-pressed", String(round.showingBefore));
+  $("compare").textContent = round.showingBefore ? "Show after" : "Show before";
+  announce(round.showingBefore ? "Showing the original positions." : "Showing the rearranged positions.");
+  drawBoard();
+});
+
+drawLobby();
+</script>
+</body>
+</html>
