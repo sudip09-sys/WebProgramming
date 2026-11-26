@@ -7,12 +7,15 @@ const card=(title,description,...children)=>h('article',{className:'task'},h('h3
 
 function TabTitle(){
   const [count,set]=useState(0);
+  const [project,setProject]=useState('Friday Lab');
+  const title=(count?'('+count+') ':'')+(project.trim()||'Friday Lab')+' | Sudip Lab';
   useEffect(()=>{
     const previous=document.title;
-    document.title=count ? '('+count+') Lab reminders' : 'Week 12 Friday | Sudip Lab';
+    document.title=title;
     return ()=>{document.title=previous;};
-  },[count]);
+  },[title]);
   return card('E1 · Lab reminders','Add a reminder and watch the browser tab title.',
+    field('Workspace name',project,setProject),h('output',null,title),
     h('p',{role:'status'},count+' unread'),button('Add reminder',()=>set(n=>n+1)),button('Clear reminders',()=>set(0)));
 }
 
@@ -21,6 +24,7 @@ function ProfileSearch(){
   const [query,setQuery]=useState({name:'sudip09-sys'});
   const [result,setResult]=useState(null);
   const [sort,setSort]=useState('recent');
+  const [language,setLanguage]=useState('');
   useEffect(()=>{
     if(!query)return;
     const controller=new AbortController();
@@ -55,7 +59,8 @@ function ProfileSearch(){
 
   const user=result?.user;
   const repos=result?.repos;
-  const visible=repos&&[...repos].sort((a,b)=>sort==='stars'?b.stargazers_count-a.stargazers_count:Date.parse(b.updated_at)-Date.parse(a.updated_at));
+  const languages=[...new Set((repos||[]).map(repo=>repo.language).filter(Boolean))].sort();
+  const visible=repos&&repos.filter(repo=>!language||repo.language===language).sort((a,b)=>sort==='stars'?b.stargazers_count-a.stargazers_count:Date.parse(b.updated_at)-Date.parse(a.updated_at));
   const stats=user&&[['Public repos',user.public_repos],['Followers',user.followers],['Following',user.following]];
   const profile=user&&h('section',{className:'profile-result','aria-label':'GitHub profile'},
     h('div',{className:'profile-heading'},
@@ -70,6 +75,8 @@ function ProfileSearch(){
     repos?.length>0&&h('div',null,
       h('div',{role:'group','aria-label':'Sort recent repositories'},
         ['recent','stars'].map(mode=>h('button',{key:mode,type:'button','aria-pressed':sort===mode,onClick:()=>setSort(mode)},mode==='recent'?'Recently updated':'Most stars'))),
+      h('label',null,'Repository language ',h('select',{value:language,onChange:event=>setLanguage(event.target.value)},h('option',{value:''},'All languages'),languages.map(value=>h('option',{key:value,value},value)))),
+      visible.length===0&&h('p',null,'No recent repositories match.'),
       h('ul',{className:'profile-repos'},visible.map(repo=>h('li',{key:repo.id},
         h('a',{href:'https://github.com/'+encodeURIComponent(user.login)+'/'+encodeURIComponent(repo.name)},repo.name),
         repo.description&&h('p',null,repo.description),
@@ -82,6 +89,7 @@ function ProfileSearch(){
       if(!name)return;
       setResult(null);
       setSort('recent');
+      setLanguage('');
       setQuery({name});
     }},field('GitHub username',draft,setDraft),h('button',{disabled:!draft.trim()},'Look up')),
     h('p',{role:'status'},query&&!result?'Looking up @'+query.name+'…':result?.error||''),
@@ -92,8 +100,8 @@ function NamePreview(){
   const [first,setFirst]=useState('Sudip');
   const [last,setLast]=useState('Sah');
   const fullName=[first.trim(),last.trim()].filter(Boolean).join(' ');
-  return card('E3 · Name badge preview','The preview is calculated from the two fields during rendering.',
-    field('First name',first,setFirst),field('Last name',last,setLast),h('output',null,fullName||'Your name'));
+  return card('Bonus · Name badge preview','The preview is calculated from the two fields during rendering.',
+    field('First name',first,setFirst),field('Last name',last,setLast),h('output',null,(fullName?fullName.split(/\s+/).map(word=>word[0]).slice(0,2).join('').toUpperCase()+' · ':'')+(fullName||'Your name')));
 }
 
 function Samples(){
@@ -143,7 +151,7 @@ function Stopwatch({visible}){
     control('Stop',()=>{setElapsed(elapsed+performance.now()-started);setStarted(null);},started===null),
     control('Lap',()=>setLaps([...laps,elapsed+performance.now()-started]),started===null),
     control('Reset',()=>{setStarted(null);setElapsed(0);setLaps([]);}),
-    fastest!==null&&h('p',{className:'best-lap'},'Fastest split · '+formatTime(fastest)),
+    fastest!==null&&h('p',{className:'best-lap'},'Fastest split · '+formatTime(fastest)+' · Average split '+formatTime(laps.at(-1)/laps.length)),
     laps.length>0&&h('ol',null,laps.map((lap,index)=>h('li',{key:index},'Lap '+(index+1)+' · '+formatTime(lap)+' total · '+formatTime(lap-(laps[index-1]||0))+' split',
       h('meter',{min:0,max:Math.max(1,...laps.map((value,i)=>value-(laps[i-1]||0))),value:lap-(laps[index-1]||0),'aria-label':'Lap '+(index+1)+' split duration'})))));
 }
@@ -230,6 +238,8 @@ function Weather(){
         field('Longitude',coordinates.longitude,value=>setCoordinates(previous=>({...previous,longitude:value}))),
         h('button',{type:'submit'},'Load coordinates')),
       h('p',{role:'status'},inputError))),
+    h('div',{role:'group','aria-label':'Quick weather locations'},[defaultWeatherPlace,{name:'Busan',country:'South Korea',latitude:35.18,longitude:129.08},{name:'Kathmandu',country:'Nepal',latitude:27.72,longitude:85.32}].map(p=>
+      h('button',{key:p.name,type:'button',onClick:()=>{setSearch(null);setMatches(null);setInputError('');setReading(null);setCity(p.name);setPlace({...p});}},p.name))),
     reading?.error&&place&&button('Retry weather',()=>{setReading(null);setPlace({...place});}),
     h('p',{role:'status'},reading?.error||(place&&!reading?'Loading weather for '+place.name+'…':'')),
     data&&h('section',{className:'profile-result','aria-label':'Current weather'},
@@ -285,7 +295,7 @@ function UserDirectory(){
     const timeout=setTimeout(()=>controller.abort('timeout'),8000);
     async function loadUser(){
       try{
-        const response=await fetch('https://jsonplaceholder.typicode.com/users/'+id,{signal:controller.signal});
+        const response=await fetch('./data/user-'+id+'.json',{signal:controller.signal});
         if(!response.ok)throw Error(response.status===404?'No profile exists for user '+id+'.':'The directory could not load right now.');
         const user=await response.json();
         if(!controller.signal.aborted)setResult({user});
@@ -305,16 +315,16 @@ function UserDirectory(){
   }
   const user=result?.user;
   return card('E2 · People directory','Switch profiles to fetch a new record. Try a missing ID to see how the page handles a failed request.',
-    h('div',{role:'group','aria-label':'Select a sample user'},[1,2,3,4,5].map(value=>h('button',{type:'button',key:value,'aria-pressed':value===id,onClick:()=>search(value)},'User '+value))),
+    h('div',{role:'group','aria-label':'Select a sample user'},[1,2,3,4,5].map(value=>h('button',{type:'button',key:value,'aria-pressed':value===id,onClick:()=>search(value)},['Hana','Nima','Minseo','Aarav','Yuna'][value-1]))),
     button('Test missing user',()=>search(999)),
     h('p',{role:'status'},result?.error||(!result?'Loading user '+id+'…':'Loaded user '+id)),
     result?.error&&button('Retry request',()=>search(id)),
     user&&h('section',{className:'profile-result','aria-label':'Sample user profile'},
       h('div',{className:'profile-heading'},h('span',{className:'directory-avatar','aria-hidden':true},user.name.split(' ').slice(0,2).map(word=>word[0]).join('')),
-        h('div',null,h('h4',null,user.name),h('p',null,'@'+user.username))),
-      h('dl',{className:'profile-stats'},[['Company',user.company.name],['City',user.address.city],['Email',user.email]].map(([label,value])=>h('div',{key:label},h('dt',null,label),h('dd',null,value)))),
-      h('p',null,user.company.catchPhrase)),
-    h('p',null,h('a',{href:'https://jsonplaceholder.typicode.com/'},'Sample data from JSONPlaceholder')));
+        h('div',null,h('h4',null,user.name),h('p',null,user.role))),
+      h('dl',{className:'profile-stats'},[['Company',user.company],['City',user.city],['Primary tool',user.skill]].map(([label,value])=>h('div',{key:label},h('dt',null,label),h('dd',null,value)))),
+      h('p',null,user.bio)),
+    h('p',null,'Fictional profiles for this lab'));
 }
 
 const labs=[
