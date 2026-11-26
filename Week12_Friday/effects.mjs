@@ -108,6 +108,7 @@ function NamePreview(){
 
 function Samples(){
   const [zone,setZone]=useState('Asia/Seoul');
+  const [running,setRunning]=useState(true);
   const [count,setCount]=useState(0);
   const [time,setTime]=useState(()=>new Date());
   const [mode,setMode]=useState(()=>{try{return localStorage.getItem('sudip-effects-accent')||'red';}catch{return 'red';}});
@@ -116,15 +117,16 @@ function Samples(){
   useEffect(()=>{setMounted(true);},[]);
   useEffect(()=>{setObserved(count);},[count]);
   useEffect(()=>{
+    if(!running)return;
     const timer=setInterval(()=>setTime(new Date()),1000);
     return ()=>clearInterval(timer);
-  },[]);
+  },[running]);
   useEffect(()=>{try{localStorage.setItem('sudip-effects-accent',mode);}catch{}},[mode]);
   return h('section',{'aria-labelledby':'samples'},h('h2',{id:'samples'},'Effect demos'),
     h('div',{className:'grid'},
       card('On mount','An effect with an empty dependency list runs when this demo mounts.',h('p',null,mounted?'Mounted':'Mounting…')),
       card('When a dependency changes','The effect tracks changes to the counter.',h('p',null,'Effect observed: '+observed),button('Advance counter',()=>setCount(n=>n+1))),
-      card('Live clock','A timer updates once a second and is cleared on unmount.',h('label',null,'Clock time zone ',h('select',{value:zone,onChange:e=>setZone(e.target.value)},['Asia/Seoul','Asia/Kathmandu','UTC'].map(name=>h('option',{key:name},name)))),h('time',{dateTime:time.toISOString()},time.toLocaleTimeString('en',{timeZone:zone}))),
+      card('Live clock','Pause the clock to run the effect cleanup, then resume to start a fresh interval.',h('label',null,'Clock time zone ',h('select',{value:zone,onChange:e=>setZone(e.target.value)},['Asia/Seoul','Asia/Kathmandu','UTC'].map(name=>h('option',{key:name},name)))),h('time',{dateTime:time.toISOString()},time.toLocaleTimeString('en',{timeZone:zone})),button(running?'Pause clock':'Resume clock',()=>setRunning(value=>!value)),h('p',{role:'status'},running?'Interval running':'Interval cleared')),
       card('Saved accent','Change the badge color and refresh to see it restored.',
         h('p',{style:{color:mode==='gold'?'#ffd68e':'#ff8996'}},'Sudip Lab badge'),
         button('Switch accent',()=>setMode(value=>value==='gold'?'red':'gold')))));
@@ -264,16 +266,20 @@ function Weather(){
 }
 
 function ViewportListener(){
-  const [width,setWidth]=useState(()=>window.innerWidth);
+  const [actual,setWidth]=useState(()=>window.innerWidth);
+  const [preset,setPreset]=useState(null);
+  const width=preset??actual;
   useEffect(()=>{
     const measure=()=>setWidth(window.innerWidth);
     window.addEventListener('resize',measure);
     return ()=>window.removeEventListener('resize',measure);
   },[]);
   return card('Practice · Viewport listener','Resize the browser to see the result. The effect removes its listener on unmount.',
+    h('div',{role:'group','aria-label':'Preview width'},[[null,'Live browser'],[390,'Phone'],[820,'Tablet'],[1280,'Desktop']].map(([value,label])=>h('button',{key:label,type:'button','aria-pressed':value===preset,onClick:()=>setPreset(value)},label))),
+    h('p',null,'Actual browser width: '+actual+' px'),
     h('output',null,width+' px · '+(width<720?'Compact layout':width<1024?'Tablet layout':'Wide layout')),
     h('meter',{min:0,max:Math.max(width,1440),value:width,'aria-label':'Viewport width scale'}),
-    h('div',{className:'profile-stats',style:{gridTemplateColumns:width<720?'1fr':'repeat(3,minmax(0,1fr))'}},['Navigation','Workspace','Results'].map(label=>h('div',{key:label},label))),
+    h('div',{className:'profile-stats',style:{gridTemplateColumns:width<720?'1fr':width<1024?'repeat(2,minmax(0,1fr))':'repeat(3,minmax(0,1fr))'}},['Navigation','Workspace','Results'].map(label=>h('div',{key:label},label))),
     h('p',null,width<720?'Panels stack vertically below 720 px.':'Panels can sit side by side at this width.'));
 }
 
