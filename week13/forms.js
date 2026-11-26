@@ -132,6 +132,24 @@
     [['username', 'Username'], ['password', 'Practice password', 'password'], ['confirm', 'Confirm practice password', 'password']],
   ];
 
+  const registrationStages = ['Identity', 'Account', 'Access'];
+
+  function CampusPass({ values, complete }) {
+    const initials = values.name.trim().split(/\s+/).filter(Boolean).slice(0, 2)
+      .map(word => Array.from(word)[0].toUpperCase()).join('');
+    return h('aside', { className: 'campus-pass', 'data-role': values.role, 'aria-label': 'Campus pass preview' },
+      h('div', { className: 'pass-header' },
+        h('span', null, 'SUDIP LAB / CAMPUS PASS'),
+        h('span', { className: 'pass-status' }, complete ? 'ISSUED' : 'PREVIEW')),
+      h('div', { className: 'pass-identity' },
+        h('span', { className: 'pass-monogram', 'aria-hidden': true }, initials || '—'),
+        h('div', null, h('strong', null, values.name.trim() || 'Your name'),
+          h('p', null, values.username ? '@' + values.username : 'Username pending'))),
+      h('dl', null,
+        h('div', null, h('dt', null, 'Access role'), h('dd', null, values.role)),
+        h('div', null, h('dt', null, 'Newsletter'), h('dd', null, values.subscribe ? 'Subscribed' : 'Off'))));
+  }
+
   function Registration() {
     const [values, change, reset] = useFields({ name: '', email: '', username: '', password: '', confirm: '', role: 'Student', subscribe: false });
     const [step, setStep] = useState(0);
@@ -155,15 +173,21 @@
       if (Object.values(errors).some(Boolean)) return;
       const { name, email, username, role, subscribe } = values;
       console.log('Practice registration', { name, email, username, role, subscribe });
-      reset();
       setDone(true);
     }
-    if (done) return h(React.Fragment, null,
-      h(Status, null, 'Practice registration complete. A summary is available in the browser console.'),
-      h('button', { onClick: () => { setStep(0); setTouched({}); setDone(false); } }, 'Start again'));
-    return h('form', { noValidate: true, onSubmit: submit },
-      h('p', null, 'Step ' + (step + 1) + ' of 3 · ' + ['Personal info', 'Account setup', 'Preferences'][step]),
-      h('progress', { value: step + 1, max: 3, 'aria-label': 'Registration progress' }),
+    if (done) return h('div', { className: 'registration-layout' },
+      h('div', null,
+        h(Status, null, 'Practice registration complete.'),
+        h('button', { onClick: () => { reset(); setStep(0); setTouched({}); setDone(false); } }, 'Start again')),
+      h(CampusPass, { values, complete: true }));
+    return h('div', { className: 'registration-layout' },
+      h('form', { noValidate: true, onSubmit: submit },
+      h('ol', { className: 'registration-stages', 'aria-label': 'Registration steps' },
+        registrationStages.map((label, index) => h('li', {
+          key: label, 'aria-current': step === index ? 'step' : undefined,
+          'data-complete': index < step,
+        }, h('span', { 'aria-hidden': true }, index < step ? '✓' : '0' + (index + 1)), ' ', label))),
+      h('p', { className: 'registration-step' }, 'Step ' + (step + 1) + ' of 3'),
       ...current.map(([name, label, type]) => h(Field, { key: name, name, label, type, value: values[name], onChange: change,
         onBlur: () => setTouched(previous => ({ ...previous, [name]: true })), error: touched[name] ? errors[name] : '', required: true })),
       step === 2 && h(React.Fragment, null,
@@ -175,7 +199,8 @@
             .map(([label, value]) => h('p', { key: label }, h('strong', null, label + ' · '), value)))),
       h('div', { className: 'actions' },
         step > 0 && h('button', { type: 'button', className: 'secondary', onClick: () => setStep(step - 1) }, 'Previous'),
-        h('button', { type: 'submit', disabled: !valid }, step < 2 ? 'Next' : 'Submit practice registration')));
+        h('button', { type: 'submit', disabled: !valid }, step < 2 ? 'Next' : 'Issue practice pass'))),
+      h(CampusPass, { values }));
   }
 
   const majors = ['Computer Engineering', 'Software', 'Artificial Intelligence', 'Design'];
