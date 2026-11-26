@@ -106,6 +106,14 @@ function NamePreview(){
     h('output',{style:{background:{Crimson:'#79213d',Indigo:'#29246d',Forest:'#164f40'}[style],color:'#fff',borderRadius:12}},(fullName?fullName.split(/\s+/).map(word=>word[0]).slice(0,2).join('').toUpperCase()+' · ':'')+(fullName||'Your name')));
 }
 
+function LifecycleProbe({report}){
+  useEffect(()=>{
+    report('Setup: the component mounted.');
+    return ()=>report('Cleanup: the component unmounted.');
+  },[report]);
+  return h('p',null,'The component is on screen.');
+}
+
 function Samples(){
   const [zone,setZone]=useState('Asia/Seoul');
   const [running,setRunning]=useState(true);
@@ -113,8 +121,8 @@ function Samples(){
   const [time,setTime]=useState(()=>new Date());
   const [mode,setMode]=useState(()=>{try{return localStorage.getItem('sudip-effects-accent')||'red';}catch{return 'red';}});
   const [mounted,setMounted]=useState(false);
+  const [event,report]=useState('Mount the component to begin.');
   const [observed,setObserved]=useState(0);
-  useEffect(()=>{setMounted(true);},[]);
   useEffect(()=>{setObserved(count);},[count]);
   useEffect(()=>{
     if(!running)return;
@@ -124,7 +132,7 @@ function Samples(){
   useEffect(()=>{try{localStorage.setItem('sudip-effects-accent',mode);}catch{}},[mode]);
   return h('section',{'aria-labelledby':'samples'},h('h2',{id:'samples'},'Effect demos'),
     h('div',{className:'grid'},
-      card('On mount','An effect with an empty dependency list runs when this demo mounts.',h('p',null,mounted?'Mounted':'Mounting…')),
+      card('Mount and cleanup','Add the component to run its effect. Remove it to run the returned cleanup.',button(mounted?'Unmount component':'Mount component',()=>setMounted(value=>!value)),mounted&&h(LifecycleProbe,{report}),h('output',{role:'status'},event)),
       card('When a dependency changes','The effect tracks changes to the counter.',h('p',null,'Effect observed: '+observed),button('Advance counter',()=>setCount(n=>n+1))),
       card('Live clock','Pause the clock to run the effect cleanup, then resume to start a fresh interval.',h('label',null,'Clock time zone ',h('select',{value:zone,onChange:e=>setZone(e.target.value)},['Asia/Seoul','Asia/Kathmandu','UTC'].map(name=>h('option',{key:name},name)))),h('time',{dateTime:time.toISOString()},time.toLocaleTimeString('en',{timeZone:zone})),button(running?'Pause clock':'Resume clock',()=>setRunning(value=>!value)),h('p',{role:'status'},running?'Interval running':'Interval cleared')),
       card('Saved accent','Change the badge color and refresh to see it restored.',
@@ -373,6 +381,8 @@ function ReactLab(){
     return ()=>toggle.removeEventListener('click',flip);
   },[theme]);
   const [done,setDone]=useState([]);
+  const required=labs.filter(lab=>[TabTitle,UserDirectory,ProfileSearch,Stopwatch,Weather].includes(lab.component));
+  const requiredDone=required.filter(lab=>done.includes(labs.indexOf(lab))).length;
   function togglePractice(){
     setDone(items=>items.includes(active)?items.filter(index=>index!==active):[...items,active]);
   }
@@ -382,9 +392,9 @@ function ReactLab(){
       h('a',{href:'#exercises'},'Open exercise workspace'),h('a',{href:'#weather-homework',onClick:()=>setActive(labs.findIndex(lab=>lab.component===Weather))},'Weather homework')),
     h('section',{id:'exercises',className:'workbench','aria-label':'Exercise workspace'},
       h('aside',null,h('h2',null,'Exercises'),
-        h('p',{role:'status'},done.length+' of '+labs.length+' practiced'),
-        h('progress',{value:done.length,max:labs.length,'aria-label':'Practice progress'}),
-        labs.map((lab,index)=>h('button',{key:lab.name,type:'button','aria-pressed':index===active,onClick:()=>setActive(index)},lab.name+(done.includes(index)?' ✓':'')))),
+        h('p',{role:'status'},requiredDone+' of '+required.length+' course tasks practiced'),
+        h('progress',{value:requiredDone,max:required.length,'aria-label':'Practice progress'}),
+        labs.map((lab,index)=>h('button',{key:lab.name,type:'button','aria-pressed':index===active,onClick:()=>setActive(index)},lab.name+(required.includes(lab)?'':' · Bonus')+(done.includes(index)?' ✓':'')))),
       h('div',{className:'stage'},
         labs.map((lab,index)=>h('div',{key:lab.name,id:lab.component===Weather?'weather-homework':undefined,hidden:index!==active},
           h(lab.component,{visible:index===active}),h('details',null,h('summary',null,'See the React pattern'),h('pre',null,h('code',null,lab.code))))),
