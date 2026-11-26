@@ -15,7 +15,7 @@ function TabTitle(){
     return ()=>{document.title=previous;};
   },[title]);
   return card('E1 · Lab reminders','Add a reminder and watch the browser tab title.',
-    field('Workspace name',project,setProject),h('output',null,title),
+    field('Workspace name',project,setProject),h('div',{className:'profile-result'},h('small',null,'Browser tab preview'),h('output',null,title),h('p',null,count?'Unread reminders: '+count:'Inbox clear')),
     h('p',{role:'status'},count+' unread'),button('Add reminder',()=>set(n=>n+1)),button('Clear reminders',()=>set(0)));
 }
 
@@ -97,14 +97,17 @@ function ProfileSearch(){
 }
 
 function NamePreview(){
+  const [style,setStyle]=useState('Crimson');
   const [first,setFirst]=useState('Sudip');
   const [last,setLast]=useState('Sah');
   const fullName=[first.trim(),last.trim()].filter(Boolean).join(' ');
   return card('Bonus · Name badge preview','The preview is calculated from the two fields during rendering.',
-    field('First name',first,setFirst),field('Last name',last,setLast),h('output',null,(fullName?fullName.split(/\s+/).map(word=>word[0]).slice(0,2).join('').toUpperCase()+' · ':'')+(fullName||'Your name')));
+    field('First name',first,setFirst),field('Last name',last,setLast),h('label',null,'Badge color ',h('select',{value:style,onChange:e=>setStyle(e.target.value)},['Crimson','Indigo','Forest'].map(color=>h('option',{key:color},color)))),
+    h('output',{style:{background:{Crimson:'#79213d',Indigo:'#29246d',Forest:'#164f40'}[style],color:'#fff',borderRadius:12}},(fullName?fullName.split(/\s+/).map(word=>word[0]).slice(0,2).join('').toUpperCase()+' · ':'')+(fullName||'Your name')));
 }
 
 function Samples(){
+  const [zone,setZone]=useState('Asia/Seoul');
   const [count,setCount]=useState(0);
   const [time,setTime]=useState(()=>new Date());
   const [mode,setMode]=useState(()=>{try{return localStorage.getItem('sudip-effects-accent')||'red';}catch{return 'red';}});
@@ -121,7 +124,7 @@ function Samples(){
     h('div',{className:'grid'},
       card('On mount','An effect with an empty dependency list runs when this demo mounts.',h('p',null,mounted?'Mounted':'Mounting…')),
       card('When a dependency changes','The effect tracks changes to the counter.',h('p',null,'Effect observed: '+observed),button('Advance counter',()=>setCount(n=>n+1))),
-      card('Live clock','A timer updates once a second and is cleared on unmount.',h('time',{dateTime:time.toISOString()},time.toLocaleTimeString())),
+      card('Live clock','A timer updates once a second and is cleared on unmount.',h('label',null,'Clock time zone ',h('select',{value:zone,onChange:e=>setZone(e.target.value)},['Asia/Seoul','Asia/Kathmandu','UTC'].map(name=>h('option',{key:name},name)))),h('time',{dateTime:time.toISOString()},time.toLocaleTimeString('en',{timeZone:zone}))),
       card('Saved accent','Change the badge color and refresh to see it restored.',
         h('p',{style:{color:mode==='gold'?'#ffd68e':'#ff8996'}},'Sudip Lab badge'),
         button('Switch accent',()=>setMode(value=>value==='gold'?'red':'gold')))));
@@ -151,6 +154,8 @@ function Stopwatch({visible}){
     control('Stop',()=>{setElapsed(elapsed+performance.now()-started);setStarted(null);},started===null),
     control('Lap',()=>setLaps([...laps,elapsed+performance.now()-started]),started===null),
     control('Reset',()=>{setStarted(null);setElapsed(0);setLaps([]);}),
+    started!==null&&h('small',null,'Timing in progress'),
+    laps.length>0&&h('p',null,laps.length+' laps · '+formatTime(laps.at(-1))+' recorded'),
     fastest!==null&&h('p',{className:'best-lap'},'Fastest split · '+formatTime(fastest)+' · Average split '+formatTime(laps.at(-1)/laps.length)),
     laps.length>0&&h('ol',null,laps.map((lap,index)=>h('li',{key:index},'Lap '+(index+1)+' · '+formatTime(lap)+' total · '+formatTime(lap-(laps[index-1]||0))+' split',
       h('meter',{min:0,max:Math.max(1,...laps.map((value,i)=>value-(laps[i-1]||0))),value:lap-(laps[index-1]||0),'aria-label':'Lap '+(index+1)+' split duration'})))));
@@ -266,24 +271,31 @@ function ViewportListener(){
     return ()=>window.removeEventListener('resize',measure);
   },[]);
   return card('Practice · Viewport listener','Resize the browser to see the result. The effect removes its listener on unmount.',
-    h('output',null,width+' px · '+(width<720?'Compact layout':'Wide layout')));
+    h('output',null,width+' px · '+(width<720?'Compact layout':width<1024?'Tablet layout':'Wide layout')),
+    h('meter',{min:0,max:Math.max(width,1440),value:width,'aria-label':'Viewport width scale'}),
+    h('div',{className:'profile-stats',style:{gridTemplateColumns:width<720?'1fr':'repeat(3,minmax(0,1fr))'}},['Navigation','Workspace','Results'].map(label=>h('div',{key:label},label))),
+    h('p',null,width<720?'Panels stack vertically below 720 px.':'Panels can sit side by side at this width.'));
 }
 
 function RequestRace(){
+  const [canceled,setCanceled]=useState(0);
+  const [pending,setPending]=useState(false);
   const [request,setRequest]=useState(null);
   const [message,setMessage]=useState('Choose a reply speed.');
   useEffect(()=>{
     if(!request)return;
-    const timer=setTimeout(()=>setMessage(request.label+' reply arrived.'),request.delay);
+    const timer=setTimeout(()=>{setMessage(request.label+' reply arrived in '+request.delay+' ms.');setPending(false);},request.delay);
     return ()=>clearTimeout(timer);
   },[request]);
   function send(label,delay){
+    if(pending)setCanceled(n=>n+1);
+    setPending(true);
     setMessage('Waiting for the '+label.toLowerCase()+' reply…');
     setRequest({label,delay});
   }
   return card('Practice · Stale replies','Start Slow, then immediately click Fast. The slow reply is canceled so it cannot overwrite the fast result.',
     button('Slow request',()=>send('Slow',1800)),button('Fast request',()=>send('Fast',250)),
-    h('p',{role:'status'},message));
+    h('p',{role:'status'},message),h('p',null,'Superseded requests: '+canceled));
 }
 
 function UserDirectory(){
