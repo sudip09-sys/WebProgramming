@@ -16,13 +16,11 @@
     a { color:var(--accent); text-underline-offset:.2em; }
     :focus-visible { outline:2px solid #ffc0cb; outline-offset:3px; }
     .week { color:var(--accent); margin-top:1.5rem; font-weight:700; letter-spacing:.08em; }
-    .lab-nav,.choices,.actions,.tags { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; }
-    .lab-nav { margin-bottom:1.25rem; }
-    .lab-nav a,.choices label { border:1px solid var(--line); border-radius:.7rem; padding:.4rem .65rem; }
-    .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .choices,.actions,.tags { display:flex; flex-wrap:wrap; gap:.55rem; align-items:center; }
+
+    .choices label { border:1px solid var(--line); border-radius:.7rem; padding:.4rem .65rem; }
     .card { padding:clamp(1rem,3vw,1.6rem); border:1px solid var(--line); background:var(--surface); border-radius:1rem; scroll-margin:1rem; }
     .card:target { border-color:var(--accent); }
-    #profile,#registration { grid-column:1/-1; }
     .profile-grid { display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:1.25rem; align-items:start; }
     form,.field { display:grid; gap:.45rem; }
     form { gap:.7rem; }
@@ -41,7 +39,7 @@
     .preview { background:#211923; border:1px solid var(--line); padding:1rem; border-radius:.8rem; overflow-wrap:anywhere; }
     .avatar { width:5rem; aspect-ratio:1; object-fit:cover; border-radius:50%; }
     .bio { white-space:pre-wrap; }
-    @media(max-width:42rem) { .cards,.profile-grid { grid-template-columns:minmax(0,1fr); } }
+    @media(max-width:42rem) { .profile-grid { grid-template-columns:minmax(0,1fr); } }
     .registration-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:1.5rem; align-items:start; }
     .registration-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); list-style:none; gap:.45rem; padding:0; margin:0; }
     .registration-stages li { padding:.38rem .2rem; border-bottom:2px solid var(--line); color:var(--muted); font-size:.82rem; }
@@ -61,10 +59,19 @@
     .campus-pass dl { margin:0; border-top:1px solid var(--line); padding-top:.75rem; }
     .campus-pass dd { color:var(--text); }
     @media(max-width:42rem) { .registration-layout { grid-template-columns:minmax(0,1fr); } }
+    .lab-layout { display:grid; grid-template-columns:13rem minmax(0,1fr); gap:1.25rem; align-items:start; }
+    .lab-nav { display:grid; gap:1rem; border:1px solid var(--line); border-radius:1rem; padding:.9rem; background:var(--surface); }
+    .exercise-group h2 { color:var(--muted); font-size:.78rem; margin:0 0 .35rem; }
+    .exercise-group ul { display:grid; gap:.2rem; list-style:none; margin:0; padding:0; }
+    .exercise-group a { display:block; padding:.45rem .55rem; border-radius:.45rem; text-decoration:none; color:var(--text); }
+    .exercise-group a:hover { background:#251e27; }
+    .exercise-group a[aria-current] { background:#39202d; color:#ffb0bc; font-weight:700; }
+    .exercise-workspace { min-width:0; }
+    @media(max-width:54rem) { .lab-layout { grid-template-columns:1fr; } .lab-nav { grid-template-columns:repeat(auto-fit,minmax(min(9rem,100%),1fr)); } }
   </style>
   <script defer crossorigin src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
   <script defer crossorigin src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-  <script defer src="forms.js?v=campus-pass"></script>
+  <script defer src="forms.js?v=workspace"></script>
 </head>
 <body>
   <main>
